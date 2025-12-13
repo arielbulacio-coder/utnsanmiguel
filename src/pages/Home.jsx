@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Carousel } from 'react-bootstrap';
 
 const Home = () => {
     return (
         <div className="app-container" style={{ textAlign: 'center', paddingTop: '2rem' }}>
-            {/* Hero Image Section - School Building */}
+            {/* Bootstrap Carousel - School Images */}
             <div style={{
                 width: '100%',
                 maxWidth: '1200px',
@@ -14,16 +15,109 @@ const Home = () => {
                 boxShadow: '0 8px 32px rgba(0, 242, 255, 0.3)',
                 border: '2px solid var(--primary-color)'
             }}>
-                <img
-                    src="https://inspt.utn.edu.ar/wp-content/uploads/2025/02/frontis-noticia-san-miguel-770x420.png"
-                    alt="EEST UTN San Miguel - Edificio"
-                    style={{
-                        width: '100%',
-                        height: 'auto',
-                        display: 'block',
-                        objectFit: 'cover'
-                    }}
-                />
+                <Carousel fade interval={4000} pause="hover">
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="https://inspt.utn.edu.ar/wp-content/uploads/2025/02/frontis-noticia-san-miguel-770x420.png"
+                            alt="EEST UTN San Miguel - Edificio Principal"
+                            style={{ height: '400px', objectFit: 'cover' }}
+                        />
+                        <Carousel.Caption style={{
+                            background: 'rgba(0, 0, 0, 0.7)',
+                            borderRadius: '8px',
+                            padding: '1rem'
+                        }}>
+                            <h3>EEST UTN San Miguel</h3>
+                            <p>Edificio Principal - Especialidad Electrónica</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="https://inspt.utn.edu.ar/wp-content/uploads/2025/02/IMG_7941-1024x768.jpeg"
+                            alt="Instalaciones EEST UTN"
+                            style={{ height: '400px', objectFit: 'cover' }}
+                        />
+                        <Carousel.Caption style={{
+                            background: 'rgba(0, 0, 0, 0.7)',
+                            borderRadius: '8px',
+                            padding: '1rem'
+                        }}>
+                            <h3>Instalaciones Modernas</h3>
+                            <p>Espacios equipados para la formación técnica</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="https://i0.wp.com/desalambrar.com.ar/wp-content/uploads/2024/09/24_09_10-san-miguel-contara-con-una-nueva-escuela-tecnica-dependiente-de-la-utn_.jpeg?fit=1200%2C800&ssl=1"
+                            alt="Nueva Escuela Técnica UTN"
+                            style={{ height: '400px', objectFit: 'cover' }}
+                        />
+                        <Carousel.Caption style={{
+                            background: 'rgba(0, 0, 0, 0.7)',
+                            borderRadius: '8px',
+                            padding: '1rem'
+                        }}>
+                            <h3>Crecimiento Institucional</h3>
+                            <p>Nueva escuela técnica dependiente de la UTN</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="https://sanmiguelest.inspt.utn.edu.ar/wp-content/uploads/2025/07/2B509DC1-DCE8-46EA-8A58-2EF14A9719E0-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-768x432.jpg"
+                            alt="Actividades Educativas"
+                            style={{ height: '400px', objectFit: 'cover' }}
+                        />
+                        <Carousel.Caption style={{
+                            background: 'rgba(0, 0, 0, 0.7)',
+                            borderRadius: '8px',
+                            padding: '1rem'
+                        }}>
+                            <h3>Formación Integral</h3>
+                            <p>Educación técnica de excelencia</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="https://sanmiguelest.inspt.utn.edu.ar/wp-content/uploads/2025/07/15-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-768x512.jpg"
+                            alt="Laboratorios y Talleres"
+                            style={{ height: '400px', objectFit: 'cover' }}
+                        />
+                        <Carousel.Caption style={{
+                            background: 'rgba(0, 0, 0, 0.7)',
+                            borderRadius: '8px',
+                            padding: '1rem'
+                        }}>
+                            <h3>Laboratorios Especializados</h3>
+                            <p>Equipamiento de última generación</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="https://sanmiguelest.inspt.utn.edu.ar/wp-content/uploads/2025/05/DSC_0167-1-1-300x184.jpg"
+                            alt="Comunidad Educativa"
+                            style={{ height: '400px', objectFit: 'cover' }}
+                        />
+                        <Carousel.Caption style={{
+                            background: 'rgba(0, 0, 0, 0.7)',
+                            borderRadius: '8px',
+                            padding: '1rem'
+                        }}>
+                            <h3>Comunidad Educativa</h3>
+                            <p>Más de 50 años formando profesionales</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
             </div>
 
             <div className="glass-card" style={{ maxWidth: '800px', margin: '0 auto 3rem auto', padding: '3rem' }}>
