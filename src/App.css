@@ -294,7 +294,7 @@ p {
 
 .mode-btn.active {
   background: var(--primary-color);
-  color: #000;
+  color: #0a0a0a;
   border-color: var(--primary-color);
   box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
 }

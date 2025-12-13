@@ -58,15 +58,15 @@ const KirchhoffTheory = () => {
                             {/* Circuit Loop */}
                             <rect x="50" y="30" width="100" height="90" fill="none" stroke="#fff" strokeWidth="2" />
                             {/* Source */}
-                            <circle cx="50" cy="75" r="10" fill="#242424" stroke="#ff0055" strokeWidth="2" />
+                            <circle cx="50" cy="75" r="10" fill="none" stroke="#ff0055" strokeWidth="2" />
                             <text x="35" y="80" fill="#ff0055" fontSize="14" fontWeight="bold">V</text>
 
                             {/* Resistor 1 */}
-                            <rect x="90" y="25" width="20" height="10" fill="#242424" stroke="#00f2ff" strokeWidth="2" />
+                            <rect x="90" y="25" width="20" height="10" fill="none" stroke="#00f2ff" strokeWidth="2" />
                             <text x="95" y="20" fill="#00f2ff" fontSize="10">R1</text>
 
                             {/* Resistor 2 */}
-                            <rect x="90" y="115" width="20" height="10" fill="#242424" stroke="#00f2ff" strokeWidth="2" />
+                            <rect x="90" y="115" width="20" height="10" fill="none" stroke="#00f2ff" strokeWidth="2" />
                             <text x="95" y="140" fill="#00f2ff" fontSize="10">R2</text>
 
                             {/* Loop Arrow */}
