@@ -12,7 +12,7 @@ import NortonPage from './pages/NortonPage';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/utnsanmiguel">
       <div style={{ width: '100%' }}>
         <NavBar />
         <Routes>
