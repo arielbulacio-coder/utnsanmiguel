@@ -64,7 +64,13 @@ const NavBar = () => {
                     to="/codigos-resistencias"
                     style={{ ...linkStyle, ...(location.pathname === '/codigos-resistencias' ? activeStyle : {}) }}
                 >
-                    Resistencias
+                    Códigos
+                </Link>
+                <Link
+                    to="/resistencias-serie-paralelo"
+                    style={{ ...linkStyle, ...(location.pathname === '/resistencias-serie-paralelo' ? activeStyle : {}) }}
+                >
+                    Serie/Paralelo
                 </Link>
                 <Link
                     to="/kirchhoff"

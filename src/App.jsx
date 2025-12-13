@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import OhmLawPage from './pages/OhmLawPage';
 import ResistorPage from './pages/ResistorPage';
 import KirchhoffPage from './pages/KirchhoffPage';
+import SeriesParallelPage from './pages/SeriesParallelPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/ley-ohm" element={<OhmLawPage />} />
           <Route path="/codigos-resistencias" element={<ResistorPage />} />
           <Route path="/kirchhoff" element={<KirchhoffPage />} />
+          <Route path="/resistencias-serie-paralelo" element={<SeriesParallelPage />} />
         </Routes>
 
         <Footer />
