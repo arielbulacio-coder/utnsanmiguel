@@ -4,6 +4,28 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return (
         <div className="app-container" style={{ textAlign: 'center', paddingTop: '2rem' }}>
+            {/* Hero Image Section - School Building */}
+            <div style={{
+                width: '100%',
+                maxWidth: '1200px',
+                margin: '0 auto 3rem auto',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 8px 32px rgba(0, 242, 255, 0.3)',
+                border: '2px solid var(--primary-color)'
+            }}>
+                <img
+                    src="https://inspt.utn.edu.ar/wp-content/uploads/2025/02/frontis-noticia-san-miguel-770x420.png"
+                    alt="EEST UTN San Miguel - Edificio"
+                    style={{
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block',
+                        objectFit: 'cover'
+                    }}
+                />
+            </div>
+
             <div className="glass-card" style={{ maxWidth: '800px', margin: '0 auto 3rem auto', padding: '3rem' }}>
                 <div style={{ marginBottom: '2rem' }}>
                     <img
