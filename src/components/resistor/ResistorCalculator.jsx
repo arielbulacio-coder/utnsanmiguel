@@ -77,26 +77,26 @@ const ResistorCalculator = () => {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem', marginTop: '2rem' }}>
                 <div className="input-group">
                     <label>1ª Banda</label>
-                    <select value={band1} onChange={(e) => setBand1(Number(e.target.value))} style={{ padding: '0.5rem', borderRadius: '8px', background: '#1a1a1a', color: '#fff', border: '1px solid #333' }}>
-                        {COLORS.map((c, i) => <option key={i} value={i} style={{ color: c.color !== 'black' ? c.color : 'white' }}>{c.name}</option>)}
+                    <select value={band1} onChange={(e) => setBand1(Number(e.target.value))} style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid var(--glass-border)' }}>
+                        {COLORS.map((c, i) => <option key={i} value={i} style={{ background: '#1a1a1a', color: c.color === 'black' ? '#fff' : c.color }}>{c.name}</option>)}
                     </select>
                 </div>
                 <div className="input-group">
                     <label>2ª Banda</label>
-                    <select value={band2} onChange={(e) => setBand2(Number(e.target.value))} style={{ padding: '0.5rem', borderRadius: '8px', background: '#1a1a1a', color: '#fff', border: '1px solid #333' }}>
-                        {COLORS.map((c, i) => <option key={i} value={i} style={{ color: c.color !== 'black' ? c.color : 'white' }}>{c.name}</option>)}
+                    <select value={band2} onChange={(e) => setBand2(Number(e.target.value))} style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid var(--glass-border)' }}>
+                        {COLORS.map((c, i) => <option key={i} value={i} style={{ background: '#1a1a1a', color: c.color === 'black' ? '#fff' : c.color }}>{c.name}</option>)}
                     </select>
                 </div>
                 <div className="input-group">
                     <label>Multiplicador</label>
-                    <select value={multiplier} onChange={(e) => setMultiplier(Number(e.target.value))} style={{ padding: '0.5rem', borderRadius: '8px', background: '#1a1a1a', color: '#fff', border: '1px solid #333' }}>
-                        {COLORS.map((c, i) => <option key={i} value={i} style={{ color: c.color !== 'black' ? c.color : 'white' }}>{c.name}</option>)}
+                    <select value={multiplier} onChange={(e) => setMultiplier(Number(e.target.value))} style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid var(--glass-border)' }}>
+                        {COLORS.map((c, i) => <option key={i} value={i} style={{ background: '#1a1a1a', color: c.color === 'black' ? '#fff' : c.color }}>{c.name}</option>)}
                     </select>
                 </div>
                 <div className="input-group">
                     <label>Tolerancia</label>
-                    <select value={tolerance} onChange={(e) => setTolerance(Number(e.target.value))} style={{ padding: '0.5rem', borderRadius: '8px', background: '#1a1a1a', color: '#fff', border: '1px solid #333' }}>
-                        {TOLERANCE_COLORS.map((c, i) => <option key={i} value={i} style={{ color: c.color !== 'black' ? c.color : 'white' }}>{c.name}</option>)}
+                    <select value={tolerance} onChange={(e) => setTolerance(Number(e.target.value))} style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid var(--glass-border)' }}>
+                        {TOLERANCE_COLORS.map((c, i) => <option key={i} value={i} style={{ background: '#1a1a1a', color: c.color }}>{c.name}</option>)}
                     </select>
                 </div>
             </div>
