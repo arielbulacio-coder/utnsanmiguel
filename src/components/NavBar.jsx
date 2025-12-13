@@ -78,6 +78,18 @@ const NavBar = () => {
                 >
                     Kirchhoff
                 </Link>
+                <Link
+                    to="/teorema-thevenin"
+                    style={{ ...linkStyle, ...(location.pathname === '/teorema-thevenin' ? activeStyle : {}) }}
+                >
+                    Thévenin
+                </Link>
+                <Link
+                    to="/teorema-norton"
+                    style={{ ...linkStyle, ...(location.pathname === '/teorema-norton' ? activeStyle : {}) }}
+                >
+                    Norton
+                </Link>
             </div>
         </nav>
     );
