@@ -149,7 +149,7 @@ const NortonCalculator = () => {
             </div>
 
             {/* Results */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+            <div className="grid-responsive-2col">
                 <div className="result-display">
                     <div className="result-label">Corriente de Norton (I<sub>N</sub>)</div>
                     <div className="result-value">{formatCurrent(iN)}</div>

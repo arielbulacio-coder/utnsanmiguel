@@ -312,3 +312,17 @@ button,
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
+
+/* Responsive Grid Utilities - Mobile First */
+.grid-responsive-2col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-responsive-2col {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}

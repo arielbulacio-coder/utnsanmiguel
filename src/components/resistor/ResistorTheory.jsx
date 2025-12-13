@@ -9,7 +9,7 @@ const ResistorTheory = () => {
                 La normas estándar (EIA) definen cómo leer estas bandas.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '2rem' }}>
+            <div className="grid-responsive-2col" style={{ marginTop: '2rem' }}>
                 <div>
                     <h3>Cómo leer el código</h3>
                     <ul style={{ textAlign: 'left', lineHeight: '1.8' }}>

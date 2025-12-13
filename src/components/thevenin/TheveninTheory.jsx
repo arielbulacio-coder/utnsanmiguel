@@ -8,7 +8,7 @@ const TheveninTheory = () => {
                 El Teorema de Thévenin establece que cualquier circuito lineal de dos terminales puede ser reemplazado por un circuito equivalente que consiste en una fuente de voltaje (V<sub>th</sub>) en serie con una resistencia (R<sub>th</sub>).
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '2rem' }}>
+            <div className="grid-responsive-2col" style={{ marginTop: '2rem' }}>
                 {/* Circuito Original */}
                 <div>
                     <h3 style={{ color: 'var(--primary-color)' }}>Circuito Original</h3>
@@ -85,7 +85,7 @@ const TheveninTheory = () => {
             {/* Formulas */}
             <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px' }}>
                 <h3 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>Cálculo del Equivalente</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                <div className="grid-responsive-2col">
                     <div>
                         <h4>Voltaje de Thévenin (V<sub>th</sub>)</h4>
                         <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>

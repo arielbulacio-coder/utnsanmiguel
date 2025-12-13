@@ -144,7 +144,7 @@ const TheveninCalculator = () => {
             </div>
 
             {/* Results */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+            <div className="grid-responsive-2col">
                 <div className="result-display">
                     <div className="result-label">Voltaje de Thévenin (V<sub>th</sub>)</div>
                     <div className="result-value">{vth.toFixed(2)} V</div>

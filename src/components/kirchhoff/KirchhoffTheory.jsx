@@ -8,7 +8,7 @@ const KirchhoffTheory = () => {
                 Las leyes de Kirchhoff son dos igualdades que se basan en la conservación de la energía y la carga en los circuitos eléctricos.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '2rem' }}>
+            <div className="grid-responsive-2col" style={{ marginTop: '2rem' }}>
                 <div>
                     <h3 style={{ color: 'var(--primary-color)' }}>1ª Ley: Corrientes (KCL)</h3>
                     <p>

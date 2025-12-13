@@ -8,7 +8,7 @@ const NortonTheory = () => {
                 El Teorema de Norton establece que cualquier circuito lineal de dos terminales puede ser reemplazado por un circuito equivalente que consiste en una fuente de corriente (I<sub>N</sub>) en paralelo con una resistencia (R<sub>N</sub>).
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '2rem' }}>
+            <div className="grid-responsive-2col" style={{ marginTop: '2rem' }}>
                 {/* Circuito Original */}
                 <div>
                     <h3 style={{ color: 'var(--primary-color)' }}>Circuito Original</h3>
@@ -97,7 +97,7 @@ const NortonTheory = () => {
             {/* Formulas and Relationship */}
             <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px' }}>
                 <h3 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>Cálculo del Equivalente</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                <div className="grid-responsive-2col">
                     <div>
                         <h4>Corriente de Norton (I<sub>N</sub>)</h4>
                         <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>
