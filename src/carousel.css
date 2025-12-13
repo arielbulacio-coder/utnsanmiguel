@@ -1,0 +1,41 @@
+/* Carousel Caption Customization - More Subtle */
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+    bottom: 15px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+    max-width: 70% !important;
+    right: auto !important;
+}
+
+.carousel-caption h3 {
+    font-size: 1rem !important;
+    margin: 0 !important;
+    font-weight: 600 !important;
+}
+
+.carousel-caption p {
+    font-size: 0.75rem !important;
+    margin: 0.25rem 0 0 0 !important;
+    display: none !important;
+}
+
+/* Show description on larger screens */
+@media (min-width: 768px) {
+    .carousel-caption {
+        padding: 0.75rem 1.5rem !important;
+        max-width: 60% !important;
+    }
+
+    .carousel-caption h3 {
+        font-size: 1.25rem !important;
+    }
+
+    .carousel-caption p {
+        display: block !important;
+        font-size: 0.875rem !important;
+    }
+}
