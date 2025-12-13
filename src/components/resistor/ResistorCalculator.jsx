@@ -4,13 +4,13 @@ const COLORS = [
     { name: 'Negro', value: 0, mult: 1, color: 'black', text: 'white' },
     { name: 'Marrón', value: 1, mult: 10, color: '#8B4513', text: 'white', tol: 1 },
     { name: 'Rojo', value: 2, mult: 100, color: 'red', text: 'white', tol: 2 },
-    { name: 'Naranja', value: 3, mult: 1000, color: 'orange', text: 'black' },
-    { name: 'Amarillo', value: 4, mult: 10000, color: 'yellow', text: 'black' },
+    { name: 'Naranja', value: 3, mult: 1000, color: 'orange', text: 'white' },
+    { name: 'Amarillo', value: 4, mult: 10000, color: 'yellow', text: 'white' },
     { name: 'Verde', value: 5, mult: 100000, color: 'green', text: 'white', tol: 0.5 },
     { name: 'Azul', value: 6, mult: 1000000, color: 'blue', text: 'white', tol: 0.25 },
-    { name: 'Violeta', value: 7, mult: 10000000, color: 'violet', text: 'black', tol: 0.1 },
-    { name: 'Gris', value: 8, mult: 100000000, color: 'grey', text: 'black', tol: 0.05 },
-    { name: 'Blanco', value: 9, mult: 1000000000, color: 'white', text: 'black' },
+    { name: 'Violeta', value: 7, mult: 10000000, color: 'violet', text: 'white', tol: 0.1 },
+    { name: 'Gris', value: 8, mult: 100000000, color: 'grey', text: 'white', tol: 0.05 },
+    { name: 'Blanco', value: 9, mult: 1000000000, color: 'white', text: '#333' },
 ];
 
 const TOLERANCE_COLORS = [
