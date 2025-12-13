@@ -46,8 +46,8 @@ const Home = () => {
                             borderRadius: '8px',
                             padding: '1rem'
                         }}>
-                            <h3>Instalaciones Modernas</h3>
-                            <p>Espacios equipados para la formación técnica</p>
+                            <h3>Laboratorios Especializados</h3>
+                            <p>Equipamiento de última generación</p>
                         </Carousel.Caption>
                     </Carousel.Item>
 
@@ -97,8 +97,8 @@ const Home = () => {
                             borderRadius: '8px',
                             padding: '1rem'
                         }}>
-                            <h3>Laboratorios Especializados</h3>
-                            <p>Equipamiento de última generación</p>
+                            <h3>Instalaciones Modernas</h3>
+                            <p>Espacios de aprendizaje</p>
                         </Carousel.Caption>
                     </Carousel.Item>
 

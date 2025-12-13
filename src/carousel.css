@@ -1,41 +1,44 @@
-/* Carousel Caption Customization - More Subtle */
+/* Carousel Caption Customization - Very Subtle on Mobile */
 .carousel-caption {
-    background: rgba(0, 0, 0, 0.4) !important;
-    border-radius: 8px !important;
-    padding: 0.5rem 1rem !important;
-    bottom: 15px !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 6px !important;
+    padding: 0.25rem 0.75rem !important;
+    bottom: 10px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: auto !important;
-    max-width: 70% !important;
+    max-width: 80% !important;
     right: auto !important;
 }
 
 .carousel-caption h3 {
-    font-size: 1rem !important;
+    font-size: 0.75rem !important;
     margin: 0 !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
 }
 
 .carousel-caption p {
-    font-size: 0.75rem !important;
-    margin: 0.25rem 0 0 0 !important;
     display: none !important;
 }
 
-/* Show description on larger screens */
+/* Show larger captions on tablets and desktop */
 @media (min-width: 768px) {
     .carousel-caption {
+        background: rgba(0, 0, 0, 0.5) !important;
         padding: 0.75rem 1.5rem !important;
         max-width: 60% !important;
+        bottom: 20px !important;
     }
 
     .carousel-caption h3 {
         font-size: 1.25rem !important;
+        font-weight: 600 !important;
     }
 
     .carousel-caption p {
         display: block !important;
         font-size: 0.875rem !important;
+        margin: 0.25rem 0 0 0 !important;
     }
 }
