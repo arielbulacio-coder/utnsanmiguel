@@ -21,7 +21,7 @@ const Footer = () => {
                     <div style={{ marginTop: '1.5rem' }}>
                         <h4 style={{ color: '#fff', marginBottom: '0.5rem' }}>Contacto</h4>
                         <p style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                            <span>📧</span> est.sanmiguel@inspt.utn.edu.ar o info.sanmiguel@inspt.utn.edu.ar
+                            <span>📧</span> est.sanmiguel@inspt.utn.edu.ar  info.sanmiguel@inspt.utn.edu.ar
                         </p>
                     </div>
                 </div>
