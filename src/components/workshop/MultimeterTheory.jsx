@@ -44,13 +44,42 @@ const MultimeterTheory = () => {
                 </div>
             </div>
 
-            <div className="glass-card" style={{ marginTop: '2rem', background: 'rgba(239, 68, 68, 0.05)', borderLeft: '4px solid #ef4444' }}>
-                <h3 style={{ color: '#ef4444' }}>⚠️ Seguridad Crítica</h3>
-                <ul style={{ paddingLeft: '1.2rem', marginTop: '0.5rem' }}>
-                    <li><strong>¡Nunca mida resistencia en un circuito con energía!</strong> Podría dañar el instrumento.</li>
-                    <li>Sujete siempre las puntas por la parte aislada; nunca toque las puntas metálicas durante una medición.</li>
-                    <li>Si no conoce el valor a medir, empiece siempre por la <strong>escala más alta</strong> para evitar sobrecargas.</li>
-                </ul>
+            <div className="glass-card" style={{ marginTop: '2rem', background: 'rgba(239, 68, 68, 0.1)', border: '2px solid #ef4444' }}>
+                <h3 style={{ color: '#ef4444', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    🚨 Guía: Cómo NO Quemar tu Multímetro
+                </h3>
+                <p style={{ fontWeight: 'bold' }}>Sigue estas pautas para proteger tu instrumento y tu seguridad:</p>
+
+                <div className="grid-responsive-2col" style={{ gap: '1.5rem', marginTop: '1rem' }}>
+                    <div>
+                        <h4 style={{ color: '#ef4444' }}>1. El Error del Voltaje en modo Ohm</h4>
+                        <p style={{ fontSize: '0.85rem' }}>
+                            <strong>Escenario:</strong> Pones el tester en escala de Resistencia (Ω) o Continuidad y mides un tomacorriente o batería.
+                            <br /><strong>Consecuencia:</strong> El tester intentará inyectar corriente mientras recibe tensión externa. Suele quemar el fusible interno o el convertidor A/D.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style={{ color: '#ef4444' }}>2. Amperaje sin Carga</h4>
+                        <p style={{ fontSize: '0.85rem' }}>
+                            <strong>Escenario:</strong> Conectas las puntas en modo Amperios (A) directamente a los bornes de una batería.
+                            <br /><strong>Consecuencia:</strong> Creas un <strong>Cortocircuito</strong>. En modo Amperios, el tester tiene una resistencia interna casi nula.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style={{ color: '#ef4444' }}>3. Puntas en el borne Incorrecto</h4>
+                        <p style={{ fontSize: '0.85rem' }}>
+                            <strong>Escenario:</strong> Dejas la punta roja en el borne de "10A" y mides voltaje (V).
+                            <br /><strong>Consecuencia:</strong> Cortocircuito inmediato a través del tester. Siempre verifica que la punta roja esté en el borne "V/Ω" para mediciones comunes.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style={{ color: '#ef4444' }}>4. Sobre-escala en Analógicos</h4>
+                        <p style={{ fontSize: '0.85rem' }}>
+                            <strong>Escenario:</strong> Medir 220V AC con la escala de 10V DC.
+                            <br /><strong>Consecuencia:</strong> La aguja golpeará violentamente el tope derecho, pudiendo doblarse o dañar el mecanismo de bobina móvil.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );
