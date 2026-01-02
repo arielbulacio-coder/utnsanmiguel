@@ -9,13 +9,13 @@ const MultimeterSimulator = () => {
     const [warning, setWarning] = useState('');
 
     const testSources = [
-        { name: 'Batería 9V', type: 'DC', value: 9.18 },
-        { name: 'Pila AAA', type: 'DC', value: 1.52 },
-        { name: 'Enchufe Pared', type: 'AC', value: 221.5 },
-        { name: 'Resistor 1kΩ', type: 'OHM', value: 998 },
-        { name: 'Diodo (Directa)', type: 'DIODE', value: 0.65 },
-        { name: 'Diodo (Inversa)', type: 'DIODE', value: 0 }, // 0 here means OL or no conduction
-        { name: 'Cable Sano', type: 'CONT', value: 0.1 }
+        { name: 'Batería 9V', type: 'DC', value: 9.18, img: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/9V_battery_001.jpg' },
+        { name: 'Pila AAA', type: 'DC', value: 1.52, img: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Duracell_AAA_01.jpg' },
+        { name: 'Enchufe Pared', type: 'AC', value: 221.5, img: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Socket_outlet_standard.jpg' },
+        { name: 'Resistor 1kΩ', type: 'OHM', value: 998, img: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Resistor_1k.jpg' },
+        { name: 'Diodo (Directa)', type: 'DIODE', value: 0.65, img: 'https://upload.wikimedia.org/wikipedia/commons/d/d6/1N4007_diode.jpg' },
+        { name: 'Diodo (Inversa)', type: 'DIODE', value: 0, img: 'https://upload.wikimedia.org/wikipedia/commons/d/d6/1N4007_diode.jpg' },
+        { name: 'Cable Sano', type: 'CONT', value: 0.1, img: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Electric_wire.jpg' }
     ];
 
     const modes = [
@@ -92,15 +92,15 @@ const MultimeterSimulator = () => {
 
     return (
         <div className="section-container">
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
                 <button
                     onClick={() => setView('digital')}
                     className="glass-card"
                     style={{
-                        margin: 0, padding: '0.8rem 2rem',
+                        margin: 0, padding: '0.8rem 1.5rem',
                         background: view === 'digital' ? 'var(--primary-color)' : 'transparent',
                         color: view === 'digital' ? '#000' : 'var(--text-main)',
-                        fontWeight: 'bold', cursor: 'pointer'
+                        fontWeight: 'bold', cursor: 'pointer', flex: '1', minWidth: '150px'
                     }}
                 >
                     Instrumento Digital
@@ -109,10 +109,10 @@ const MultimeterSimulator = () => {
                     onClick={() => setView('analog')}
                     className="glass-card"
                     style={{
-                        margin: 0, padding: '0.8rem 2rem',
+                        margin: 0, padding: '0.8rem 1.5rem',
                         background: view === 'analog' ? 'var(--primary-color)' : 'transparent',
                         color: view === 'analog' ? '#000' : 'var(--text-main)',
-                        fontWeight: 'bold', cursor: 'pointer'
+                        fontWeight: 'bold', cursor: 'pointer', flex: '1', minWidth: '150px'
                     }}
                 >
                     Instrumento Analógico
@@ -120,8 +120,8 @@ const MultimeterSimulator = () => {
             </div>
 
             {view === 'digital' ? (
-                <div className="glass-card" style={{ padding: '2rem', position: 'relative' }}>
-                    <h3 style={{ color: 'var(--primary-color)' }}>Tester Digital Multifunción</h3>
+                <div className="glass-card" style={{ padding: '1.5rem', position: 'relative' }}>
+                    <h3 style={{ color: 'var(--primary-color)', textAlign: 'center' }}>Tester Digital Multifunción</h3>
 
                     {warning && (
                         <div className="glass-card" style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#ef4444', border: '2px solid #ef4444', marginBottom: '1rem', fontWeight: 'bold' }}>
@@ -129,38 +129,38 @@ const MultimeterSimulator = () => {
                         </div>
                     )}
 
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '4rem', flexWrap: 'wrap', alignItems: 'start', marginTop: '2rem', position: 'relative' }}>
-
-                        {/* SVG for Test Leads (Cables) */}
-                        {selectedObject && (
-                            <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}>
-                                <path d="M 120 400 Q 100 500 350 400" fill="none" stroke="#333" strokeWidth="4" />
-                                <path d="M 200 400 Q 180 500 350 390" fill="none" stroke="#ef4444" strokeWidth="4" />
-                            </svg>
-                        )}
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '2rem',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                        marginTop: '2rem',
+                        position: 'relative'
+                    }}>
 
                         {/* Multimeter Body (Digital) */}
                         <div style={{
-                            width: '260px', height: '450px',
-                            background: '#facc15', borderRadius: '30px', padding: '20px', border: '10px solid #ca8a04',
+                            width: '240px', height: '420px',
+                            background: '#facc15', borderRadius: '30px', padding: '15px', border: '8px solid #ca8a04',
                             boxShadow: '0 20px 40px rgba(0,0,0,0.3)', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 2
                         }}>
                             {/* LCD Screen */}
                             <div style={{
-                                width: '100%', height: '100px', background: '#94a3b8', borderRadius: '10px', border: '5px solid #334155',
+                                width: '100%', height: '80px', background: '#94a3b8', borderRadius: '10px', border: '5px solid #334155',
                                 display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
-                                color: mode === 'OFF' ? '#71717a' : '#0f172a', fontFamily: 'monospace', position: 'relative', marginBottom: '30px'
+                                color: mode === 'OFF' ? '#71717a' : '#0f172a', fontFamily: 'monospace', position: 'relative', marginBottom: '20px'
                             }}>
-                                <div style={{ fontSize: '3.5rem', fontWeight: 'bold' }}>
+                                <div style={{ fontSize: '3rem', fontWeight: 'bold' }}>
                                     {mode === 'OFF' ? '' : (mode === '▶| Diodo' && value > 0.9 ? '1.' : value.toFixed(mode === '2000 Ω' ? 0 : 3))}
                                 </div>
-                                <div style={{ position: 'absolute', bottom: '5px', right: '10px', fontSize: '0.8rem', fontWeight: 'bold' }}>
+                                <div style={{ position: 'absolute', bottom: '5px', right: '10px', fontSize: '0.7rem', fontWeight: 'bold' }}>
                                     {modes.find(m => m.label === mode)?.unit}
                                 </div>
                             </div>
 
                             {/* Rotary Selector */}
-                            <div style={{ width: '160px', height: '160px', background: '#333', borderRadius: '50%', position: 'relative', border: '4px solid #1a1a1a' }}>
+                            <div style={{ width: '150px', height: '150px', background: '#333', borderRadius: '50%', position: 'relative', border: '4px solid #1a1a1a' }}>
                                 {modes.map((m, i) => {
                                     const angle = (i * (360 / modes.length)) - 90;
                                     const isActive = mode === m.label;
@@ -168,9 +168,9 @@ const MultimeterSimulator = () => {
                                         <button key={m.label} onClick={() => handleDialClick(m)}
                                             style={{
                                                 position: 'absolute', top: '50%', left: '50%',
-                                                transform: `translate(-50%, -50%) rotate(${angle}deg) translate(95px) rotate(${-angle}deg)`,
+                                                transform: `translate(-50%, -50%) rotate(${angle}deg) translate(85px) rotate(${-angle}deg)`,
                                                 background: isActive ? m.color : '#444', color: isActive ? '#fff' : '#ccc',
-                                                border: 'none', borderRadius: '8px', padding: '5px 8px', fontSize: '0.6rem', fontWeight: 'bold', cursor: 'pointer', zIndex: 10
+                                                border: 'none', borderRadius: '8px', padding: '4px 6px', fontSize: '0.55rem', fontWeight: 'bold', cursor: 'pointer', zIndex: 10
                                             }}
                                         >
                                             {m.label}
@@ -178,7 +178,7 @@ const MultimeterSimulator = () => {
                                     );
                                 })}
                                 <div style={{
-                                    width: '80px', height: '10px', background: '#fff', position: 'absolute', top: '50%', left: '50%',
+                                    width: '75px', height: '8px', background: '#fff', position: 'absolute', top: '50%', left: '50%',
                                     transformOrigin: 'left center',
                                     transform: `translate(0, -50%) rotate(${modes.findIndex(m => m.label === mode) * (360 / modes.length) - 90}deg)`,
                                     borderRadius: '0 5px 5px 0', transition: 'transform 0.3s'
@@ -186,33 +186,44 @@ const MultimeterSimulator = () => {
                             </div>
                         </div>
 
-                        {/* Test Points (Utility) */}
-                        <div style={{ textAlign: 'left', minWidth: '250px', zIndex: 2 }}>
-                            <h4 style={{ color: 'var(--primary-color)' }}>Placa de Ensayo</h4>
-                            <p style={{ fontSize: '0.8rem' }}>Conecta las puntas a un componente:</p>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginTop: '1rem' }}>
-                                {testSources.map(src => (
-                                    <button
-                                        key={src.name}
-                                        onClick={() => handleObjectClick(src)}
-                                        className="glass-card"
-                                        style={{
-                                            margin: 0, padding: '1rem', textAlign: 'left',
-                                            border: selectedObject?.name === src.name ? '2px solid var(--primary-color)' : '1px solid var(--glass-border)',
-                                            background: selectedObject?.name === src.name ? 'rgba(0, 242, 255, 0.05)' : 'transparent',
-                                            cursor: 'pointer', transition: 'all 0.2s'
-                                        }}
-                                    >
-                                        <div style={{ fontWeight: 'bold' }}>{src.name}</div>
-                                        <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Medir de {src.type}</div>
-                                    </button>
-                                ))}
+                        {/* Visual Component Being Measured */}
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', minWidth: '220px', zIndex: 2 }}>
+                            {selectedObject && (
+                                <div className="glass-card" style={{ padding: '1rem', background: '#fff', border: '2px solid var(--primary-color)', width: '200px', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                                    <img src={selectedObject.img} alt={selectedObject.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                                </div>
+                            )}
+
+                            <div style={{ textAlign: 'left', width: '100%' }}>
+                                <h4 style={{ color: 'var(--primary-color)', margin: '0' }}>Placa de Ensayo</h4>
+                                <p style={{ fontSize: '0.8rem', margin: '0.5rem 0' }}>Conecta las puntas a un componente:</p>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '0.5rem' }}>
+                                    {testSources.map(src => (
+                                        <button
+                                            key={src.name}
+                                            onClick={() => handleObjectClick(src)}
+                                            className="glass-card"
+                                            style={{
+                                                margin: 0, padding: '0.5rem', textAlign: 'center', fontSize: '0.8rem',
+                                                border: selectedObject?.name === src.name ? '2px solid var(--primary-color)' : '1px solid var(--glass-border)',
+                                                background: selectedObject?.name === src.name ? 'rgba(0, 242, 255, 0.05)' : 'transparent',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            {src.name}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             ) : (
-                <AnalogMultimeter />
+                <div style={{ overflowX: 'auto' }}>
+                    <div style={{ minWidth: '350px' }}>
+                        <AnalogMultimeter />
+                    </div>
+                </div>
             )}
         </div>
     );
