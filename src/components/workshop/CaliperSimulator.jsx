@@ -36,11 +36,11 @@ const CaliperSimulator = () => {
                     <g id="main-rule">
                         <rect x="0" y="80" width="1150" height="80" fill="#bbb" stroke="#444" strokeWidth="1" />
 
-                        {/* Permanent Jaw (Mordaza Fija) */}
+                        {/* Permanent Jaw (Mordaza Fija) - Face is at X=50 */}
                         <path d="M 0 80 L 0 250 L 50 250 L 50 160 Z" fill="#bbb" stroke="#444" />
                         <path d="M 0 80 L 0 20 L 30 20 L 50 80 Z" fill="#bbb" stroke="#444" />
 
-                        {/* Graduations Main Rule */}
+                        {/* Graduations Main Rule - 0 is at X=50 */}
                         {[...Array(111)].map((_, i) => (
                             <g key={`main-${i}`}>
                                 <line
@@ -52,14 +52,14 @@ const CaliperSimulator = () => {
                                     strokeWidth={i % 5 === 0 ? "1.5" : "0.8"}
                                 />
                                 {i % 10 === 0 && (
-                                    <text x={mainScaleX + i * 10} y="120" fontSize="14" textAnchor="middle" fill="#000" fontWeight="bold">{i / 10}</text>
+                                    <text x={mainScaleX + i * 10} y="110" fontSize="14" textAnchor="middle" fill="#000" fontWeight="bold">{i / 10}</text>
                                 )}
                             </g>
                         ))}
                     </g>
 
                     {/* Sliding Part (Corredera) */}
-                    <g transform={`translate(${slidingX - mainScaleX}, 0)`}>
+                    <g transform={`translate(${value * 10}, 0)`}>
                         <defs>
                             <linearGradient id="sliderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                                 <stop offset="0%" style={{ stopColor: '#ccc', stopOpacity: 1 }} />
@@ -68,45 +68,43 @@ const CaliperSimulator = () => {
                             </linearGradient>
                         </defs>
 
-                        {/* Body of the slider */}
-                        <rect x="0" y="70" width="220" height="180" fill="url(#sliderGrad)" stroke="#444" strokeWidth="1" rx="5" fillOpacity="0.9" />
+                        {/* Body of the slider - Adjusted to start at 0 but show nonio from mainScaleX */}
+                        <rect x={mainScaleX - 40} y="70" width="220" height="180" fill="url(#sliderGrad)" stroke="#444" strokeWidth="1" rx="5" fillOpacity="0.9" />
 
-                        {/* Sliding Jaw (Mordaza Móvil) */}
-                        <path d="M 0 160 L 0 250 L 50 250 L 50 250 Z" fill="#eee" stroke="#444" /> {/* Modified for visual alignment */}
-                        <path d="M 0 160 L 0 250 L -50 250 L -50 250 Z" /> {/* Invisible placeholder */}
+                        {/* Sliding Jaw (Mordaza Móvil) - Face is at mainScaleX */}
+                        <path d="M 50 160 L 50 250 L 10 250 L 10 250 Z" /> {/* Invisible placeholder */}
 
                         {/* Actual Jaws */}
-                        <path d="M 0 160 L 0 250 L -40 250 L -10 160 Z" fill="#eee" stroke="#444" />
-                        <path d="M 0 80 L 0 20 L -30 20 L -10 80 Z" fill="#eee" stroke="#444" />
+                        <path d="M 50 160 L 50 250 L 10 250 L 40 160 Z" fill="#eee" stroke="#444" />
+                        <path d="M 50 80 L 50 20 L 20 20 L 40 80 Z" fill="#eee" stroke="#444" />
 
                         {/* Nonio (Escala móvil) */}
-                        <rect x="10" y="170" width="200" height="60" fill="#ddd" stroke="#666" rx="3" />
-                        <line x1="10" y1="170" x2="210" y2="170" stroke="#000" strokeWidth="2" />
+                        <rect x={mainScaleX} y="170" width="200" height="65" fill="#ddd" stroke="#666" rx="3" />
+                        <line x1={mainScaleX} y1="170" x2={mainScaleX + 200} y2="170" stroke="#000" strokeWidth="2" />
 
-                        {/* Nonio Graduations (0.05mm x 20 divisions = 19mm total length usually in real calipers to create the vernier effect) */}
-                        {/* In this simplified sim, we use 20 divisions covering 19mm or similar to show the alignment */}
+                        {/* Nonio Graduations (20 divisions in 19mm for 0.05 precision) */}
                         {[...Array(21)].map((_, i) => {
-                            // The 0 of nonio is at 0 of sliding part relative to the start of the Rule
-                            const nonioX = 10 + (i * 9.5); // 20 divisions in 19mm
+                            // The 0 of nonio is at mainScaleX of sliding part
+                            const nonioX = mainScaleX + (i * 9.5);
                             return (
                                 <g key={`nonio-${i}`}>
                                     <line
                                         x1={nonioX}
                                         y1="170"
                                         x2={nonioX}
-                                        y2={i % 2 === 0 ? "195" : "185"}
+                                        y2={i % 2 === 0 ? "200" : "185"}
                                         stroke={i === nonioIdx ? "var(--primary-color)" : "#000"}
                                         strokeWidth={i === nonioIdx ? "2.5" : "1.2"}
                                     />
                                     {i % 2 === 0 && (
-                                        <text x={nonioX} y="215" fontSize="12" textAnchor="middle" fill="#000" fontWeight={i === nonioIdx ? "bold" : "normal"}>{i / 2}</text>
+                                        <text x={nonioX} y="220" fontSize="12" textAnchor="middle" fill="#000" fontWeight={i === nonioIdx ? "bold" : "normal"}>{i / 2}</text>
                                     )}
                                 </g>
                             );
                         })}
 
                         {/* Reference Arrow for 0 */}
-                        <path d="M 10 170 L 5 160 L 15 160 Z" fill="var(--primary-color)" />
+                        <path d={`M ${mainScaleX} 170 L ${mainScaleX - 5} 160 L ${mainScaleX + 5} 160 Z`} fill="var(--primary-color)" />
                     </g>
                 </svg>
             </div>

@@ -14,10 +14,11 @@ const MicrometerSimulator = () => {
     const tamborCentimas = Math.round((value % 0.5) * 100);
 
     // SVG scaling and positioning
-    // 1mm = 20px in the SVG
-    const sleeveX = 50;
-    const thimbleWidth = 120;
-    const thimbleX = sleeveX + (value * 20);
+    // 1mm = 25px in the SVG for better visibility
+    const scale = 25;
+    const sleeveX = 100;
+    const thimbleEdgeOffset = 20; // Thimble edge is -20px from its group X
+    const thimbleX = sleeveX + (value * scale) + thimbleEdgeOffset;
 
     return (
         <div className="glass-card section-container" style={{ textAlign: 'center' }}>
@@ -33,25 +34,33 @@ const MicrometerSimulator = () => {
                 marginBottom: '2rem',
                 position: 'relative'
             }}>
-                <svg width="800" height="250" viewBox="0 0 800 250">
+                <svg width="900" height="250" viewBox="0 0 900 250">
+                    {/* Frame (Parte de la "C") */}
+                    <path d="M 0 40 L 0 210 L 80 210 L 80 180 Q 20 180 20 125 Q 20 70 80 70 L 80 40 Z" fill="#444" transform="translate(20, 0)" />
+
+                    {/* Fixed Anvil (Yunque) - Face at sleeveX */}
+                    <rect x={sleeveX - 30} y="110" width="30" height="30" fill="#bbb" stroke="#000" />
+
                     {/* Sleeve (Cuerpo fijo) */}
-                    <rect x="0" y="80" width="600" height="90" fill="#888" stroke="#444" strokeWidth="2" />
-                    <line x1="50" y1="125" x2="600" y2="125" stroke="#000" strokeWidth="2" /> {/* Línea central de referencia */}
+                    <rect x={sleeveX} y="100" width="600" height="50" fill="#999" stroke="#444" strokeWidth="2" />
+                    <line x1={sleeveX} y1="125" x2={sleeveX + 600} y2="125" stroke="#000" strokeWidth="2" />
 
                     {/* Sleeve Graduation */}
                     {[...Array(26)].map((_, i) => (
                         <g key={`mm-${i}`}>
-                            <line x1={50 + i * 20} y1="125" x2={50 + i * 20} y2="100" stroke="#000" strokeWidth="1.5" />
-                            <text x={50 + i * 20} y="90" fontSize="12" textAnchor="middle" fill="#000">{i}</text>
+                            <line x1={sleeveX + i * scale} y1="125" x2={sleeveX + i * scale} y2="105" stroke="#000" strokeWidth="1.5" />
+                            <text x={sleeveX + i * scale} y="95" fontSize="12" textAnchor="middle" fill="#000" fontWeight="bold">{i}</text>
                             {i < 25 && (
-                                <line x1={50 + i * 20 + 10} y1="125" x2={50 + i * 20 + 10} y2="140" stroke="#000" strokeWidth="1" />
+                                <line x1={sleeveX + i * scale + (scale / 2)} y1="125" x2={sleeveX + i * scale + (scale / 2)} y2="140" stroke="#000" strokeWidth="1" />
                             )}
                         </g>
                     ))}
 
+                    {/* Spindle (Vástago móvil) - Attached to thimble */}
+                    <rect x={sleeveX} y="110" width={value * scale} height="30" fill="#eee" stroke="#000" />
+
                     {/* Thimble (Tambor móvil) */}
                     <g transform={`translate(${thimbleX}, 0)`}>
-                        {/* Shadow to simulate cylinder */}
                         <defs>
                             <linearGradient id="thimbleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                                 <stop offset="0%" style={{ stopColor: '#bbb', stopOpacity: 1 }} />
@@ -60,38 +69,32 @@ const MicrometerSimulator = () => {
                             </linearGradient>
                         </defs>
 
-                        <rect x="0" y="50" width={thimbleWidth} height="150" fill="url(#thimbleGrad)" stroke="#444" strokeWidth="2" rx="5" />
+                        {/* Thimble Body */}
+                        <rect x="0" y="50" width="150" height="150" fill="url(#thimbleGrad)" stroke="#444" strokeWidth="2" rx="5" />
 
-                        {/* Beveled edge (borde biselado) */}
-                        <path d={`M 0 50 L -15 65 L -15 185 L 0 200 Z`} fill="#aaa" stroke="#444" />
+                        {/* Beveled edge (borde biselado) - Edge is at -thimbleEdgeOffset */}
+                        <path d={`M 0 50 L -${thimbleEdgeOffset} 70 L -${thimbleEdgeOffset} 180 L 0 200 Z`} fill="#aaa" stroke="#444" />
 
                         {/* Thimble Graduation - Dynamic based on rotation */}
                         <g transform={`translate(0, 125)`}>
-                            {/* We show marks from -25 to +25 relative to the center */}
                             {[...Array(51)].map((_, i) => {
-                                // Calculate position based on value
-                                // 50 marks = 1 full rotation = 0.5mm
-                                // Each mark is 0.01mm
                                 const markVal = i;
                                 const offset = ((tamborCentimas - markVal + 75) % 50) - 25;
-                                const yPos = offset * 10;
+                                const yPos = offset * 8; // Adjust density of marks
 
-                                if (Math.abs(yPos) > 70) return null; // Hide marks outside thimble
+                                if (Math.abs(yPos) > 65) return null;
 
                                 return (
                                     <g key={`t-${i}`}>
-                                        <line x1="-15" y1={yPos} x2="10" y2={yPos} stroke="#000" strokeWidth={markVal % 5 === 0 ? 1.5 : 0.8} />
+                                        <line x1={-thimbleEdgeOffset} y1={yPos} x2="15" y2={yPos} stroke="#000" strokeWidth={markVal % 5 === 0 ? 1.5 : 0.8} />
                                         {markVal % 5 === 0 && (
-                                            <text x="15" y={yPos + 4} fontSize="11" fill="#000" fontWeight="bold">{markVal}</text>
+                                            <text x="20" y={yPos + 4} fontSize="11" fill="#000" fontWeight="bold">{markVal}</text>
                                         )}
                                     </g>
                                 );
                             })}
                         </g>
                     </g>
-
-                    {/* Frame (Parte de la "C") */}
-                    <path d="M 0 40 L 0 210 L -40 210 L -40 40 Z" fill="#555" transform="translate(40, 0)" />
                 </svg>
             </div>
 
