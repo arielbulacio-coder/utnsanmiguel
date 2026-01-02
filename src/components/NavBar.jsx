@@ -146,6 +146,9 @@ const NavBar = () => {
                 <Link to="/conversion-unidades" style={{ ...linkStyle, ...(location.pathname === '/conversion-unidades' ? activeStyle : {}) }} onClick={() => setIsMenuOpen(false)}>
                     Conversión
                 </Link>
+                <Link to="/pitagoras" style={{ ...linkStyle, ...(location.pathname === '/pitagoras' ? activeStyle : {}) }} onClick={() => setIsMenuOpen(false)}>
+                    Pitágoras
+                </Link>
             </div>
 
             {/* Desktop Navigation - Hidden on Mobile */}
