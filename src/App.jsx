@@ -14,6 +14,7 @@ import PythagorasPage from './pages/PythagorasPage';
 import TrigonometryPage from './pages/TrigonometryPage';
 import PowerPage from './pages/PowerPage';
 import KinematicsPage from './pages/KinematicsPage';
+import MicrometerPage from './pages/MicrometerPage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/trigonometria" element={<TrigonometryPage />} />
             <Route path="/potencia" element={<PowerPage />} />
             <Route path="/cinematica" element={<KinematicsPage />} />
+            <Route path="/micrometro" element={<MicrometerPage />} />
           </Routes>
 
           <Footer />

@@ -6,7 +6,7 @@ const NavBar = () => {
     const { theme, toggleTheme } = useTheme();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [openSubmenu, setOpenSubmenu] = useState(null); // 'electronics', 'math', 'physics'
+    const [openSubmenu, setOpenSubmenu] = useState(null); // 'electronics', 'math', 'physics', 'workshop'
 
     const navStyle = {
         display: 'flex',
@@ -139,6 +139,20 @@ const NavBar = () => {
                     </div>
                     <div className="dropdown-menu">
                         <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática</Link>
+                    </div>
+                </div>
+
+                {/* Submenu Taller */}
+                <div className={`dropdown ${openSubmenu === 'workshop' ? 'active' : ''}`}>
+                    <div
+                        className="dropdown-trigger"
+                        style={linkStyle}
+                        onClick={() => toggleSubmenu('workshop')}
+                    >
+                        Taller <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu">
+                        <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
                     </div>
                 </div>
             </div>
