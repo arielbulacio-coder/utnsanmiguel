@@ -11,7 +11,7 @@ const ElectricalTools = () => {
         {
             title: 'Alicate de Corte Diagonal',
             description: 'Diseñado específicamente para cortar cables y alambres de cobre o aluminio. Su forma permite cortar a ras de una superficie.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Combination_pliers.jpg', // Generalized plier look if specific missing
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Elektronik-Seitenschneider_fcm.jpg/640px-Elektronik-Seitenschneider_fcm.jpg',
             use: 'No intente cortar alambres de acero endurecido con un alicate común, ya que dañará el filo.'
         },
         {
@@ -31,6 +31,12 @@ const ElectricalTools = () => {
             description: 'Instrumento para medir magnitudes eléctricas como voltaje (V), corriente (A) y resistencia (Ω).',
             img: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Digital_Multimeter_01.jpg',
             use: 'Seleccione siempre la escala adecuada antes de conectar las puntas. Empiece por la escala más alta si no está seguro.'
+        },
+        {
+            title: 'Cinta Aisladora',
+            description: 'Cinta de PVC con adhesivo sensible a la presión, utilizada para aislar empalmes de hilos y cables eléctricos.',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Electrical_Tape.jpg/640px-Electrical_Tape.jpg',
+            use: 'Aplique la cinta estirándola ligeramente para que se adhiera con firmeza y cubra bien el cobre expuesto.'
         }
     ];
 

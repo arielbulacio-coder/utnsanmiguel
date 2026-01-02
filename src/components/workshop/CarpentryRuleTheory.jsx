@@ -4,6 +4,15 @@ const CarpentryRuleTheory = () => {
     return (
         <div className="glass-card section-container">
             <h2>Metro de Carpintero (Metro Plegable)</h2>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+                <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Zollstock-1.jpg"
+                        alt="Metro Plegable"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                </div>
+            </div>
             <p>
                 El metro plegable es una herramienta clásica de carpintería diseñada para realizar mediciones de longitud con comodidad. A diferencia de la cinta métrica flexible, su rigidez permite medir distancias sin que la herramienta se doble, facilitando el trabajo en solitario.
             </p>

@@ -4,6 +4,15 @@ const OscilloscopeTheory = () => {
     return (
         <div className="glass-card section-container">
             <h2>El Osciloscopio</h2>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+                <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Oscilloscope.jpg"
+                        alt="Osciloscopio"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                </div>
+            </div>
             <p>
                 El osciloscopio es un instrumento de visualización electrónica que permite observar señales eléctricas variables en el tiempo. A diferencia del multímetro, que entrega un valor numérico, el osciloscopio muestra una gráfica (forma de onda) que representa el voltaje en el eje vertical (Y) frente al tiempo en el eje horizontal (X).
             </p>

@@ -4,6 +4,15 @@ const CaliperTheory = () => {
     return (
         <div className="glass-card section-container">
             <h2>El Calibre (Pie de Rey)</h2>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+                <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Viernier_caliper.jpg"
+                        alt="Calibre Pie de Rey"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                </div>
+            </div>
             <p>
                 El calibre o pie de rey es un instrumento de medición, principalmente de diámetros exteriores, interiores y profundidades, utilizado en el ámbito industrial. Consta de una regla con una escuadra en un extremo, sobre la cual se desliza otra escuadra que indica la medida en una escala.
             </p>

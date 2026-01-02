@@ -28,9 +28,15 @@ const MetalMecanicaTools = () => {
         },
         {
             title: 'Brocas HSS (Acero Rápido)',
-            description: 'Herramientas de corte de forma helicoidal que se utilizan con un taladro para realizar agujeros cilíndricos en metal.',
+            description: 'Herramientas de corte de forma helicoidal que se utilizan con un tan taladro para realizar agujeros cilíndricos en metal.',
             img: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Spiralbohrer.jpg',
             use: 'Utilice refrigerante (aceite) al taladrar metales para evitar el sobrecalentamiento y la pérdida del filo.'
+        },
+        {
+            title: 'Tornillo de Banco',
+            description: 'Herramienta de sujeción anclada a la mesa de trabajo que permite inmovilizar una pieza para limar, cortar o ajustar.',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Parallel_bench_vice.jpg/640px-Parallel_bench_vice.jpg',
+            use: 'No golpee el brazo del tornillo con un martillo. Use mordazas de material blando (plomo o aluminio) para no marcar piezas delicadas.'
         }
     ];
 

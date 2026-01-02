@@ -4,6 +4,15 @@ const MicrometerTheory = () => {
     return (
         <div className="glass-card section-container">
             <h2>El Micrómetro (Tornillo de Palmer)</h2>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+                <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Micrometer.jpg"
+                        alt="Micrómetro"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                </div>
+            </div>
             <p>
                 El micrómetro es un instrumento de medición de alta precisión utilizado en talleres mecánicos para medir dimensiones con una exactitud de centésimas de milímetro (0,01 mm) o incluso milésimas (micras).
             </p>

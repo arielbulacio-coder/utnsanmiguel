@@ -31,6 +31,12 @@ const ElectronicsTools = () => {
             description: 'Instrumento que permite visualizar señales eléctricas en el tiempo, mostrando voltajes y frecuencias gráficamente.',
             img: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Oscilloscope.jpg',
             use: 'Asegúrese de conectar correctamente la masa (GND) para no crear cortocircuitos accidentales en la placa.'
+        },
+        {
+            title: 'Fuente de Alimentación Regulable',
+            description: 'Dispositivo que convierte la tensión de red en una tensión DC ajustable y segura para alimentar prototipos electrónicos.',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Labornetzteil_Hameg_HM7042-5.jpg/640px-Labornetzteil_Hameg_HM7042-5.jpg',
+            use: 'Ajuste el límite de corriente antes de conectar el circuito para proteger los componentes de un exceso de potencia.'
         }
     ];
 
