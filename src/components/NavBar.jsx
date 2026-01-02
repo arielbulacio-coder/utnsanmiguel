@@ -155,6 +155,7 @@ const NavBar = () => {
                         <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
                         <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre</Link>
                         <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro Carpintero</Link>
+                        <Link to="/seguridad-epp" style={linkStyle} onClick={closeAll}>Seguridad (EPP)</Link>
                     </div>
                 </div>
             </div>

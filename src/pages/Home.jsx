@@ -292,6 +292,14 @@ const Home = () => {
                             <div style={{ marginTop: '1rem', color: '#bc6c25', fontSize: '2rem' }}>📏</div>
                         </div>
                     </Link>
+
+                    <Link to="/seguridad-epp" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Seguridad</h3>
+                            <p>Elementos de Protección (EPP)</p>
+                            <div style={{ marginTop: '1rem', color: '#ef4444', fontSize: '2rem' }}>🛡️</div>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>
