@@ -29,6 +29,21 @@ const MultimeterTheory = () => {
                 </div>
             </div>
 
+            <div className="grid-responsive-2col" style={{ marginTop: '2rem' }}>
+                <div className="glass-card" style={{ margin: 0, borderLeft: '4px solid var(--primary-color)' }}>
+                    <h3 style={{ color: 'var(--primary-color)' }}>Multímetro Digital (DMM)</h3>
+                    <p style={{ fontSize: '0.9rem' }}>
+                        Muestra el valor exacto en una pantalla LCD. Son más precisos, resistentes a golpes y fáciles de leer. Incluyen funciones automáticas (Auto-rango).
+                    </p>
+                </div>
+                <div className="glass-card" style={{ margin: 0, borderLeft: '4px solid #ef4444' }}>
+                    <h3 style={{ color: '#ef4444' }}>Tester Analógico (VOM)</h3>
+                    <p style={{ fontSize: '0.9rem' }}>
+                        Utiliza una aguja móvil. Son excelentes para observar tendencias o señales que varían rápidamente. Requieren que el usuario elija la escala correcta y lea el arco correspondiente.
+                    </p>
+                </div>
+            </div>
+
             <div className="glass-card" style={{ marginTop: '2rem', background: 'rgba(239, 68, 68, 0.05)', borderLeft: '4px solid #ef4444' }}>
                 <h3 style={{ color: '#ef4444' }}>⚠️ Seguridad Crítica</h3>
                 <ul style={{ paddingLeft: '1.2rem', marginTop: '0.5rem' }}>

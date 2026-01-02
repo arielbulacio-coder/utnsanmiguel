@@ -343,8 +343,8 @@ const Home = () => {
 
                     <Link to="/multimetro" style={{ textDecoration: 'none' }}>
                         <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Multímetro</h3>
-                            <p>Mediciones Eléctricas</p>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Multímetros</h3>
+                            <p>Tester Digital y Analógico</p>
                             <div style={{ marginTop: '1rem', color: '#facc15', fontSize: '2rem' }}>📟</div>
                         </div>
                     </Link>
