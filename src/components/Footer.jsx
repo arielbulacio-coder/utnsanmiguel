@@ -70,7 +70,7 @@ const Footer = () => {
             </div>
 
             <div style={{ textAlign: 'center', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid var(--glass-border)' }}>
-                <p>© 2025 EEST UTN San Miguel. Desarrollo Didáctico.</p>
+                <p>© 2026 EEST UTN San Miguel. Desarrollo Didáctico.</p>
             </div>
         </footer>
     );
