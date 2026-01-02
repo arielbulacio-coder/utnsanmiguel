@@ -252,6 +252,19 @@ const Home = () => {
                     </Link>
                 </div>
             </div>
+            {/* Física */}
+            <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
+                <h3 style={{ textAlign: 'left', color: 'var(--secondary-color)', marginBottom: '1rem', paddingLeft: '1rem' }}>🚀 Ciencias Físicas</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                    <Link to="/cinematica" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Cinemática</h3>
+                            <p>Movimiento MRU y MRUV</p>
+                            <div style={{ marginTop: '1rem', color: 'var(--secondary-color)', fontSize: '2rem' }}>🏎️</div>
+                        </div>
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 };

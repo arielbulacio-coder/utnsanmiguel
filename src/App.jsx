@@ -13,6 +13,7 @@ import UnitConversionPage from './pages/UnitConversionPage';
 import PythagorasPage from './pages/PythagorasPage';
 import TrigonometryPage from './pages/TrigonometryPage';
 import PowerPage from './pages/PowerPage';
+import KinematicsPage from './pages/KinematicsPage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -34,6 +35,7 @@ function App() {
             <Route path="/pitagoras" element={<PythagorasPage />} />
             <Route path="/trigonometria" element={<TrigonometryPage />} />
             <Route path="/potencia" element={<PowerPage />} />
+            <Route path="/cinematica" element={<KinematicsPage />} />
           </Routes>
 
           <Footer />
