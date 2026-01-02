@@ -7,31 +7,31 @@ const CarpentryToolsTheory = () => {
         {
             title: 'Martillo de Carpintero (de Uña)',
             description: 'Es la herramienta básica para clavar y extraer clavos. La "uña" curva permite hacer palanca para quitar clavos con facilidad.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Claw-hammer.jpg/640px-Claw-hammer.jpg',
+            img: 'https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=400&h=300&fit=crop',
             use: 'Sujete el mango por el extremo para ganar palanca y mantenga la vista en el clavo.'
         },
         {
             title: 'Serrucho Manual',
             description: 'Diseñado para realizar cortes rectos en madera. Existen serruchos de costilla para cortes de precisión y serruchos de punta para curvas amplias.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Handsaw.jpg/640px-Handsaw.jpg',
+            img: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop',
             use: 'Inicie el corte con un suave movimiento hacia atrás. Mantenga el serrucho a un ángulo de 45°.'
         },
         {
             title: 'Formón',
             description: 'Herramienta de corte manual con hoja de acero para realizar rebajes, muescas y tallados en madera.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Firmer_Chisel.jpg/640px-Firmer_Chisel.jpg',
+            img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=400&h=300&fit=crop',
             use: 'Use siempre el formón alejándolo de su cuerpo. Nunca ponga la mano frente al filo.'
         },
         {
             title: 'Escuadra de Carpintero',
             description: 'Indispensable para verificar ángulos de 90 grados y realizar trazos perpendiculares exactos.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Schreinerwinkel_90grad.jpg/640px-Schreinerwinkel_90grad.jpg',
+            img: 'https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=400&h=300&fit=crop',
             use: 'Apoye firmemente el talón de la escuadra contra el borde de la madera para un trazo preciso.'
         },
         {
             title: 'Garlopa o Cepillo de Mano',
             description: 'Se utiliza para desbastar, alisar o rectificar superficies de madera mediante el corte de virutas finas.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Wood_planer.jpg/640px-Wood_planer.jpg',
+            img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
             use: 'Ajuste la hoja para un corte fino. Siga siempre el sentido de la veta de la madera.'
         }
     ];

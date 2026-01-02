@@ -5,37 +5,37 @@ const ElectricalTools = () => {
         {
             title: 'Pinza Universal',
             description: 'La herramienta más versátil del electricista. Permite sujetar, doblar, apretar y cortar cables conductores.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Pliers.jpg',
+            img: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop',
             use: 'Verifique que el aislamiento de los mangos sea adecuado para la tensión de trabajo (ej. 1000V).'
         },
         {
             title: 'Alicate de Corte Diagonal',
             description: 'Diseñado específicamente para cortar cables y alambres de cobre o aluminio. Su forma permite cortar a ras de una superficie.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Elektronik-Seitenschneider_fcm.jpg/640px-Elektronik-Seitenschneider_fcm.jpg',
+            img: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop',
             use: 'No intente cortar alambres de acero endurecido con un alicate común, ya que dañará el filo.'
         },
         {
             title: 'Buscapolo (Destornillador de Fase)',
             description: 'Dispositivo en forma de destornillador con una lámpara de neón que permite identificar si un conductor tiene tensión (fase).',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Spannungspr%C3%BCfer_01.jpg',
+            img: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&h=300&fit=crop',
             use: 'Haga contacto con el dedo en la parte metálica superior y la punta en el conductor. La lámpara enciende si hay tensión.'
         },
         {
             title: 'Pelacables Automático',
             description: 'Herramienta que permite retirar el aislamiento plástico de los cables sin dañar los hilos de cobre interiores.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/1/14/Abisolierzange_01.jpg',
+            img: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
             use: 'Ajuste la longitud de pelado necesaria y presione firmemente para un corte limpio.'
         },
         {
             title: 'Multímetro (Tester)',
             description: 'Instrumento para medir magnitudes eléctricas como voltaje (V), corriente (A) y resistencia (Ω).',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Digital_Multimeter_01.jpg',
+            img: 'https://images.unsplash.com/photo-1597225244660-1cd128c64284?w=400&h=300&fit=crop',
             use: 'Seleccione siempre la escala adecuada antes de conectar las puntas. Empiece por la escala más alta si no está seguro.'
         },
         {
             title: 'Cinta Aisladora',
             description: 'Cinta de PVC con adhesivo sensible a la presión, utilizada para aislar empalmes de hilos y cables eléctricos.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Electrical_Tape.jpg/640px-Electrical_Tape.jpg',
+            img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
             use: 'Aplique la cinta estirándola ligeramente para que se adhiera con firmeza y cubra bien el cobre expuesto.'
         }
     ];

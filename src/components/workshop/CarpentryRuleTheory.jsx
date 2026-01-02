@@ -7,7 +7,7 @@ const CarpentryRuleTheory = () => {
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
                 <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Zollstock-1.jpg"
+                        src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&h=400&fit=crop"
                         alt="Metro Plegable"
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />

@@ -9,13 +9,13 @@ const MultimeterSimulator = () => {
     const [warning, setWarning] = useState('');
 
     const testSources = [
-        { name: 'Batería 9V', type: 'DC', value: 9.18, img: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/9V_battery_001.jpg' },
-        { name: 'Pila AAA', type: 'DC', value: 1.52, img: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Duracell_AAA_01.jpg' },
-        { name: 'Enchufe Pared', type: 'AC', value: 221.5, img: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Socket_outlet_standard.jpg' },
-        { name: 'Resistor 1kΩ', type: 'OHM', value: 998, img: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Resistor_1k.jpg' },
-        { name: 'Diodo (Directa)', type: 'DIODE', value: 0.65, img: 'https://upload.wikimedia.org/wikipedia/commons/d/d6/1N4007_diode.jpg' },
-        { name: 'Diodo (Inversa)', type: 'DIODE', value: 0, img: 'https://upload.wikimedia.org/wikipedia/commons/d/d6/1N4007_diode.jpg' },
-        { name: 'Cable Sano', type: 'CONT', value: 0.1, img: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Electric_wire.jpg' }
+        { name: 'Batería 9V', type: 'DC', value: 9.18, img: 'https://images.unsplash.com/photo-1619641805634-e1b10e56a5d1?w=200&h=200&fit=crop' },
+        { name: 'Pila AAA', type: 'DC', value: 1.52, img: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=200&h=200&fit=crop' },
+        { name: 'Enchufe Pared', type: 'AC', value: 221.5, img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop' },
+        { name: 'Resistor 1kΩ', type: 'OHM', value: 998, img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&h=200&fit=crop' },
+        { name: 'Diodo (Directa)', type: 'DIODE', value: 0.65, img: 'https://images.unsplash.com/photo-1597225244660-1cd128c64284?w=200&h=200&fit=crop' },
+        { name: 'Diodo (Inversa)', type: 'DIODE', value: 0, img: 'https://images.unsplash.com/photo-1597225244660-1cd128c64284?w=200&h=200&fit=crop' },
+        { name: 'Cable Sano', type: 'CONT', value: 0.1, img: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=200&h=200&fit=crop' }
     ];
 
     const modes = [

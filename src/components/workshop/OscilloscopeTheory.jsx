@@ -7,7 +7,7 @@ const OscilloscopeTheory = () => {
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
                 <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Oscilloscope.jpg"
+                        src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop"
                         alt="Osciloscopio"
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />

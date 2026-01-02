@@ -5,37 +5,37 @@ const ElectronicsTools = () => {
         {
             title: 'Soldador de Estaño (Cautín)',
             description: 'Instrumento para calentar y fundir la aleación de estaño en las uniones de componentes electrónicos.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Soldering_iron.jpg',
+            img: 'https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=400&h=300&fit=crop',
             use: 'Mantenga la punta limpia usando una esponja húmeda. Estaño de buena calidad (60/40) facilita el trabajo.'
         },
         {
             title: 'Bomba de Desoldar',
             description: 'Dispositivo de succión por vacío que retira el estaño fundido para desoldar componentes de una placa.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Solder_sucker.jpg',
+            img: 'https://images.unsplash.com/photo-1581092160607-ee67df00fbbb?w=400&h=300&fit=crop',
             use: 'Cargue el émbolo, caliente la soldadura con el cautín y dispare la bomba sobre el estaño líquido.'
         },
         {
             title: 'Pinza de Precisión (Bruselas)',
             description: 'Pinzas finas para manipular componentes pequeños (SMD) y realizar puentes en circuitos electrónicos.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Tweezers.jpg',
+            img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=400&h=300&fit=crop',
             use: 'Existen de punta recta, curva y antiestáticas. Úselas para evitar daños por ESD en componentes sensibles.'
         },
         {
             title: 'Protoboard (Placa de Pruebas)',
             description: 'Tablero con orificios conectados internamente para realizar prototipos rápidos de circuitos sin necesidad de soldar.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Breadboard_with_components.jpg',
+            img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop',
             use: 'Los terminales de los componentes no deben estar flojos. Use cables de calibre adecuado para no dañar los contactos.'
         },
         {
             title: 'Osciloscopio',
             description: 'Instrumento que permite visualizar señales eléctricas en el tiempo, mostrando voltajes y frecuencias gráficamente.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Oscilloscope.jpg',
+            img: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop',
             use: 'Asegúrese de conectar correctamente la masa (GND) para no crear cortocircuitos accidentales en la placa.'
         },
         {
             title: 'Fuente de Alimentación Regulable',
             description: 'Dispositivo que convierte la tensión de red en una tensión DC ajustable y segura para alimentar prototipos electrónicos.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Labornetzteil_Hameg_HM7042-5.jpg/640px-Labornetzteil_Hameg_HM7042-5.jpg',
+            img: 'https://images.unsplash.com/photo-1597225244660-1cd128c64284?w=400&h=300&fit=crop',
             use: 'Ajuste el límite de corriente antes de conectar el circuito para proteger los componentes de un exceso de potencia.'
         }
     ];

@@ -7,7 +7,7 @@ const CaliperTheory = () => {
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
                 <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Viernier_caliper.jpg"
+                        src="https://images.unsplash.com/photo-1580901368919-7738efb0f87e?w=600&h=400&fit=crop"
                         alt="Calibre Pie de Rey"
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />

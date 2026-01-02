@@ -7,7 +7,7 @@ const MultimeterTheory = () => {
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
                 <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/3/36/Digital_Multimeter_01.jpg"
+                        src="https://images.unsplash.com/photo-1597225244660-1cd128c64284?w=600&h=400&fit=crop"
                         alt="Multímetro"
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />

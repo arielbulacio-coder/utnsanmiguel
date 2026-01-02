@@ -7,7 +7,7 @@ const MicrometerTheory = () => {
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
                 <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Micrometer.jpg"
+                        src="https://images.unsplash.com/photo-1581092160607-ee67df00fbbb?w=600&h=400&fit=crop"
                         alt="Micrómetro"
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
