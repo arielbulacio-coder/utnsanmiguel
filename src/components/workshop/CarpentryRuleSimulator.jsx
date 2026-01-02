@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const CarpentryRuleSimulator = () => {
-    const [value, setValue] = useState(50); // Initial value 50cm
+    const [value, setValue] = useState(0); // Initial value 0cm
 
     const handleSliderChange = (e) => {
         setValue(parseFloat(e.target.value));
@@ -9,12 +9,14 @@ const CarpentryRuleSimulator = () => {
 
     // SVG scaling: 1cm = 20px
     const scale = 20;
-    const ruleWidth = 200 * scale; // 200cm
+    const ruleLeadIn = 10; // 10px of wood before the 0 mark
+    const ruleWidth = 200 * scale + ruleLeadIn; // 200cm + lead-in
     const viewWidth = 800;
     const viewHeight = 200;
 
-    // Center the reading point
-    const scrollX = 400 - (value * scale);
+    // Center the reading point (the red marker is at 400px)
+    // The 0 mark is at ruleLeadIn pixels from the rule start
+    const scrollX = 400 - (value * scale) - ruleLeadIn;
 
     return (
         <div className="glass-card section-container" style={{ textAlign: 'center' }}>
@@ -49,21 +51,21 @@ const CarpentryRuleSimulator = () => {
                         <rect x="0" y="50" width={ruleWidth} height="100" fill="#f4a261" stroke="#bc6c25" strokeWidth="2" rx="4" />
 
                         {/* Grain effect (subtle lines) */}
-                        {[...Array(50)].map((_, i) => (
+                        {[...Array(100)].map((_, i) => (
                             <line
                                 key={`grain-${i}`}
-                                x1={i * 40} y1="60"
-                                x2={(i * 40) + 30} y2="60"
+                                x1={ruleLeadIn + i * 40} y1="60"
+                                x2={ruleLeadIn + (i * 40) + 30} y2="60"
                                 stroke="#bc6c25"
                                 strokeOpacity="0.3"
                                 strokeWidth="1"
-                                transform={`rotate(${i % 2 === 0 ? 0.5 : -0.5}, ${i * 40}, 60)`}
+                                transform={`rotate(${i % 2 === 0 ? 0.5 : -0.5}, ${ruleLeadIn + i * 40}, 60)`}
                             />
                         ))}
 
                         {/* Marks */}
                         {[...Array(2001)].map((_, i) => {
-                            const x = i * (scale / 10); // each mm
+                            const x = ruleLeadIn + i * (scale / 10); // each mm
                             const isCm = i % 10 === 0;
                             const isHalfCm = i % 5 === 0 && !isCm;
                             const isDecimeter = i % 100 === 0;
@@ -100,7 +102,7 @@ const CarpentryRuleSimulator = () => {
                         {[...Array(11)].map((_, i) => (
                             <circle
                                 key={`hinge-${i}`}
-                                cx={i * 20 * scale}
+                                cx={ruleLeadIn + i * 20 * scale}
                                 cy="100"
                                 r="6"
                                 fill="#8d99ae"
