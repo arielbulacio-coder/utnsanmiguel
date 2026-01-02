@@ -276,6 +276,14 @@ const Home = () => {
                             <div style={{ marginTop: '1rem', color: 'var(--primary-color)', fontSize: '2rem' }}>📐</div>
                         </div>
                     </Link>
+
+                    <Link to="/calibre" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Calibre</h3>
+                            <p>Uso del Nonio y Pie de Rey</p>
+                            <div style={{ marginTop: '1rem', color: 'var(--secondary-color)', fontSize: '2rem' }}>🔧</div>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>
