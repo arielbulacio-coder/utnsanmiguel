@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTheme } from './ThemeContext';
 
 const NavBar = () => {
+    const { theme, toggleTheme } = useTheme();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -9,14 +11,15 @@ const NavBar = () => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '1rem',
-        background: 'rgba(15, 23, 42, 0.95)',
+        padding: '0.5rem 1rem',
+        background: 'var(--nav-bg)',
         backdropFilter: 'blur(10px)',
         borderBottom: '1px solid var(--glass-border)',
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        transition: 'background-color 0.3s ease'
     };
 
     const linkStyle = {
@@ -51,34 +54,62 @@ const NavBar = () => {
     const hamburgerLineStyle = {
         width: '25px',
         height: '3px',
-        background: '#fff',
+        background: 'var(--text-main)',
         borderRadius: '2px',
         transition: 'all 0.3s ease'
     };
 
+    const themeToggleStyle = {
+        background: 'var(--glass-bg)',
+        border: '1px solid var(--glass-border)',
+        borderRadius: '50%',
+        width: '40px',
+        height: '40px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        fontSize: '1.2rem',
+        transition: 'all 0.3s ease',
+        color: 'var(--text-main)'
+    };
+
     return (
         <nav style={navStyle}>
-            <Link to="/" style={{ textDecoration: 'none', color: '#fff', fontWeight: 'bold', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPObWUEKrBqrvd1OYTRY_LwudGF6HC7Ok1A&s"
-                    alt="Logo"
-                    style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'contain', background: '#fff' }}
-                />
-                <span style={{ display: window.innerWidth < 768 ? 'none' : 'inline' }}>EEST San Miguel</span>
-                <span style={{ display: window.innerWidth >= 768 ? 'none' : 'inline' }}>EEST</span>
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <Link to="/" style={{ textDecoration: 'none', color: 'var(--text-main)', fontWeight: 'bold', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPObWUEKrBqrvd1OYTRY_LwudGF6HC7Ok1A&s"
+                        alt="Logo"
+                        style={{ width: '35px', height: '35px', borderRadius: '50%', objectFit: 'contain', background: '#fff', border: '2px solid var(--primary-color)' }}
+                    />
+                    <span style={{ display: window.innerWidth < 768 ? 'none' : 'inline' }}>EEST San Miguel</span>
+                    <span style={{ display: window.innerWidth >= 768 ? 'none' : 'inline' }}>EEST</span>
+                </Link>
+            </div>
 
-            {/* Hamburger Menu Button - Mobile Only */}
-            <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                style={{ ...hamburgerStyle, display: 'flex' }}
-                className="hamburger-menu"
-                aria-label="Toggle menu"
-            >
-                <div style={hamburgerLineStyle}></div>
-                <div style={hamburgerLineStyle}></div>
-                <div style={hamburgerLineStyle}></div>
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <button
+                    onClick={toggleTheme}
+                    style={themeToggleStyle}
+                    aria-label="Toggle theme"
+                    title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+                >
+                    {theme === 'dark' ? '☀️' : '🌙'}
+                </button>
+
+                {/* Hamburger Menu Button - Mobile Only */}
+                <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    style={{ ...hamburgerStyle, display: 'flex' }}
+                    className="hamburger-menu"
+                    aria-label="Toggle menu"
+                >
+                    <div style={hamburgerLineStyle}></div>
+                    <div style={hamburgerLineStyle}></div>
+                    <div style={hamburgerLineStyle}></div>
+                </button>
+            </div>
 
             {/* Navigation Links */}
             <div

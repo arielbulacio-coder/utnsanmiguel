@@ -83,7 +83,7 @@ const OhmSimulator = () => {
                 </button>
             </div>
 
-            <div style={{ marginBottom: '2rem', fontSize: '1.5rem', fontWeight: 'bold', background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '12px' }}>
+            <div style={{ marginBottom: '2rem', fontSize: '1.5rem', fontWeight: 'bold', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', padding: '1rem', borderRadius: '12px', transition: 'background-color 0.3s ease' }}>
                 Fórmula:
                 {mode === 'V' && <span style={{ marginLeft: '1rem' }}>V = I × R</span>}
                 {mode === 'I' && <span style={{ marginLeft: '1rem' }}>I = V / R</span>}

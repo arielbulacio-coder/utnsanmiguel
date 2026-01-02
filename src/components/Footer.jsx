@@ -5,30 +5,32 @@ const Footer = () => {
         <footer style={{
             marginTop: '4rem',
             padding: '3rem 2rem',
-            background: 'rgba(15, 23, 42, 0.95)',
+            background: 'var(--nav-bg)',
             borderTop: '1px solid var(--glass-border)',
             color: 'var(--text-dim)',
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            transition: 'background-color 0.3s ease'
         }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', textAlign: 'left' }}>
 
                 {/* Info Institucional */}
                 <div>
-                    <h3 style={{ color: '#fff', marginBottom: '1rem' }}>EEST UTN San Miguel</h3>
+                    <h3 style={{ color: 'var(--text-main)', marginBottom: '1rem' }}>EEST UTN San Miguel</h3>
                     <p>Especialidad Electrónica</p>
                     <p style={{ marginTop: '1rem', fontStyle: 'italic' }}>"Formando los técnicos del futuro"</p>
 
                     <div style={{ marginTop: '1.5rem' }}>
-                        <h4 style={{ color: '#fff', marginBottom: '0.5rem' }}>Contacto</h4>
+                        <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>Contacto</h4>
                         <p style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
                             <span>📧</span> est.sanmiguel@inspt.utn.edu.ar  info.sanmiguel@inspt.utn.edu.ar
                         </p>
                     </div>
                 </div>
 
+
                 {/* Ubicación (Google Maps) */}
                 <div>
-                    <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Ubicación</h3>
+                    <h3 style={{ color: 'var(--text-main)', marginBottom: '1rem' }}>Ubicación</h3>
                     <p style={{ marginBottom: '0.5rem' }}>📍 Rafael 50, Bella Vista, Bs As</p>
                     <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--glass-border)' }}>
                         <iframe
@@ -46,7 +48,7 @@ const Footer = () => {
 
                 {/* Redes */}
                 <div>
-                    <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Seguinos</h3>
+                    <h3 style={{ color: 'var(--text-main)', marginBottom: '1rem' }}>Seguinos</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         {/* Instagram */}
                         <a href="https://www.instagram.com/est.utn.sanmiguel/?hl=es" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#E1306C', textDecoration: 'none', fontWeight: 'bold' }}>
@@ -67,7 +69,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{ textAlign: 'center', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid var(--glass-border)' }}>
                 <p>© 2025 EEST UTN San Miguel. Desarrollo Didáctico.</p>
             </div>
         </footer>

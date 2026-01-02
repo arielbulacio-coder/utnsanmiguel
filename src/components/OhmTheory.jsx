@@ -17,8 +17,8 @@ const OhmTheory = () => {
                     <h3 style={{ margin: 0, color: 'var(--secondary-color)' }}>I</h3>
                     <small>Intensidad (Amperes)</small>
                 </div>
-                <div style={{ padding: '1rem', border: '1px solid #fff', borderRadius: '12px' }}>
-                    <h3 style={{ margin: 0, color: '#fff' }}>R</h3>
+                <div style={{ padding: '1rem', border: '1px solid var(--text-main)', borderRadius: '12px' }}>
+                    <h3 style={{ margin: 0, color: 'var(--text-main)' }}>R</h3>
                     <small>Resistencia (Ohms Ω)</small>
                 </div>
             </div>
