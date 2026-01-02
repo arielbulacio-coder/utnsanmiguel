@@ -11,6 +11,9 @@ const OscilloscopeSimulator = () => {
     const [voltsDiv, setVoltsDiv] = useState(1);
     const [timeDiv, setTimeDiv] = useState(0.5);
 
+    const [triggerEnabled, setTriggerEnabled] = useState(true);
+    const [triggerLevel, setTriggerLevel] = useState(0);
+
     // Animation State
     const [time, setTime] = useState(0);
     const requestRef = useRef();
@@ -34,32 +37,50 @@ const OscilloscopeSimulator = () => {
     const pixelsPerDivX = (width - 2 * margin) / gridDivsX;
     const pixelsPerDivY = (height - 2 * margin) / gridDivsY;
 
+    // Helper to calculate the wave value at any time 't'
+    const getWaveValue = (t, type, amp, freq) => {
+        const w = 2 * Math.PI * freq;
+        if (type === 'sine') return amp * Math.sin(w * t);
+        if (type === 'square') return amp * (Math.sin(w * t) >= 0 ? 1 : -1);
+        if (type === 'triangle') return (2 * amp / Math.PI) * Math.asin(Math.sin(w * t));
+        return 0;
+    };
+
     // Wave Function Generators
     const generatePath = () => {
         let path = "";
         const points = 200;
-        const step = (width - 2 * margin) / points;
+        const widthReal = width - 2 * margin;
+        const step = widthReal / points;
+
+        const w = 2 * Math.PI * frequency;
+
+        // TRIGGER LOGIC
+        // We find a start time 't0' such that Wave(t0) is approximately triggerLevel
+        let t0 = time;
+        if (triggerEnabled && Math.abs(triggerLevel) <= amplitude) {
+            // Frequency is 'frequency' Hz, Period is 1/frequency.
+            // We search in the current period for the rising edge crossing.
+            // For simplicity in this sim, we calculate the phase offset directly.
+            if (waveType === 'sine') {
+                t0 = Math.asin(triggerLevel / amplitude) / w;
+            } else if (waveType === 'square') {
+                t0 = 0; // Square wave starts at 0 rising
+            } else if (waveType === 'triangle') {
+                // Triangle: -1 to 1 in T/2, 1 to -1 in T/2
+                // We want the rising part. 
+                // asin(sin(w*t)) is the triangle shape
+                t0 = Math.asin(triggerLevel / amplitude) / w;
+            }
+        }
 
         for (let i = 0; i <= points; i++) {
             const x = margin + i * step;
             // Map x to time relative to timeDiv
-            // Total time shown = gridDivsX * timeDiv
-            const t_val = ((i / points) * gridDivsX * timeDiv) + time;
+            const t_val = t0 + (i / points) * gridDivsX * timeDiv;
 
-            let y_val = 0;
-            const w = 2 * Math.PI * frequency;
+            const y_val = getWaveValue(t_val, waveType, amplitude, frequency);
 
-            if (waveType === 'sine') {
-                y_val = amplitude * Math.sin(w * t_val);
-            } else if (waveType === 'square') {
-                y_val = amplitude * (Math.sin(w * t_val) >= 0 ? 1 : -1);
-            } else if (waveType === 'triangle') {
-                y_val = (2 * amplitude / Math.PI) * Math.asin(Math.sin(w * t_val));
-            }
-
-            // Convert Volts to Pixels (Y)
-            // height/2 is 0V. y_val is in Volts.
-            // Pixel Y = Center - (y_val / voltsDiv * pixelsPerDivY) - (offset * pixelsPerDivY)
             const py = (height / 2) - (y_val / voltsDiv * pixelsPerDivY) - (offset * pixelsPerDivY);
 
             if (i === 0) path += `M ${x} ${py}`;
@@ -105,9 +126,23 @@ const OscilloscopeSimulator = () => {
                             style={{ filter: 'drop-shadow(0 0 5px rgba(0, 255, 0, 0.8))' }}
                         />
 
+                        {/* Trigger Level Line */}
+                        {triggerEnabled && (
+                            <line
+                                x1={margin}
+                                y1={(height / 2) - (triggerLevel / voltsDiv * pixelsPerDivY) - (offset * pixelsPerDivY)}
+                                x2={width - margin}
+                                y2={(height / 2) - (triggerLevel / voltsDiv * pixelsPerDivY) - (offset * pixelsPerDivY)}
+                                stroke="#ff0000"
+                                strokeWidth="1"
+                                strokeDasharray="5,5"
+                                style={{ opacity: 0.7 }}
+                            />
+                        )}
+
                         {/* On-screen Info */}
                         <text x={margin + 10} y={height - margin - 10} fill="#00ff00" fontSize="14" fontFamily="monospace">
-                            CH1: {voltsDiv}V/div | Time: {timeDiv}s/div
+                            CH1: {voltsDiv}V/div | Time: {timeDiv}s/div | Trig: {triggerEnabled ? `${triggerLevel}V` : 'OFF'}
                         </text>
                     </svg>
                 </div>
@@ -115,6 +150,35 @@ const OscilloscopeSimulator = () => {
                 {/* Controls Area */}
                 <div className="glass-card" style={{ margin: 0, padding: '1.5rem', textAlign: 'left' }}>
                     <h3 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Panel de Control</h3>
+
+                    {/* Trigger Control */}
+                    <div style={{ marginBottom: '1.5rem', background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px', borderLeft: '4px solid #ff0000' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <strong style={{ fontSize: '0.9rem' }}>Sincronismo (Trigger)</strong>
+                            <button
+                                onClick={() => setTriggerEnabled(!triggerEnabled)}
+                                style={{
+                                    padding: '2px 10px',
+                                    background: triggerEnabled ? '#ff0000' : 'transparent',
+                                    color: triggerEnabled ? '#fff' : '#ff0000',
+                                    border: '1px solid #ff0000',
+                                    borderRadius: '4px',
+                                    fontSize: '0.7rem',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {triggerEnabled ? 'ESTABLE' : 'AUTO/FREE'}
+                            </button>
+                        </div>
+                        <label style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block' }}>Nivel de Disparo: {triggerLevel.toFixed(1)}V</label>
+                        <input
+                            type="range" min="-5" max="5" step="0.1"
+                            disabled={!triggerEnabled}
+                            value={triggerLevel}
+                            onChange={(e) => setTriggerLevel(parseFloat(e.target.value))}
+                            style={{ width: '100%', accentColor: '#ff0000' }}
+                        />
+                    </div>
 
                     {/* Amplitude */}
                     <div className="input-group">
