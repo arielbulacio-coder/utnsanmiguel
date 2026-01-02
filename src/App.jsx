@@ -23,6 +23,7 @@ import MetalMecanicaPage from './pages/MetalMecanicaPage';
 import ElectricalToolsPage from './pages/ElectricalToolsPage';
 import ElectronicsToolsPage from './pages/ElectronicsToolsPage';
 import OscilloscopePage from './pages/OscilloscopePage';
+import MultimeterPage from './pages/MultimeterPage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -54,6 +55,7 @@ function App() {
             <Route path="/herramientas-electricidad" element={<ElectricalToolsPage />} />
             <Route path="/herramientas-electronica" element={<ElectronicsToolsPage />} />
             <Route path="/osciloscopio" element={<OscilloscopePage />} />
+            <Route path="/multimetro" element={<MultimeterPage />} />
           </Routes>
 
           <Footer />

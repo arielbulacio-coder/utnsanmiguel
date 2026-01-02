@@ -161,6 +161,7 @@ const NavBar = () => {
                         <Link to="/herramientas-electricidad" style={linkStyle} onClick={closeAll}>Electricidad</Link>
                         <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Electrónica</Link>
                         <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
+                        <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
                     </div>
                 </div>
             </div>
