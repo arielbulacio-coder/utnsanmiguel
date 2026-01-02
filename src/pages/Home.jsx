@@ -303,9 +303,33 @@ const Home = () => {
 
                     <Link to="/herramientas-carpinteria" style={{ textDecoration: 'none' }}>
                         <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Herramientas</h3>
-                            <p>Manuales de Carpintería</p>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Carpintería</h3>
+                            <p>Manuales de Madera</p>
                             <div style={{ marginTop: '1rem', color: '#bc6c25', fontSize: '2rem' }}>🪚</div>
+                        </div>
+                    </Link>
+
+                    <Link to="/metal-mecanica" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Mecánica</h3>
+                            <p>Metal y Ajuste</p>
+                            <div style={{ marginTop: '1rem', color: '#3b82f6', fontSize: '2rem' }}>🔩</div>
+                        </div>
+                    </Link>
+
+                    <Link to="/herramientas-electricidad" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Electricidad</h3>
+                            <p>Instalaciones Eléctricas</p>
+                            <div style={{ marginTop: '1rem', color: '#eab308', fontSize: '2rem' }}>⚡</div>
+                        </div>
+                    </Link>
+
+                    <Link to="/herramientas-electronica" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Electrónica</h3>
+                            <p>Laboratorio y Circuitos</p>
+                            <div style={{ marginTop: '1rem', color: '#a855f7', fontSize: '2rem' }}>📟</div>
                         </div>
                     </Link>
                 </div>

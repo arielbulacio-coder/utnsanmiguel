@@ -19,6 +19,9 @@ import CaliperPage from './pages/CaliperPage';
 import CarpentryRulePage from './pages/CarpentryRulePage';
 import PPEPage from './pages/PPEPage';
 import CarpentryToolsPage from './pages/CarpentryToolsPage';
+import MetalMecanicaPage from './pages/MetalMecanicaPage';
+import ElectricalToolsPage from './pages/ElectricalToolsPage';
+import ElectronicsToolsPage from './pages/ElectronicsToolsPage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -46,6 +49,9 @@ function App() {
             <Route path="/metro-carpintero" element={<CarpentryRulePage />} />
             <Route path="/seguridad-epp" element={<PPEPage />} />
             <Route path="/herramientas-carpinteria" element={<CarpentryToolsPage />} />
+            <Route path="/metal-mecanica" element={<MetalMecanicaPage />} />
+            <Route path="/herramientas-electricidad" element={<ElectricalToolsPage />} />
+            <Route path="/herramientas-electronica" element={<ElectronicsToolsPage />} />
           </Routes>
 
           <Footer />

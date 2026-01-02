@@ -156,7 +156,10 @@ const NavBar = () => {
                         <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre</Link>
                         <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro Carpintero</Link>
                         <Link to="/seguridad-epp" style={linkStyle} onClick={closeAll}>Seguridad (EPP)</Link>
-                        <Link to="/herramientas-carpinteria" style={linkStyle} onClick={closeAll}>Herramientas</Link>
+                        <Link to="/herramientas-carpinteria" style={linkStyle} onClick={closeAll}>Carpintería</Link>
+                        <Link to="/metal-mecanica" style={linkStyle} onClick={closeAll}>Metal-Mecánica</Link>
+                        <Link to="/herramientas-electricidad" style={linkStyle} onClick={closeAll}>Electricidad</Link>
+                        <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Electrónica</Link>
                     </div>
                 </div>
             </div>
