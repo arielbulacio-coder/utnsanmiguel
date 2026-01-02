@@ -123,6 +123,7 @@ const NavBar = () => {
                     <div className="dropdown-menu">
                         <Link to="/conversion-unidades" style={linkStyle} onClick={closeAll}>Conversión</Link>
                         <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Pitágoras</Link>
+                        <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
                     </div>
                 </div>
             </div>
