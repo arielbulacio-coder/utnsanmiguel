@@ -28,13 +28,19 @@ const MicrometerSimulator = () => {
             <div style={{
                 overflowX: 'auto',
                 background: '#222',
-                padding: '2rem',
+                padding: '1.5rem 0.5rem',
                 borderRadius: '16px',
                 border: '1px solid var(--glass-border)',
                 marginBottom: '2rem',
-                position: 'relative'
+                position: 'relative',
+                width: '100%'
             }}>
-                <svg width="900" height="250" viewBox="0 0 900 250">
+                <svg
+                    width="100%"
+                    height="auto"
+                    viewBox="0 0 900 250"
+                    style={{ display: 'block', minWidth: '600px' }}
+                >
                     {/* Frame (Parte de la "C") */}
                     <path d="M 0 40 L 0 210 L 80 210 L 80 180 Q 20 180 20 125 Q 20 70 80 70 L 80 40 Z" fill="#444" transform="translate(20, 0)" />
 

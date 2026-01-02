@@ -26,13 +26,20 @@ const CarpentryRuleSimulator = () => {
             <div style={{
                 overflow: 'hidden',
                 background: 'var(--glass-bg)',
-                padding: '2rem 0',
+                padding: '1rem 0',
                 borderRadius: '16px',
                 border: '1px solid var(--glass-border)',
                 marginBottom: '2rem',
-                position: 'relative'
+                position: 'relative',
+                width: '100%'
             }}>
-                <svg width={viewWidth} height={viewHeight} viewBox={`0 0 ${viewWidth} ${viewHeight}`} style={{ display: 'block', margin: '0 auto' }}>
+                <svg
+                    width="100%"
+                    height="auto"
+                    viewBox={`0 0 ${viewWidth} ${viewHeight}`}
+                    style={{ display: 'block', maxWidth: '100%' }}
+                    preserveAspectRatio="xMidYMid meet"
+                >
                     {/* The Piece being measured (Wood Plank) */}
                     {/* It starts at the 0 of the rule and ends at the marker (400px) */}
                     <rect

@@ -25,13 +25,19 @@ const CaliperSimulator = () => {
             <div style={{
                 overflowX: 'auto',
                 background: '#333',
-                padding: '3rem 1rem',
+                padding: '1.5rem 0.5rem',
                 borderRadius: '16px',
                 border: '1px solid var(--glass-border)',
                 marginBottom: '2rem',
-                position: 'relative'
+                position: 'relative',
+                width: '100%'
             }}>
-                <svg width="1200" height="300" viewBox="0 0 1200 300">
+                <svg
+                    width="100%"
+                    height="auto"
+                    viewBox="0 0 1200 300"
+                    style={{ display: 'block', minWidth: '600px' }} // Keep some width to maintain readability
+                >
                     {/* Main Rule (Regla Fija) */}
                     <g id="main-rule">
                         <rect x="0" y="80" width="1150" height="80" fill="#bbb" stroke="#444" strokeWidth="1" />
