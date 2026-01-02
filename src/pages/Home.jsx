@@ -214,6 +214,20 @@ const Home = () => {
                     </Link>
                 </div>
             </div>
+
+            {/* Herramientas */}
+            <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
+                <h3 style={{ textAlign: 'left', color: 'var(--primary-color)', marginBottom: '1rem', paddingLeft: '1rem' }}>📐 Herramientas de Medida</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                    <Link to="/conversion-unidades" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Conversor de Unidades</h3>
+                            <p>Imperial a Métrico y Viceversa</p>
+                            <div style={{ marginTop: '1rem', color: 'var(--primary-color)', fontSize: '2rem' }}>📏</div>
+                        </div>
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 };

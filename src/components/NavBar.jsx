@@ -143,6 +143,9 @@ const NavBar = () => {
                 <Link to="/teorema-norton" style={{ ...linkStyle, ...(location.pathname === '/teorema-norton' ? activeStyle : {}) }} onClick={() => setIsMenuOpen(false)}>
                     Norton
                 </Link>
+                <Link to="/conversion-unidades" style={{ ...linkStyle, ...(location.pathname === '/conversion-unidades' ? activeStyle : {}) }} onClick={() => setIsMenuOpen(false)}>
+                    Conversión
+                </Link>
             </div>
 
             {/* Desktop Navigation - Hidden on Mobile */}

@@ -9,6 +9,7 @@ import KirchhoffPage from './pages/KirchhoffPage';
 import SeriesParallelPage from './pages/SeriesParallelPage';
 import TheveninPage from './pages/TheveninPage';
 import NortonPage from './pages/NortonPage';
+import UnitConversionPage from './pages/UnitConversionPage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/resistencias-serie-paralelo" element={<SeriesParallelPage />} />
             <Route path="/teorema-thevenin" element={<TheveninPage />} />
             <Route path="/teorema-norton" element={<NortonPage />} />
+            <Route path="/conversion-unidades" element={<UnitConversionPage />} />
           </Routes>
 
           <Footer />
