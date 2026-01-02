@@ -300,6 +300,14 @@ const Home = () => {
                             <div style={{ marginTop: '1rem', color: '#ef4444', fontSize: '2rem' }}>🛡️</div>
                         </div>
                     </Link>
+
+                    <Link to="/herramientas-carpinteria" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Herramientas</h3>
+                            <p>Manuales de Carpintería</p>
+                            <div style={{ marginTop: '1rem', color: '#bc6c25', fontSize: '2rem' }}>🪚</div>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>

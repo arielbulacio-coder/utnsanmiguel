@@ -18,6 +18,7 @@ import MicrometerPage from './pages/MicrometerPage';
 import CaliperPage from './pages/CaliperPage';
 import CarpentryRulePage from './pages/CarpentryRulePage';
 import PPEPage from './pages/PPEPage';
+import CarpentryToolsPage from './pages/CarpentryToolsPage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -44,6 +45,7 @@ function App() {
             <Route path="/calibre" element={<CaliperPage />} />
             <Route path="/metro-carpintero" element={<CarpentryRulePage />} />
             <Route path="/seguridad-epp" element={<PPEPage />} />
+            <Route path="/herramientas-carpinteria" element={<CarpentryToolsPage />} />
           </Routes>
 
           <Footer />
