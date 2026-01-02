@@ -6,7 +6,7 @@ const NavBar = () => {
     const { theme, toggleTheme } = useTheme();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [openSubmenu, setOpenSubmenu] = useState(null); // 'electronics', 'math', 'physics', 'workshop'
+    const [openSubmenu, setOpenSubmenu] = useState(null); // 'electronics', 'math', 'physics', 'workshop', 'arduino'
 
     const navStyle = {
         display: 'flex',
@@ -162,6 +162,24 @@ const NavBar = () => {
                         <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Electrónica</Link>
                         <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
                         <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
+                    </div>
+                </div>
+
+                {/* Submenu Arduino y Programación */}
+                <div className={`dropdown ${openSubmenu === 'arduino' ? 'active' : ''}`}>
+                    <div
+                        className="dropdown-trigger"
+                        style={linkStyle}
+                        onClick={() => toggleSubmenu('arduino')}
+                    >
+                        Arduino <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu">
+                        <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>
+                        <Link to="/cpp-basico" style={linkStyle} onClick={closeAll}>C/C++ Básico</Link>
+                        <Link to="/pwm" style={linkStyle} onClick={closeAll}>PWM</Link>
+                        <Link to="/sensores" style={linkStyle} onClick={closeAll}>Sensores</Link>
+                        <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Serial</Link>
                     </div>
                 </div>
             </div>

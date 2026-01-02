@@ -25,6 +25,13 @@ import ElectronicsToolsPage from './pages/ElectronicsToolsPage';
 import OscilloscopePage from './pages/OscilloscopePage';
 import MultimeterPage from './pages/MultimeterPage';
 
+// Arduino y Programación
+import ArduinoIntroPage from './pages/ArduinoIntroPage';
+import CppBasicsPage from './pages/CppBasicsPage';
+import PWMPage from './pages/PWMPage';
+import SensorsPage from './pages/SensorsPage';
+import SerialPage from './pages/SerialPage';
+
 import { ThemeProvider } from './components/ThemeContext';
 
 function App() {
@@ -56,6 +63,13 @@ function App() {
             <Route path="/herramientas-electronica" element={<ElectronicsToolsPage />} />
             <Route path="/osciloscopio" element={<OscilloscopePage />} />
             <Route path="/multimetro" element={<MultimeterPage />} />
+
+            {/* Arduino y Programación */}
+            <Route path="/arduino-intro" element={<ArduinoIntroPage />} />
+            <Route path="/cpp-basico" element={<CppBasicsPage />} />
+            <Route path="/pwm" element={<PWMPage />} />
+            <Route path="/sensores" element={<SensorsPage />} />
+            <Route path="/comunicacion-serial" element={<SerialPage />} />
           </Routes>
 
           <Footer />
@@ -66,3 +80,4 @@ function App() {
 }
 
 export default App;
+
