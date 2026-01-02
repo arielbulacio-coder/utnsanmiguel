@@ -33,6 +33,20 @@ const CarpentryRuleSimulator = () => {
                 position: 'relative'
             }}>
                 <svg width={viewWidth} height={viewHeight} viewBox={`0 0 ${viewWidth} ${viewHeight}`} style={{ display: 'block', margin: '0 auto' }}>
+                    {/* The Piece being measured (Wood Plank) */}
+                    {/* It starts at the 0 of the rule and ends at the marker (400px) */}
+                    <rect
+                        x={scrollX + ruleLeadIn}
+                        y="110"
+                        width={value * scale}
+                        height="60"
+                        fill="#b5835a"
+                        stroke="#8a5a44"
+                        strokeWidth="1"
+                    />
+                    {/* Measurement Stop (Tope de inicio) */}
+                    <rect x={scrollX + ruleLeadIn - 5} y="40" width="5" height="130" fill="#444" />
+
                     {/* Measurement Marker (Reference Point at 400px) */}
                     <line x1="400" y1="0" x2="400" y2={viewHeight} stroke="#e63946" strokeWidth="3" strokeDasharray="5,5" />
                     <polygon points="390,0 410,0 400,15" fill="#e63946" />
@@ -40,7 +54,7 @@ const CarpentryRuleSimulator = () => {
 
                     <g transform={`translate(${scrollX}, 0)`}>
                         {/* The Wood Rule */}
-                        <rect x="0" y="50" width={ruleWidth} height="100" fill="#f4a261" stroke="#bc6c25" strokeWidth="2" rx="4" />
+                        <rect x="0" y="50" width={ruleWidth} height="40" fill="#f4a261" stroke="#bc6c25" strokeWidth="2" rx="4" />
 
                         {/* Grain effect (subtle lines) */}
                         {[...Array(100)].map((_, i) => (
