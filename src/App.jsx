@@ -12,6 +12,7 @@ import NortonPage from './pages/NortonPage';
 import UnitConversionPage from './pages/UnitConversionPage';
 import PythagorasPage from './pages/PythagorasPage';
 import TrigonometryPage from './pages/TrigonometryPage';
+import PowerPage from './pages/PowerPage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/conversion-unidades" element={<UnitConversionPage />} />
             <Route path="/pitagoras" element={<PythagorasPage />} />
             <Route path="/trigonometria" element={<TrigonometryPage />} />
+            <Route path="/potencia" element={<PowerPage />} />
           </Routes>
 
           <Footer />

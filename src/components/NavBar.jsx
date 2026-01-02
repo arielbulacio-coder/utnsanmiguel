@@ -108,6 +108,7 @@ const NavBar = () => {
                         <Link to="/kirchhoff" style={linkStyle} onClick={closeAll}>Kirchhoff</Link>
                         <Link to="/teorema-thevenin" style={linkStyle} onClick={closeAll}>Thévenin</Link>
                         <Link to="/teorema-norton" style={linkStyle} onClick={closeAll}>Norton</Link>
+                        <Link to="/potencia" style={linkStyle} onClick={closeAll}>Potencia</Link>
                     </div>
                 </div>
 
