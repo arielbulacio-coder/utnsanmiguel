@@ -1,40 +1,35 @@
-import React from 'react';
-import glassesImg from '../../assets/ppe_glasses.png';
-import glovesImg from '../../assets/ppe_gloves.png';
-import helmetImg from '../../assets/ppe_helmet.png';
-import bootsImg from '../../assets/ppe_boots.png';
-import hearingImg from '../../assets/ppe_hearing.png';
-
 const PPESection = () => {
+    const baseUrl = import.meta.env.BASE_URL;
+
     const ppeItems = [
         {
             title: 'Gafas de Seguridad',
             description: 'Protegen los ojos de partículas voladoras, salpicaduras químicas y radiación. Es obligatorio cuando se utilizan máquinas herramienta, soldadura o cualquier proceso que genere virutas.',
-            img: glassesImg,
+            img: `${baseUrl}assets/ppe/ppe_glasses.png`,
             use: 'Asegúrese de que ajusten bien al rostro y no tengan rayaduras que impidan la visión.'
         },
         {
             title: 'Guantes de Protección',
             description: 'Protegen las manos de cortes, abrasiones, químicos y riesgos eléctricos. Existen diferentes tipos (cuero, nitrilo, dieléctricos) según la tarea.',
-            img: glovesImg,
+            img: `${baseUrl}assets/ppe/ppe_gloves.png`,
             use: 'Seleccione el guante adecuado al riesgo. No use guantes cerca de partes móviles rotativas.'
         },
         {
             title: 'Casco de Seguridad',
             description: 'Protege la cabeza contra impactos de objetos que caen, golpes contra objetos fijos o riesgos eléctricos.',
-            img: helmetImg,
+            img: `${baseUrl}assets/ppe/ppe_helmet.png`,
             use: 'Debe usarse con el barboquejo ajustado y verificar que la estructura interna esté en buen estado.'
         },
         {
             title: 'Calzado de Seguridad',
             description: 'Botas con puntera de acero o composite que protegen contra la caída de objetos pesados y suelas antideslizantes para evitar caídas.',
-            img: bootsImg,
+            img: `${baseUrl}assets/ppe/ppe_boots.png`,
             use: 'Mantenga el calzado limpio y seco. Reemplace si la puntera o la suela están comprometidas.'
         },
         {
             title: 'Protección Auditiva',
             description: 'Reduce la exposición a niveles de ruido peligrosos que pueden causar pérdida auditiva permanente.',
-            img: hearingImg,
+            img: `${baseUrl}assets/ppe/ppe_hearing.png`,
             use: 'Use orejeras o tapones en áreas con ruido constante superior a 80dB.'
         }
     ];
