@@ -16,6 +16,7 @@ import PowerPage from './pages/PowerPage';
 import KinematicsPage from './pages/KinematicsPage';
 import MicrometerPage from './pages/MicrometerPage';
 import CaliperPage from './pages/CaliperPage';
+import CarpentryRulePage from './pages/CarpentryRulePage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -40,6 +41,7 @@ function App() {
             <Route path="/cinematica" element={<KinematicsPage />} />
             <Route path="/micrometro" element={<MicrometerPage />} />
             <Route path="/calibre" element={<CaliperPage />} />
+            <Route path="/metro-carpintero" element={<CarpentryRulePage />} />
           </Routes>
 
           <Footer />

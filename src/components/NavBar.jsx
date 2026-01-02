@@ -154,6 +154,7 @@ const NavBar = () => {
                     <div className="dropdown-menu">
                         <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
                         <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre</Link>
+                        <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro Carpintero</Link>
                     </div>
                 </div>
             </div>
