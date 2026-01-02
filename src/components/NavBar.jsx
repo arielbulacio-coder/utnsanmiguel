@@ -160,6 +160,7 @@ const NavBar = () => {
                         <Link to="/metal-mecanica" style={linkStyle} onClick={closeAll}>Metal-Mecánica</Link>
                         <Link to="/herramientas-electricidad" style={linkStyle} onClick={closeAll}>Electricidad</Link>
                         <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Electrónica</Link>
+                        <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
                     </div>
                 </div>
             </div>

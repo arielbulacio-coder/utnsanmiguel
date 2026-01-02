@@ -332,6 +332,14 @@ const Home = () => {
                             <div style={{ marginTop: '1rem', color: '#a855f7', fontSize: '2rem' }}>📟</div>
                         </div>
                     </Link>
+
+                    <Link to="/osciloscopio" style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Osciloscopio</h3>
+                            <p>Simulador Dinámico</p>
+                            <div style={{ marginTop: '1rem', color: '#00ff00', fontSize: '2rem' }}>📈</div>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>
