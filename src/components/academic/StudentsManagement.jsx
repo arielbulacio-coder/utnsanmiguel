@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import RegistroAlumno from '../../RegistroAlumno';
 
 const StudentsManagement = () => {
+    const [showForm, setShowForm] = useState(false);
     const [students] = useState([
         { id: 1, name: 'Juan Pérez', course: '6° A', email: 'juan.perez@escuela.edu' },
         { id: 2, name: 'Maria Gomez', course: '6° A', email: 'maria.gomez@escuela.edu' },
@@ -11,10 +13,24 @@ const StudentsManagement = () => {
         <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
             <h1>Gestión de Estudiantes</h1>
 
+            {showForm && (
+                <div style={{ marginBottom: '2rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <button className="btn btn-secondary mb-2" onClick={() => setShowForm(false)}>Cerrar Formulario</button>
+                    </div>
+                    <RegistroAlumno />
+                </div>
+            )}
+
             <div className="glass-card" style={{ marginTop: '2rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                     <h2 style={{ margin: 0 }}>Listado de Alumnos</h2>
-                    <button className="mode-btn active"> + Nuevo Estudiante</button>
+                    <button
+                        className="mode-btn active"
+                        onClick={() => setShowForm(!showForm)}
+                    >
+                        {showForm ? 'Cancelar' : '+ Nuevo Estudiante'}
+                    </button>
                 </div>
 
                 <div style={{ overflowX: 'auto' }}>

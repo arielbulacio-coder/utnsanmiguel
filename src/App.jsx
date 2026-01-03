@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -43,50 +43,48 @@ import { ThemeProvider } from './components/ThemeContext';
 function App() {
   return (
     <ThemeProvider>
-      <Router basename="/utnsanmiguel">
-        <div style={{ width: '100%' }}>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/ley-ohm" element={<OhmLawPage />} />
-            <Route path="/codigos-resistencias" element={<ResistorPage />} />
-            <Route path="/kirchhoff" element={<KirchhoffPage />} />
-            <Route path="/resistencias-serie-paralelo" element={<SeriesParallelPage />} />
-            <Route path="/teorema-thevenin" element={<TheveninPage />} />
-            <Route path="/teorema-norton" element={<NortonPage />} />
-            <Route path="/conversion-unidades" element={<UnitConversionPage />} />
-            <Route path="/pitagoras" element={<PythagorasPage />} />
-            <Route path="/trigonometria" element={<TrigonometryPage />} />
-            <Route path="/potencia" element={<PowerPage />} />
-            <Route path="/cinematica" element={<KinematicsPage />} />
-            <Route path="/micrometro" element={<MicrometerPage />} />
-            <Route path="/calibre" element={<CaliperPage />} />
-            <Route path="/metro-carpintero" element={<CarpentryRulePage />} />
-            <Route path="/seguridad-epp" element={<PPEPage />} />
-            <Route path="/herramientas-carpinteria" element={<CarpentryToolsPage />} />
-            <Route path="/metal-mecanica" element={<MetalMecanicaPage />} />
-            <Route path="/herramientas-electricidad" element={<ElectricalToolsPage />} />
-            <Route path="/herramientas-electronica" element={<ElectronicsToolsPage />} />
-            <Route path="/osciloscopio" element={<OscilloscopePage />} />
-            <Route path="/multimetro" element={<MultimeterPage />} />
+      <div style={{ width: '100%' }}>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/ley-ohm" element={<OhmLawPage />} />
+          <Route path="/codigos-resistencias" element={<ResistorPage />} />
+          <Route path="/kirchhoff" element={<KirchhoffPage />} />
+          <Route path="/resistencias-serie-paralelo" element={<SeriesParallelPage />} />
+          <Route path="/teorema-thevenin" element={<TheveninPage />} />
+          <Route path="/teorema-norton" element={<NortonPage />} />
+          <Route path="/conversion-unidades" element={<UnitConversionPage />} />
+          <Route path="/pitagoras" element={<PythagorasPage />} />
+          <Route path="/trigonometria" element={<TrigonometryPage />} />
+          <Route path="/potencia" element={<PowerPage />} />
+          <Route path="/cinematica" element={<KinematicsPage />} />
+          <Route path="/micrometro" element={<MicrometerPage />} />
+          <Route path="/calibre" element={<CaliperPage />} />
+          <Route path="/metro-carpintero" element={<CarpentryRulePage />} />
+          <Route path="/seguridad-epp" element={<PPEPage />} />
+          <Route path="/herramientas-carpinteria" element={<CarpentryToolsPage />} />
+          <Route path="/metal-mecanica" element={<MetalMecanicaPage />} />
+          <Route path="/herramientas-electricidad" element={<ElectricalToolsPage />} />
+          <Route path="/herramientas-electronica" element={<ElectronicsToolsPage />} />
+          <Route path="/osciloscopio" element={<OscilloscopePage />} />
+          <Route path="/multimetro" element={<MultimeterPage />} />
 
-            {/* Arduino y Programación */}
-            <Route path="/arduino-intro" element={<ArduinoIntroPage />} />
-            <Route path="/cpp-basico" element={<CppBasicsPage />} />
-            <Route path="/pwm" element={<PWMPage />} />
-            <Route path="/sensores" element={<SensorsPage />} />
-            <Route path="/comunicacion-serial" element={<SerialPage />} />
+          {/* Arduino y Programación */}
+          <Route path="/arduino-intro" element={<ArduinoIntroPage />} />
+          <Route path="/cpp-basico" element={<CppBasicsPage />} />
+          <Route path="/pwm" element={<PWMPage />} />
+          <Route path="/sensores" element={<SensorsPage />} />
+          <Route path="/comunicacion-serial" element={<SerialPage />} />
 
-            {/* Gestión Académica */}
-            <Route path="/gestion-academica" element={<AcademicOverviewPage />} />
-            <Route path="/estudiantes" element={<StudentsPage />} />
-            <Route path="/calificaciones" element={<GradesPage />} />
-            <Route path="/asistencia" element={<AttendancePage />} />
-          </Routes>
+          {/* Gestión Académica */}
+          <Route path="/gestion-academica" element={<AcademicOverviewPage />} />
+          <Route path="/estudiantes" element={<StudentsPage />} />
+          <Route path="/calificaciones" element={<GradesPage />} />
+          <Route path="/asistencia" element={<AttendancePage />} />
+        </Routes>
 
-          <Footer />
-        </div>
-      </Router>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 }
