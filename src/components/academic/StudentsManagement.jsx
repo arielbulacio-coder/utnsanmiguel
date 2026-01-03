@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RegistroAlumno from '../../RegistroAlumno';
+import RegistroAlumno from './RegistroAlumno';
 
 const StudentsManagement = () => {
     const [showForm, setShowForm] = useState(false);
