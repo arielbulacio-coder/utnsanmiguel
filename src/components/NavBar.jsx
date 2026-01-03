@@ -182,6 +182,23 @@ const NavBar = () => {
                         <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Serial</Link>
                     </div>
                 </div>
+
+                {/* Submenu Gestión Académica */}
+                <div className={`dropdown ${openSubmenu === 'academic' ? 'active' : ''}`}>
+                    <div
+                        className="dropdown-trigger"
+                        style={linkStyle}
+                        onClick={() => toggleSubmenu('academic')}
+                    >
+                        Gestión Académica <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu">
+                        <Link to="/gestion-academica" style={linkStyle} onClick={closeAll}>Panel Principal</Link>
+                        <Link to="/estudiantes" style={linkStyle} onClick={closeAll}>Estudiantes</Link>
+                        <Link to="/calificaciones" style={linkStyle} onClick={closeAll}>Calificaciones</Link>
+                        <Link to="/asistencia" style={linkStyle} onClick={closeAll}>Asistencia</Link>
+                    </div>
+                </div>
             </div>
 
             <style>{`

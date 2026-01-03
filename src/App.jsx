@@ -32,6 +32,12 @@ import PWMPage from './pages/PWMPage';
 import SensorsPage from './pages/SensorsPage';
 import SerialPage from './pages/SerialPage';
 
+// Gestión Académica
+import AcademicOverviewPage from './pages/AcademicOverviewPage';
+import StudentsPage from './pages/StudentsPage';
+import GradesPage from './pages/GradesPage';
+import AttendancePage from './pages/AttendancePage';
+
 import { ThemeProvider } from './components/ThemeContext';
 
 function App() {
@@ -70,6 +76,12 @@ function App() {
             <Route path="/pwm" element={<PWMPage />} />
             <Route path="/sensores" element={<SensorsPage />} />
             <Route path="/comunicacion-serial" element={<SerialPage />} />
+
+            {/* Gestión Académica */}
+            <Route path="/gestion-academica" element={<AcademicOverviewPage />} />
+            <Route path="/estudiantes" element={<StudentsPage />} />
+            <Route path="/calificaciones" element={<GradesPage />} />
+            <Route path="/asistencia" element={<AttendancePage />} />
           </Routes>
 
           <Footer />
