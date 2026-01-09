@@ -115,7 +115,7 @@ const GradesManagement = () => {
     };
 
     const filteredStudents = isStudentOrParent
-        ? students.filter(s => s.email === user.email)
+        ? students.filter(s => s.email === user.email || s.email_padre === user.email)
         : students.filter(s => s.curso === selectedCourse);
 
     // Render Helper for Input Cells
