@@ -39,6 +39,7 @@ import StudentsPage from './pages/StudentsPage';
 import GradesPage from './pages/GradesPage';
 import AttendancePage from './pages/AttendancePage';
 import UsersPage from './pages/UsersPage';
+import LMSPage from './pages/LMSPage';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -90,6 +91,7 @@ function App() {
               <Route path="/estudiantes" element={<StudentsPage />} />
               <Route path="/calificaciones" element={<GradesPage />} />
               <Route path="/asistencia" element={<AttendancePage />} />
+              <Route path="/aula-virtual" element={<LMSPage />} />
               <Route path="/usuarios" element={<UsersPage />} />
             </Route>
           </Routes>

@@ -34,6 +34,13 @@ const AcademicOverview = () => {
             icon: '🔐',
             desc: 'Administrar permisos y cuentas de acceso.',
             roles: ['admin']
+        },
+        {
+            title: 'Aula Virtual',
+            path: '/aula-virtual',
+            icon: '💻',
+            desc: 'Material de estudio y actividades.',
+            roles: ['admin', 'profesor', 'alumno']
         }
     ];
 
