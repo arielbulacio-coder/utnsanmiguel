@@ -1,9 +1,9 @@
 import React from 'react';
-import imgChisel from '../../assets/chisel_tool.png';
-import imgSquare from '../../assets/carpenter_square_tool.png';
-import imgPlane from '../../assets/hand_plane_tool.png';
-import imgSaw from '../../assets/hand_saw_tool.png';
-import imgHammer from '../../assets/hammer_tool.png';
+import imgChisel from '../../assets/chisel_v2.png';
+import imgSquare from '../../assets/square_v2.png';
+import imgPlane from '../../assets/plane_v2.png';
+import imgSaw from '../../assets/saw_v2.png';
+import imgHammer from '../../assets/hammer_v2.png';
 
 const CarpentryToolsTheory = () => {
     const baseUrl = import.meta.env.BASE_URL;

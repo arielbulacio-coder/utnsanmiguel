@@ -1,4 +1,5 @@
 import React from 'react';
+import imgRule from '../../assets/ruler_v2.png';
 
 const CarpentryRuleTheory = () => {
     return (

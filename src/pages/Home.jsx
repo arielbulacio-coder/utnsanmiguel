@@ -14,11 +14,11 @@ import imgTools from '../assets/workshop_tools.png';
 // Import Tool Icons
 import imgMicrometer from '../assets/micrometer_icon.png';
 import imgCaliper from '../assets/caliper_icon.png';
-import imgRule from '../assets/folding_ruler_tool.png';
+import imgRule from '../assets/ruler_v2.png';
 import imgMultimeter from '../assets/multimeter_icon.png';
 import imgOscilloscope from '../assets/oscilloscope_icon.png';
 import imgSoldering from '../assets/soldering_station_icon.png';
-import imgSaw from '../assets/hand_saw_tool.png';
+import imgSaw from '../assets/saw_v2.png';
 
 const Home = () => {
     const { isAuthenticated } = useAuth();
