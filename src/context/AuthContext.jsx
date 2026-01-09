@@ -16,26 +16,23 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         // Al iniciar, verificamos si hay un token válido
         const storedToken = localStorage.getItem('token');
-        if (storedToken) {
+        const storedUser = localStorage.getItem('user');
+        if (storedToken && storedUser) {
             setToken(storedToken);
-            // Opcional: Podrías verificar la validez del token aquí llamando a un endpoint /me o decodificándolo
-            // Por ahora asumimos que si está, el usuario está logueado (la API rechazará si es inválido)
-            setUser({ name: 'Usuario' }); // Placeholder hasta que tengamos info real del usuario
+            setUser(JSON.parse(storedUser));
         }
         setLoading(false);
     }, []);
 
     const login = async (email, password) => {
         try {
-            // Ajusta este endpoint según tu backend real
             const response = await api.post('/login', { email, password });
-
-            // Asumiendo que el backend devuelve { token: '...', user: {...} }
             const { token: newToken, user: userData } = response.data;
 
             setToken(newToken);
-            setUser(userData || { email }); // Fallback si el back no devuelve user data
+            setUser(userData);
             localStorage.setItem('token', newToken);
+            localStorage.setItem('user', JSON.stringify(userData));
             return { success: true };
         } catch (error) {
             console.error("Login component error:", error);
@@ -50,6 +47,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         setToken(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
     };
 
     const value = {
