@@ -2,8 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import '../carousel.css';
-
 import { useAuth } from '../context/AuthContext';
+
+// Import Assets
+import imgFacade from '../assets/utn_building_facade.png';
+import imgLab from '../assets/electronics_lab.png';
+import imgCampus from '../assets/new_campus_rendering.png';
+import imgEducation from '../assets/technical_education_workshop.png';
+import imgTools from '../assets/workshop_tools.png';
 
 const Home = () => {
     const { isAuthenticated } = useAuth();
@@ -23,7 +29,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://inspt.utn.edu.ar/wp-content/uploads/2025/02/frontis-noticia-san-miguel-770x420.png"
+                            src={imgFacade}
                             alt="EEST UTN San Miguel - Edificio Principal"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -40,7 +46,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://inspt.utn.edu.ar/wp-content/uploads/2025/02/IMG_7941-1024x768.jpeg"
+                            src={imgLab}
                             alt="Instalaciones EEST UTN"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -57,7 +63,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://i0.wp.com/desalambrar.com.ar/wp-content/uploads/2024/09/24_09_10-san-miguel-contara-con-una-nueva-escuela-tecnica-dependiente-de-la-utn_.jpeg?fit=1200%2C800&ssl=1"
+                            src={imgCampus}
                             alt="Nueva Escuela Técnica UTN"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -74,7 +80,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://sanmiguelest.inspt.utn.edu.ar/wp-content/uploads/2025/07/2B509DC1-DCE8-46EA-8A58-2EF14A9719E0-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-768x432.jpg"
+                            src={imgEducation}
                             alt="Actividades Educativas"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -91,7 +97,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://sanmiguelest.inspt.utn.edu.ar/wp-content/uploads/2025/07/15-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-768x512.jpg"
+                            src={imgTools}
                             alt="Laboratorios y Talleres"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />

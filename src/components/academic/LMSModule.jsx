@@ -9,6 +9,9 @@ const LMSModule = () => {
     const [selectedCourse, setSelectedCourse] = useState(COURSES[0]);
     const [selectedSubject, setSelectedSubject] = useState(SUBJECTS[0]);
 
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    const YEARS = [2024, 2025, 2026, 2027]; // Could be dynamic
+
     // Data List
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -47,18 +50,19 @@ const LMSModule = () => {
 
     useEffect(() => {
         fetchData();
-    }, [activeTab, selectedCourse, selectedSubject]);
+    }, [activeTab, selectedCourse, selectedSubject, selectedYear]);
 
     const fetchData = async () => {
         if (!selectedCourse || !selectedSubject) return; // Wait for filters
         setLoading(true);
-        console.log(`LMS Fetching ${activeTab} for ${selectedCourse}/${selectedSubject}`);
+        console.log(`LMS Fetching ${activeTab} for ${selectedCourse}/${selectedSubject}/${selectedYear}`);
         try {
             const endpoint = activeTab === 'materiales' ? '/materiales' : '/actividades';
             const res = await api.get(endpoint, {
                 params: {
                     curso: selectedCourse,
-                    materia: selectedSubject
+                    materia: selectedSubject,
+                    ciclo_lectivo: selectedYear
                 }
             });
             console.log(`LMS Data Received for ${selectedSubject}:`, res.data);
@@ -77,7 +81,8 @@ const LMSModule = () => {
             await api.post(endpoint, {
                 ...formData,
                 curso: selectedCourse,
-                materia: selectedSubject
+                materia: selectedSubject,
+                ciclo_lectivo: selectedYear
             });
             setShowForm(false);
             setFormData({ titulo: '', descripcion: '', tipo: 'texto', url: '', fecha_entrega: '' });
@@ -98,7 +103,8 @@ const LMSModule = () => {
         try {
             await api.post('/entregas', {
                 ActividadId: submittingId,
-                ...submissionData
+                ...submissionData,
+                ciclo_lectivo: selectedYear
             });
             alert('Entrega enviada correctamente');
             setSubmittingId(null);
@@ -109,24 +115,93 @@ const LMSModule = () => {
         }
     };
 
+    const [assignedOptions, setAssignedOptions] = useState([]);
+    const [availableCourses, setAvailableCourses] = useState([]);
+    const [availableSubjects, setAvailableSubjects] = useState([]);
+
+    useEffect(() => {
+        if (isTeacher && user.role === 'profesor') { // Only fetch for professors, admin sees all
+            fetchAssignments();
+        } else if (user && user.role === 'admin') {
+            setAvailableCourses(COURSES);
+            setAvailableSubjects(SUBJECTS);
+        }
+    }, [user]);
+
+    const fetchAssignments = async () => {
+        try {
+            const res = await api.get('/profesor/asignaciones');
+            setAssignedOptions(res.data);
+
+            // Extract unique courses
+            const courses = [...new Set(res.data.map(item => item.curso))];
+            setAvailableCourses(courses);
+            if (courses.length > 0) setSelectedCourse(courses[0]);
+            else setSelectedCourse(null); // No courses assigned
+
+        } catch (error) {
+            console.error('Error fetching assignments:', error);
+            setAvailableCourses([]);
+            setSelectedCourse(null);
+        }
+    };
+
+    // Update subjects when course changes or assignments load
+    useEffect(() => {
+        if (isTeacher) {
+            if (user.role === 'admin') {
+                setAvailableSubjects(SUBJECTS);
+                // availableCourses is already set to COURSES in the user effect for admin
+            } else if (user.role === 'profesor') {
+                const subjects = assignedOptions
+                    .filter(item => item.curso === selectedCourse)
+                    .map(item => item.materia);
+                setAvailableSubjects(subjects);
+                if (subjects.length > 0 && !subjects.includes(selectedSubject)) {
+                    setSelectedSubject(subjects[0]);
+                } else if (subjects.length === 0) {
+                    setSelectedSubject(null); // No subjects for this course
+                }
+            }
+        }
+    }, [selectedCourse, assignedOptions, user]);
+
     return (
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
             <h1 className="mb-4 text-gradient">Aula Virtual (LMS)</h1>
 
             {/* Filters */}
             <div className="glass-card mb-4" style={{ padding: '1.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'end' }}>
+                <div style={{ flex: '0 0 100px' }}>
+                    <label className="d-block mb-1">Ciclo</label>
+                    <select className="form-control" value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
+                        {YEARS.map(y => <option key={y} value={y}>{y}</option>)}
+                    </select>
+                </div>
                 {!isStudentOrParent ? (
                     <>
                         <div style={{ flex: 1 }}>
-                            <label className="d-block mb-1">Curso</label>
-                            <select className="form-control" value={selectedCourse} onChange={e => setSelectedCourse(e.target.value)}>
-                                {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
+                            <label className="d-block mb-1">Curso {user.role === 'profesor' ? '(Asignado)' : ''}</label>
+                            <select className="form-control" value={selectedCourse || ''} onChange={e => setSelectedCourse(e.target.value)} disabled={loading}>
+                                {user.role === 'profesor' ? (
+                                    availableCourses.length > 0 ?
+                                        availableCourses.map(c => <option key={c} value={c}>{c}</option>) :
+                                        <option value="">No hay cursos asignados</option>
+                                ) : (
+                                    COURSES.map(c => <option key={c} value={c}>{c}</option>)
+                                )}
                             </select>
                         </div>
                         <div style={{ flex: 1 }}>
                             <label className="d-block mb-1">Materia</label>
-                            <select className="form-control" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}>
-                                {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                            <select className="form-control" value={selectedSubject || ''} onChange={e => setSelectedSubject(e.target.value)} disabled={loading}>
+                                {user.role === 'profesor' ? (
+                                    availableSubjects.length > 0 ?
+                                        availableSubjects.map(s => <option key={s} value={s}>{s}</option>) :
+                                        <option value="">Seleccione un curso</option>
+                                ) : (
+                                    SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)
+                                )}
                             </select>
                         </div>
                     </>
