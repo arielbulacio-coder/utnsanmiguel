@@ -1,5 +1,4 @@
 import React from 'react';
-import imgRule from '../../assets/ruler_v2.png';
 
 const CarpentryRuleTheory = () => {
     return (
@@ -23,7 +22,7 @@ const CarpentryRuleTheory = () => {
                 </div>
                 <div className="glass-card" style={{ background: 'white', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img
-                        src={imgRule}
+                        src="/assets/ruler_v2.png"
                         alt="Metro Plegable"
                         style={{ width: '100%', maxWidth: '300px', objectFit: 'contain' }}
                     />
