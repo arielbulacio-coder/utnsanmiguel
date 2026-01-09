@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
+import { useAuth } from '../context/AuthContext';
 
 const NavBar = () => {
     const { theme, toggleTheme } = useTheme();
+    const { user, logout, isAuthenticated } = useAuth();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState(null); // 'electronics', 'math', 'physics', 'workshop', 'arduino'
@@ -183,22 +185,41 @@ const NavBar = () => {
                     </div>
                 </div>
 
-                {/* Submenu Gestión Académica */}
-                <div className={`dropdown ${openSubmenu === 'academic' ? 'active' : ''}`}>
+                {/* Submenu Gestión Académica - Solo si está autenticado */}
+                {isAuthenticated && (
+                    <div className={`dropdown ${openSubmenu === 'academic' ? 'active' : ''}`}>
+                        <div
+                            className="dropdown-trigger"
+                            style={linkStyle}
+                            onClick={() => toggleSubmenu('academic')}
+                        >
+                            Gestión Académica <span className="arrow">▼</span>
+                        </div>
+                        <div className="dropdown-menu">
+                            <Link to="/gestion-academica" style={linkStyle} onClick={closeAll}>Panel Principal</Link>
+                            <Link to="/estudiantes" style={linkStyle} onClick={closeAll}>Estudiantes</Link>
+                            <Link to="/calificaciones" style={linkStyle} onClick={closeAll}>Calificaciones</Link>
+                            <Link to="/asistencia" style={linkStyle} onClick={closeAll}>Asistencia</Link>
+                        </div>
+                    </div>
+                )}
+
+                {/* Login / Logout */}
+                {isAuthenticated ? (
                     <div
-                        className="dropdown-trigger"
                         style={linkStyle}
-                        onClick={() => toggleSubmenu('academic')}
+                        onClick={() => {
+                            logout();
+                            closeAll();
+                        }}
                     >
-                        Gestión Académica <span className="arrow">▼</span>
+                        Salir ({user?.name || 'Usuario'})
                     </div>
-                    <div className="dropdown-menu">
-                        <Link to="/gestion-academica" style={linkStyle} onClick={closeAll}>Panel Principal</Link>
-                        <Link to="/estudiantes" style={linkStyle} onClick={closeAll}>Estudiantes</Link>
-                        <Link to="/calificaciones" style={linkStyle} onClick={closeAll}>Calificaciones</Link>
-                        <Link to="/asistencia" style={linkStyle} onClick={closeAll}>Asistencia</Link>
-                    </div>
-                </div>
+                ) : (
+                    <Link to="/login" style={linkStyle} onClick={closeAll}>
+                        Ingresar
+                    </Link>
+                )}
             </div>
 
             <style>{`
