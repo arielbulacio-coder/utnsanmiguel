@@ -200,6 +200,9 @@ const NavBar = () => {
                             <Link to="/estudiantes" style={linkStyle} onClick={closeAll}>Estudiantes</Link>
                             <Link to="/calificaciones" style={linkStyle} onClick={closeAll}>Calificaciones</Link>
                             <Link to="/asistencia" style={linkStyle} onClick={closeAll}>Asistencia</Link>
+                            {user?.role === 'admin' && (
+                                <Link to="/usuarios" style={{ ...linkStyle, borderTop: '1px solid rgba(255,255,255,0.1)' }} onClick={closeAll}>Usuarios (Admin)</Link>
+                            )}
                         </div>
                     </div>
                 )}
