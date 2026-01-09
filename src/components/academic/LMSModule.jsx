@@ -89,6 +89,26 @@ const LMSModule = () => {
         }
     };
 
+    // Submission State
+    const [submittingId, setSubmittingId] = useState(null);
+    const [submissionData, setSubmissionData] = useState({ archivo_url: '', comentario: '' });
+
+    const handleSubmission = async (e) => {
+        e.preventDefault();
+        try {
+            await api.post('/entregas', {
+                ActividadId: submittingId,
+                ...submissionData
+            });
+            alert('Entrega enviada correctamente');
+            setSubmittingId(null);
+            setSubmissionData({ archivo_url: '', comentario: '' });
+        } catch (error) {
+            console.error(error);
+            alert('Error al enviar entrega');
+        }
+    };
+
     return (
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
             <h1 className="mb-4 text-gradient">Aula Virtual (LMS)</h1>
@@ -155,7 +175,7 @@ const LMSModule = () => {
                 </div>
             )}
 
-            {/* Form */}
+            {/* Creation Form */}
             {showForm && (
                 <div className="glass-card mb-4 p-4 animation-fade-in">
                     <h3>Nuevo {activeTab === 'materiales' ? 'Material' : 'Actividad'}</h3>
@@ -216,6 +236,33 @@ const LMSModule = () => {
                 </div>
             )}
 
+            {/* Submission Form (Student) */}
+            {submittingId && (
+                <div className="glass-card mb-4 p-4 animation-fade-in border-primary">
+                    <h4 className="text-primary">📤 Enviar Entrega</h4>
+                    <form onSubmit={handleSubmission} className="d-flex flex-column gap-3">
+                        <input
+                            placeholder="Link al archivo (Google Drive, OneDrive, etc.)"
+                            className="form-control"
+                            value={submissionData.archivo_url}
+                            onChange={e => setSubmissionData({ ...submissionData, archivo_url: e.target.value })}
+                            required
+                        />
+                        <textarea
+                            placeholder="Comentario para el profesor..."
+                            className="form-control"
+                            rows="2"
+                            value={submissionData.comentario}
+                            onChange={e => setSubmissionData({ ...submissionData, comentario: e.target.value })}
+                        />
+                        <div className="d-flex gap-2">
+                            <button className="btn btn-success">Confirmar Envío</button>
+                            <button type="button" className="btn btn-secondary" onClick={() => setSubmittingId(null)}>Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            )}
+
             {/* List */}
             <div className="d-grid gap-3">
                 {items.length === 0 && !loading && (
@@ -225,7 +272,7 @@ const LMSModule = () => {
                 {items.map(item => (
                     <div key={item.id} className="glass-card p-3 hover-scale" style={{ borderLeft: `4px solid ${activeTab === 'materiales' ? '#2196F3' : '#FF9800'}` }}>
                         <div className="d-flex justify-content-between align-items-start">
-                            <div>
+                            <div style={{ flex: 1 }}>
                                 <h4 className="mb-1">{item.titulo}</h4>
                                 <p className="mb-2 text-secondary" style={{ whiteSpace: 'pre-wrap' }}>{item.descripcion}</p>
 
@@ -245,8 +292,22 @@ const LMSModule = () => {
                                         📅 Entrega: {item.fecha_entrega}
                                     </div>
                                 )}
+
+                                {/* Student Actions */}
+                                {activeTab === 'actividades' && user?.role === 'alumno' && (
+                                    <div className="mt-3">
+                                        <button
+                                            className="btn btn-sm btn-primary"
+                                            onClick={() => setSubmittingId(item.id)}
+                                        >
+                                            🚀 Subir Entrega
+                                        </button>
+                                    </div>
+                                )}
                             </div>
-                            <small className="text-muted">{new Date(item.createdAt).toLocaleDateString()}</small>
+                            <small className="text-muted ms-3" style={{ minWidth: '80px', textAlign: 'right' }}>
+                                {new Date(item.createdAt).toLocaleDateString()}
+                            </small>
                         </div>
                     </div>
                 ))}
