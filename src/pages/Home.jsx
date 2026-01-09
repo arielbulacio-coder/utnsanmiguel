@@ -4,12 +4,13 @@ import { Carousel } from 'react-bootstrap';
 import '../carousel.css';
 import { useAuth } from '../context/AuthContext';
 
-// Import Assets Removed for External Links
-// import imgFacade from '../assets/utn_building_facade.png';
-// import imgLab from '../assets/electronics_lab.png';
-// import imgCampus from '../assets/new_campus_rendering.png';
-// import imgEducation from '../assets/technical_education_workshop.png';
-// import imgTools from '../assets/workshop_tools.png';
+// Import Assets
+import imgFacade from '../assets/utn_building_facade.png';
+import imgLab from '../assets/electronics_lab.png';
+import imgCampus from '../assets/new_campus_rendering.png';
+import imgEducation from '../assets/technical_education_workshop.png';
+import imgTools from '../assets/workshop_tools.png';
+import imgCommunity from '../assets/carousel_community.jpg';
 
 // Import Tool Icons
 import imgMicrometer from '../assets/micrometer_icon.png';
@@ -37,7 +38,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://www.inspt.utn.edu.ar/wp-content/uploads/2023/12/fachada-utn-inspt.jpg"
+                            src={imgFacade}
                             alt="EEST UTN San Miguel - Edificio Principal"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -54,7 +55,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://noticias.frba.utn.edu.ar/wp-content/uploads/2016/06/Laboratorio-de-Electronica-1-1024x680.jpg"
+                            src={imgLab}
                             alt="Instalaciones EEST UTN"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -71,7 +72,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://www.frba.utn.edu.ar/wp-content/uploads/2019/02/campus-utn-ba.jpg"
+                            src={imgCampus}
                             alt="Nueva Escuela Técnica UTN"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -88,7 +89,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://www.frba.utn.edu.ar/wp-content/uploads/2018/10/Taller-de-Electronica.jpg"
+                            src={imgEducation}
                             alt="Actividades Educativas"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -105,7 +106,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://pbs.twimg.com/media/Ff15u5fXkAAQz1_.jpg"
+                            src={imgTools}
                             alt="Laboratorios y Talleres"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
@@ -122,7 +123,7 @@ const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://sanmiguelest.inspt.utn.edu.ar/wp-content/uploads/2025/05/DSC_0167-1-1-300x184.jpg"
+                            src={imgCommunity}
                             alt="Comunidad Educativa"
                             style={{ height: '400px', objectFit: 'cover' }}
                         />
