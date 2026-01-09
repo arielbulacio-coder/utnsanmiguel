@@ -50,15 +50,21 @@ const LMSModule = () => {
     }, [activeTab, selectedCourse, selectedSubject]);
 
     const fetchData = async () => {
+        if (!selectedCourse || !selectedSubject) return; // Wait for filters
         setLoading(true);
         console.log(`LMS Fetching ${activeTab} for ${selectedCourse}/${selectedSubject}`);
         try {
             const endpoint = activeTab === 'materiales' ? '/materiales' : '/actividades';
-            const res = await api.get(`${endpoint}?curso=${selectedCourse}&materia=${selectedSubject}`);
-            console.log('LMS Data Received:', res.data);
+            const res = await api.get(endpoint, {
+                params: {
+                    curso: selectedCourse,
+                    materia: selectedSubject
+                }
+            });
+            console.log(`LMS Data Received for ${selectedSubject}:`, res.data);
             setItems(res.data);
         } catch (error) {
-            console.error(error);
+            console.error('LMS Error:', error);
         }
         setLoading(false);
     };
