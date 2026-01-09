@@ -1,13 +1,8 @@
 import React from 'react';
-import imgHammer from '../../assets/workshop_tools.png'; // Use existing generic or specific if I had it. Wait, I don't have a hammer specific. I should probably generate a hammer too or keep Unsplash for hammer/saw? The user ONLY complained about chisel, square and plane. I'll keep hammer/saw as Unsplash or reuse existing for now to avoid scope creep, OR generate them if I want to be thorough. But user specified 3. I will STRICTLY replace the 3 requested.
-// Actually, using Unsplash for some and local for others might look inconsistent. 
-// But I will stick to the user request.
-// Wait, I can't import local assets and mix with Unsplash easily in a clean codebase. 
-// I'll import the 3 new ones.
-
 import imgChisel from '../../assets/chisel_tool.png';
 import imgSquare from '../../assets/carpenter_square_tool.png';
 import imgPlane from '../../assets/hand_plane_tool.png';
+import imgSaw from '../../assets/hand_saw_tool.png';
 
 const CarpentryToolsTheory = () => {
     const baseUrl = import.meta.env.BASE_URL;
@@ -22,7 +17,7 @@ const CarpentryToolsTheory = () => {
         {
             title: 'Serrucho Manual',
             description: 'Diseñado para realizar cortes rectos en madera. Existen serruchos de costilla para cortes de precisión y serruchos de punta para curvas amplias.',
-            img: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop',
+            img: imgSaw,
             use: 'Inicie el corte con un suave movimiento hacia atrás. Mantenga el serrucho a un ángulo de 45°.'
         },
         {
