@@ -94,96 +94,60 @@ const NavBar = () => {
                     Inicio
                 </Link>
 
-                {/* Submenu Electrónica */}
-                <div className={`dropdown ${openSubmenu === 'electronics' ? 'active' : ''}`}>
-                    <div
-                        className="dropdown-trigger"
-                        style={linkStyle}
-                        onClick={() => toggleSubmenu('electronics')}
-                    >
-                        Electrónica <span className="arrow">▼</span>
-                    </div>
-                    <div className="dropdown-menu">
-                        <Link to="/ley-ohm" style={linkStyle} onClick={closeAll}>Ley de Ohm</Link>
-                        <Link to="/codigos-resistencias" style={linkStyle} onClick={closeAll}>Códigos</Link>
-                        <Link to="/resistencias-serie-paralelo" style={linkStyle} onClick={closeAll}>Serie/Paralelo</Link>
-                        <Link to="/kirchhoff" style={linkStyle} onClick={closeAll}>Kirchhoff</Link>
-                        <Link to="/teorema-thevenin" style={linkStyle} onClick={closeAll}>Thévenin</Link>
-                        <Link to="/teorema-norton" style={linkStyle} onClick={closeAll}>Norton</Link>
-                        <Link to="/potencia" style={linkStyle} onClick={closeAll}>Potencia</Link>
-                    </div>
-                </div>
+                {/* Simuladores Didácticos - Solo si está autenticado */}
+                {isAuthenticated && (
+                    <div className={`dropdown ${openSubmenu === 'didactic' ? 'active' : ''}`}>
+                        <div
+                            className="dropdown-trigger"
+                            style={linkStyle}
+                            onClick={() => toggleSubmenu('didactic')}
+                        >
+                            Simuladores Didácticos <span className="arrow">▼</span>
+                        </div>
+                        <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '250px' }}>
+                            {/* Electrónica */}
+                            <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Electrónica</div>
+                            <Link to="/ley-ohm" style={linkStyle} onClick={closeAll}>Ley de Ohm</Link>
+                            <Link to="/codigos-resistencias" style={linkStyle} onClick={closeAll}>Códigos</Link>
+                            <Link to="/resistencias-serie-paralelo" style={linkStyle} onClick={closeAll}>Serie/Paralelo</Link>
+                            <Link to="/kirchhoff" style={linkStyle} onClick={closeAll}>Kirchhoff</Link>
+                            <Link to="/teorema-thevenin" style={linkStyle} onClick={closeAll}>Thévenin</Link>
+                            <Link to="/teorema-norton" style={linkStyle} onClick={closeAll}>Norton</Link>
+                            <Link to="/potencia" style={linkStyle} onClick={closeAll}>Potencia</Link>
 
-                {/* Submenu Matemática */}
-                <div className={`dropdown ${openSubmenu === 'math' ? 'active' : ''}`}>
-                    <div
-                        className="dropdown-trigger"
-                        style={linkStyle}
-                        onClick={() => toggleSubmenu('math')}
-                    >
-                        Matemática <span className="arrow">▼</span>
-                    </div>
-                    <div className="dropdown-menu">
-                        <Link to="/conversion-unidades" style={linkStyle} onClick={closeAll}>Conversión</Link>
-                        <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Pitágoras</Link>
-                        <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
-                    </div>
-                </div>
+                            {/* Matemática */}
+                            <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Matemática</div>
+                            <Link to="/conversion-unidades" style={linkStyle} onClick={closeAll}>Conversión</Link>
+                            <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Pitágoras</Link>
+                            <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
 
-                {/* Submenu Física */}
-                <div className={`dropdown ${openSubmenu === 'physics' ? 'active' : ''}`}>
-                    <div
-                        className="dropdown-trigger"
-                        style={linkStyle}
-                        onClick={() => toggleSubmenu('physics')}
-                    >
-                        Física <span className="arrow">▼</span>
-                    </div>
-                    <div className="dropdown-menu">
-                        <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática</Link>
-                    </div>
-                </div>
+                            {/* Física */}
+                            <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Física</div>
+                            <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática</Link>
 
-                {/* Submenu Taller */}
-                <div className={`dropdown ${openSubmenu === 'workshop' ? 'active' : ''}`}>
-                    <div
-                        className="dropdown-trigger"
-                        style={linkStyle}
-                        onClick={() => toggleSubmenu('workshop')}
-                    >
-                        Taller <span className="arrow">▼</span>
-                    </div>
-                    <div className="dropdown-menu">
-                        <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
-                        <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre</Link>
-                        <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro Carpintero</Link>
-                        <Link to="/seguridad-epp" style={linkStyle} onClick={closeAll}>Seguridad (EPP)</Link>
-                        <Link to="/herramientas-carpinteria" style={linkStyle} onClick={closeAll}>Carpintería</Link>
-                        <Link to="/metal-mecanica" style={linkStyle} onClick={closeAll}>Metal-Mecánica</Link>
-                        <Link to="/herramientas-electricidad" style={linkStyle} onClick={closeAll}>Electricidad</Link>
-                        <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Electrónica</Link>
-                        <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
-                        <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
-                    </div>
-                </div>
+                            {/* Taller */}
+                            <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Taller</div>
+                            <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
+                            <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre</Link>
+                            <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro Carpintero</Link>
+                            <Link to="/seguridad-epp" style={linkStyle} onClick={closeAll}>Seguridad (EPP)</Link>
+                            <Link to="/herramientas-carpinteria" style={linkStyle} onClick={closeAll}>Carpintería</Link>
+                            <Link to="/metal-mecanica" style={linkStyle} onClick={closeAll}>Metal-Mecánica</Link>
+                            <Link to="/herramientas-electricidad" style={linkStyle} onClick={closeAll}>Electricidad</Link>
+                            <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Electrónica</Link>
+                            <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
+                            <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
 
-                {/* Submenu Arduino y Programación */}
-                <div className={`dropdown ${openSubmenu === 'arduino' ? 'active' : ''}`}>
-                    <div
-                        className="dropdown-trigger"
-                        style={linkStyle}
-                        onClick={() => toggleSubmenu('arduino')}
-                    >
-                        Arduino <span className="arrow">▼</span>
+                            {/* Arduino */}
+                            <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Arduino</div>
+                            <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>
+                            <Link to="/cpp-basico" style={linkStyle} onClick={closeAll}>C/C++ Básico</Link>
+                            <Link to="/pwm" style={linkStyle} onClick={closeAll}>PWM</Link>
+                            <Link to="/sensores" style={linkStyle} onClick={closeAll}>Sensores</Link>
+                            <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Serial</Link>
+                        </div>
                     </div>
-                    <div className="dropdown-menu">
-                        <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>
-                        <Link to="/cpp-basico" style={linkStyle} onClick={closeAll}>C/C++ Básico</Link>
-                        <Link to="/pwm" style={linkStyle} onClick={closeAll}>PWM</Link>
-                        <Link to="/sensores" style={linkStyle} onClick={closeAll}>Sensores</Link>
-                        <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Serial</Link>
-                    </div>
-                </div>
+                )}
 
                 {/* Submenu Gestión Académica - Solo si está autenticado */}
                 {isAuthenticated && (
