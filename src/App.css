@@ -622,3 +622,41 @@ td {
     display: none !important;
   }
 }
+
+/* NavBar Styles */
+.nav-btn-login {
+  background: #00f2ff !important;
+  color: #01121d !important;
+  padding: 0.6rem 1.5rem !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  font-weight: 800 !important;
+  font-size: 0.9rem !important;
+  display: inline-block !important;
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.4) !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-btn-login:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 30px rgba(0, 242, 255, 0.6) !important;
+  color: #000000 !important;
+}
+
+.nav-btn-logout {
+  background: rgba(255, 82, 82, 0.1) !important;
+  border: 1px solid #ff5252 !important;
+  color: #ff5252 !important;
+  padding: 0.4rem 1rem !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  font-size: 0.85rem !important;
+  font-weight: bold !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-btn-logout:hover {
+  background: #ff5252 !important;
+  color: #ffffff !important;
+}

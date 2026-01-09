@@ -280,7 +280,13 @@ const GradesManagement = () => {
                     </thead>
                     <tbody>
                         {SUBJECTS.map(subject => {
-                            const note = myGrades.find(n => n.materia === subject);
+                            // Búsqueda flexible (sin espacios, case insensitive)
+                            const note = myGrades.find(n =>
+                                n.materia.trim().toLowerCase() === subject.trim().toLowerCase()
+                            );
+
+                            if (note) console.log(`Mostrando notas para: ${subject}`, note);
+
                             return (
                                 <tr key={subject} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                                     <td className="p-3 text-start fw-bold" style={{ borderRight: '1px solid rgba(255,255,255,0.1)' }}>{subject}</td>
