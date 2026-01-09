@@ -3,6 +3,7 @@ import imgChisel from '../../assets/chisel_tool.png';
 import imgSquare from '../../assets/carpenter_square_tool.png';
 import imgPlane from '../../assets/hand_plane_tool.png';
 import imgSaw from '../../assets/hand_saw_tool.png';
+import imgHammer from '../../assets/hammer_tool.png';
 
 const CarpentryToolsTheory = () => {
     const baseUrl = import.meta.env.BASE_URL;
@@ -11,7 +12,7 @@ const CarpentryToolsTheory = () => {
         {
             title: 'Martillo de Carpintero (de Uña)',
             description: 'Es la herramienta básica para clavar y extraer clavos. La "uña" curva permite hacer palanca para quitar clavos con facilidad.',
-            img: 'https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=400&h=300&fit=crop',
+            img: imgHammer,
             use: 'Sujete el mango por el extremo para ganar palanca y mantenga la vista en el clavo.'
         },
         {
