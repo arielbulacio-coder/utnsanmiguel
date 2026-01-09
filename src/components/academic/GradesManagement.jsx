@@ -12,6 +12,7 @@ const GradesManagement = () => {
     // States for Teacher View
     const [selectedCourse, setSelectedCourse] = useState(COURSES[0]);
     const [selectedSubject, setSelectedSubject] = useState(SUBJECTS[0]);
+    const [selectedCycle, setSelectedCycle] = useState(new Date().getFullYear());
 
     const [loading, setLoading] = useState(false);
 
@@ -19,25 +20,29 @@ const GradesManagement = () => {
 
     useEffect(() => {
         if (user) fetchData();
-    }, [user, selectedSubject]);
+    }, [user, selectedSubject, selectedCycle]); // Reload on cycle change
 
     const fetchData = async () => {
         setLoading(true);
         try {
             if (isStudentOrParent) {
-                // SEGURO: Pide solo su boletín
-                const response = await api.get('/boletin');
+                // SEGURO: Pide su boletín filtrado por ciclo
+                const response = await api.get(`/boletin?ciclo_lectivo=${selectedCycle}`);
                 console.log('Boletin Data:', response.data);
                 setMyStudentData(response.data);
             } else {
-                // VISTA PROFESOR: Lista completa
-                const response = await api.get('/alumnos');
+                // VISTA PROFESOR: Lista completa filtrada por año
+                const response = await api.get(`/alumnos?ciclo_lectivo=${selectedCycle}`);
                 const allStudents = response.data;
                 setStudents(allStudents);
 
                 const initialGrades = {};
                 allStudents.forEach(s => {
+                    // Filtrar notas que coincidan con materia Y ciclo (ya filtrado por backend, pero por seguridad)
+                    // El backend ya devuelve solo notas del ciclo si se pasó param, pero s.Notas es array.
                     const noteRecord = s.Notas?.find(n => n.materia === selectedSubject);
+                    // Como backend filtra Notas por ciclo, la que venga DEBE ser del ciclo.
+
                     if (noteRecord) {
                         initialGrades[s.id] = { ...noteRecord };
                         Object.keys(initialGrades[s.id]).forEach(k => {
@@ -75,13 +80,14 @@ const GradesManagement = () => {
             return api.post('/notas', {
                 AlumnoId: s.id,
                 materia: selectedSubject,
+                ciclo_lectivo: selectedCycle,
                 ...studentGrades
             });
         });
 
         try {
             await Promise.all(promises);
-            alert('Notas guardadas correctamente');
+            alert(`Notas guardadas correctamente para el ciclo ${selectedCycle}`);
             fetchData();
         } catch (error) {
             console.error('Error saving grades:', error);
@@ -129,6 +135,8 @@ const GradesManagement = () => {
 
     const studentForParent = isStudentOrParent ? myStudentData : null;
 
+    const AVAILABLE_YEARS = [2024, 2025, 2026, 2027];
+
     // --- RENDER TEACHER VIEW ---
     if (!isStudentOrParent) {
         const filteredStudents = students.filter(s => s.curso === selectedCourse);
@@ -158,17 +166,25 @@ const GradesManagement = () => {
             );
         };
 
+
+
         return (
             <div style={{ maxWidth: '100%', margin: '0 auto', padding: '1rem' }}>
                 <h1 className="mb-4 text-center">Carga de Calificaciones</h1>
-                <div className="glass-card mb-4" style={{ padding: '1rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                    <div style={{ flex: 1, maxWidth: '300px' }}>
+                <div className="glass-card mb-4" style={{ padding: '1rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                    <div style={{ flex: 1, maxWidth: '150px' }}>
+                        <label className="d-block mb-1">Año</label>
+                        <select className="form-control" value={selectedCycle} onChange={(e) => setSelectedCycle(parseInt(e.target.value))}>
+                            {AVAILABLE_YEARS.map(y => <option key={y} value={y}>{y}</option>)}
+                        </select>
+                    </div>
+                    <div style={{ flex: 1, maxWidth: '200px' }}>
                         <label className="d-block mb-1">Curso</label>
                         <select className="form-control" value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)}>
                             {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
                         </select>
                     </div>
-                    <div style={{ flex: 1, maxWidth: '300px' }}>
+                    <div style={{ flex: 1, maxWidth: '250px' }}>
                         <label className="d-block mb-1">Materia</label>
                         <select className="form-control" value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)}>
                             {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
@@ -287,7 +303,14 @@ const GradesManagement = () => {
 
             {activeTab === 'boletin' ? (
                 <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>
-                    <h3 className="mb-3 text-center">Calificaciones del Ciclo Lectivo Actual</h3>
+                    <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <h3 className="m-0 text-center flex-grow-1">Calificaciones - Ciclo {selectedCycle}</h3>
+                        <div style={{ width: '120px' }}>
+                            <select className="form-control" value={selectedCycle} onChange={(e) => setSelectedCycle(parseInt(e.target.value))}>
+                                {AVAILABLE_YEARS.map(y => <option key={y} value={y}>{y}</option>)}
+                            </select>
+                        </div>
+                    </div>
                     <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '1000px', fontSize: '0.9rem' }}>
                         <thead>
                             <tr className="text-center" style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
