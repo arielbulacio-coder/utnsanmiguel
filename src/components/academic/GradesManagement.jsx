@@ -6,6 +6,7 @@ import { COURSES, SUBJECTS } from './constants';
 const GradesManagement = () => {
     const { user } = useAuth();
     const [students, setStudents] = useState([]);
+    const [myStudentData, setMyStudentData] = useState(null);
     const [gradesData, setGradesData] = useState({});
 
     // States for Teacher View
@@ -17,20 +18,22 @@ const GradesManagement = () => {
     const isStudentOrParent = user && ['alumno', 'padre'].includes(user.role);
 
     useEffect(() => {
-        // Teachers needs to refetch when subject changes to populate editing state correctly
-        // Parents just need to fetch once really, but we can stick to this.
         fetchData();
     }, [selectedSubject]);
 
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await api.get('/alumnos');
-            const allStudents = response.data;
-            setStudents(allStudents);
+            if (isStudentOrParent) {
+                // SEGURO: Pide solo su boletín
+                const response = await api.get('/boletin');
+                setMyStudentData(response.data);
+            } else {
+                // VISTA PROFESOR: Lista completa
+                const response = await api.get('/alumnos');
+                const allStudents = response.data;
+                setStudents(allStudents);
 
-            // Populate local grades state only for TEACHER flow (editing one subject for many students)
-            if (!isStudentOrParent) {
                 const initialGrades = {};
                 allStudents.forEach(s => {
                     const noteRecord = s.Notas?.find(n => n.materia === selectedSubject);
@@ -47,6 +50,7 @@ const GradesManagement = () => {
             }
         } catch (error) {
             console.error('Error fetching data:', error);
+            if (isStudentOrParent) setMyStudentData(null);
         }
         setLoading(false);
     };
@@ -122,9 +126,7 @@ const GradesManagement = () => {
         return (validValues.reduce((a, b) => a + b, 0) / validValues.length).toFixed(2);
     };
 
-    const studentForParent = isStudentOrParent
-        ? students.find(s => s.email === user.email || s.email_padre === user.email)
-        : null;
+    const studentForParent = isStudentOrParent ? myStudentData : null;
 
     // --- RENDER TEACHER VIEW ---
     if (!isStudentOrParent) {
