@@ -3,41 +3,31 @@ import React from 'react';
 const CarpentryRuleTheory = () => {
     return (
         <div className="glass-card section-container">
-            <h2>Metro de Carpintero (Metro Plegable)</h2>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
-                <div style={{ maxWidth: '600px', width: '100%', height: '300px', borderRadius: '15px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: '#fff' }}>
+            <h2>El Metro de Carpintero (Plegable)</h2>
+            <div className="grid-responsive-2col" style={{ alignItems: 'center', gap: '2rem' }}>
+                <div style={{ textAlign: 'left' }}>
+                    <p>
+                        El <strong>metro plegable</strong> es la herramienta de medición clásica del carpintero.
+                        Generalmente hecho de madera (boxwood) o fibra de vidrio, consta de segmentos articulados
+                        que le permiten plegarse para el transporte y desplegarse para medir longitudes de hasta 2 metros.
+                    </p>
+                    <p>
+                        A diferencia de la cinta métrica flexible, el metro plegable es rígido, lo que permite:
+                    </p>
+                    <ul style={{ lineHeight: '1.6' }}>
+                        <li>Medir distancias verticales sin que la herramienta se doble.</li>
+                        <li>Realizar mediciones en el aire (voladizos).</li>
+                        <li>Servir como regla para trazar líneas rectas cortas.</li>
+                    </ul>
+                </div>
+                <div className="glass-card" style={{ background: 'white', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img
-                        src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&h=400&fit=crop"
+                        src={imgRule}
                         alt="Metro Plegable"
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        style={{ width: '100%', maxWidth: '300px', objectFit: 'contain' }}
                     />
                 </div>
             </div>
-            <p>
-                El metro plegable es una herramienta clásica de carpintería diseñada para realizar mediciones de longitud con comodidad. A diferencia de la cinta métrica flexible, su rigidez permite medir distancias sin que la herramienta se doble, facilitando el trabajo en solitario.
-            </p>
-
-            <div className="grid-responsive-2col" style={{ marginTop: '2rem' }}>
-                <div className="glass-card" style={{ margin: 0, borderLeft: '4px solid #d4a373' }}>
-                    <h3 style={{ color: '#d4a373' }}>Características</h3>
-                    <ul style={{ paddingLeft: '1.2rem' }}>
-                        <li><strong>Material:</strong> Generalmente madera de haya, fibra de vidrio o aluminio.</li>
-                        <li><strong>Articulaciones:</strong> Láminas unidas por remaches que permiten plegarlo y desplegarlo.</li>
-                        <li><strong>Longitud:</strong> Lo más común es de 2 metros dividido en 10 partes de 20 cm.</li>
-                        <li><strong>Precisión:</strong> Escala en milímetros y centímetros en ambas caras.</li>
-                    </ul>
-                </div>
-
-                <div className="glass-card" style={{ margin: 0, borderLeft: '4px solid #bc6c25' }}>
-                    <h3 style={{ color: '#bc6c25' }}>Ventajas en Carpintería</h3>
-                    <ul style={{ paddingLeft: '1.2rem' }}>
-                        <li><strong>Rigidez:</strong> Ideal para medir alturas o distancias horizontales sin apoyo intermedio.</li>
-                        <li><strong>Trazado:</strong> Se puede usar como regla rígida para marcar líneas rectas sobre la madera.</li>
-                        <li><strong>Medición Interior:</strong> Permite medir huecos (ventanas, marcos) con gran estabilidad.</li>
-                    </ul>
-                </div>
-            </div>
-
             <div style={{ marginTop: '2rem' }}>
                 <h3>Cómo realizar una medición</h3>
                 <div style={{ background: 'var(--glass-bg)', padding: '1.5rem', borderRadius: '12px', borderLeft: '4px solid #d4a373' }}>

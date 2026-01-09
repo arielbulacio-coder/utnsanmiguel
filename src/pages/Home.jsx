@@ -12,7 +12,7 @@ import imgEducation from '../assets/technical_education_workshop.png';
 // Import Tool Icons
 import imgMicrometer from '../assets/micrometer_icon.png';
 import imgCaliper from '../assets/caliper_icon.png';
-import imgRule from '../assets/carpentry_rule_icon.png';
+import imgRule from '../assets/folding_ruler_tool.png';
 import imgMultimeter from '../assets/multimeter_icon.png';
 import imgOscilloscope from '../assets/oscilloscope_icon.png';
 import imgSoldering from '../assets/soldering_station_icon.png';
