@@ -255,7 +255,12 @@ const GradesManagement = () => {
                 <p className="text-secondary m-0">
                     Legajo: {studentForParent.legajo} | Curso: {studentForParent.curso} | Email: {studentForParent.email}
                 </p>
-                {user.role === 'padre' && <span className="badge bg-info mt-2">Vista de Padre/Tutor</span>}
+                <div className="mt-3 d-flex justify-content-center gap-2">
+                    <button className="btn btn-sm btn-outline-primary" onClick={fetchData} disabled={loading}>
+                        {loading ? 'Cargando...' : '🔄 Refrescar Datos'}
+                    </button>
+                    {user.role === 'padre' && <span className="badge bg-info d-flex align-items-center">Vista de Padre/Tutor</span>}
+                </div>
             </div>
 
             <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>

@@ -624,41 +624,46 @@ td {
 }
 
 /* NavBar Styles */
-.nav-btn-login {
+a.nav-btn-login {
   background: #00f2ff !important;
   color: #000000 !important;
   padding: 0.6rem 2.2rem !important;
   border-radius: 50px !important;
   text-decoration: none !important;
-  font-weight: 900 !important;
+  font-weight: 950 !important;
   font-size: 0.85rem !important;
-  display: inline-block !important;
-  box-shadow: 0 0 25px rgba(0, 242, 255, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.6) !important;
   border: 2px solid #ffffff !important;
   transition: all 0.3s ease !important;
   text-transform: uppercase !important;
   letter-spacing: 1.5px !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
 }
 
-.nav-btn-login:hover {
+a.nav-btn-login:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 0 30px rgba(0, 242, 255, 0.6) !important;
+  box-shadow: 0 0 35px rgba(0, 242, 255, 0.8) !important;
   color: #000000 !important;
+  background: #ffffff !important;
 }
 
-.nav-btn-logout {
-  background: rgba(255, 82, 82, 0.1) !important;
-  border: 1px solid #ff5252 !important;
-  color: #ff5252 !important;
-  padding: 0.4rem 1rem !important;
+button.nav-btn-logout {
+  background: rgba(255, 82, 82, 0.2) !important;
+  border: 2px solid #ff5252 !important;
+  color: #ffffff !important;
+  padding: 0.4rem 1.2rem !important;
   border-radius: 6px !important;
   cursor: pointer !important;
   font-size: 0.85rem !important;
-  font-weight: bold !important;
+  font-weight: 900 !important;
   transition: all 0.3s ease !important;
 }
 
-.nav-btn-logout:hover {
+button.nav-btn-logout:hover {
   background: #ff5252 !important;
   color: #ffffff !important;
 }
