@@ -233,7 +233,7 @@ const GradesManagement = () => {
     if (loading && !studentForParent) return <div className="p-5 text-center">Cargando boletín...</div>;
     if (!studentForParent) return <div className="p-5 text-center">No se encontró información del alumno.</div>;
 
-    const myGrades = studentForParent.Notas || [];
+    const myGrades = studentForParent.Notas || studentForParent.notas || [];
 
     const renderReadOnlyCell = (val) => (
         <td className="text-center" style={{ padding: '0.5rem', color: getColor(val) }}>

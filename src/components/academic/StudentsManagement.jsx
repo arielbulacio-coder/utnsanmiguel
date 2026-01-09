@@ -52,6 +52,9 @@ const StudentsManagement = () => {
     const filteredStudents = selectedCourse
         ? students.filter(s => s.curso === selectedCourse)
         : students;
+    if (!['admin', 'director', 'secretario', 'jefe_preceptores'].includes(user?.role)) {
+        return <div className="p-5 text-center">No tienes permisos para acceder a esta sección.</div>;
+    }
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
