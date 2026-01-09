@@ -13,6 +13,7 @@ const StudentsManagement = () => {
         nombre: '',
         apellido: '',
         email: '',
+        email_padre: '',
         legajo: '',
         curso: COURSES[0]
     });
@@ -40,7 +41,7 @@ const StudentsManagement = () => {
             await api.post('/alumnos', newStudent);
             alert('Alumno registrado correctamente');
             setShowForm(false);
-            setNewStudent({ nombre: '', apellido: '', email: '', legajo: '', curso: COURSES[0] });
+            setNewStudent({ nombre: '', apellido: '', email: '', email_padre: '', legajo: '', curso: COURSES[0] });
             fetchStudents();
         } catch (error) {
             console.error('Error creating student:', error);
@@ -72,7 +73,8 @@ const StudentsManagement = () => {
                     <form onSubmit={handleCreate} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                         <input className="form-control" placeholder="Nombre" value={newStudent.nombre} onChange={e => setNewStudent({ ...newStudent, nombre: e.target.value })} required />
                         <input className="form-control" placeholder="Apellido" value={newStudent.apellido} onChange={e => setNewStudent({ ...newStudent, apellido: e.target.value })} required />
-                        <input className="form-control" placeholder="Email" type="email" value={newStudent.email} onChange={e => setNewStudent({ ...newStudent, email: e.target.value })} required />
+                        <input className="form-control" placeholder="Email Alumno" type="email" value={newStudent.email} onChange={e => setNewStudent({ ...newStudent, email: e.target.value })} required />
+                        <input className="form-control" placeholder="Email Padre/Tutor" type="email" value={newStudent.email_padre} onChange={e => setNewStudent({ ...newStudent, email_padre: e.target.value })} />
                         <input className="form-control" placeholder="Legajo" value={newStudent.legajo} onChange={e => setNewStudent({ ...newStudent, legajo: e.target.value })} required />
 
                         <select className="form-control" value={newStudent.curso} onChange={e => setNewStudent({ ...newStudent, curso: e.target.value })}>
@@ -109,7 +111,8 @@ const StudentsManagement = () => {
                                     <th style={{ padding: '1rem', textAlign: 'left' }}>Curso</th>
                                     <th style={{ padding: '1rem', textAlign: 'left' }}>Legajo</th>
                                     <th style={{ padding: '1rem', textAlign: 'left' }}>Apellido y Nombre</th>
-                                    <th style={{ padding: '1rem', textAlign: 'left' }}>Email</th>
+                                    <th style={{ padding: '1rem', textAlign: 'left' }}>Email Alumno</th>
+                                    <th style={{ padding: '1rem', textAlign: 'left' }}>Email Padre</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,11 +122,12 @@ const StudentsManagement = () => {
                                         <td style={{ padding: '1rem' }}>{student.legajo}</td>
                                         <td style={{ padding: '1rem' }}>{student.apellido}, {student.nombre}</td>
                                         <td style={{ padding: '1rem' }}>{student.email}</td>
+                                        <td style={{ padding: '1rem' }}>{student.email_padre}</td>
                                     </tr>
                                 ))}
                                 {filteredStudents.length === 0 && (
                                     <tr>
-                                        <td colSpan="4" className="text-center p-4">No se encontraron alumnos en este curso.</td>
+                                        <td colSpan="5" className="text-center p-4">No se encontraron alumnos en este curso.</td>
                                     </tr>
                                 )}
                             </tbody>

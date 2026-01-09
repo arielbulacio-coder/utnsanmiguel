@@ -12,14 +12,14 @@ const AcademicOverview = () => {
             path: '/calificaciones',
             icon: '📊',
             desc: 'Cargar notas ver promedios por trimestre.',
-            roles: ['admin', 'profesor', 'director', 'secretario']
+            roles: ['admin', 'profesor', 'director', 'secretario', 'alumno', 'padre']
         },
         {
             title: 'Control de Asistencia',
             path: '/asistencia',
             icon: '📅',
             desc: 'Registro diario de presentes y ausentes.',
-            roles: ['admin', 'preceptor', 'jefe_preceptores', 'director']
+            roles: ['admin', 'preceptor', 'jefe_preceptores', 'director', 'alumno', 'padre']
         },
         {
             title: 'Gestión de Estudiantes',
@@ -40,7 +40,7 @@ const AcademicOverview = () => {
             path: '/aula-virtual',
             icon: '💻',
             desc: 'Material de estudio y actividades.',
-            roles: ['admin', 'profesor', 'alumno']
+            roles: ['admin', 'profesor', 'alumno', 'padre']
         }
     ];
 
