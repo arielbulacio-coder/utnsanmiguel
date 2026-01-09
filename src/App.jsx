@@ -88,10 +88,18 @@ function App() {
             {/* Gestión Académica - Rutas Protegidas */}
             <Route element={<ProtectedRoute />}>
               <Route path="/gestion-academica" element={<AcademicOverviewPage />} />
-              <Route path="/estudiantes" element={<StudentsPage />} />
               <Route path="/calificaciones" element={<GradesPage />} />
               <Route path="/asistencia" element={<AttendancePage />} />
               <Route path="/aula-virtual" element={<LMSPage />} />
+            </Route>
+
+            {/* Gestión Académica - Solo Administrativos */}
+            <Route element={<ProtectedRoute allowedRoles={['admin', 'director', 'secretario', 'jefe_preceptores']} />}>
+              <Route path="/estudiantes" element={<StudentsPage />} />
+            </Route>
+
+            {/* Gestión Académica - Solo Admin */}
+            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
               <Route path="/usuarios" element={<UsersPage />} />
             </Route>
           </Routes>
