@@ -13,6 +13,26 @@ const LMSModule = () => {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    const isStudentOrParent = user && ['alumno', 'padre'].includes(user.role);
+
+    useEffect(() => {
+        if (isStudentOrParent) {
+            setupUserFilters();
+        }
+    }, [user]);
+
+    const setupUserFilters = async () => {
+        try {
+            const res = await api.get('/boletin');
+            if (res.data.curso) {
+                console.log('LMS Auto-selecting course:', res.data.curso);
+                setSelectedCourse(res.data.curso);
+            }
+        } catch (err) {
+            console.error('Error auto-selecting LMS course:', err);
+        }
+    };
+
     // Form State
     const [showForm, setShowForm] = useState(false);
     const [formData, setFormData] = useState({
@@ -31,9 +51,11 @@ const LMSModule = () => {
 
     const fetchData = async () => {
         setLoading(true);
+        console.log(`LMS Fetching ${activeTab} for ${selectedCourse}/${selectedSubject}`);
         try {
             const endpoint = activeTab === 'materiales' ? '/materiales' : '/actividades';
             const res = await api.get(`${endpoint}?curso=${selectedCourse}&materia=${selectedSubject}`);
+            console.log('LMS Data Received:', res.data);
             setItems(res.data);
         } catch (error) {
             console.error(error);

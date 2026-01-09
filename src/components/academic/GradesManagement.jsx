@@ -27,6 +27,7 @@ const GradesManagement = () => {
             if (isStudentOrParent) {
                 // SEGURO: Pide solo su boletín
                 const response = await api.get('/boletin');
+                console.log('Boletin Data:', response.data);
                 setMyStudentData(response.data);
             } else {
                 // VISTA PROFESOR: Lista completa
