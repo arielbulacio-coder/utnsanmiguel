@@ -38,9 +38,6 @@ const Attendance = () => {
             const allStudents = resStudents.data;
             setStudents(allStudents);
 
-            // Fetch attendance for specific date
-            // Note: API should ideally filter by date/course for performance
-            // Here fetching all is potentially heavy, but standard for this prototype
             const resAttendance = await api.get('/asistencias');
             processEditingAttendance(resAttendance.data, allStudents, date);
         } catch (error) {
@@ -52,7 +49,6 @@ const Attendance = () => {
     const processEditingAttendance = (allRecords, studentList, targetDate) => {
         const currentData = {};
         studentList.forEach(s => {
-            // Default to present if no record
             currentData[s.id] = { estado: 'presente', observacion: '' };
         });
 
@@ -75,15 +71,21 @@ const Attendance = () => {
     const fetchMyAttendance = async () => {
         setLoading(true);
         try {
-            // Student gets own attendance via /boletin equivalent or filtered /asistencias
-            // Currently using /boletin endpoint logic in Grades, but here we can re-use /alumnos with include Asistencia
-            // Or better: Use /boletin if available, otherwise filter /alumnos results.
-            // Since we implemented /boletin in backend, let's use a specific call or filter.
-            // Simplified: User 'student' or 'parent' calls /boletin which returns Alumno with Asistencias
+            const response = await api.get('/boletin');
+            if (response.data && response.data.Asistencias && response.data.Asistencias.length > 0) {
+                const asis = response.data.Asistencias;
+                setMyAttendance(asis);
 
-            const response = await api.get('/boletin'); // Use the endpoint that returns logged user's data
-            if (response.data && response.data.Asistencias) {
-                setMyAttendance(response.data.Asistencias);
+                // Auto-focus the month of the most recent record
+                const sorted = [...asis].sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                // Use safe date parsing assuming YYYY-MM-DD
+                const parts = sorted[0].fecha.split('-');
+                const lastRecordDate = new Date(parts[0], parts[1] - 1, parts[2]);
+
+                setViewMonth(lastRecordDate.getMonth());
+                setViewYear(lastRecordDate.getFullYear());
+            } else {
+                setMyAttendance([]);
             }
         } catch (error) {
             console.error('Error fetching my attendance:', error);
@@ -126,22 +128,20 @@ const Attendance = () => {
         const firstDay = getFirstDayOfMonth(viewMonth, viewYear);
         const days = [];
 
-        // Empty slots for previous month
         for (let i = 0; i < firstDay; i++) {
             days.push(<div key={`empty-${i}`} style={{ height: '40px' }}></div>);
         }
 
-        // Days
         for (let d = 1; d <= daysInMonth; d++) {
             const dateStr = `${viewYear}-${String(viewMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
             const record = myAttendance.find(a => a.fecha === dateStr);
 
             let bg = 'rgba(255,255,255,0.05)';
             if (record) {
-                if (record.estado === 'presente') bg = 'rgba(76, 175, 80, 0.3)'; // Green
-                if (record.estado === 'ausente') bg = 'rgba(244, 67, 54, 0.3)'; // Red
-                if (record.estado === 'tarde') bg = 'rgba(255, 193, 7, 0.3)'; // Yellow
-                if (record.estado === 'justificado') bg = 'rgba(33, 150, 243, 0.3)'; // Blue
+                if (record.estado === 'presente') bg = 'rgba(76, 175, 80, 0.3)';
+                if (record.estado === 'ausente') bg = 'rgba(244, 67, 54, 0.3)';
+                if (record.estado === 'tarde') bg = 'rgba(255, 193, 7, 0.3)';
+                if (record.estado === 'justificado') bg = 'rgba(33, 150, 243, 0.3)';
             }
 
             days.push(
@@ -157,17 +157,12 @@ const Attendance = () => {
         return days;
     };
 
-    const countAbsences = () => {
-        return myAttendance.filter(a => a.estado === 'ausente').length;
-    };
-
-    const countTotal = () => myAttendance.length;
+    const countAbsences = () => myAttendance.filter(a => a.estado === 'ausente').length;
 
     return (
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
             <h1 className="mb-4 text-center">Asistencia y Puntualidad</h1>
 
-            {/* TABS */}
             <div className="d-flex justify-content-center gap-3 mb-4">
                 {canEdit && (
                     <button className={`btn ${activeTab === 'edit' ? 'btn-primary' : 'btn-outline-primary'}`}
@@ -182,7 +177,6 @@ const Attendance = () => {
             </div>
 
             {activeTab === 'edit' ? (
-                // --- EDIT MODE ---
                 <div>
                     <div className="glass-card mb-4" style={{ padding: '1.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'end' }}>
                         <div style={{ flex: 1, minWidth: '200px' }}>
@@ -233,7 +227,6 @@ const Attendance = () => {
                     </div>
                 </div>
             ) : (
-                // --- VIEW MODE ---
                 <div className="glass-card p-4">
                     <div className="d-flex justify-content-between align-items-center mb-4">
                         <button className="btn btn-sm btn-outline-light" onClick={() => setViewMonth(prev => prev === 0 ? 11 : prev - 1)}>◀ Ant</button>
