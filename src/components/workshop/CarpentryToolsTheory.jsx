@@ -1,4 +1,13 @@
 import React from 'react';
+import imgHammer from '../../assets/workshop_tools.png'; // Use existing generic or specific if I had it. Wait, I don't have a hammer specific. I should probably generate a hammer too or keep Unsplash for hammer/saw? The user ONLY complained about chisel, square and plane. I'll keep hammer/saw as Unsplash or reuse existing for now to avoid scope creep, OR generate them if I want to be thorough. But user specified 3. I will STRICTLY replace the 3 requested.
+// Actually, using Unsplash for some and local for others might look inconsistent. 
+// But I will stick to the user request.
+// Wait, I can't import local assets and mix with Unsplash easily in a clean codebase. 
+// I'll import the 3 new ones.
+
+import imgChisel from '../../assets/chisel_tool.png';
+import imgSquare from '../../assets/carpenter_square_tool.png';
+import imgPlane from '../../assets/hand_plane_tool.png';
 
 const CarpentryToolsTheory = () => {
     const baseUrl = import.meta.env.BASE_URL;
@@ -19,19 +28,19 @@ const CarpentryToolsTheory = () => {
         {
             title: 'Formón',
             description: 'Herramienta de corte manual con hoja de acero para realizar rebajes, muescas y tallados en madera.',
-            img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=400&h=300&fit=crop',
+            img: imgChisel,
             use: 'Use siempre el formón alejándolo de su cuerpo. Nunca ponga la mano frente al filo.'
         },
         {
             title: 'Escuadra de Carpintero',
             description: 'Indispensable para verificar ángulos de 90 grados y realizar trazos perpendiculares exactos.',
-            img: 'https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=400&h=300&fit=crop',
+            img: imgSquare,
             use: 'Apoye firmemente el talón de la escuadra contra el borde de la madera para un trazo preciso.'
         },
         {
             title: 'Garlopa o Cepillo de Mano',
             description: 'Se utiliza para desbastar, alisar o rectificar superficies de madera mediante el corte de virutas finas.',
-            img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+            img: imgPlane,
             use: 'Ajuste la hoja para un corte fino. Siga siempre el sentido de la veta de la madera.'
         }
     ];
@@ -46,8 +55,8 @@ const CarpentryToolsTheory = () => {
             <div className="grid-responsive-2col">
                 {tools.map((tool, index) => (
                     <div key={index} className="glass-card" style={{ margin: 0, padding: '1.2rem', display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
-                        <div style={{ width: '100%', height: '220px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--glass-border)' }}>
-                            <img src={tool.img} alt={tool.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <div style={{ width: '100%', height: '220px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--glass-border)', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <img src={tool.img} alt={tool.title} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                         </div>
                         <div>
                             <h3 style={{ color: 'var(--primary-color)', margin: '0 0 0.5rem 0' }}>{tool.title}</h3>
