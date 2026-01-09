@@ -5,7 +5,7 @@ const MetalMecanicaTools = () => {
         {
             title: 'Arco de Sierra para Metales',
             description: 'Se utiliza para cortar metales, plásticos y otros materiales duros. Utiliza una hoja delgada (segueta) con dientes pequeños.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Hacksaw.jpg/640px-Hacksaw.jpg',
+            img: `${import.meta.env.BASE_URL}assets/hacksaw_icon.png`,
             use: 'Mantenga la hoja tensa y realice movimientos largos y suaves. El corte se produce al empujar.'
         },
         {
