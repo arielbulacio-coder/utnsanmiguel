@@ -89,18 +89,34 @@ const LMSModule = () => {
 
             {/* Filters */}
             <div className="glass-card mb-4" style={{ padding: '1.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'end' }}>
-                <div style={{ flex: 1 }}>
-                    <label className="d-block mb-1">Curso</label>
-                    <select className="form-control" value={selectedCourse} onChange={e => setSelectedCourse(e.target.value)}>
-                        {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
-                    </select>
-                </div>
-                <div style={{ flex: 1 }}>
-                    <label className="d-block mb-1">Materia</label>
-                    <select className="form-control" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}>
-                        {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
-                    </select>
-                </div>
+                {!isStudentOrParent ? (
+                    <>
+                        <div style={{ flex: 1 }}>
+                            <label className="d-block mb-1">Curso</label>
+                            <select className="form-control" value={selectedCourse} onChange={e => setSelectedCourse(e.target.value)}>
+                                {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
+                            </select>
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <label className="d-block mb-1">Materia</label>
+                            <select className="form-control" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}>
+                                {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                        </div>
+                    </>
+                ) : (
+                    <div style={{ flex: 1, display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <div className="badge bg-primary p-2" style={{ fontSize: '1rem' }}>
+                            🏫 Curso: {selectedCourse}
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <label className="d-block mb-1">Cambiar Materia</label>
+                            <select className="form-control" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}>
+                                {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Tabs */}

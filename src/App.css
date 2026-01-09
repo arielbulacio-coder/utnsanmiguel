@@ -596,11 +596,11 @@ td {
   }
 }
 
-/* Sobrescribir cualquier color negro heredado */
-[style*="color: black"],
-[style*="color: #000"],
-[style*="color: rgb(0,0,0)"],
-[style*="color: rgba(0,0,0"] {
+/* Sobrescribir cualquier color negro heredado, excepto en elementos con clases específicas de UI */
+[style*="color: black"]:not(.nav-btn-login),
+[style*="color: #000"]:not(.nav-btn-login),
+[style*="color: rgb(0,0,0)"]:not(.nav-btn-login),
+[style*="color: rgba(0,0,0"]:not(.nav-btn-login) {
   color: var(--text-dim) !important;
 }
 
@@ -626,16 +626,18 @@ td {
 /* NavBar Styles */
 .nav-btn-login {
   background: #00f2ff !important;
-  color: #01121d !important;
-  padding: 0.6rem 1.5rem !important;
-  border-radius: 8px !important;
+  color: #000000 !important;
+  padding: 0.6rem 2.2rem !important;
+  border-radius: 50px !important;
   text-decoration: none !important;
-  font-weight: 800 !important;
-  font-size: 0.9rem !important;
+  font-weight: 900 !important;
+  font-size: 0.85rem !important;
   display: inline-block !important;
-  box-shadow: 0 0 20px rgba(0, 242, 255, 0.4) !important;
-  border: none !important;
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.5) !important;
+  border: 2px solid #ffffff !important;
   transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
 }
 
 .nav-btn-login:hover {

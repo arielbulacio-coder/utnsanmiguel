@@ -18,8 +18,8 @@ const GradesManagement = () => {
     const isStudentOrParent = user && ['alumno', 'padre'].includes(user.role);
 
     useEffect(() => {
-        fetchData();
-    }, [selectedSubject]);
+        if (user) fetchData();
+    }, [user, selectedSubject]);
 
     const fetchData = async () => {
         setLoading(true);
