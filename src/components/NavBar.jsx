@@ -215,19 +215,52 @@ const NavBar = () => {
 
                 {/* Login / Logout */}
                 {isAuthenticated ? (
-                    <div
-                        style={linkStyle}
-                        onClick={() => {
-                            logout();
-                            closeAll();
-                        }}
-                    >
-                        Salir ({user?.name || 'Usuario'})
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0 1rem' }}>
+                        <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                            {user?.name || user?.email?.split('@')[0]}
+                        </span>
+                        <button
+                            onClick={() => {
+                                logout();
+                                closeAll();
+                            }}
+                            className="btn-logout"
+                            style={{
+                                background: 'rgba(255, 82, 82, 0.1)',
+                                border: '1px solid rgba(255, 82, 82, 0.2)',
+                                color: '#ff5252',
+                                padding: '0.4rem 1rem',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontSize: '0.9rem',
+                                transition: 'all 0.3s ease'
+                            }}
+                        >
+                            Salir
+                        </button>
                     </div>
                 ) : (
-                    <Link to="/login" style={linkStyle} onClick={closeAll}>
-                        Ingresar
-                    </Link>
+                    <div style={{ padding: '0 1rem' }}>
+                        <Link
+                            to="/login"
+                            className="btn-login"
+                            onClick={closeAll}
+                            style={{
+                                background: 'var(--primary-color)',
+                                color: '#000',
+                                padding: '0.5rem 1.5rem',
+                                borderRadius: '8px',
+                                textDecoration: 'none',
+                                fontWeight: 'bold',
+                                fontSize: '0.9rem',
+                                display: 'inline-block',
+                                boxShadow: '0 4px 15px rgba(0, 242, 255, 0.3)',
+                                transition: 'all 0.3s ease'
+                            }}
+                        >
+                            Ingresar
+                        </Link>
+                    </div>
                 )}
             </div>
 
