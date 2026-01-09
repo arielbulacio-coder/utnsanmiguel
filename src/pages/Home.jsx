@@ -5,7 +5,7 @@ import '../carousel.css';
 import { useAuth } from '../context/AuthContext';
 
 // Import Assets
-import imgFacade from '../assets/utn_building_facade.png';
+import imgFacade from '../assets/carousel_main_new.png';
 import imgLab from '../assets/electronics_lab.png';
 import imgCampus from '../assets/new_campus_rendering.png';
 import imgEducation from '../assets/technical_education_workshop.png';
