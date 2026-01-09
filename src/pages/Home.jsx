@@ -14,11 +14,10 @@ import imgTools from '../assets/workshop_tools.png';
 // Import Tool Icons
 import imgMicrometer from '../assets/micrometer_icon.png';
 import imgCaliper from '../assets/caliper_icon.png';
-import imgRule from '../assets/ruler_v2.png';
+// imgRule and imgSaw will be used as static assets
 import imgMultimeter from '../assets/multimeter_icon.png';
 import imgOscilloscope from '../assets/oscilloscope_icon.png';
 import imgSoldering from '../assets/soldering_station_icon.png';
-import imgSaw from '../assets/saw_v2.png';
 
 const Home = () => {
     const { isAuthenticated } = useAuth();
@@ -309,7 +308,7 @@ const Home = () => {
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Metro</h3>
                                     <p>Herramienta Plegable de Madera</p>
-                                    <img src={imgRule} alt="Metro Carpintero" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '1rem' }} />
+                                    <img src="/assets/ruler_v2.png" alt="Metro Carpintero" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '1rem' }} />
                                 </div>
                             </Link>
 
@@ -325,7 +324,7 @@ const Home = () => {
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Carpintería</h3>
                                     <p>Manuales de Madera</p>
-                                    <img src={imgSaw} alt="Carpintería" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '1rem' }} />
+                                    <img src="/assets/saw_v2.png" alt="Carpintería" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '1rem' }} />
                                 </div>
                             </Link>
 
