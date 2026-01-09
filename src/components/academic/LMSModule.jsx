@@ -125,19 +125,24 @@ const LMSModule = () => {
                 )}
             </div>
 
-            {/* Tabs */}
-            <div className="mb-4" style={{ display: 'flex', gap: '1rem' }}>
-                <button
-                    className={`btn ${activeTab === 'materiales' ? 'btn-primary' : 'btn-secondary'}`}
-                    onClick={() => setActiveTab('materiales')}
-                >
-                    📚 Material de Estudio
-                </button>
-                <button
-                    className={`btn ${activeTab === 'actividades' ? 'btn-primary' : 'btn-secondary'}`}
-                    onClick={() => setActiveTab('actividades')}
-                >
-                    📝 Actividades / Tareas
+            {/* Tabs & Refresh */}
+            <div className="mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button
+                        className={`btn ${activeTab === 'materiales' ? 'btn-primary' : 'btn-secondary'}`}
+                        onClick={() => setActiveTab('materiales')}
+                    >
+                        📚 Material
+                    </button>
+                    <button
+                        className={`btn ${activeTab === 'actividades' ? 'btn-primary' : 'btn-secondary'}`}
+                        onClick={() => setActiveTab('actividades')}
+                    >
+                        📝 Actividades
+                    </button>
+                </div>
+                <button className="btn btn-outline-info" onClick={fetchData} disabled={loading}>
+                    {loading ? '...' : '🔄 Actualizar Contenido'}
                 </button>
             </div>
 
