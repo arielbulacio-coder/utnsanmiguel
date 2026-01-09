@@ -75,13 +75,22 @@ const GradesManagement = () => {
         setLoading(true);
         const filteredStudents = students.filter(s => s.curso === selectedCourse);
 
+        const ALLOWED_FIELDS = [
+            't1_p1', 't1_p2', 't1_p3',
+            't2_p1', 't2_p2', 't2_p3',
+            't3_p1', 't3_p2', 't3_p3',
+            'final_anual', 'recup_diciembre', 'recup_febrero', 'final_cursada'
+        ];
+
         const promises = filteredStudents.map(s => {
             const studentGrades = gradesData[s.id] || {};
 
-            // Sanitize grades: Convert empty strings to null, ensure numbers are numbers
+            // Sanitize grades: Convert empty strings to null, ensure numbers are numbers AND filter allowed keys
             const sanitizedGrades = {};
-            Object.keys(studentGrades).forEach(key => {
+
+            ALLOWED_FIELDS.forEach(key => {
                 const val = studentGrades[key];
+                // Only process if key exists in studentGrades (or undefined)
                 if (val === '' || val === null || val === undefined) {
                     sanitizedGrades[key] = null;
                 } else {
