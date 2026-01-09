@@ -77,11 +77,24 @@ const GradesManagement = () => {
 
         const promises = filteredStudents.map(s => {
             const studentGrades = gradesData[s.id] || {};
+
+            // Sanitize grades: Convert empty strings to null, ensure numbers are numbers
+            const sanitizedGrades = {};
+            Object.keys(studentGrades).forEach(key => {
+                const val = studentGrades[key];
+                if (val === '' || val === null || val === undefined) {
+                    sanitizedGrades[key] = null;
+                } else {
+                    const num = parseFloat(val);
+                    sanitizedGrades[key] = isNaN(num) ? null : num;
+                }
+            });
+
             return api.post('/notas', {
                 AlumnoId: s.id,
                 materia: selectedSubject,
                 ciclo_lectivo: selectedCycle,
-                ...studentGrades
+                ...sanitizedGrades
             });
         });
 
