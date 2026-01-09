@@ -231,10 +231,13 @@ const GradesManagement = () => {
     }
 
     // --- RENDER PARENT/STUDENT VIEW (MATRIX) ---
+    const [activeTab, setActiveTab] = useState('boletin'); // 'boletin' or 'trayectoria'
+
     if (loading && !studentForParent) return <div className="p-5 text-center">Cargando boletín...</div>;
     if (!studentForParent) return <div className="p-5 text-center">No se encontró información del alumno.</div>;
 
     const myGrades = studentForParent.Notas || studentForParent.notas || [];
+    const myHistory = studentForParent.Historial || [];
 
     const renderReadOnlyCell = (val) => (
         <td className="text-center" style={{ padding: '0.5rem', color: getColor(val) }}>
@@ -249,7 +252,8 @@ const GradesManagement = () => {
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
-            <h1 className="mb-4 text-center">Boletín de Calificaciones</h1>
+            <h1 className="mb-4 text-center">Gestión Académica</h1>
+
             <div className="glass-card mb-4 p-4 text-center">
                 <h3>{studentForParent.apellido}, {studentForParent.nombre}</h3>
                 <p className="text-secondary m-0">
@@ -263,65 +267,135 @@ const GradesManagement = () => {
                 </div>
             </div>
 
-            <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '1000px', fontSize: '0.9rem' }}>
-                    <thead>
-                        <tr className="text-center" style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
-                            <th className="text-start p-3" rowSpan="2" style={{ width: '200px', borderRight: '1px solid rgba(255,255,255,0.1)' }}>Materia</th>
-                            <th colSpan="4" style={{ borderLeft: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>1° Trimestre</th>
-                            <th colSpan="4">2° Trimestre</th>
-                            <th colSpan="4" style={{ borderLeft: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>3° Trimestre</th>
-                            <th colSpan="4" style={{ borderLeft: '2px solid rgba(255,255,255,0.2)' }}>Finales</th>
-                        </tr>
-                        <tr className="text-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', fontSize: '0.8rem' }}>
-                            <th style={{ background: 'rgba(255,255,255,0.02)' }}>N1</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>N2</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>N3</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>Prom</th>
-
-                            <th>N1</th><th>N2</th><th>N3</th><th>Prom</th>
-
-                            <th style={{ background: 'rgba(255,255,255,0.02)' }}>N1</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>N2</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>N3</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>Prom</th>
-
-                            <th style={{ borderLeft: '2px solid rgba(255,255,255,0.2)' }}>Anual</th><th>Dic</th><th>Feb</th><th>Def</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {SUBJECTS.map(subject => {
-                            // Búsqueda flexible (sin espacios, case insensitive)
-                            const note = myGrades.find(n =>
-                                n.materia.trim().toLowerCase() === subject.trim().toLowerCase()
-                            );
-
-                            if (note) console.log(`Mostrando notas para: ${subject}`, note);
-
-                            return (
-                                <tr key={subject} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                                    <td className="p-3 text-start fw-bold" style={{ borderRight: '1px solid rgba(255,255,255,0.1)' }}>{subject}</td>
-
-                                    {renderReadOnlyCell(note?.t1_p1)}
-                                    {renderReadOnlyCell(note?.t1_p2)}
-                                    {renderReadOnlyCell(note?.t1_p3)}
-                                    {renderReadOnlyAvg(note, 't1')}
-
-                                    {renderReadOnlyCell(note?.t2_p1)}
-                                    {renderReadOnlyCell(note?.t2_p2)}
-                                    {renderReadOnlyCell(note?.t2_p3)}
-                                    {renderReadOnlyAvg(note, 't2')}
-
-                                    {renderReadOnlyCell(note?.t3_p1)}
-                                    {renderReadOnlyCell(note?.t3_p2)}
-                                    {renderReadOnlyCell(note?.t3_p3)}
-                                    {renderReadOnlyAvg(note, 't3')}
-
-                                    {renderReadOnlyCell(note?.final_anual)}
-                                    {renderReadOnlyCell(note?.recup_diciembre)}
-                                    {renderReadOnlyCell(note?.recup_febrero)}
-                                    {/* Final Definitiva can be calculated or just show what is in DB */}
-                                    <td className="fw-bold" style={{ color: getColor(note?.final_cursada) }}>{note?.final_cursada || '-'}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+            {/* TAB SELECTOR */}
+            <div className="d-flex justify-content-center gap-3 mb-4">
+                <button
+                    className={`btn ${activeTab === 'boletin' ? 'btn-primary' : 'btn-outline-primary'}`}
+                    onClick={() => setActiveTab('boletin')}
+                    style={{ minWidth: '150px' }}
+                >
+                    📊 Boletín Actual
+                </button>
+                <button
+                    className={`btn ${activeTab === 'trayectoria' ? 'btn-primary' : 'btn-outline-primary'}`}
+                    onClick={() => setActiveTab('trayectoria')}
+                    style={{ minWidth: '150px' }}
+                >
+                    📜 Trayectoria Histórica
+                </button>
             </div>
+
+            {activeTab === 'boletin' ? (
+                <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>
+                    <h3 className="mb-3 text-center">Calificaciones del Ciclo Lectivo Actual</h3>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '1000px', fontSize: '0.9rem' }}>
+                        <thead>
+                            <tr className="text-center" style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+                                <th className="text-start p-3" rowSpan="2" style={{ width: '200px', borderRight: '1px solid rgba(255,255,255,0.1)' }}>Materia</th>
+                                <th colSpan="4" style={{ borderLeft: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>1° Trimestre</th>
+                                <th colSpan="4">2° Trimestre</th>
+                                <th colSpan="4" style={{ borderLeft: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>3° Trimestre</th>
+                                <th colSpan="4" style={{ borderLeft: '2px solid rgba(255,255,255,0.2)' }}>Finales</th>
+                            </tr>
+                            <tr className="text-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', fontSize: '0.8rem' }}>
+                                <th style={{ background: 'rgba(255,255,255,0.02)' }}>N1</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>N2</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>N3</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>Prom</th>
+
+                                <th>N1</th><th>N2</th><th>N3</th><th>Prom</th>
+
+                                <th style={{ background: 'rgba(255,255,255,0.02)' }}>N1</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>N2</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>N3</th><th style={{ background: 'rgba(255,255,255,0.02)' }}>Prom</th>
+
+                                <th style={{ borderLeft: '2px solid rgba(255,255,255,0.2)' }}>Anual</th><th>Dic</th><th>Feb</th><th>Def</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {SUBJECTS.map(subject => {
+                                // Búsqueda flexible (sin espacios, case insensitive)
+                                const note = myGrades.find(n =>
+                                    n.materia.trim().toLowerCase() === subject.trim().toLowerCase()
+                                );
+
+                                if (note) console.log(`Mostrando notas para: ${subject}`, note);
+
+                                return (
+                                    <tr key={subject} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <td className="p-3 text-start fw-bold" style={{ borderRight: '1px solid rgba(255,255,255,0.1)' }}>{subject}</td>
+
+                                        {renderReadOnlyCell(note?.t1_p1)}
+                                        {renderReadOnlyCell(note?.t1_p2)}
+                                        {renderReadOnlyCell(note?.t1_p3)}
+                                        {renderReadOnlyAvg(note, 't1')}
+
+                                        {renderReadOnlyCell(note?.t2_p1)}
+                                        {renderReadOnlyCell(note?.t2_p2)}
+                                        {renderReadOnlyCell(note?.t2_p3)}
+                                        {renderReadOnlyAvg(note, 't2')}
+
+                                        {renderReadOnlyCell(note?.t3_p1)}
+                                        {renderReadOnlyCell(note?.t3_p2)}
+                                        {renderReadOnlyCell(note?.t3_p3)}
+                                        {renderReadOnlyAvg(note, 't3')}
+
+                                        {renderReadOnlyCell(note?.final_anual)}
+                                        {renderReadOnlyCell(note?.recup_diciembre)}
+                                        {renderReadOnlyCell(note?.recup_febrero)}
+                                        {/* Final Definitiva can be calculated or just show what is in DB */}
+                                        <td className="fw-bold" style={{ color: getColor(note?.final_cursada) }}>{note?.final_cursada || '-'}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+                <div className="glass-card" style={{ padding: '2rem' }}>
+                    <h3 className="mb-4 text-center">Historial de Ciclos Lectivos Anteriores</h3>
+
+                    {myHistory && myHistory.length > 0 ? (
+                        <div style={{ display: 'grid', gap: '1rem', maxWidth: '800px', margin: '0 auto' }}>
+                            {myHistory.map((h, index) => (
+                                <div key={index} style={{
+                                    background: 'rgba(255,255,255,0.05)',
+                                    padding: '1.5rem',
+                                    borderRadius: '12px',
+                                    borderLeft: h.condicion === 'aprobado' || h.condicion === 'promocionado' ? '5px solid #2ecc71' : '5px solid #e74c3c',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '0.5rem'
+                                }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <h4 style={{ margin: 0, fontSize: '1.2rem' }}>Ciclo Lectivo {h.ciclo_lectivo}</h4>
+                                        <span className={`badge ${h.condicion === 'promocionado' ? 'bg-success' : 'bg-warning'}`} style={{ fontSize: '1rem' }}>
+                                            {h.condicion.toUpperCase()}
+                                        </span>
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
+                                        <span>Curso: <strong>{h.curso}</strong></span>
+                                        {h.promedio_general && <span>Promedio General: <strong>{h.promedio_general}</strong></span>}
+                                    </div>
+                                    {h.observaciones && (
+                                        <div style={{
+                                            background: 'rgba(0,0,0,0.2)',
+                                            padding: '0.8rem',
+                                            borderRadius: '6px',
+                                            marginTop: '0.5rem',
+                                            fontSize: '0.95rem',
+                                            fontStyle: 'italic',
+                                            color: 'var(--text-dim)'
+                                        }}>
+                                            "{h.observaciones}"
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center p-5" style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '12px' }}>
+                            <p style={{ color: 'var(--text-dim)', fontSize: '1.1rem' }}>No hay historial de ciclos anteriores registrado.</p>
+                            <small>El alumno se encuentra cursando su primer ciclo o no se han migrado datos históricos.</small>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };
