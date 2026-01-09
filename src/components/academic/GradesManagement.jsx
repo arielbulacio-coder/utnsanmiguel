@@ -302,7 +302,7 @@ const GradesManagement = () => {
             </div>
 
             {activeTab === 'boletin' ? (
-                <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>
+                <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto', maxWidth: '100%' }}>
                     <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                         <h3 className="m-0 text-center flex-grow-1">Calificaciones - Ciclo {selectedCycle}</h3>
                         <div style={{ width: '120px' }}>
@@ -314,7 +314,7 @@ const GradesManagement = () => {
                     <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '1000px', fontSize: '0.9rem' }}>
                         <thead>
                             <tr className="text-center" style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
-                                <th className="text-start p-3" rowSpan="2" style={{ width: '200px', borderRight: '1px solid rgba(255,255,255,0.1)' }}>Materia</th>
+                                <th className="text-start p-3" rowSpan="2" style={{ width: '200px', borderRight: '1px solid rgba(255,255,255,0.1)', position: 'sticky', left: 0, background: '#2a2a2a', zIndex: 10 }}>Materia</th>
                                 <th colSpan="4" style={{ borderLeft: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>1° Trimestre</th>
                                 <th colSpan="4">2° Trimestre</th>
                                 <th colSpan="4" style={{ borderLeft: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>3° Trimestre</th>
@@ -341,7 +341,7 @@ const GradesManagement = () => {
 
                                 return (
                                     <tr key={subject} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                                        <td className="p-3 text-start fw-bold" style={{ borderRight: '1px solid rgba(255,255,255,0.1)' }}>{subject}</td>
+                                        <td className="p-3 text-start fw-bold" style={{ borderRight: '1px solid rgba(255,255,255,0.1)', position: 'sticky', left: 0, background: '#1a1a1a', zIndex: 5 }}>{subject}</td>
 
                                         {renderReadOnlyCell(note?.t1_p1)}
                                         {renderReadOnlyCell(note?.t1_p2)}
