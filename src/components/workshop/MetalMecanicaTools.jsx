@@ -5,37 +5,37 @@ const MetalMecanicaTools = () => {
         {
             title: 'Arco de Sierra para Metales',
             description: 'Se utiliza para cortar metales, plásticos y otros materiales duros. Utiliza una hoja delgada (segueta) con dientes pequeños.',
-            img: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Hacksaw.jpg/640px-Hacksaw.jpg',
             use: 'Mantenga la hoja tensa y realice movimientos largos y suaves. El corte se produce al empujar.'
         },
         {
             title: 'Lima (Juego de Limas)',
             description: 'Herramienta de acero templado con una superficie estriada para desbastar, ajustar y acabar piezas metálicas.',
-            img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=400&h=300&fit=crop',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Files_set.jpg/640px-Files_set.jpg',
             use: 'Utilice toda la longitud de la lima y limpie las virutas con un cepillo de alambre (carda) regularmente.'
         },
         {
             title: 'Granete (Punto de Marcar)',
             description: 'Pieza de acero con punta templada que sirve para marcar el centro exacto donde se debe realizar un taladro.',
-            img: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&h=300&fit=crop',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Centre_punch.JPG/640px-Centre_punch.JPG',
             use: 'Coloque la punta en el cruce de las líneas de trazo y golpee suavemente con un martillo para crear la muesca.'
         },
         {
             title: 'Escuadra de Mecánico',
             description: 'Herramienta de acero de gran precisión para verificar la perpendicularidad de caras o marcar ángulos de 90°.',
-            img: 'https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=400&h=300&fit=crop',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/SquareEngineersMachinist.jpg/640px-SquareEngineersMachinist.jpg',
             use: 'Limpie las caras antes de medir. El borde de la escuadra debe asentar perfectamente en la superficie de referencia.'
         },
         {
             title: 'Brocas HSS (Acero Rápido)',
             description: 'Herramientas de corte de forma helicoidal que se utilizan con un tan taladro para realizar agujeros cilíndricos en metal.',
-            img: 'https://images.unsplash.com/photo-1580901368919-7738efb0f87e?w=400&h=300&fit=crop',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Metal_drill_bit.png',
             use: 'Utilice refrigerante (aceite) al taladrar metales para evitar el sobrecalentamiento y la pérdida del filo.'
         },
         {
             title: 'Tornillo de Banco',
             description: 'Herramienta de sujeción anclada a la mesa de trabajo que permite inmovilizar una pieza para limar, cortar o ajustar.',
-            img: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Bench_Vice.svg/640px-Bench_Vice.svg.png',
             use: 'No golpee el brazo del tornillo con un martillo. Use mordazas de material blando (plomo o aluminio) para no marcar piezas delicadas.'
         }
     ];
