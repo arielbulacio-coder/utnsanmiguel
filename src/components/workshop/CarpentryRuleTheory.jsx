@@ -22,7 +22,7 @@ const CarpentryRuleTheory = () => {
                 </div>
                 <div className="glass-card" style={{ background: 'white', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img
-                        src="/assets/ruler_v2.png"
+                        src={`${import.meta.env.BASE_URL}assets/ruler_v2.png`}
                         alt="Metro Plegable"
                         style={{ width: '100%', maxWidth: '300px', objectFit: 'contain' }}
                     />

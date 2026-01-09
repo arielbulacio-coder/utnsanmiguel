@@ -8,31 +8,31 @@ const CarpentryToolsTheory = () => {
         {
             title: 'Martillo de Carpintero (de Uña)',
             description: 'Es la herramienta básica para clavar y extraer clavos. La "uña" curva permite hacer palanca para quitar clavos con facilidad.',
-            img: '/assets/hammer_v2.png',
+            img: `${baseUrl}assets/hammer_v2.png`,
             use: 'Sujete el mango por el extremo para ganar palanca y mantenga la vista en el clavo.'
         },
         {
             title: 'Serrucho Manual',
             description: 'Diseñado para realizar cortes rectos en madera. Existen serruchos de costilla para cortes de precisión y serruchos de punta para curvas amplias.',
-            img: '/assets/saw_v2.png',
+            img: `${baseUrl}assets/saw_v2.png`,
             use: 'Inicie el corte con un suave movimiento hacia atrás. Mantenga el serrucho a un ángulo de 45°.'
         },
         {
             title: 'Formón',
             description: 'Herramienta de corte manual con hoja de acero para realizar rebajes, muescas y tallados en madera.',
-            img: '/assets/chisel_v2.png',
+            img: `${baseUrl}assets/chisel_v2.png`,
             use: 'Use siempre el formón alejándolo de su cuerpo. Nunca ponga la mano frente al filo.'
         },
         {
             title: 'Escuadra de Carpintero',
             description: 'Indispensable para verificar ángulos de 90 grados y realizar trazos perpendiculares exactos.',
-            img: '/assets/square_v2.png',
+            img: `${baseUrl}assets/square_v2.png`,
             use: 'Apoye firmemente el talón de la escuadra contra el borde de la madera para un trazo preciso.'
         },
         {
             title: 'Garlopa o Cepillo de Mano',
             description: 'Se utiliza para desbastar, alisar o rectificar superficies de madera mediante el corte de virutas finas.',
-            img: '/assets/plane_v2.png',
+            img: `${baseUrl}assets/plane_v2.png`,
             use: 'Ajuste la hoja para un corte fino. Siga siempre el sentido de la veta de la madera.'
         }
     ];

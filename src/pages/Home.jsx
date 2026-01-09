@@ -308,7 +308,7 @@ const Home = () => {
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Metro</h3>
                                     <p>Herramienta Plegable de Madera</p>
-                                    <img src="/assets/ruler_v2.png" alt="Metro Carpintero" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '1rem' }} />
+                                    <img src={`${import.meta.env.BASE_URL}assets/ruler_v2.png`} alt="Metro Carpintero" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '1rem' }} />
                                 </div>
                             </Link>
 
@@ -324,7 +324,7 @@ const Home = () => {
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Carpintería</h3>
                                     <p>Manuales de Madera</p>
-                                    <img src="/assets/saw_v2.png" alt="Carpintería" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '1rem' }} />
+                                    <img src={`${import.meta.env.BASE_URL}assets/saw_v2.png`} alt="Carpintería" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '1rem' }} />
                                 </div>
                             </Link>
 
