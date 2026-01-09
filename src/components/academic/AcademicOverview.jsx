@@ -1,34 +1,63 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const AcademicOverview = () => {
+    const { user } = useAuth();
+
+    // Define modules based on role (simplified for now, all show but might be restricted inside)
+    const modules = [
+        {
+            title: 'Boletín de Calificaciones',
+            path: '/calificaciones',
+            icon: '📊',
+            desc: 'Cargar notas ver promedios por trimestre.',
+            roles: ['admin', 'profesor', 'director', 'secretario']
+        },
+        {
+            title: 'Control de Asistencia',
+            path: '/asistencia',
+            icon: '📅',
+            desc: 'Registro diario de presentes y ausentes.',
+            roles: ['admin', 'preceptor', 'jefe_preceptores', 'director']
+        },
+        {
+            title: 'Gestión de Estudiantes',
+            path: '/estudiantes',
+            icon: '👨‍🎓',
+            desc: 'Alta, baja y modificación de alumnos.',
+            roles: ['admin', 'director', 'secretario', 'jefe_preceptores']
+        },
+        {
+            title: 'Usuarios del Sistema',
+            path: '/usuarios',
+            icon: '🔐',
+            desc: 'Administrar permisos y cuentas de acceso.',
+            roles: ['admin']
+        }
+    ];
+
+    const allowedModules = modules.filter(m => m.roles.includes(user?.role));
+
     return (
-        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
-            <h1>Gestión Académica</h1>
-            <p className="intro-text">
-                Bienvenido al módulo de Gestión Académica. Aquí podrás administrar estudiantes, calificaciones, asistencias y más.
-            </p>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+            <div className="text-center mb-5">
+                <h1 className="display-4 text-gradient">Panel de Gestión Académica</h1>
+                <p className="lead" style={{ color: 'var(--text-secondary)' }}>
+                    Bienvenido, <strong>{user?.email}</strong> ({user?.role?.toUpperCase()})
+                </p>
+            </div>
 
-            <div className="grid-responsive-2col" style={{ marginTop: '3rem' }}>
-                <Link to="/estudiantes" className="glass-card" style={{ padding: '2rem', display: 'block', textDecoration: 'none' }}>
-                    <h3>🎓 Estudiantes</h3>
-                    <p>Gestión de matrícula, información personal y seguimiento académico.</p>
-                </Link>
-
-                <Link to="/calificaciones" className="glass-card" style={{ padding: '2rem', display: 'block', textDecoration: 'none' }}>
-                    <h3>📊 Calificaciones</h3>
-                    <p>Registro de notas, libros de temas y promedios.</p>
-                </Link>
-
-                <Link to="/asistencia" className="glass-card" style={{ padding: '2rem', display: 'block', textDecoration: 'none' }}>
-                    <h3>📅 Asistencia</h3>
-                    <p>Control de asistencia diaria y reportes.</p>
-                </Link>
-
-                <div className="glass-card" style={{ padding: '2rem' }}>
-                    <h3>📋 Reportes</h3>
-                    <p>Generación de informes académicos y estadísticos. (Próximamente)</p>
-                </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                {allowedModules.map((mod, index) => (
+                    <Link to={mod.path} key={index} style={{ textDecoration: 'none' }}>
+                        <div className="glass-card hover-scale" style={{ padding: '2rem', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', transition: 'transform 0.3s ease' }}>
+                            <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>{mod.icon}</div>
+                            <h3 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>{mod.title}</h3>
+                            <p style={{ color: 'var(--text-secondary)' }}>{mod.desc}</p>
+                        </div>
+                    </Link>
+                ))}
             </div>
         </div>
     );

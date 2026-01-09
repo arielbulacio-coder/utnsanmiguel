@@ -1,135 +1,166 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import { useAuth } from '../../context/AuthContext';
+import { COURSES } from './constants';
 
 const Attendance = () => {
     const { user } = useAuth();
     const [students, setStudents] = useState([]);
-    const [attendanceData, setAttendanceData] = useState({});
+    const [attendanceData, setAttendanceData] = useState({}); // { studentId: { estado: 'presente', observacion: '' } }
+    const [selectedCourse, setSelectedCourse] = useState(COURSES[0]);
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState('');
 
     useEffect(() => {
-        fetchStudents();
+        fetchData();
     }, []);
 
-    const fetchStudents = async () => {
+    // Re-fetch when date changes to allow editing past attendance (if implemented)
+    // For now, simple fetch
+    const fetchData = async () => {
+        setLoading(true);
         try {
-            const response = await api.get('/alumnos');
-            setStudents(response.data);
-            // Inicializar estado de asistencia
-            const initialData = {};
-            response.data.forEach(student => {
-                initialData[student.id] = 'presente';
-            });
-            setAttendanceData(initialData);
+            // Fetch Students
+            const resStudents = await api.get('/alumnos');
+            const allStudents = resStudents.data;
+            setStudents(allStudents);
+
+            // Fetch Existing Attendance
+            const resAttendance = await api.get('/asistencias');
+            processExistingAttendance(resAttendance.data, allStudents);
         } catch (error) {
-            console.error('Error fetching students:', error);
-            setMessage('Error al cargar estudiantes (¿Tienes permisos?)');
+            console.error('Error fetching data:', error);
         }
+        setLoading(false);
+    };
+
+    const processExistingAttendance = (matches, allStudents) => {
+        const currentData = {};
+        allStudents.forEach(s => {
+            currentData[s.id] = { estado: 'presente', observacion: '' };
+        });
+
+        matches.forEach(a => {
+            // Check if matches date. 
+            // Note: 'a.fecha' from DB is usually 'YYYY-MM-DD' string.
+            if (a.fecha === date) {
+                currentData[a.AlumnoId] = { estado: a.estado, observacion: a.observacion || '' };
+            }
+        });
+        setAttendanceData(currentData);
     };
 
     const handleStatusChange = (studentId, status) => {
         setAttendanceData(prev => ({
             ...prev,
-            [studentId]: status
+            [studentId]: { ...prev[studentId], estado: status }
         }));
     };
 
-    const handleSubmit = async () => {
-        setLoading(true);
-        setMessage('');
-        try {
-            const payload = Object.keys(attendanceData).map(studentId => ({
-                AlumnoId: studentId,
-                estado: attendanceData[studentId],
-                fecha: new Date().toISOString().split('T')[0] // Fecha de hoy YYYY-MM-DD
-            }));
+    const handleSave = async () => {
+        const filteredStudents = students.filter(s => s.curso === selectedCourse);
+        if (filteredStudents.length === 0) return;
 
+        const payload = filteredStudents.map(s => ({
+            AlumnoId: s.id,
+            fecha: date,
+            estado: attendanceData[s.id]?.estado || 'presente',
+            observacion: attendanceData[s.id]?.observacion
+        }));
+
+        try {
             await api.post('/asistencias', payload);
-            setMessage('Asistencia guardada exitosamente');
+            alert('Asistencia guardada correctamente');
         } catch (error) {
             console.error('Error saving attendance:', error);
-            setMessage('Error al guardar asistencia: ' + (error.response?.data?.message || error.message));
+            alert('Error al guardar asistencia');
         }
-        setLoading(false);
     };
 
-    // Verificar permisos (Rol)
-    const allowedRoles = ['admin', 'preceptor', 'jefe_preceptores', 'director'];
-    const canTakeAttendance = user && allowedRoles.includes(user.role);
+    const filteredStudents = students.filter(s => s.curso === selectedCourse);
 
-    if (!canTakeAttendance) {
-        return (
-            <div style={{ maxWidth: '1200px', margin: '2rem auto', textAlign: 'center' }}>
-                <h2>Acceso Restringido</h2>
-                <p>No tienes permisos para tomar asistencia. Tu rol actual es: {user?.role || 'Desconocido'}</p>
-            </div>
-        );
+    const allowedRoles = ['admin', 'preceptor', 'jefe_preceptores', 'director'];
+    if (user && !allowedRoles.includes(user.role)) {
+        return <div className="text-center p-5"><h3>Acceso Restringido</h3></div>;
     }
 
     return (
-        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
-            <h1>Control de Asistencia</h1>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h1 style={{ color: 'var(--text-primary)' }}>Control de Asistencia</h1>
+                <span className="badge bg-primary" style={{ fontSize: '1rem' }}>{user.role}</span>
+            </div>
 
-            <div className="glass-card" style={{ marginTop: '2rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                    <h2 style={{ margin: 0 }}>Tomar Asistencia - {new Date().toLocaleDateString()}</h2>
-                    <span className="result-label" style={{ background: 'var(--primary-color)' }}>{user.role.toUpperCase()}</span>
-                </div>
-
-                {message && <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.1)', borderRadius: '8px', marginBottom: '1rem' }}>{message}</div>}
-
-                <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--text-main)' }}>
-                        <thead>
-                            <tr style={{ borderBottom: '1px solid var(--glass-border)' }}>
-                                <th style={{ textAlign: 'left', padding: '1rem' }}>Alumno</th>
-                                <th style={{ textAlign: 'left', padding: '1rem' }}>Legajo</th>
-                                <th style={{ textAlign: 'center', padding: '1rem' }}>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {students.map(student => (
-                                <tr key={student.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                                    <td style={{ padding: '1rem' }}>{student.nombre} {student.apellido}</td>
-                                    <td style={{ padding: '1rem' }}>{student.legajo}</td>
-                                    <td style={{ padding: '1rem', textAlign: 'center' }}>
-                                        <select
-                                            value={attendanceData[student.id] || 'presente'}
-                                            onChange={(e) => handleStatusChange(student.id, e.target.value)}
-                                            style={{ padding: '0.5rem', borderRadius: '4px', background: 'var(--bg-main)', color: 'var(--text-main)', border: '1px solid var(--primary-color)' }}
-                                        >
-                                            <option value="presente">Presente</option>
-                                            <option value="ausente">Ausente</option>
-                                            <option value="tarde">Tarde</option>
-                                            <option value="justificado">Justificado</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-
-                <div style={{ marginTop: '2rem', textAlign: 'right' }}>
-                    <button
-                        onClick={handleSubmit}
-                        disabled={loading}
-                        style={{
-                            padding: '1rem 2rem',
-                            background: 'var(--primary-color)',
-                            border: 'none',
-                            borderRadius: '8px',
-                            color: '#000',
-                            fontWeight: 'bold',
-                            cursor: 'pointer',
-                            opacity: loading ? 0.7 : 1
-                        }}
+            <div className="glass-card mb-4" style={{ padding: '1.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'end' }}>
+                <div style={{ flex: 1, minWidth: '200px' }}>
+                    <label className="d-block mb-2">Curso</label>
+                    <select
+                        className="form-control"
+                        value={selectedCourse}
+                        onChange={(e) => setSelectedCourse(e.target.value)}
                     >
-                        {loading ? 'Guardando...' : 'Guardar Asistencia'}
-                    </button>
+                        {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
+                    </select>
                 </div>
+                <div style={{ flex: 1, minWidth: '200px' }}>
+                    <label className="d-block mb-2">Fecha</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        value={date}
+                        onChange={(e) => {
+                            setDate(e.target.value);
+                            // Trigger re-process of attendance data for new date would be ideal here if we had all data locally
+                            fetchData(); // Lazy update: re-fetch everything. In prod optimized endpoint needed.
+                        }}
+                    />
+                </div>
+                <button className="btn btn-primary" onClick={handleSave} style={{ height: '42px', minWidth: '150px' }}>
+                    💾 Guardar
+                </button>
+            </div>
+
+            <div className="glass-card" style={{ padding: '1rem' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                        <tr style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+                            <th style={{ padding: '1rem', textAlign: 'left' }}>Alumno</th>
+                            <th style={{ padding: '1rem', textAlign: 'center' }}>Presente</th>
+                            <th style={{ padding: '1rem', textAlign: 'center' }}>Ausente</th>
+                            <th style={{ padding: '1rem', textAlign: 'center' }}>Tarde</th>
+                            <th style={{ padding: '1rem', textAlign: 'center' }}>Justificado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredStudents.map(student => {
+                            const status = attendanceData[student.id]?.estado || 'presente';
+                            return (
+                                <tr key={student.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                    <td style={{ padding: '1rem' }}>{student.apellido}, {student.nombre}</td>
+                                    {['presente', 'ausente', 'tarde', 'justificado'].map(option => (
+                                        <td key={option} style={{ textAlign: 'center', cursor: 'pointer' }} onClick={() => handleStatusChange(student.id, option)}>
+                                            <div
+                                                style={{
+                                                    width: '24px',
+                                                    height: '24px',
+                                                    borderRadius: '50%',
+                                                    border: '2px solid rgba(255,255,255,0.5)',
+                                                    margin: '0 auto',
+                                                    backgroundColor: status === option ? '#4CAF50' : 'transparent',
+                                                    boxShadow: status === option ? '0 0 10px #4CAF50' : 'none',
+                                                    transition: 'all 0.2s ease'
+                                                }}
+                                            />
+                                        </td>
+                                    ))}
+                                </tr>
+                            );
+                        })}
+                        {filteredStudents.length === 0 && (
+                            <tr><td colSpan="5" className="text-center p-4">Select a course to view students.</td></tr>
+                        )}
+                    </tbody>
+                </table>
             </div>
         </div>
     );
