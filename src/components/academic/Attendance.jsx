@@ -159,24 +159,119 @@ const Attendance = () => {
 
     const countAbsences = () => myAttendance.filter(a => a.estado === 'ausente').length;
 
+    // --- REPORT LOGIC ---
+    const [reportData, setReportData] = useState([]);
+    const [loadingReport, setLoadingReport] = useState(false);
+
+    useEffect(() => {
+        if (activeTab === 'report') {
+            fetchReport();
+        }
+    }, [activeTab, selectedCourse]);
+
+    const fetchReport = async () => {
+        setLoadingReport(true);
+        try {
+            const res = await api.get('/admin/asistencias/totales', { params: { curso: selectedCourse } });
+            setReportData(res.data);
+        } catch (error) {
+            console.error(error);
+            alert('Error al cargar reporte');
+        }
+        setLoadingReport(false);
+    };
+
+    const getAbsenceAlert = (count) => {
+        if (count >= 30) return { color: '#ff0000', text: '🛑 30 FALTAS - LIBRE', blink: true };
+        if (count >= 25) return { color: '#ff4444', text: '⚠️ 25 FALTAS - CRÍTICO', blink: false };
+        if (count >= 20) return { color: '#ff8800', text: '🟠 20 FALTAS - ALERTA', blink: false };
+        if (count >= 15) return { color: '#ffcc00', text: '🟡 15 FALTAS - PRECAUCIÓN', blink: false };
+        return null;
+    };
+
     return (
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
             <h1 className="mb-4 text-center">Asistencia y Puntualidad</h1>
 
             <div className="d-flex justify-content-center gap-3 mb-4">
                 {canEdit && (
-                    <button className={`btn ${activeTab === 'edit' ? 'btn-primary' : 'btn-outline-primary'}`}
-                        onClick={() => setActiveTab('edit')}>
-                        ✏️ Tomar Asistencia
+                    <>
+                        <button className={`btn ${activeTab === 'edit' ? 'btn-primary' : 'btn-outline-primary'}`}
+                            onClick={() => setActiveTab('edit')}>
+                            ✏️ Tomar Asistencia
+                        </button>
+                        <button className={`btn ${activeTab === 'report' ? 'btn-primary' : 'btn-outline-primary'}`}
+                            onClick={() => setActiveTab('report')}>
+                            📊 Reporte de Faltas
+                        </button>
+                    </>
+                )}
+                {!canEdit && ( // Only students see "Mi Asistencia" as primary, admins see it via profile usually but here ok
+                    <button className={`btn ${activeTab === 'view' ? 'btn-primary' : 'btn-outline-primary'}`}
+                        onClick={() => setActiveTab('view')}>
+                        📅 Mi Asistencia
                     </button>
                 )}
-                <button className={`btn ${activeTab === 'view' ? 'btn-primary' : 'btn-outline-primary'}`}
-                    onClick={() => setActiveTab('view')}>
-                    📅 Mi Asistencia
-                </button>
             </div>
 
-            {activeTab === 'edit' ? (
+            {activeTab === 'report' && (
+                <div className="glass-card p-4">
+                    <div className="mb-3">
+                        <label className="me-2">Filtrar Curso:</label>
+                        <select className="form-control d-inline-block w-auto" value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)}>
+                            {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                    </div>
+
+                    {loadingReport ? (
+                        <p>Cargando...</p>
+                    ) : (
+                        <div style={{ overflowX: 'auto' }}>
+                            <table className="table table-dark table-hover" style={{ background: 'transparent' }}>
+                                <thead>
+                                    <tr>
+                                        <th>Alumno</th>
+                                        <th>Total Inasistencias</th>
+                                        <th>Estado / Alerta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {reportData.sort((a, b) => b.total_inasistencias - a.total_inasistencias).map(row => {
+                                        const alert = getAbsenceAlert(row.total_inasistencias);
+                                        return (
+                                            <tr key={row.id}>
+                                                <td>{row.apellido}, {row.nombre}</td>
+                                                <td className="fw-bold" style={{ fontSize: '1.2rem' }}>{row.total_inasistencias}</td>
+                                                <td>
+                                                    {alert ? (
+                                                        <span className={`badge ${alert.blink ? 'blink-anim' : ''}`} style={{ backgroundColor: alert.color, color: '#000', fontSize: '0.9rem' }}>
+                                                            {alert.text}
+                                                        </span>
+                                                    ) : (
+                                                        <span className="text-muted">Regular</span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                    <style>{`
+                        @keyframes blink {
+                            0% { opacity: 1; }
+                            50% { opacity: 0.5; }
+                            100% { opacity: 1; }
+                        }
+                        .blink-anim {
+                            animation: blink 1s infinite;
+                        }
+                    `}</style>
+                </div>
+            )}
+
+            {activeTab === 'edit' && (
                 <div>
                     <div className="glass-card mb-4" style={{ padding: '1.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'end' }}>
                         <div style={{ flex: 1, minWidth: '200px' }}>
@@ -226,7 +321,9 @@ const Attendance = () => {
                         </table>
                     </div>
                 </div>
-            ) : (
+            )}
+
+            {activeTab === 'view' && (
                 <div className="glass-card p-4">
                     <div className="d-flex justify-content-between align-items-center mb-4">
                         <button className="btn btn-sm btn-outline-light" onClick={() => setViewMonth(prev => prev === 0 ? 11 : prev - 1)}>◀ Ant</button>
