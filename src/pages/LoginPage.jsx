@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -86,9 +86,14 @@ const LoginPage = () => {
                         </div>
                     </div>
 
-                    <button disabled={loading} className="btn btn-primary w-100 btn-lg mt-2" type="submit" style={{ fontWeight: 'bold' }}>
+                    <button disabled={loading} className="btn btn-primary w-100 btn-lg mt-2 mb-3" type="submit" style={{ fontWeight: 'bold' }}>
                         {loading ? 'Cargando...' : 'INGRESAR'}
                     </button>
+                    <div className="text-center">
+                        <Link to="/forgot-password" style={{ color: '#fff', textDecoration: 'underline', cursor: 'pointer' }}>
+                            ¿Olvidaste tu contraseña?
+                        </Link>
+                    </div>
                 </form>
             </div>
         </div>

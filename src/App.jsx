@@ -52,6 +52,8 @@ import CurriculumPage from './pages/CurriculumPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 import { ThemeProvider } from './components/ThemeContext';
 
@@ -63,6 +65,8 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
             <Route path="/" element={<Home />} />
             {/* Arduino y Programación */}
             {/* Rutas Protegidas - Simuladores y Módulos Didácticos */}
