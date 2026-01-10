@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api';
-import { COURSES, SUBJECTS } from './constants';
+// import { COURSES, SUBJECTS } from './constants'; // Replaced by dynamic API data
 import { useAuth } from '../../context/AuthContext';
 
 const TeacherAssignment = () => {
@@ -9,10 +9,14 @@ const TeacherAssignment = () => {
     const [assignments, setAssignments] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    // State for Dynamic Options
+    const [courseOptions, setCourseOptions] = useState([]);
+    const [subjectOptions, setSubjectOptions] = useState([]);
+
     // Form State
     const [selectedTeacher, setSelectedTeacher] = useState('');
-    const [selectedCourse, setSelectedCourse] = useState(COURSES[0]);
-    const [selectedSubject, setSelectedSubject] = useState(SUBJECTS[0]);
+    const [selectedCourse, setSelectedCourse] = useState('');
+    const [selectedSubject, setSelectedSubject] = useState('');
 
     useEffect(() => {
         fetchData();
@@ -21,19 +25,32 @@ const TeacherAssignment = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            // Get all users to filter teachers
-            const resUsers = await api.get('/users');
-            // Filter only 'profesor' role (case insensitive)
+            // Load dynamic data from new endpoints
+            const [resUsers, resCursos, resMaterias, resAsig] = await Promise.all([
+                api.get('/users'),
+                api.get('/cursos'),
+                api.get('/materias'),
+                api.get('/profesor/asignaciones')
+            ]);
+
+            // Teachers
             const profs = resUsers.data.filter(u => u.role && u.role.toLowerCase() === 'profesor');
             setTeachers(profs);
-            console.log('Teachers found:', profs);
             if (profs.length > 0 && !selectedTeacher) setSelectedTeacher(profs[0].email);
 
-            // Get assignments
-            const resAsig = await api.get('/profesor/asignaciones');
+            // Courses
+            setCourseOptions(resCursos.data);
+            if (resCursos.data.length > 0) setSelectedCourse(resCursos.data[0].nombre);
+
+            // Subjects
+            setSubjectOptions(resMaterias.data);
+            if (resMaterias.data.length > 0) setSelectedSubject(resMaterias.data[0].nombre);
+
+            // Assignments
             setAssignments(resAsig.data);
+
         } catch (error) {
-            console.error('Error fetching assignments data:', error);
+            console.error('Error fetching data:', error);
         }
         setLoading(false);
     };
@@ -93,14 +110,14 @@ const TeacherAssignment = () => {
                     <div style={{ width: '150px' }}>
                         <label className="d-block mb-2">Curso</label>
                         <select className="form-control" value={selectedCourse} onChange={e => setSelectedCourse(e.target.value)}>
-                            {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
+                            {courseOptions.map(c => <option key={c.id} value={c.nombre}>{c.nombre}</option>)}
                         </select>
                     </div>
 
                     <div style={{ flex: 1, minWidth: '250px' }}>
                         <label className="d-block mb-2">Materia</label>
                         <select className="form-control" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}>
-                            {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                            {subjectOptions.map(s => <option key={s.id} value={s.nombre}>{s.nombre}</option>)}
                         </select>
                     </div>
 
