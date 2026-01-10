@@ -112,9 +112,13 @@ function App() {
               <Route path="/alta-docente" element={<TeacherRegistrationPage />} />
             </Route>
 
-            {/* Comunicaciones y Libro de Temas - Todos los roles académicos */}
+            {/* Comunicaciones - Todos */}
             <Route element={<ProtectedRoute allowedRoles={['admin', 'director', 'secretario', 'jefe_preceptores', 'preceptor', 'profesor', 'alumno', 'padre']} />}>
               <Route path="/comunicados" element={<CommunicationsPage />} />
+            </Route>
+
+            {/* Libro de Temas - Solo personal académico */}
+            <Route element={<ProtectedRoute allowedRoles={['admin', 'director', 'secretario', 'jefe_preceptores', 'preceptor', 'profesor']} />}>
               <Route path="/libro-temas" element={<LessonPlanPage />} />
             </Route>
 
