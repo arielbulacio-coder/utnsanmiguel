@@ -180,7 +180,10 @@ const NavBar = () => {
                             )}
 
                             {['admin', 'director', 'secretario'].includes(user?.role) && (
-                                <Link to="/asignacion-docente" style={linkStyle} onClick={closeAll}>Asignación Docente</Link>
+                                <>
+                                    <Link to="/asignacion-docente" style={linkStyle} onClick={closeAll}>Asignación Docente</Link>
+                                    <Link to="/oferta-academica" style={linkStyle} onClick={closeAll}>Cursos y Materias</Link>
+                                </>
                             )}
 
                             {['admin', 'director'].includes(user?.role) && (

@@ -46,6 +46,7 @@ import TeacherRegistrationPage from './pages/TeacherRegistrationPage';
 import CommunicationsPage from './pages/CommunicationsPage';
 import LessonPlanPage from './pages/LessonPlanPage';
 import ProfilePage from './pages/ProfilePage';
+import CourseSubjectManagerPage from './pages/CourseSubjectManagerPage';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -110,6 +111,7 @@ function App() {
             <Route element={<ProtectedRoute allowedRoles={['admin', 'director', 'secretario']} />}>
               <Route path="/asignacion-docente" element={<TeacherAssignmentPage />} />
               <Route path="/alta-docente" element={<TeacherRegistrationPage />} />
+              <Route path="/oferta-academica" element={<CourseSubjectManagerPage />} />
             </Route>
 
             {/* Comunicaciones - Todos */}
