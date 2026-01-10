@@ -47,6 +47,7 @@ import CommunicationsPage from './pages/CommunicationsPage';
 import LessonPlanPage from './pages/LessonPlanPage';
 import ProfilePage from './pages/ProfilePage';
 import CourseSubjectManagerPage from './pages/CourseSubjectManagerPage';
+import CurriculumPage from './pages/CurriculumPage';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -112,6 +113,7 @@ function App() {
               <Route path="/asignacion-docente" element={<TeacherAssignmentPage />} />
               <Route path="/alta-docente" element={<TeacherRegistrationPage />} />
               <Route path="/oferta-academica" element={<CourseSubjectManagerPage />} />
+              <Route path="/plan-estudios" element={<CurriculumPage />} />
             </Route>
 
             {/* Comunicaciones - Todos */}

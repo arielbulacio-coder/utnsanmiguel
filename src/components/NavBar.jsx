@@ -182,7 +182,8 @@ const NavBar = () => {
                             {['admin', 'director', 'secretario'].includes(user?.role) && (
                                 <>
                                     <Link to="/asignacion-docente" style={linkStyle} onClick={closeAll}>Asignación Docente</Link>
-                                    <Link to="/oferta-academica" style={linkStyle} onClick={closeAll}>Cursos y Materias</Link>
+                                    <Link to="/oferta-academica" style={linkStyle} onClick={closeAll}>Cursos y Materias (ABM)</Link>
+                                    <Link to="/plan-estudios" style={linkStyle} onClick={closeAll}>Plan de Estudios (Curricula)</Link>
                                 </>
                             )}
 

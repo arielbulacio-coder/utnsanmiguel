@@ -75,6 +75,7 @@ const UserManagement = () => {
                         <option value="jefe_preceptores">Jefe de Preceptores</option>
                         <option value="secretario">Secretario</option>
                         <option value="director">Director</option>
+                        <option value="vicedirector">Vicedirector</option>
                         <option value="admin">Admin</option>
                         <option value="padre">Padre/Madre</option>
                     </select>
