@@ -41,6 +41,13 @@ const AcademicOverview = () => {
             icon: '💻',
             desc: 'Material de estudio y actividades.',
             roles: ['admin', 'profesor', 'alumno', 'padre']
+        },
+        {
+            title: 'Asignación Docente',
+            path: '/asignacion-docente',
+            icon: '👨‍🏫',
+            desc: 'Asignar materias y cursos a profesores.',
+            roles: ['admin', 'director', 'secretario']
         }
     ];
 
