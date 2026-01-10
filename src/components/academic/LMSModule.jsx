@@ -167,6 +167,65 @@ const LMSModule = () => {
     }, [selectedCourse, assignedOptions, user]);
 
     return (
+    // Grading State
+    const [viewingSubmissionsFor, setViewingSubmissionsFor] = useState(null);
+    const [submissionsList, setSubmissionsList] = useState([]);
+    const [gradingSubmission, setGradingSubmission] = useState(null); // { id, calificacion, devolucion }
+
+    // Fetch submissions for an activity (Teacher)
+    const handleViewSubmissions = async (activityId) => {
+        setViewingSubmissionsFor(activityId);
+        try {
+            const res = await api.get('/entregas', { params: { ActividadId: activityId } });
+            setSubmissionsList(res.data);
+        } catch (error) {
+            console.error(error);
+            alert('Error al cargar entregas');
+        }
+    };
+
+    const handleSaveGrade = async (e) => {
+        e.preventDefault();
+        try {
+            await api.put(`/entregas/${gradingSubmission.id}`, {
+                calificacion: gradingSubmission.calificacion,
+                devolucion: gradingSubmission.devolucion
+            });
+            alert('Calificación guardada');
+            setGradingSubmission(null);
+            handleViewSubmissions(viewingSubmissionsFor); // Refresh list
+        } catch (error) {
+            console.error(error);
+            alert('Error al guardar calificación');
+        }
+    };
+
+    // For students to mark if they submitted (can be improved by checking backend)
+    // Actually, fetchActivities response should ideally include "mySubmission" or we fetch entregas separately.
+    // simpler: fetch all my entregas and map them.
+    const [mySubmissions, setMySubmissions] = useState({});
+
+    useEffect(() => {
+        if (isStudentOrParent && activeTab === 'actividades') {
+            fetchMySubmissions();
+        }
+    }, [isStudentOrParent, activeTab]);
+
+    const fetchMySubmissions = async () => {
+        try {
+            const res = await api.get('/entregas');
+            // Map by ActividadId
+            const map = {};
+            res.data.forEach(s => {
+                map[s.ActividadId] = s;
+            });
+            setMySubmissions(map);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return (
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
             <h1 className="mb-4 text-gradient">Aula Virtual (LMS)</h1>
 
@@ -338,54 +397,162 @@ const LMSModule = () => {
                 </div>
             )}
 
+            {/* Submissions Viewer (Teacher) */}
+            {viewingSubmissionsFor && (
+                <div className="glass-card mb-4 p-4">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <h3>Entregas Recibidas</h3>
+                        <button className="btn btn-sm btn-secondary" onClick={() => setViewingSubmissionsFor(null)}>Cerrar</button>
+                    </div>
+
+                    <div className="table-responsive">
+                        <table className="table" style={{ color: 'var(--text-primary)' }}>
+                            <thead>
+                                <tr>
+                                    <th>Alumno</th>
+                                    <th>Fecha</th>
+                                    <th>Archivo</th>
+                                    <th>Nota</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {submissionsList.map(sub => (
+                                    <tr key={sub.id}>
+                                        <td>{sub.Alumno?.nombre} {sub.Alumno?.apellido}</td>
+                                        <td>{new Date(sub.fecha).toLocaleDateString()}</td>
+                                        <td>
+                                            {sub.archivo_url ? <a href={sub.archivo_url} target="_blank" rel="noreferrer">Ver Archivo</a> : 'Sin archivo'}
+                                        </td>
+                                        <td>
+                                            {sub.calificacion ? <span className="badge bg-success">{sub.calificacion}</span> : <span className="badge bg-secondary">-</span>}
+                                        </td>
+                                        <td>
+                                            <button
+                                                className="btn btn-sm btn-info"
+                                                onClick={() => setGradingSubmission({ id: sub.id, calificacion: sub.calificacion || '', devolucion: sub.devolucion || '' })}
+                                            >
+                                                Calificar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                                {submissionsList.length === 0 && <tr><td colSpan="5" className="text-center">No hay entregas para esta actividad.</td></tr>}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+
+            {/* Grading Modal/Form */}
+            {gradingSubmission && (
+                <div className="glass-card mb-4 p-4 border-info">
+                    <h4>Calificar Entrega</h4>
+                    <form onSubmit={handleSaveGrade} className="d-flex flex-column gap-3">
+                        <div>
+                            <label className="d-block mb-1">Nota (1-10)</label>
+                            <input
+                                type="number"
+                                step="0.5"
+                                min="1"
+                                max="10"
+                                className="form-control"
+                                value={gradingSubmission.calificacion}
+                                onChange={e => setGradingSubmission({ ...gradingSubmission, calificacion: e.target.value })}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="d-block mb-1">Devolución / Comentarios</label>
+                            <textarea
+                                className="form-control"
+                                rows="3"
+                                value={gradingSubmission.devolucion}
+                                onChange={e => setGradingSubmission({ ...gradingSubmission, devolucion: e.target.value })}
+                            />
+                        </div>
+                        <div className="d-flex gap-2">
+                            <button className="btn btn-primary">Guardar Nota</button>
+                            <button type="button" className="btn btn-secondary" onClick={() => setGradingSubmission(null)}>Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            )}
+
             {/* List */}
             <div className="d-grid gap-3">
                 {items.length === 0 && !loading && (
                     <div className="text-center p-5 glass-card">No hay contenido publicado aún para este curso y materia.</div>
                 )}
 
-                {items.map(item => (
-                    <div key={item.id} className="glass-card p-3 hover-scale" style={{ borderLeft: `4px solid ${activeTab === 'materiales' ? '#2196F3' : '#FF9800'}` }}>
-                        <div className="d-flex justify-content-between align-items-start">
-                            <div style={{ flex: 1 }}>
-                                <h4 className="mb-1">{item.titulo}</h4>
-                                <p className="mb-2 text-secondary" style={{ whiteSpace: 'pre-wrap' }}>{item.descripcion}</p>
+                {items.map(item => {
+                    const mySub = mySubmissions[item.id];
+                    return (
+                        <div key={item.id} className="glass-card p-3 hover-scale" style={{ borderLeft: `4px solid ${activeTab === 'materiales' ? '#2196F3' : '#FF9800'}` }}>
+                            <div className="d-flex justify-content-between align-items-start">
+                                <div style={{ flex: 1 }}>
+                                    <h4 className="mb-1">{item.titulo}</h4>
+                                    <p className="mb-2 text-secondary" style={{ whiteSpace: 'pre-wrap' }}>{item.descripcion}</p>
 
-                                {item.tipo === 'link' && (
-                                    <a href={item.url} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-primary">🔗 Abrir Enlace</a>
-                                )}
-                                {item.tipo === 'pdf' && (
-                                    <a href={item.url} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-danger">📄 Ver PDF</a>
-                                )}
-                                {item.tipo === 'youtube' && (
-                                    <div className="mt-2">
-                                        <a href={item.url} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-danger">▶ Ver en YouTube</a>
-                                    </div>
-                                )}
-                                {activeTab === 'actividades' && item.fecha_entrega && (
-                                    <div className="mt-2 badge bg-warning text-dark">
-                                        📅 Entrega: {item.fecha_entrega}
-                                    </div>
-                                )}
+                                    {item.tipo === 'link' && (
+                                        <a href={item.url} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-primary">🔗 Abrir Enlace</a>
+                                    )}
+                                    {item.tipo === 'pdf' && (
+                                        <a href={item.url} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-danger">📄 Ver PDF</a>
+                                    )}
+                                    {item.tipo === 'youtube' && (
+                                        <div className="mt-2">
+                                            <a href={item.url} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-danger">▶ Ver en YouTube</a>
+                                        </div>
+                                    )}
+                                    {activeTab === 'actividades' && item.fecha_entrega && (
+                                        <div className="mt-2 badge bg-warning text-dark">
+                                            📅 Entrega: {item.fecha_entrega}
+                                        </div>
+                                    )}
 
-                                {/* Student Actions */}
-                                {activeTab === 'actividades' && user?.role === 'alumno' && (
-                                    <div className="mt-3">
-                                        <button
-                                            className="btn btn-sm btn-primary"
-                                            onClick={() => setSubmittingId(item.id)}
-                                        >
-                                            🚀 Subir Entrega
-                                        </button>
-                                    </div>
-                                )}
+                                    {/* Student Status */}
+                                    {activeTab === 'actividades' && isStudentOrParent && (
+                                        <div className="mt-3">
+                                            {mySub ? (
+                                                <div className="p-2 border rounded bg-dark">
+                                                    <div>✅ Enviado el {new Date(mySub.fecha).toLocaleDateString()}</div>
+                                                    {mySub.calificacion ? (
+                                                        <div className="text-success fw-bold">Nota: {mySub.calificacion}</div>
+                                                    ) : (
+                                                        <div className="text-muted">Pendiente de corrección</div>
+                                                    )}
+                                                    {mySub.devolucion && <small className="d-block text-info">feedback: {mySub.devolucion}</small>}
+                                                </div>
+                                            ) : (
+                                                user.role === 'alumno' && (
+                                                    <button
+                                                        className="btn btn-sm btn-primary"
+                                                        onClick={() => setSubmittingId(item.id)}
+                                                    >
+                                                        🚀 Subir Entrega
+                                                    </button>
+                                                )
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {/* Teacher View Submissions */}
+                                    {activeTab === 'actividades' && isTeacher && (
+                                        <div className="mt-3">
+                                            <button className="btn btn-sm btn-info" onClick={() => handleViewSubmissions(item.id)}>
+                                                📂 Ver Entregas
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                                <small className="text-muted ms-3" style={{ minWidth: '80px', textAlign: 'right' }}>
+                                    {new Date(item.createdAt).toLocaleDateString()}
+                                </small>
                             </div>
-                            <small className="text-muted ms-3" style={{ minWidth: '80px', textAlign: 'right' }}>
-                                {new Date(item.createdAt).toLocaleDateString()}
-                            </small>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     );
