@@ -145,6 +145,7 @@ const NavBar = () => {
                             <Link to="/pwm" style={linkStyle} onClick={closeAll}>PWM</Link>
                             <Link to="/sensores" style={linkStyle} onClick={closeAll}>Sensores</Link>
                             <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Serial</Link>
+                            <Link to="/scratch" style={linkStyle} onClick={closeAll}>Programación Scratch 😺</Link>
                         </div>
                     </div>
                 )}
