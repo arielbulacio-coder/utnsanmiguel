@@ -163,6 +163,7 @@ const NavBar = () => {
                         <div className="dropdown-menu">
                             <Link to="/gestion-academica" style={linkStyle} onClick={closeAll}>Panel Principal</Link>
 
+                            {/* Solo mostrar Gestión Académica si está logueado */}
                             {['admin', 'director', 'secretario', 'jefe_preceptores'].includes(user?.role) && (
                                 <Link to="/estudiantes" style={linkStyle} onClick={closeAll}>Estudiantes</Link>
                             )}
