@@ -136,9 +136,8 @@ const CurriculumManager = () => {
                                 className="form-control"
                                 value={selectedSubject}
                                 onChange={e => setSelectedSubject(e.target.value)}
-                                style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}
                             >
-                                {subjects.map(s => <option key={s.id} value={s.nombre} style={{ color: 'black' }}>{s.nombre}</option>)}
+                                {subjects.map(s => <option key={s.id} value={s.nombre}>{s.nombre}</option>)}
                             </select>
                             <button className="btn btn-success" onClick={handleAssignMateria} disabled={assignmentsLoading}>
                                 + Asignar
@@ -148,7 +147,7 @@ const CurriculumManager = () => {
                         <div className="d-flex flex-wrap gap-2">
                             {yearSubjects.map(m => (
                                 <div key={m.id} className="badge bg-secondary p-2 d-flex align-items-center gap-2 shadow-sm">
-                                    <span style={{ fontSize: '1rem' }}>{m.materia}</span>
+                                    <span style={{ fontSize: '1rem', color: '#fff' }}>{m.materia}</span>
                                     <button
                                         className="btn btn-sm p-0 text-danger fw-bold"
                                         style={{ lineHeight: 1, border: 'none', background: 'transparent' }}
@@ -156,7 +155,7 @@ const CurriculumManager = () => {
                                     >✕</button>
                                 </div>
                             ))}
-                            {yearSubjects.length === 0 && <span className="text-muted fst-italic">No hay materias asignadas a este año.</span>}
+                            {yearSubjects.length === 0 && <span className="text-muted-responsive fst-italic">No hay materias asignadas a este año.</span>}
                         </div>
                     </div>
                 </div>
@@ -165,7 +164,7 @@ const CurriculumManager = () => {
                 <div className="col-md-5 mb-4">
                     <div className="glass-card p-4 h-100" style={{ borderLeft: '4px solid #9c27b0' }}>
                         <h3 className="mb-3">🏫 Divisiones de {selectedYear}° Año</h3>
-                        <p className="text-muted small">Gestiona las divisiones habilitadas (A, B, C...).</p>
+                        <p className="text-muted-responsive small">Gestiona las divisiones habilitadas (A, B, C...).</p>
 
                         <div className="d-flex gap-2 mb-4 align-items-center">
                             <span className="fw-bold">{selectedYear}°</span>
@@ -175,7 +174,7 @@ const CurriculumManager = () => {
                                 placeholder="División (ej: A)"
                                 value={newDivision}
                                 onChange={e => setNewDivision(e.target.value)}
-                                style={{ maxWidth: '100px', textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}
+                                style={{ maxWidth: '100px', textTransform: 'uppercase' }}
                                 maxLength={2}
                             />
                             <button className="btn btn-primary" onClick={handleCreateCourse} disabled={assignmentsLoading}>
@@ -185,18 +184,18 @@ const CurriculumManager = () => {
 
                         <ul className="list-group">
                             {yearCourses.map(c => (
-                                <li key={c.id} className="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between align-items-center">
+                                <li key={c.id} className="list-group-item d-flex justify-content-between align-items-center">
                                     <span className="fw-bold fs-5">{c.nombre}</span>
                                     <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteCourse(c.id)}>Eliminar</button>
                                 </li>
                             ))}
-                            {yearCourses.length === 0 && <li className="list-group-item bg-transparent text-muted">No hay divisiones creadas.</li>}
+                            {yearCourses.length === 0 && <li className="list-group-item text-muted-responsive">No hay divisiones creadas.</li>}
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div className="alert bg-dark border-info text-info mt-4" style={{ border: '1px solid' }}>
+            <div className="alert alert-info mt-4">
                 ℹ️ <strong>Información:</strong> Al asignar materias al {selectedYear}° Año, estas se aplicarán automáticamente a todas sus divisiones ({yearCourses.map(c => c.nombre).join(', ') || 'ninguna'}) para la carga de notas y asistencia.
             </div>
         </div>

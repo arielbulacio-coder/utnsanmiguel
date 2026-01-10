@@ -597,11 +597,95 @@ td {
 }
 
 /* Sobrescribir cualquier color negro heredado, excepto en elementos con clases específicas de UI */
-[style*="color: black"]:not(.nav-btn-login),
-[style*="color: #000"]:not(.nav-btn-login),
-[style*="color: rgb(0,0,0)"]:not(.nav-btn-login),
 [style*="color: rgba(0,0,0"]:not(.nav-btn-login) {
   color: var(--text-dim) !important;
+}
+
+/* --- THEME COMPATIBILITY FIXES --- */
+
+/* Override Bootstrap Form Controls to follow Theme */
+.form-control,
+.form-select,
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+textarea {
+  background-color: var(--input-bg) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+.form-control::placeholder {
+  color: var(--text-dim) !important;
+  opacity: 0.7;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--input-bg) !important;
+  color: var(--text-main) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 10px rgba(0, 242, 255, 0.2) !important;
+}
+
+/* Fix Select Options visibility */
+option {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+}
+
+/* Override List Groups */
+.list-group-item {
+  background-color: transparent !important;
+  color: var(--text-main) !important;
+  border-color: var(--glass-border) !important;
+}
+
+/* Override Alerts to be readable in both modes */
+.alert {
+  background-color: var(--glass-bg) !important;
+  border: 1px solid var(--primary-color) !important;
+  color: var(--text-main) !important;
+}
+
+.alert-info {
+  border-color: #0dcaf0 !important;
+}
+
+.alert-danger {
+  border-color: #dc3545 !important;
+}
+
+.alert-success {
+  border-color: #198754 !important;
+}
+
+/* Utility to force text color based on theme */
+.text-responsive {
+  color: var(--text-main) !important;
+}
+
+.text-muted-responsive {
+  color: var(--text-dim) !important;
+}
+
+/* Remove forced Bootstrap text colors that break themes */
+.text-white {
+  color: var(--text-main) !important;
+}
+
+.text-dark {
+  color: var(--text-main) !important;
+}
+
+.bg-dark {
+  background-color: var(--glass-bg) !important;
+}
+
+.bg-light {
+  background-color: var(--glass-bg) !important;
 }
 
 /* Print styles */
