@@ -173,6 +173,15 @@ const NavBar = () => {
                             <Link to="/calificaciones" style={linkStyle} onClick={closeAll}>Calificaciones</Link>
                             <Link to="/asistencia" style={linkStyle} onClick={closeAll}>Asistencia</Link>
                             <Link to="/aula-virtual" style={linkStyle} onClick={closeAll}>Aula Virtual</Link>
+                            <Link to="/comunicados" style={linkStyle} onClick={closeAll}>Comunicaciones</Link>
+
+                            {['admin', 'director', 'secretario', 'jefe_preceptores', 'preceptor', 'profesor'].includes(user?.role) && (
+                                <Link to="/libro-temas" style={linkStyle} onClick={closeAll}>Libro de Temas</Link>
+                            )}
+
+                            {['admin', 'director', 'secretario'].includes(user?.role) && (
+                                <Link to="/asignacion-docente" style={linkStyle} onClick={closeAll}>Asignación Docente</Link>
+                            )}
 
                             {user?.role === 'admin' && (
                                 <Link to="/usuarios" style={{ ...linkStyle, borderTop: '1px solid rgba(255,255,255,0.1)' }} onClick={closeAll}>Usuarios (Admin)</Link>
