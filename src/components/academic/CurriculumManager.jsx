@@ -129,7 +129,7 @@ const CurriculumManager = () => {
                             <span>📚 Materias de {selectedYear}° Año</span>
                             <span className="badge bg-info">{yearSubjects.length} Materias</span>
                         </h3>
-                        <p className="text-muted small">Define qué materias cursan todos los alumnos de este año.</p>
+                        <p className="text-muted-responsive small">Define qué materias cursan todos los alumnos de este año.</p>
 
                         <div className="d-flex gap-2 mb-4">
                             <select
