@@ -49,6 +49,13 @@ const AcademicOverview = () => {
             desc: 'Asignar materias y cursos a profesores.',
             roles: ['admin', 'director', 'secretario']
         }
+        {
+            title: 'Alta de Docentes',
+            path: '/alta-docente',
+            icon: '📝',
+            desc: 'Registrar nuevos profesores en el sistema.',
+            roles: ['admin', 'director', 'secretario']
+        }
     ];
 
     const allowedModules = modules.filter(m => m.roles.includes(user?.role));

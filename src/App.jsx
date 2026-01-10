@@ -41,6 +41,7 @@ import AttendancePage from './pages/AttendancePage';
 import UsersPage from './pages/UsersPage';
 import LMSPage from './pages/LMSPage';
 import TeacherAssignmentPage from './pages/TeacherAssignmentPage';
+import TeacherRegistrationPage from './pages/TeacherRegistrationPage';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -103,6 +104,7 @@ function App() {
             {/* Asignación Docente - Solo Director/Secretario/Admin */}
             <Route element={<ProtectedRoute allowedRoles={['admin', 'director', 'secretario']} />}>
               <Route path="/asignacion-docente" element={<TeacherAssignmentPage />} />
+              <Route path="/alta-docente" element={<TeacherRegistrationPage />} />
             </Route>
 
             {/* Gestión Académica - Solo Admin */}
