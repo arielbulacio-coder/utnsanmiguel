@@ -64,13 +64,13 @@ const LoginPage = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Ingrese su contraseña"
-                                style={{ background: 'rgba(255,255,255,0.9)', border: 'none' }}
+                                style={{ background: 'rgba(255,255,255,0.9)', border: 'none', zIndex: 1 }}
                             />
                             <button
                                 className="btn btn-light"
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                style={{ borderLeft: '1px solid #ddd', background: 'rgba(255,255,255,0.9)' }}
+                                style={{ borderLeft: '1px solid #ddd', background: 'rgba(255,255,255,0.9)', zIndex: 2 }}
                             >
                                 {showPassword ? '👁️' : '🔒'}
                             </button>
