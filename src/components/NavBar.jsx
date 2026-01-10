@@ -21,7 +21,9 @@ const NavBar = () => {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        flexWrap: 'wrap',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
         transition: 'background-color 0.3s ease'
     };
 
@@ -301,6 +303,14 @@ const NavBar = () => {
                         flex-direction: column;
                         width: 100%;
                         margin-top: 1rem;
+                        background: var(--nav-bg);
+                        border-radius: 12px;
+                        padding: 1rem;
+                        border: 1px solid var(--glass-border);
+                        position: absolute;
+                        top: 60px;
+                        left: 0;
+                        right: 0;
                     }
                     .nav-links.open {
                         display: flex;
