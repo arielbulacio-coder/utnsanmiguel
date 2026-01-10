@@ -32,17 +32,17 @@ const GradesManagement = () => {
                 setMyStudentData(response.data);
             } else {
                 // VISTA PROFESOR: Lista completa filtrada por año
+                // Si es profesor, primero deberíamos filtrar qué cursos/materias puede ver
+                // Por ahora el backend valida al GUARDAR. En el frontend, idealmente solo mostramos lo que puede ver.
+                // TODO: Endpoint que devuelva "Mis Cursos" para llenar los selectores.
+
                 const response = await api.get(`/alumnos?ciclo_lectivo=${selectedCycle}`);
                 const allStudents = response.data;
                 setStudents(allStudents);
 
                 const initialGrades = {};
                 allStudents.forEach(s => {
-                    // Filtrar notas que coincidan con materia Y ciclo (ya filtrado por backend, pero por seguridad)
-                    // El backend ya devuelve solo notas del ciclo si se pasó param, pero s.Notas es array.
                     const noteRecord = s.Notas?.find(n => n.materia === selectedSubject);
-                    // Como backend filtra Notas por ciclo, la que venga DEBE ser del ciclo.
-
                     if (noteRecord) {
                         initialGrades[s.id] = { ...noteRecord };
                         Object.keys(initialGrades[s.id]).forEach(k => {
