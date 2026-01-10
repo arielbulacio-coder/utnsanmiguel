@@ -27,6 +27,39 @@ const CourseSubjectManager = () => {
         }
     };
 
+    const [editingId, setEditingId] = useState(null);
+    const [editValue, setEditValue] = useState('');
+    const [editType, setEditType] = useState(null); // 'course' or 'subject'
+
+    const startEdit = (item, type) => {
+        setEditingId(item.id);
+        setEditValue(item.nombre);
+        setEditType(type);
+    };
+
+    const cancelEdit = () => {
+        setEditingId(null);
+        setEditValue('');
+        setEditType(null);
+    };
+
+    const saveEdit = async () => {
+        if (!editValue.trim()) return;
+        setLoading(true);
+        try {
+            if (editType === 'course') {
+                await api.put(`/cursos/${editingId}`, { nombre: editValue });
+            } else {
+                await api.put(`/materias/${editingId}`, { nombre: editValue });
+            }
+            fetchData();
+            cancelEdit();
+        } catch (error) {
+            alert('Error al actualizar: ' + (error.response?.data?.message || error.message));
+        }
+        setLoading(false);
+    };
+
     const handleAddCourse = async (e) => {
         e.preventDefault();
         if (!newCourse.trim()) return;
@@ -90,8 +123,26 @@ const CourseSubjectManager = () => {
                         <ul className="list-group mb-4" style={{ maxHeight: '400px', overflowY: 'auto' }}>
                             {courses.map(c => (
                                 <li key={c.id} className="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-secondary">
-                                    {c.nombre}
-                                    <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteCourse(c.id)}>✕</button>
+                                    {editingId === c.id && editType === 'course' ? (
+                                        <div className="d-flex gap-2 w-100">
+                                            <input
+                                                className="form-control form-control-sm"
+                                                value={editValue}
+                                                onChange={e => setEditValue(e.target.value)}
+                                                autoFocus
+                                            />
+                                            <button className="btn btn-sm btn-success" onClick={saveEdit}>✔</button>
+                                            <button className="btn btn-sm btn-secondary" onClick={cancelEdit}>✕</button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            {c.nombre}
+                                            <div className="d-flex gap-2">
+                                                <button className="btn btn-sm btn-outline-warning" onClick={() => startEdit(c, 'course')}>✏️</button>
+                                                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteCourse(c.id)}>🗑️</button>
+                                            </div>
+                                        </>
+                                    )}
                                 </li>
                             ))}
                         </ul>
@@ -114,8 +165,26 @@ const CourseSubjectManager = () => {
                         <ul className="list-group mb-4" style={{ maxHeight: '400px', overflowY: 'auto' }}>
                             {subjects.map(s => (
                                 <li key={s.id} className="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-secondary">
-                                    {s.nombre}
-                                    <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteSubject(s.id)}>✕</button>
+                                    {editingId === s.id && editType === 'subject' ? (
+                                        <div className="d-flex gap-2 w-100">
+                                            <input
+                                                className="form-control form-control-sm"
+                                                value={editValue}
+                                                onChange={e => setEditValue(e.target.value)}
+                                                autoFocus
+                                            />
+                                            <button className="btn btn-sm btn-success" onClick={saveEdit}>✔</button>
+                                            <button className="btn btn-sm btn-secondary" onClick={cancelEdit}>✕</button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            {s.nombre}
+                                            <div className="d-flex gap-2">
+                                                <button className="btn btn-sm btn-outline-warning" onClick={() => startEdit(s, 'subject')}>✏️</button>
+                                                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteSubject(s.id)}>🗑️</button>
+                                            </div>
+                                        </>
+                                    )}
                                 </li>
                             ))}
                         </ul>
