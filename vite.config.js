@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: 'EEST N°1 San Miguel',
-        short_name: 'EEST SM',
+        name: 'EST UTN SM',
+        short_name: 'EST UTN SM',
         description: 'Plataforma educativa técnica y simuladores didácticos.',
         theme_color: '#1a1a1a',
         background_color: '#1a1a1a',
