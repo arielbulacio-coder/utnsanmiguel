@@ -89,6 +89,7 @@ function App() {
               <Route path="/pwm" element={<PWMPage />} />
               <Route path="/sensores" element={<SensorsPage />} />
               <Route path="/comunicacion-serial" element={<SerialPage />} />
+              <Route path="/scratch" element={<ScratchPage />} />
 
               {/* Gestión Académica */}
               <Route path="/gestion-academica" element={<AcademicOverviewPage />} />
