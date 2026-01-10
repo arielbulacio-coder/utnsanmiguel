@@ -186,6 +186,7 @@ const Attendance = () => {
         if (count >= 25) return { color: '#ff4444', text: '⚠️ 25 FALTAS - CRÍTICO', blink: false };
         if (count >= 20) return { color: '#ff8800', text: '🟠 20 FALTAS - ALERTA', blink: false };
         if (count >= 15) return { color: '#ffcc00', text: '🟡 15 FALTAS - PRECAUCIÓN', blink: false };
+        if (count >= 10) return { color: '#fff176', text: '👀 10 FALTAS - ATENCIÓN', blink: false };
         return null;
     };
 
