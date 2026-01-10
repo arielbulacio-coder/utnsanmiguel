@@ -198,6 +198,56 @@ const CurriculumManager = () => {
             <div className="alert alert-info mt-4">
                 ℹ️ <strong>Información:</strong> Al asignar materias al {selectedYear}° Año, estas se aplicarán automáticamente a todas sus divisiones ({yearCourses.map(c => c.nombre).join(', ') || 'ninguna'}) para la carga de notas y asistencia.
             </div>
+
+            {/* RESUMEN GLOBAL */}
+            <div className="mt-5">
+                <div className="glass-card p-4">
+                    <h3 className="mb-4 text-center border-bottom pb-3" style={{ borderColor: 'var(--glass-border)' }}>Vista General del Plan de Estudios</h3>
+                    <div className="table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th className="text-center" style={{ width: '100px' }}>Año</th>
+                                    <th>Materias Asignadas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {years.map(y => {
+                                    const mats = curriculum.filter(c => c.anio === y);
+                                    return (
+                                        <tr key={y} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                                            <td className="align-middle text-center">
+                                                <div className="fs-4 fw-bold text-primary">{y}°</div>
+                                            </td>
+                                            <td className="align-middle py-3">
+                                                <div className="d-flex flex-wrap gap-2">
+                                                    {mats.length > 0 ? mats.map(m => (
+                                                        <div key={m.id} className="badge bg-dark border border-secondary p-2 d-flex align-items-center gap-2">
+                                                            <span className="text-responsive" style={{ fontSize: '0.9rem' }}>{m.materia}</span>
+                                                            <button
+                                                                className="btn btn-sm p-0 text-danger fw-bold hover-scale"
+                                                                style={{ lineHeight: 1, border: 'none', background: 'transparent', fontSize: '1.2em' }}
+                                                                title="Eliminar materia"
+                                                                onClick={() => handleDeleteMateria(m.id)}
+                                                            >
+                                                                &times;
+                                                            </button>
+                                                        </div>
+                                                    )) : (
+                                                        <span className="text-muted-responsive small fst-italic opacity-50">
+                                                            --- Sin materias asignadas ---
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
