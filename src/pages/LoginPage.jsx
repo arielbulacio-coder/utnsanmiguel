@@ -34,53 +34,55 @@ const LoginPage = () => {
     };
 
     return (
-        <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
-            <Row className="w-100 justify-content-center">
-                <Col md={6} lg={4}>
-                    <Card className="shadow">
-                        <Card.Body>
-                            <h2 className="text-center mb-4">Iniciar Sesión</h2>
-                            {error && <Alert variant="danger">{error}</Alert>}
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group id="email" className="mb-3">
-                                    <Form.Label>Email / Usuario</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        required
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="Ingrese su usuario"
-                                    />
-                                </Form.Group>
-                                <Form.Group id="password" className="mb-4">
-                                    <Form.Label>Contraseña</Form.Label>
-                                    <div className="input-group">
-                                        <Form.Control
-                                            type={showPassword ? "text" : "password"}
-                                            required
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            placeholder="Ingrese su contraseña"
-                                        />
-                                        <button
-                                            className="btn btn-outline-secondary"
-                                            type="button"
-                                            onClick={() => setShowPassword(!showPassword)}
-                                            style={{ borderLeft: 'none', borderColor: '#ced4da' }}
-                                        >
-                                            {showPassword ? '👁️' : '🔒'}
-                                        </button>
-                                    </div>
-                                </Form.Group>
-                                <Button disabled={loading} className="w-100 mt-3" type="submit">
-                                    {loading ? 'Cargando...' : 'Ingresar'}
-                                </Button>
-                            </Form>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+        <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
+            <div className="glass-card p-5" style={{ width: '100%', maxWidth: '400px', borderRadius: '15px' }}>
+                <h2 className="text-center mb-4 text-gradient">Iniciar Sesión</h2>
+
+                {error && <div className="alert alert-danger text-center p-2 mb-3">{error}</div>}
+
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label className="form-label" style={{ fontWeight: '500' }}>Email / Usuario</label>
+                        <input
+                            type="text"
+                            className="form-control form-control-lg"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            placeholder="Ingrese su usuario"
+                            style={{ background: 'rgba(255,255,255,0.9)', border: 'none' }}
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label className="form-label" style={{ fontWeight: '500' }}>Contraseña</label>
+                        <div className="input-group">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="form-control form-control-lg"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Ingrese su contraseña"
+                                style={{ background: 'rgba(255,255,255,0.9)', border: 'none' }}
+                            />
+                            <button
+                                className="btn btn-light"
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{ borderLeft: '1px solid #ddd', background: 'rgba(255,255,255,0.9)' }}
+                            >
+                                {showPassword ? '👁️' : '🔒'}
+                            </button>
+                        </div>
+                    </div>
+
+                    <button disabled={loading} className="btn btn-primary w-100 btn-lg mt-2" type="submit" style={{ fontWeight: 'bold' }}>
+                        {loading ? 'Cargando...' : 'INGRESAR'}
+                    </button>
+                </form>
+            </div>
+        </div>
     );
 };
 
