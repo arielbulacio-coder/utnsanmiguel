@@ -10,19 +10,92 @@ const GradesManagement = () => {
     const [gradesData, setGradesData] = useState({});
 
     // States for Teacher View
-    const [selectedCourse, setSelectedCourse] = useState(COURSES[0]);
-    const [selectedSubject, setSelectedSubject] = useState(SUBJECTS[0]);
+    const [selectedCourse, setSelectedCourse] = useState('');
+    const [selectedSubject, setSelectedSubject] = useState('');
     const [selectedCycle, setSelectedCycle] = useState(new Date().getFullYear());
+
+    // Dynamic lists for teacher
+    const [availableCourses, setAvailableCourses] = useState([]);
+    const [availableSubjects, setAvailableSubjects] = useState([]);
+    const [teacherAssignments, setTeacherAssignments] = useState([]);
 
     const [loading, setLoading] = useState(false);
 
     const isStudentOrParent = user && ['alumno', 'padre'].includes(user.role);
+    const isAdminOrDirector = user && ['admin', 'director', 'secretario'].includes(user.role);
 
     useEffect(() => {
-        if (user) fetchData();
-    }, [user, selectedSubject, selectedCycle]); // Reload on cycle change
+        if (user) {
+            if (!isStudentOrParent && !isAdminOrDirector) {
+                // Es profesor, cargar asignaciones
+                loadTeacherAssignments();
+            } else if (isAdminOrDirector) {
+                // Es admin, cargar constantes globales y valores por defecto
+                setAvailableCourses(COURSES);
+                setAvailableSubjects(SUBJECTS);
+                setSelectedCourse(COURSES[0]);
+                setSelectedSubject(SUBJECTS[0]);
+                fetchData();
+            } else {
+                // Estudiante/Padre
+                fetchData();
+            }
+        }
+    }, [user]);
+
+    // Recargar datos cuando cambian los filtros principales
+    useEffect(() => {
+        if (selectedCourse && selectedSubject) {
+            fetchData();
+        }
+    }, [selectedCourse, selectedSubject, selectedCycle]);
+
+    const loadTeacherAssignments = async () => {
+        setLoading(true);
+        try {
+            const res = await api.get('/profesor/me/asignaciones');
+            const assignments = res.data;
+
+            if (assignments.length > 0) {
+                setTeacherAssignments(assignments);
+
+                // Extract unicos cursos
+                const courses = [...new Set(assignments.map(a => a.curso))];
+                setAvailableCourses(courses);
+
+                // Seleccionar primer curso
+                if (courses.length > 0) {
+                    setSelectedCourse(courses[0]);
+
+                    // Filtrar materias del primer curso
+                    const subjects = assignments.filter(a => a.curso === courses[0]).map(a => a.materia);
+                    setAvailableSubjects(subjects);
+                    if (subjects.length > 0) setSelectedSubject(subjects[0]);
+                }
+            } else {
+                alert('No tienes cursos asignados.');
+            }
+        } catch (error) {
+            console.error('Error loading assignments:', error);
+        }
+        setLoading(false);
+    };
+
+    // Actualizar materias disponibles cuando el profesor cambia de curso
+    useEffect(() => {
+        if (!isStudentOrParent && !isAdminOrDirector && teacherAssignments.length > 0 && selectedCourse) {
+            const subs = teacherAssignments.filter(a => a.curso === selectedCourse).map(a => a.materia);
+            setAvailableSubjects(subs);
+            // Si la materia seleccionada no está en el nuevo curso, seleccionar la primera disponible
+            if (!subs.includes(selectedSubject)) {
+                setSelectedSubject(subs[0] || '');
+            }
+        }
+    }, [selectedCourse, teacherAssignments]);
 
     const fetchData = async () => {
+        if (!selectedCourse && !isStudentOrParent) return;
+
         setLoading(true);
         try {
             if (isStudentOrParent) {
@@ -31,11 +104,8 @@ const GradesManagement = () => {
                 console.log('Boletin Data:', response.data);
                 setMyStudentData(response.data);
             } else {
-                // VISTA PROFESOR: Lista completa filtrada por año
-                // Si es profesor, primero deberíamos filtrar qué cursos/materias puede ver
-                // Por ahora el backend valida al GUARDAR. En el frontend, idealmente solo mostramos lo que puede ver.
-                // TODO: Endpoint que devuelva "Mis Cursos" para llenar los selectores.
-
+            } else {
+                // VISTA PROFESOR / ADMIN
                 const response = await api.get(`/alumnos?ciclo_lectivo=${selectedCycle}`);
                 const allStudents = response.data;
                 setStudents(allStudents);
@@ -202,14 +272,15 @@ const GradesManagement = () => {
                     </div>
                     <div style={{ flex: 1, maxWidth: '200px' }}>
                         <label className="d-block mb-1">Curso</label>
-                        <select className="form-control" value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)}>
-                            {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
+                        <select className="form-control" value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)} disabled={loading}>
+                            {/* Populate dynamically if teacher, otherwise use constants */}
+                            {(availableCourses.length > 0 ? availableCourses : COURSES).map(c => <option key={c} value={c}>{c}</option>)}
                         </select>
                     </div>
                     <div style={{ flex: 1, maxWidth: '250px' }}>
                         <label className="d-block mb-1">Materia</label>
-                        <select className="form-control" value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)}>
-                            {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                        <select className="form-control" value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)} disabled={loading}>
+                            {(availableSubjects.length > 0 ? availableSubjects : SUBJECTS).map(s => <option key={s} value={s}>{s}</option>)}
                         </select>
                     </div>
                     <button className="btn btn-primary" onClick={handleSaveAll} disabled={loading} style={{ height: '38px', minWidth: '120px', alignSelf: 'end' }}>
