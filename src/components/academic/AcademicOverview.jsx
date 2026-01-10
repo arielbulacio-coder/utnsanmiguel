@@ -62,6 +62,13 @@ const AcademicOverview = () => {
             icon: '📢',
             desc: 'Avisos, mensajes y llamados de atención.',
             roles: ['admin', 'director', 'secretario', 'jefe_preceptores', 'preceptor', 'alumno', 'padre']
+        },
+        {
+            title: 'Libro de Temas',
+            path: '/libro-temas',
+            icon: '📖',
+            desc: 'Registro de clases, temas y actividades dictadas.',
+            roles: ['admin', 'director', 'secretario', 'profesor', 'preceptor']
         }
     ];
 

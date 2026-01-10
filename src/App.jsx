@@ -44,6 +44,7 @@ import LMSPage from './pages/LMSPage';
 import TeacherAssignmentPage from './pages/TeacherAssignmentPage';
 import TeacherRegistrationPage from './pages/TeacherRegistrationPage';
 import CommunicationsPage from './pages/CommunicationsPage';
+import LessonPlanPage from './pages/LessonPlanPage';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -110,9 +111,10 @@ function App() {
               <Route path="/alta-docente" element={<TeacherRegistrationPage />} />
             </Route>
 
-            {/* Comunicaciones - Todos los roles académicos */}
+            {/* Comunicaciones y Libro de Temas - Todos los roles académicos */}
             <Route element={<ProtectedRoute allowedRoles={['admin', 'director', 'secretario', 'jefe_preceptores', 'preceptor', 'profesor', 'alumno', 'padre']} />}>
               <Route path="/comunicados" element={<CommunicationsPage />} />
+              <Route path="/libro-temas" element={<LessonPlanPage />} />
             </Route>
 
             {/* Gestión Académica - Solo Admin */}
