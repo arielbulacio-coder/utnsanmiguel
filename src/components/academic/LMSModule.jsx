@@ -153,7 +153,7 @@ const LMSModule = () => {
 
     const fetchAssignments = async () => {
         try {
-            const res = await api.get('/profesor/asignaciones');
+            const res = await api.get('/profesor/me/asignaciones');
             setAssignedOptions(res.data);
             const courses = [...new Set(res.data.map(item => item.curso))];
             setAvailableCourses(courses);
