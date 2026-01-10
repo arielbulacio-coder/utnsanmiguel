@@ -54,13 +54,23 @@ const LoginPage = () => {
                                 </Form.Group>
                                 <Form.Group id="password" className="mb-4">
                                     <Form.Label>Contraseña</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        required
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Ingrese su contraseña"
-                                    />
+                                    <div className="input-group">
+                                        <Form.Control
+                                            type={showPassword ? "text" : "password"}
+                                            required
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            placeholder="Ingrese su contraseña"
+                                        />
+                                        <button
+                                            className="btn btn-outline-secondary"
+                                            type="button"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            style={{ borderLeft: 'none', borderColor: '#ced4da' }}
+                                        >
+                                            {showPassword ? '👁️' : '🔒'}
+                                        </button>
+                                    </div>
                                 </Form.Group>
                                 <Button disabled={loading} className="w-100 mt-3" type="submit">
                                     {loading ? 'Cargando...' : 'Ingresar'}
