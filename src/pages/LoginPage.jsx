@@ -56,7 +56,7 @@ const LoginPage = () => {
 
                     <div className="mb-4">
                         <label className="form-label" style={{ fontWeight: '500' }}>Contraseña</label>
-                        <div className="input-group">
+                        <div style={{ position: 'relative' }}>
                             <input
                                 type={showPassword ? "text" : "password"}
                                 className="form-control form-control-lg"
@@ -64,13 +64,22 @@ const LoginPage = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Ingrese su contraseña"
-                                style={{ background: 'rgba(255,255,255,0.9)', border: 'none', zIndex: 1 }}
+                                style={{ background: 'rgba(255,255,255,0.9)', border: 'none', paddingRight: '45px' }}
                             />
                             <button
-                                className="btn btn-light"
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                style={{ borderLeft: '1px solid #ddd', background: 'rgba(255,255,255,0.9)', zIndex: 2 }}
+                                style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    background: 'transparent',
+                                    border: 'none',
+                                    fontSize: '1.2rem',
+                                    cursor: 'pointer',
+                                    zIndex: 10
+                                }}
                             >
                                 {showPassword ? '👁️' : '🔒'}
                             </button>
