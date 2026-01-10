@@ -48,7 +48,7 @@ const AcademicOverview = () => {
             icon: '👨‍🏫',
             desc: 'Asignar materias y cursos a profesores.',
             roles: ['admin', 'director', 'secretario']
-        }
+        },
         {
             title: 'Alta de Docentes',
             path: '/alta-docente',
