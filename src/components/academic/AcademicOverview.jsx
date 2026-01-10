@@ -79,7 +79,7 @@ const AcademicOverview = () => {
             <div className="text-center mb-5">
                 <h1 className="display-4 text-gradient">Panel de Gestión Académica</h1>
                 <p className="lead" style={{ color: 'var(--text-secondary)' }}>
-                    Bienvenido, <strong>{user?.email}</strong> ({user?.role?.toUpperCase()})
+                    Bienvenido, <strong>{user?.email}</strong>
                 </p>
             </div>
 
