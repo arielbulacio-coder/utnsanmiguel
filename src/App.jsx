@@ -40,6 +40,7 @@ import GradesPage from './pages/GradesPage';
 import AttendancePage from './pages/AttendancePage';
 import UsersPage from './pages/UsersPage';
 import LMSPage from './pages/LMSPage';
+import TeacherAssignmentPage from './pages/TeacherAssignmentPage';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -97,6 +98,11 @@ function App() {
             {/* Gestión Académica - Solo Administrativos */}
             <Route element={<ProtectedRoute allowedRoles={['admin', 'director', 'secretario', 'jefe_preceptores']} />}>
               <Route path="/estudiantes" element={<StudentsPage />} />
+            </Route>
+
+            {/* Asignación Docente - Solo Director/Secretario/Admin */}
+            <Route element={<ProtectedRoute allowedRoles={['admin', 'director', 'secretario']} />}>
+              <Route path="/asignacion-docente" element={<TeacherAssignmentPage />} />
             </Route>
 
             {/* Gestión Académica - Solo Admin */}
