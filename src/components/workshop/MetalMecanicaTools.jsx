@@ -11,31 +11,31 @@ const MetalMecanicaTools = () => {
         {
             title: 'Lima (Juego de Limas)',
             description: 'Herramienta de acero templado con una superficie estriada para desbastar, ajustar y acabar piezas metálicas.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Files_set.jpg/640px-Files_set.jpg',
+            img: `${import.meta.env.BASE_URL}assets/files_set.png`,
             use: 'Utilice toda la longitud de la lima y limpie las virutas con un cepillo de alambre (carda) regularmente.'
         },
         {
             title: 'Granete (Punto de Marcar)',
             description: 'Pieza de acero con punta templada que sirve para marcar el centro exacto donde se debe realizar un taladro.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Centre_punch.JPG/640px-Centre_punch.JPG',
+            img: `${import.meta.env.BASE_URL}assets/centre_punch.png`,
             use: 'Coloque la punta en el cruce de las líneas de trazo y golpee suavemente con un martillo para crear la muesca.'
         },
         {
             title: 'Escuadra de Mecánico',
             description: 'Herramienta de acero de gran precisión para verificar la perpendicularidad de caras o marcar ángulos de 90°.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/SquareEngineersMachinist.jpg/640px-SquareEngineersMachinist.jpg',
+            img: `${import.meta.env.BASE_URL}assets/machinist_square.png`,
             use: 'Limpie las caras antes de medir. El borde de la escuadra debe asentar perfectamente en la superficie de referencia.'
         },
         {
             title: 'Brocas HSS (Acero Rápido)',
             description: 'Herramientas de corte de forma helicoidal que se utilizan con un tan taladro para realizar agujeros cilíndricos en metal.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Metal_drill_bit.png',
+            img: `${import.meta.env.BASE_URL}assets/drill_bit.png`,
             use: 'Utilice refrigerante (aceite) al taladrar metales para evitar el sobrecalentamiento y la pérdida del filo.'
         },
         {
             title: 'Tornillo de Banco',
             description: 'Herramienta de sujeción anclada a la mesa de trabajo que permite inmovilizar una pieza para limar, cortar o ajustar.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Bench_Vice.svg/640px-Bench_Vice.svg.png',
+            img: `${import.meta.env.BASE_URL}assets/bench_vice.png`,
             use: 'No golpee el brazo del tornillo con un martillo. Use mordazas de material blando (plomo o aluminio) para no marcar piezas delicadas.'
         }
     ];
