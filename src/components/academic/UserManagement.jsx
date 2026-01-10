@@ -34,8 +34,8 @@ const UserManagement = () => {
         }
     };
 
-    if (user?.role !== 'admin') {
-        return <div className="p-4 text-center">Acceso denegado. Solo administradores.</div>;
+    if (!['admin', 'director'].includes(user?.role)) {
+        return <div className="p-4 text-center">Acceso denegado. Solo administradores y directivos.</div>;
     }
 
     return (

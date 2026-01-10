@@ -183,8 +183,8 @@ const NavBar = () => {
                                 <Link to="/asignacion-docente" style={linkStyle} onClick={closeAll}>Asignación Docente</Link>
                             )}
 
-                            {user?.role === 'admin' && (
-                                <Link to="/usuarios" style={{ ...linkStyle, borderTop: '1px solid rgba(255,255,255,0.1)' }} onClick={closeAll}>Usuarios (Admin)</Link>
+                            {['admin', 'director'].includes(user?.role) && (
+                                <Link to="/usuarios" style={{ ...linkStyle, borderTop: '1px solid rgba(255,255,255,0.1)' }} onClick={closeAll}>Usuarios / Docentes</Link>
                             )}
                         </div>
                     </div>
