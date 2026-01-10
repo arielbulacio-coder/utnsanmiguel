@@ -104,7 +104,7 @@ const GradesManagement = () => {
                 console.log('Boletin Data:', response.data);
                 setMyStudentData(response.data);
             } else {
-            } else {
+
                 // VISTA PROFESOR / ADMIN
                 const response = await api.get(`/alumnos?ciclo_lectivo=${selectedCycle}`);
                 const allStudents = response.data;
