@@ -132,8 +132,13 @@ const CurriculumManager = () => {
                         <p className="text-muted small">Define qué materias cursan todos los alumnos de este año.</p>
 
                         <div className="d-flex gap-2 mb-4">
-                            <select className="form-control" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}>
-                                {subjects.map(s => <option key={s.id} value={s.nombre}>{s.nombre}</option>)}
+                            <select
+                                className="form-control"
+                                value={selectedSubject}
+                                onChange={e => setSelectedSubject(e.target.value)}
+                                style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}
+                            >
+                                {subjects.map(s => <option key={s.id} value={s.nombre} style={{ color: 'black' }}>{s.nombre}</option>)}
                             </select>
                             <button className="btn btn-success" onClick={handleAssignMateria} disabled={assignmentsLoading}>
                                 + Asignar
@@ -170,7 +175,7 @@ const CurriculumManager = () => {
                                 placeholder="División (ej: A)"
                                 value={newDivision}
                                 onChange={e => setNewDivision(e.target.value)}
-                                style={{ maxWidth: '100px', textTransform: 'uppercase' }}
+                                style={{ maxWidth: '100px', textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}
                                 maxLength={2}
                             />
                             <button className="btn btn-primary" onClick={handleCreateCourse} disabled={assignmentsLoading}>
@@ -191,7 +196,7 @@ const CurriculumManager = () => {
                 </div>
             </div>
 
-            <div className="alert alert-info bg-opacity-25 border-info text-white mt-4">
+            <div className="alert bg-dark border-info text-info mt-4" style={{ border: '1px solid' }}>
                 ℹ️ <strong>Información:</strong> Al asignar materias al {selectedYear}° Año, estas se aplicarán automáticamente a todas sus divisiones ({yearCourses.map(c => c.nombre).join(', ') || 'ninguna'}) para la carga de notas y asistencia.
             </div>
         </div>
