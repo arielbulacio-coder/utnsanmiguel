@@ -166,7 +166,6 @@ const LMSModule = () => {
         }
     }, [selectedCourse, assignedOptions, user]);
 
-    return (
     // Grading State
     const [viewingSubmissionsFor, setViewingSubmissionsFor] = useState(null);
     const [submissionsList, setSubmissionsList] = useState([]);
@@ -201,8 +200,6 @@ const LMSModule = () => {
     };
 
     // For students to mark if they submitted (can be improved by checking backend)
-    // Actually, fetchActivities response should ideally include "mySubmission" or we fetch entregas separately.
-    // simpler: fetch all my entregas and map them.
     const [mySubmissions, setMySubmissions] = useState({});
 
     useEffect(() => {
@@ -214,7 +211,6 @@ const LMSModule = () => {
     const fetchMySubmissions = async () => {
         try {
             const res = await api.get('/entregas');
-            // Map by ActividadId
             const map = {};
             res.data.forEach(s => {
                 map[s.ActividadId] = s;
