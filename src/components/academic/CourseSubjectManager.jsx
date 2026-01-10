@@ -75,7 +75,7 @@ const CourseSubjectManager = () => {
         }
     };
 
-    if (!['admin', 'director'].includes(user?.role)) {
+    if (!['admin', 'director', 'secretario'].includes(user?.role)) {
         return <div className="p-4 text-center">Acceso Denegado</div>;
     }
 

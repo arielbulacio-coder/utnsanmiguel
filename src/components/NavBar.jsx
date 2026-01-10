@@ -162,7 +162,7 @@ const NavBar = () => {
                         >
                             Gestión Académica <span className="arrow">▼</span>
                         </div>
-                        <div className="dropdown-menu">
+                        <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '250px' }}>
                             <Link to="/gestion-academica" style={linkStyle} onClick={closeAll}>Panel Principal</Link>
 
                             {/* Solo mostrar Gestión Académica si está logueado */}
