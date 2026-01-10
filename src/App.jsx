@@ -32,6 +32,7 @@ import CppBasicsPage from './pages/CppBasicsPage';
 import PWMPage from './pages/PWMPage';
 import SensorsPage from './pages/SensorsPage';
 import SerialPage from './pages/SerialPage';
+import ScratchPage from './pages/ScratchPage';
 
 // Gestión Académica
 import AcademicOverviewPage from './pages/AcademicOverviewPage';
