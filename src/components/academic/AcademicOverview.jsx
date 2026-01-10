@@ -55,6 +55,13 @@ const AcademicOverview = () => {
             icon: '📝',
             desc: 'Registrar nuevos profesores en el sistema.',
             roles: ['admin', 'director', 'secretario']
+        },
+        {
+            title: 'Comunicaciones',
+            path: '/comunicados',
+            icon: '📢',
+            desc: 'Avisos, mensajes y llamados de atención.',
+            roles: ['admin', 'director', 'secretario', 'jefe_preceptores', 'preceptor', 'alumno', 'padre']
         }
     ];
 
