@@ -23,9 +23,10 @@ const TeacherAssignment = () => {
         try {
             // Get all users to filter teachers
             const resUsers = await api.get('/users');
-            // Filter only 'profesor' role
-            const profs = resUsers.data.filter(u => u.role === 'profesor');
+            // Filter only 'profesor' role (case insensitive)
+            const profs = resUsers.data.filter(u => u.role && u.role.toLowerCase() === 'profesor');
             setTeachers(profs);
+            console.log('Teachers found:', profs);
             if (profs.length > 0 && !selectedTeacher) setSelectedTeacher(profs[0].email);
 
             // Get assignments
