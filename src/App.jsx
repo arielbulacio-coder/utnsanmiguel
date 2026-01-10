@@ -45,6 +45,7 @@ import TeacherAssignmentPage from './pages/TeacherAssignmentPage';
 import TeacherRegistrationPage from './pages/TeacherRegistrationPage';
 import CommunicationsPage from './pages/CommunicationsPage';
 import LessonPlanPage from './pages/LessonPlanPage';
+import ProfilePage from './pages/ProfilePage';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -120,6 +121,11 @@ function App() {
             {/* Gestión Académica - Solo Admin */}
             <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
               <Route path="/usuarios" element={<UsersPage />} />
+            </Route>
+
+            {/* Perfil - Todos */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/perfil" element={<ProfilePage />} />
             </Route>
           </Routes>
 

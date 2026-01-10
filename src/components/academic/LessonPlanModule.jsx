@@ -72,6 +72,37 @@ const LessonPlanModule = () => {
         }
     };
 
+    // Planning Link Logic
+    const [planningLink, setPlanningLink] = useState('');
+    const [assignmentId, setAssignmentId] = useState(null);
+
+    useEffect(() => {
+        if (isTeacher && selectedCourse && selectedSubject) {
+            const assign = assignedOptions.find(a => a.curso === selectedCourse && a.materia === selectedSubject);
+            if (assign) {
+                setPlanningLink(assign.planificacion_url || '');
+                setAssignmentId(assign.id);
+            }
+        }
+    }, [selectedCourse, selectedSubject, assignedOptions, isTeacher]);
+
+    const handleUpdatePlanning = async () => {
+        if (!assignmentId) return;
+        const url = prompt("Ingrese el link a su planificación anual (Google Docs, PDF, etc):", planningLink);
+        if (url !== null) {
+            try {
+                const res = await api.put('/profesor/planificacion', { id: assignmentId, link: url });
+                setPlanningLink(res.data.planificacion_url);
+                // Update local list to reflect changes without refetching everything
+                setAssignedOptions(prev => prev.map(p => p.id === assignmentId ? { ...p, planificacion_url: url } : p));
+                alert('Enlace actualizado');
+            } catch (error) {
+                alert('Error al actualizar enlace');
+            }
+        }
+    };
+
+
     // Form State
     const [formData, setFormData] = useState({
         fecha: new Date().toISOString().split('T')[0],
@@ -117,6 +148,21 @@ const LessonPlanModule = () => {
                     </select>
                 </div>
             </div>
+
+            {/* Annual Planning Link (Teacher) */}
+            {isTeacher && selectedCourse && selectedSubject && (
+                <div className="glass-card mb-4 p-3 d-flex align-items-center justify-content-between alert-info" style={{ background: 'rgba(0, 188, 212, 0.15)', border: '1px solid var(--primary-color)' }}>
+                    <div>
+                        <strong>📅 Planificación Anual: </strong>
+                        {planningLink ? (
+                            <a href={planningLink} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'underline' }}>Ver Documento</a>
+                        ) : (
+                            <span className="text-muted fst-italic">No adjunta</span>
+                        )}
+                    </div>
+                    <button className="btn btn-sm btn-outline-light" onClick={handleUpdatePlanning}>🔗 Vincular / Editar</button>
+                </div>
+            )}
 
             <div className="row g-4">
                 {/* Form - Only for Teacher/Admin/Director */}

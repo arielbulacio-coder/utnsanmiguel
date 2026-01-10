@@ -181,9 +181,18 @@ const NavBar = () => {
                 {/* Login / Logout */}
                 {isAuthenticated ? (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0 1rem' }}>
-                        <span style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }} className="hidden-mobile">
-                            {user?.email?.split('@')[0]}
-                        </span>
+                        <Link to="/perfil" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }} onClick={closeAll}>
+                            {user?.foto ? (
+                                <img src={user.foto} alt="Avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--primary-color)' }} />
+                            ) : (
+                                <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'var(--primary-color)', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+                                    {user?.email?.charAt(0).toUpperCase()}
+                                </div>
+                            )}
+                            <span style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }} className="hidden-mobile">
+                                {user?.email?.split('@')[0]}
+                            </span>
+                        </Link>
                         <button
                             onClick={() => {
                                 logout();
