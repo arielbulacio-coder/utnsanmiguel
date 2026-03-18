@@ -4,7 +4,6 @@
     max-width: 1200px;
     margin: 0 auto;
     color: var(--text-main);
-    background: transparent;
 }
 
 .drawing-header {
@@ -17,11 +16,6 @@
     color: var(--primary-color);
     text-transform: uppercase;
     letter-spacing: 2px;
-}
-
-.drawing-header p {
-    color: var(--text-dim);
-    font-size: 1.1rem;
 }
 
 .drawing-grid {
@@ -37,7 +31,9 @@
     border-radius: 16px;
     padding: 1.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .drawing-card:hover {
@@ -45,18 +41,34 @@
     border-color: var(--primary-color);
 }
 
-.drawing-card h2 {
-    color: var(--secondary-color);
-    margin-top: 0;
+.level-badge {
+    background: var(--primary-color);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: inline-block;
     margin-bottom: 1rem;
-    border-bottom: 2px solid rgba(0, 242, 255, 0.2);
-    padding-bottom: 0.5rem;
+}
+
+.level-basic {
+    border-left: 5px solid #00f2ff;
+}
+
+.level-advanced {
+    border-left: 5px solid #ff00f2;
+}
+
+.full-width {
+    grid-column: 1 / -1;
 }
 
 .iram-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
+    font-size: 0.9rem;
 }
 
 .iram-table th,
@@ -66,47 +78,63 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.iram-table th {
-    color: var(--primary-color);
-}
-
-.alphabet-preview {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.2rem;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    letter-spacing: 5px;
-}
-
-.practical-exercise {
-    margin-top: 3rem;
-    background: rgba(0, 242, 255, 0.05);
-    border: 1px dashed var(--primary-color);
-    border-radius: 16px;
-    padding: 2rem;
-}
-
-.practical-exercise h3 {
-    color: var(--primary-color);
-    margin-top: 0;
-}
-
 .info-box {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     padding: 1rem;
     border-left: 4px solid var(--primary-color);
     margin: 1rem 0;
     font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
-    .drawing-container {
-        padding: 1rem;
-    }
+.sim-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
-    .drawing-grid {
-        grid-template-columns: 1fr;
+.sel-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sel-btn.active {
+    background: var(--primary-color);
+    color: #000;
+    font-weight: bold;
+}
+
+.step-by-step-module {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.exercise-list {
+    padding: 0;
+}
+
+.exercise-list li {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--primary-color);
+    list-style: none;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .step-by-step-module {
+        flex-direction: column;
+        text-align: center;
     }
 }
