@@ -26,6 +26,7 @@ import ElectronicsToolsPage from './pages/ElectronicsToolsPage';
 import OscilloscopePage from './pages/OscilloscopePage';
 import MultimeterPage from './pages/MultimeterPage';
 import DomesticCircuitsPage from './pages/DomesticCircuitsPage';
+import ElectricityBasicsPage from './pages/ElectricityBasicsPage';
 
 // Dibujo Técnico
 import NormasIRAMPage from './pages/drawing/NormasIRAMPage';
@@ -100,6 +101,7 @@ function App() {
               <Route path="/osciloscopio" element={<OscilloscopePage />} />
               <Route path="/multimetro" element={<MultimeterPage />} />
               <Route path="/circuitos-domiciliarios" element={<DomesticCircuitsPage />} />
+              <Route path="/electricidad-basica" element={<ElectricityBasicsPage />} />
 
               {/* Dibujo Técnico */}
               <Route path="/dibujo-tecnico/normas-iram" element={<NormasIRAMPage />} />

@@ -126,6 +126,7 @@ const NavBar = () => {
                             {/* Física */}
                             <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Física</div>
                             <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática</Link>
+                            <Link to="/electricidad-basica" style={linkStyle} onClick={closeAll}>Electricidad Básica</Link>
 
                             {/* Taller */}
                             <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Taller</div>
