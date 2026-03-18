@@ -1,13 +1,12 @@
-/* DomesticCircuitsStyles.css */
 :root {
-    --phase-color: #8B4513;
-    /* Marrón */
-    --neutral-color: #00BFFF;
-    /* Celeste */
-    --earth-color: #32CD32;
-    /* Verde */
-    --return-color: #fff;
-    /* Blanco */
+    --phase-color: #ff3333;
+    /* Rojo (Fase) - Mejor visibilidad en fondo oscuro */
+    --neutral-color: #00e5ff;
+    /* Celeste brillante (Neutro) */
+    --earth-color: #39ff14;
+    /* Verde neón (Tierra) */
+    --return-color: #ffffff;
+    /* Blanco (Retorno) */
     --bg-dark: #121212;
     --panel-bg: rgba(255, 255, 255, 0.05);
 }
