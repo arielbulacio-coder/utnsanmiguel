@@ -487,6 +487,127 @@
     background: var(--return-color);
 }
 
+/* Calculadora Section */
+.calc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .calc-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.appliance-list {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.appliance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.appliance-item:last-child {
+    border-bottom: none;
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.counter button {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background: #4facfe;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.counter button:hover {
+    background: #00f2fe;
+}
+
+.calc-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.result-box {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+.result-box h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #aaa;
+}
+
+.result-box .value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffeb3b;
+}
+
+.result-box .value span {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.result-box.current {
+    border-color: #ff5252;
+}
+
+.recommendations {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.rec-item {
+    flex: 1;
+    background: rgba(76, 175, 80, 0.2);
+    border: 1px solid #4caf50;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.rec-item h5 {
+    margin-top: 0;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.rec-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.rec-value.danger {
+    color: #f44336;
+    font-size: 1rem;
+}
+
 /* Empalmes Section */
 .empalmes-grid {
     display: grid;

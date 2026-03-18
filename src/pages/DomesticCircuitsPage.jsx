@@ -12,6 +12,62 @@ const DomesticCircuitsPage = () => {
     const [sw1, setSw1] = useState(false);
     const [sw2, setSw2] = useState(false); // Para llave combinada o doble punto
 
+    // Calculadora de Cargas
+    const [appliances, setAppliances] = useState([
+        { id: 'light', name: 'Luces LED (General)', watts: 100, count: 0 },
+        { id: 'tv', name: 'Televisor / PC', watts: 200, count: 0 },
+        { id: 'fridge', name: 'Heladera', watts: 350, count: 0 },
+        { id: 'washing', name: 'Lavarropas (con calor)', watts: 2000, count: 0 },
+        { id: 'microwave', name: 'Microondas', watts: 1200, count: 0 },
+        { id: 'ac', name: 'Aire Acond. (3000fg)', watts: 1500, count: 0 },
+        { id: 'heater', name: 'Estufa Eléctrica', watts: 2000, count: 0 },
+        { id: 'iron', name: 'Plancha', watts: 1000, count: 0 }
+    ]);
+
+    const updateApplianceCount = (id, delta) => {
+        setAppliances(apps => apps.map(app =>
+            app.id === id ? { ...app, count: Math.max(0, app.count + delta) } : app
+        ));
+    };
+
+    const totalWatts = appliances.reduce((sum, app) => sum + (app.watts * app.count), 0);
+    const totalAmps = totalWatts / 220;
+
+    let recommendedBreaker = 10;
+    let recommendedWire = 1.5;
+
+    if (totalAmps > 63) {
+        recommendedBreaker = 'Sobrecarga (Requiere separar circuitos)';
+        recommendedWire = '-';
+    } else if (totalAmps > 40) {
+        recommendedBreaker = 63;
+        recommendedWire = 16;
+    } else if (totalAmps > 32) {
+        recommendedBreaker = 40;
+        recommendedWire = 10;
+    } else if (totalAmps > 25) {
+        recommendedBreaker = 32;
+        recommendedWire = 6;
+    } else if (totalAmps > 20) {
+        recommendedBreaker = 25;
+        recommendedWire = 4;
+    } else if (totalAmps > 16) {
+        recommendedBreaker = 20;
+        recommendedWire = 4;
+    } else if (totalAmps > 10) {
+        recommendedBreaker = 16;
+        recommendedWire = 2.5;
+    } else {
+        recommendedBreaker = 10;
+        recommendedWire = 1.5;
+    }
+
+    const hasHeavyAppliances = appliances.some(a => a.id !== 'light' && a.count > 0);
+    if (hasHeavyAppliances && typeof recommendedBreaker === 'number' && recommendedBreaker < 16) {
+        recommendedBreaker = 16;
+        recommendedWire = 2.5;
+    }
+
     // Fallas
     const [shortCircuitMsg, setShortCircuitMsg] = useState('');
 
@@ -66,7 +122,7 @@ const DomesticCircuitsPage = () => {
         <div className="circuits-container">
             <header className="circuits-header">
                 <h1>Simulador de Instalaciones Eléctricas Domiciliarias</h1>
-                <p>Aprende cómo funciona el tablero principal, protecciones, empalmes y despliega circuitos estándar.</p>
+                <p>Aprende cómo funciona el tablero principal, protecciones, cálculos y empalmes.</p>
             </header>
 
             <div className="circuits-grid">
@@ -134,7 +190,6 @@ const DomesticCircuitsPage = () => {
                         <div className="wire-bus earth-bus" title="Tierra (Verde/Amarillo)">PE (Tierra)</div>
 
                         <div className="interactive-area">
-
                             {/* CIRCUITO SIMPLE */}
                             {circuitType === 'simple' && (
                                 <div className="circuit-diagram simple-circuit">
@@ -262,6 +317,54 @@ const DomesticCircuitsPage = () => {
                                 </div>
                             )}
 
+                        </div>
+                    </div>
+                </section>
+
+                {/* CALCULADORA DE CARGA Y TÉRMICA */}
+                <section className="circuit-card full-width calc-section">
+                    <h2>Calculadora de Carga y Térmica (Ley de Ohm)</h2>
+                    <p>Calcula el consumo total en base a los equipos que conectes al mismo circuito para determinar qué <strong>Llave Térmica</strong> necesitas instalar y qué grosor de cable debes tirar.</p>
+
+                    <div className="calc-grid">
+                        <div className="appliance-list">
+                            <h3>Selecciona tus equipos concurrentes:</h3>
+                            {appliances.map(app => (
+                                <div key={app.id} className="appliance-item">
+                                    <span>{app.name} <small style={{ color: '#ffeb3b' }}>({app.watts}W)</small></span>
+                                    <div className="counter">
+                                        <button onClick={() => updateApplianceCount(app.id, -1)}>-</button>
+                                        <span style={{ fontWeight: 'bold', width: '20px', textAlign: 'center' }}>{app.count}</span>
+                                        <button onClick={() => updateApplianceCount(app.id, 1)}>+</button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="calc-results">
+                            <div className="result-box power">
+                                <h4>Potencia Total (P)</h4>
+                                <div className="value">{totalWatts} <span>W (Watts)</span></div>
+                            </div>
+                            <div className="result-box current">
+                                <h4>Corriente Calculada (I = P / 220V)</h4>
+                                <div className="value">{totalAmps.toFixed(2)} <span>A (Amperes)</span></div>
+                            </div>
+
+                            <div className="recommendations">
+                                <div className="rec-item">
+                                    <h5>Térmica Comercial Sugerida</h5>
+                                    <div className={`rec-value ${typeof recommendedBreaker === 'string' ? 'danger' : ''}`}>
+                                        {typeof recommendedBreaker === 'number' ? `Curva C - ${recommendedBreaker}A` : recommendedBreaker}
+                                    </div>
+                                </div>
+                                <div className="rec-item">
+                                    <h5>Sección Mínima del Cable</h5>
+                                    <div className="rec-value">
+                                        {typeof recommendedWire === 'number' ? `${recommendedWire} mm²` : recommendedWire}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
