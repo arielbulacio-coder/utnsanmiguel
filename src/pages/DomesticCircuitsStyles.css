@@ -608,6 +608,25 @@
     font-size: 1rem;
 }
 
+/* Better cable distinction */
+.wiring-svg line[stroke="var(--phase-color)"] {
+    stroke-width: 8px !important;
+}
+
+.wiring-svg line[stroke="var(--neutral-color)"] {
+    stroke-width: 6px !important;
+}
+
+.wiring-svg line[stroke="var(--earth-color)"] {
+    stroke-width: 6px !important;
+}
+
+.wiring-svg line[stroke="var(--return-color)"],
+.wiring-svg line[stroke="gray"],
+.wiring-svg line[stroke="#ccc"] {
+    stroke-width: 4px !important;
+}
+
 /* Empalmes Section */
 .empalmes-grid {
     display: grid;

@@ -378,38 +378,28 @@ const DomesticCircuitsPage = () => {
                         <div className="empalme-card">
                             <h4>Cola de Ratón (Trenzado)</h4>
                             <div className="empalme-graphic">
-                                <svg width="100%" height="80" viewBox="0 0 150 80">
-                                    <path d="M 20 60 Q 60 60 70 40 Q 80 20 75 10" stroke="#b87333" strokeWidth="6" fill="none" strokeLinecap="round" />
-                                    <path d="M 130 60 Q 90 60 80 40 Q 70 20 75 10" stroke="#b87333" strokeWidth="6" fill="none" strokeLinecap="round" />
-                                    <path d="M 68 35 L 82 25" stroke="#8B4513" strokeWidth="4" strokeLinecap="round" />
-                                    <path d="M 68 25 L 82 15" stroke="#8B4513" strokeWidth="4" strokeLinecap="round" />
-                                </svg>
+                                <img src="/img/empalmes/cola_raton.png" alt="Cola de Ratón" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                             </div>
                             <p><strong>Uso:</strong> Cajas de derivación (octogonales, rectangulares). Se somete a poca tracción mecánica y se encinta "hacia arriba" para no perforar la cinta.</p>
+                            <p><strong>Cómo se hace:</strong> Se pelan las puntas (aprox 5 cm), se cruzan formando una X y se trenzan firmemente utilizando una pinza universal. Finalmente se corta la punta excedente dejando una terminación roma.</p>
                         </div>
 
                         <div className="empalme-card">
                             <h4>Derivación (Tipo T)</h4>
                             <div className="empalme-graphic">
-                                <svg width="100%" height="80" viewBox="0 0 150 80">
-                                    <path d="M 10 40 L 140 40" stroke="#b87333" strokeWidth="6" fill="none" strokeLinecap="round" />
-                                    <path d="M 75 80 L 75 40" stroke="#8B4513" strokeWidth="6" fill="none" strokeLinecap="round" />
-                                    <path d="M 60 30 Q 75 50 90 30" stroke="#8B4513" strokeWidth="3" fill="none" />
-                                    <path d="M 65 30 Q 75 50 85 30" stroke="#8B4513" strokeWidth="3" fill="none" />
-                                </svg>
+                                <img src="/img/empalmes/derivacion.png" alt="Derivación en T" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                             </div>
                             <p><strong>Uso:</strong> Especial para sacar una línea secundaria desde un cable principal (línea pasante o troncal) sin tener que cortarlo.</p>
+                            <p><strong>Cómo se hace:</strong> Se quita la aislación del cable principal en un sector intermedio. El cable derivado se pela en su extremo y se enrolla dando vueltas apretadas sobre el cobre descubierto del cable troncal.</p>
                         </div>
 
                         <div className="empalme-card">
                             <h4>Prolongación (Western Union)</h4>
                             <div className="empalme-graphic">
-                                <svg width="100%" height="80" viewBox="0 0 150 80">
-                                    <path d="M 10 40 L 140 40" stroke="#b87333" strokeWidth="4" fill="none" strokeLinecap="round" />
-                                    <path d="M 50 30 L 50 50 M 60 30 L 60 50 M 70 30 L 70 50 M 80 30 L 80 50 M 90 30 L 90 50 M 100 30 L 100 50" stroke="#8B4513" strokeWidth="3" />
-                                </svg>
+                                <img src="/img/empalmes/western.png" alt="Western Union" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                             </div>
                             <p><strong>Uso:</strong> Ideal para extender cables conductores que van a estar sujetos a esfuerzos mecánicos o estiramientos severos, ya que esta unión es sumamente fuerte.</p>
+                            <p><strong>Cómo se hace:</strong> Se pelan unos 8 cm de cada punta, se cruzan en el medio y luego cada cable se enrolla apretadamente en espiral sobre el cobre recto del otro cable en direcciones opuestas.</p>
                         </div>
                     </div>
                 </section>
