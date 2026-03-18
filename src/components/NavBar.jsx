@@ -140,6 +140,13 @@ const NavBar = () => {
                             <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
                             <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
 
+                            {/* Dibujo Técnico */}
+                            <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Dibujo Técnico</div>
+                            <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
+                            <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>Método Monge</Link>
+                            <Link to="/dibujo-tecnico/axonometrica" style={linkStyle} onClick={closeAll}>Axonometrías</Link>
+                            <Link to="/dibujo-tecnico/construcciones-geometricas" style={linkStyle} onClick={closeAll}>Construcciones</Link>
+
                             {/* Arduino */}
                             <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Arduino</div>
                             <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>

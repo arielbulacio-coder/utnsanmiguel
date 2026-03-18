@@ -26,6 +26,12 @@ import ElectronicsToolsPage from './pages/ElectronicsToolsPage';
 import OscilloscopePage from './pages/OscilloscopePage';
 import MultimeterPage from './pages/MultimeterPage';
 
+// Dibujo Técnico
+import NormasIRAMPage from './pages/drawing/NormasIRAMPage';
+import ProjectionsPage from './pages/drawing/ProjectionsPage';
+import AxonometricPage from './pages/drawing/AxonometricPage';
+import GeometricalConstructionsPage from './pages/drawing/GeometricalConstructionsPage';
+
 // Arduino y Programación
 import ArduinoIntroPage from './pages/ArduinoIntroPage';
 import CppBasicsPage from './pages/CppBasicsPage';
@@ -92,6 +98,12 @@ function App() {
               <Route path="/herramientas-electronica" element={<ElectronicsToolsPage />} />
               <Route path="/osciloscopio" element={<OscilloscopePage />} />
               <Route path="/multimetro" element={<MultimeterPage />} />
+
+              {/* Dibujo Técnico */}
+              <Route path="/dibujo-tecnico/normas-iram" element={<NormasIRAMPage />} />
+              <Route path="/dibujo-tecnico/proyecciones" element={<ProjectionsPage />} />
+              <Route path="/dibujo-tecnico/axonometrica" element={<AxonometricPage />} />
+              <Route path="/dibujo-tecnico/construcciones-geometricas" element={<GeometricalConstructionsPage />} />
 
               <Route path="/arduino-intro" element={<ArduinoIntroPage />} />
               <Route path="/cpp-basico" element={<CppBasicsPage />} />

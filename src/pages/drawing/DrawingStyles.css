@@ -1,0 +1,112 @@
+/* DrawingStyles.css */
+.drawing-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: var(--text-main);
+    background: transparent;
+}
+
+.drawing-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.drawing-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.drawing-header p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+}
+
+.drawing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.drawing-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.drawing-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.drawing-card h2 {
+    color: var(--secondary-color);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid rgba(0, 242, 255, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+.iram-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.iram-table th,
+.iram-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.iram-table th {
+    color: var(--primary-color);
+}
+
+.alphabet-preview {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    letter-spacing: 5px;
+}
+
+.practical-exercise {
+    margin-top: 3rem;
+    background: rgba(0, 242, 255, 0.05);
+    border: 1px dashed var(--primary-color);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+.practical-exercise h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.info-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-left: 4px solid var(--primary-color);
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .drawing-container {
+        padding: 1rem;
+    }
+
+    .drawing-grid {
+        grid-template-columns: 1fr;
+    }
+}
