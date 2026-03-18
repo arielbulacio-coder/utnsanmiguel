@@ -129,6 +129,7 @@ const NavBar = () => {
 
                             {/* Taller */}
                             <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Taller</div>
+                            <Link to="/circuitos-domiciliarios" style={linkStyle} onClick={closeAll}>Instal. Eléctricas</Link>
                             <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
                             <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre</Link>
                             <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro Carpintero</Link>
