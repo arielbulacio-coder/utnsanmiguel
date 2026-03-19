@@ -21,9 +21,6 @@ const NavBar = () => {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
         transition: 'background-color 0.3s ease'
     };
 
