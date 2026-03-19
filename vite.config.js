@@ -10,14 +10,14 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: 'EST UTN SM',
-        short_name: 'EST UTN SM',
-        description: 'Plataforma educativa técnica y simuladores didácticos.',
-        theme_color: '#1a1a1a',
-        background_color: '#1a1a1a',
+        name: 'SimuTec - Simuladores Técnicos',
+        short_name: 'SimuTec',
+        description: 'Plataforma de Simulación y Educación Tecnológica Digital.',
+        theme_color: '#00f2ff',
+        background_color: '#0a0a0a',
         display: 'standalone',
-        scope: '/utnsanmiguel/',
-        start_url: '/utnsanmiguel/',
+        scope: '/',
+        start_url: '/',
         orientation: 'portrait',
         icons: [
           {
@@ -58,5 +58,5 @@ export default defineConfig({
       }
     })
   ],
-  base: '/utnsanmiguel/',
+  base: '/',
 })
