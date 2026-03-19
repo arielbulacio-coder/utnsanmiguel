@@ -103,6 +103,8 @@ const DomesticCircuitsPage = () => {
     let isLightOn = false;
     let isLight2On = false;
     let isOutletPowered = false;
+    let isBellRinging = false;
+    let isPumpRunning = false;
 
     if (isPowered) {
         if (circuitType === 'simple' && sw1) isLightOn = true;
@@ -116,6 +118,10 @@ const DomesticCircuitsPage = () => {
             if (sw1) isLightOn = true;
             if (sw2) isLight2On = true;
         }
+        if (circuitType === 'timbre' && sw1) isBellRinging = true;
+        if (circuitType === 'tanque' && !sw1) isPumpRunning = true;
+        if (circuitType === 'cisterna' && sw1) isPumpRunning = true;
+        if (circuitType === 'tanque_cisterna' && !sw1 && sw2) isPumpRunning = true;
     }
 
     return (
@@ -178,9 +184,13 @@ const DomesticCircuitsPage = () => {
                     <div className="preset-selector">
                         <button className={`preset-btn ${circuitType === 'simple' ? 'active' : ''}`} onClick={() => setCircuitType('simple')}>1 Punto</button>
                         <button className={`preset-btn ${circuitType === 'toma' ? 'active' : ''}`} onClick={() => setCircuitType('toma')}>Tomacorriente</button>
-                        <button className={`preset-btn ${circuitType === 'punto_toma' ? 'active' : ''}`} onClick={() => setCircuitType('punto_toma')}>Punto y Toma</button>
+                        <button className={`preset-btn ${circuitType === 'punto_toma' ? 'active' : ''}`} onClick={() => setCircuitType('punto_toma')}>Punto/Toma</button>
                         <button className={`preset-btn ${circuitType === 'doble_punto' ? 'active' : ''}`} onClick={() => setCircuitType('doble_punto')}>Doble Punto</button>
                         <button className={`preset-btn ${circuitType === 'combinacion' ? 'active' : ''}`} onClick={() => setCircuitType('combinacion')}>Combinación</button>
+                        <button className={`preset-btn ${circuitType === 'timbre' ? 'active' : ''}`} onClick={() => setCircuitType('timbre')}>Timbre</button>
+                        <button className={`preset-btn ${circuitType === 'tanque' ? 'active' : ''}`} onClick={() => setCircuitType('tanque')}>B. Tanque</button>
+                        <button className={`preset-btn ${circuitType === 'cisterna' ? 'active' : ''}`} onClick={() => setCircuitType('cisterna')}>B. Cisterna</button>
+                        <button className={`preset-btn ${circuitType === 'tanque_cisterna' ? 'active' : ''}`} onClick={() => setCircuitType('tanque_cisterna')}>Tk+Cisterna</button>
                     </div>
 
                     <div className="circuit-canvas">
@@ -331,6 +341,107 @@ const DomesticCircuitsPage = () => {
                                         <span>Llave B</span>
                                     </div>
                                     <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '80%', top: '50%', transform: 'translate(-50%, -50%)' }}>💡</div>
+                                </div>
+                            )}
+
+                            {/* CIRCUITO TIMBRE */}
+                            {circuitType === 'timbre' && (
+                                <div className="circuit-diagram timbre-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+
+                                        {/* Trafo o directo. Asumimos directo con pulsador que corta fase */}
+                                        <line x1="30%" y1="15%" x2="30%" y2="55%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+
+                                        <line x1="30%" y1="75%" x2="70%" y2="75%" stroke="var(--return-color)" className={isPowered && sw1 ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="75%" x2="70%" y2="55%" stroke="var(--return-color)" className={isPowered && sw1 ? 'live-wire' : ''} />
+
+                                        <line x1="70%" y1="25%" x2="70%" y2="45%" stroke="var(--neutral-color)" />
+                                    </svg>
+                                    <div className="component-node switch-node" style={{ left: '30%', top: '65%', transform: 'translate(-50%, -50%)', borderRadius: '50%' }} onClick={() => setSw1(!sw1)}>
+                                        <div className={`switch-icon ${sw1 ? 'on' : 'off'}`} style={{ borderRadius: '50%', backgroundColor: sw1 ? '#ff3b3b' : '#333' }}></div>
+                                        <span>Pulsador</span>
+                                    </div>
+                                    <div className={`component-node bulb-node ${isBellRinging ? 'glowing' : ''}`} style={{ left: '70%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+                                        <div style={{ fontSize: '2rem' }}>🔔</div>
+                                        <span>Timbre</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* CIRCUITO TANQUE ELEVADO */}
+                            {circuitType === 'tanque' && (
+                                <div className="circuit-diagram tanque-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+                                        <line x1="0" y1="35%" x2="100%" y2="35%" stroke="var(--earth-color)" />
+
+                                        <line x1="30%" y1="15%" x2="30%" y2="45%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="30%" y1="55%" x2="70%" y2="55%" stroke="var(--return-color)" className={isPowered && !sw1 ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="55%" x2="70%" y2="65%" stroke="var(--return-color)" className={isPowered && !sw1 ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="25%" x2="70%" y2="85%" stroke="var(--neutral-color)" />
+                                    </svg>
+                                    <div className="component-node switch-node" style={{ left: '30%', top: '50%', transform: 'translate(-50%, -50%)' }} onClick={() => setSw1(!sw1)}>
+                                        <div className={`switch-icon ${sw1 ? 'off' : 'on'}`}></div>
+                                        <span>Flotante Tanque<br />({sw1 ? 'Lleno' : 'Vacío'})</span>
+                                    </div>
+                                    <div className={`component-node outlet-node ${isPumpRunning ? 'glowing' : ''}`} style={{ left: '70%', top: '75%', transform: 'translate(-50%, -50%)', width: '80px', height: '80px', borderRadius: '50%', background: '#ff9800' }}>
+                                        <div style={{ fontSize: '2rem' }}>⚙️</div>
+                                        <span>Bomba Eléct.</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* CIRCUITO CISTERNA */}
+                            {circuitType === 'cisterna' && (
+                                <div className="circuit-diagram cisterna-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+
+                                        <line x1="30%" y1="15%" x2="30%" y2="45%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="30%" y1="55%" x2="70%" y2="55%" stroke="var(--return-color)" className={isPowered && sw1 ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="55%" x2="70%" y2="65%" stroke="var(--return-color)" className={isPowered && sw1 ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="25%" x2="70%" y2="85%" stroke="var(--neutral-color)" />
+                                    </svg>
+                                    <div className="component-node switch-node" style={{ left: '30%', top: '50%', transform: 'translate(-50%, -50%)' }} onClick={() => setSw1(!sw1)}>
+                                        <div className={`switch-icon ${sw1 ? 'on' : 'off'}`}></div>
+                                        <span>Flotante Cisterna<br />({sw1 ? 'Con Agua' : 'Vacía'})</span>
+                                    </div>
+                                    <div className={`component-node outlet-node ${isPumpRunning ? 'glowing' : ''}`} style={{ left: '70%', top: '75%', transform: 'translate(-50%, -50%)', width: '80px', height: '80px', borderRadius: '50%', background: '#00bcd4' }}>
+                                        <div style={{ fontSize: '2rem' }}>⚙️</div>
+                                        <span>Bomba Cisterna</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* TANQUE + CISTERNA */}
+                            {circuitType === 'tanque_cisterna' && (
+                                <div className="circuit-diagram tk-cs-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+
+                                        <line x1="30%" y1="15%" x2="30%" y2="45%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="30%" y1="55%" x2="50%" y2="55%" stroke="var(--return-color)" className={isPowered && !sw1 ? 'live-wire' : ''} />
+                                        <line x1="50%" y1="65%" x2="70%" y2="65%" stroke="var(--return-color)" className={isPowered && !sw1 && sw2 ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="65%" x2="70%" y2="75%" stroke="var(--return-color)" className={isPowered && !sw1 && sw2 ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="25%" x2="70%" y2="85%" stroke="var(--neutral-color)" />
+                                    </svg>
+                                    <div className="component-node switch-node" style={{ left: '30%', top: '50%', transform: 'translate(-50%, -50%)' }} onClick={() => setSw1(!sw1)}>
+                                        <div className={`switch-icon ${sw1 ? 'off' : 'on'}`}></div>
+                                        <span>Flotante Tanque<br />({sw1 ? 'Lleno' : 'Vacío'})</span>
+                                    </div>
+                                    <div className="component-node switch-node" style={{ left: '50%', top: '60%', transform: 'translate(-50%, -50%)' }} onClick={() => setSw2(!sw2)}>
+                                        <div className={`switch-icon ${sw2 ? 'on' : 'off'}`}></div>
+                                        <span>Flotante Cisterna<br />({sw2 ? 'Con Agua' : 'Vacío'})</span>
+                                    </div>
+                                    <div className={`component-node outlet-node ${isPumpRunning ? 'glowing' : ''}`} style={{ left: '70%', top: '85%', transform: 'translate(-50%, -50%)', width: '80px', height: '80px', borderRadius: '50%', background: '#4caf50' }}>
+                                        <div style={{ fontSize: '2rem' }}>⚙️</div>
+                                        <span>Bomba Elev.</span>
+                                    </div>
                                 </div>
                             )}
 
