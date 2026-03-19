@@ -52,8 +52,6 @@ import GradesPage from './pages/GradesPage';
 import AttendancePage from './pages/AttendancePage';
 import UsersPage from './pages/UsersPage';
 import LMSPage from './pages/LMSPage';
-import CursosLMS from './pages/LMS/Cursos';
-import CourseDetailLMS from './pages/LMS/CourseDetail';
 import TeacherAssignmentPage from './pages/TeacherAssignmentPage';
 import TeacherRegistrationPage from './pages/TeacherRegistrationPage';
 import CommunicationsPage from './pages/CommunicationsPage';
@@ -130,8 +128,7 @@ function App() {
               <Route path="/gestion-academica" element={<AcademicOverviewPage />} />
               <Route path="/calificaciones" element={<GradesPage />} />
               <Route path="/asistencia" element={<AttendancePage />} />
-              <Route path="/aula-virtual" element={<CursosLMS />} />
-              <Route path="/lms/curso/:id" element={<CourseDetailLMS />} />
+              <Route path="/aula-virtual" element={<LMSPage />} />
             </Route>
 
             {/* Gestión Académica - Solo Administrativos */}
