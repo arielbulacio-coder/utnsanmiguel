@@ -107,29 +107,53 @@ const ElectronicComponentsPage = () => {
                 {activeComponent === 'logic' && (
                     <section className="elec-card activities-section full-width">
                         <h2>Compuertas Lógicas Básicas (Digital)</h2>
-                        <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                        <p>Las compuertas lógicas son los bloques de construcción de toda la electrónica digital (procesadores, memorias). Operan con solo dos estados: 0 (Apagado) y 1 (Encendido).</p>
+
+                        <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', justifyContent: 'center' }}>
                             <button className="mat-btn" style={{ background: inputA ? '#4caf50' : '#444' }} onClick={() => setInputA(!inputA)}>A = {inputA ? '1' : '0'}</button>
                             <button className="mat-btn" style={{ background: inputB ? '#4caf50' : '#444' }} onClick={() => setInputB(!inputB)}>B = {inputB ? '1' : '0'}</button>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
                             <div className="glass-card" style={{ textAlign: 'center' }}>
-                                <h3>AND</h3>
+                                <h3>AND (Y)</h3>
                                 <div style={{ fontSize: '3rem', color: (inputA && inputB) ? '#ffeb3b' : '#555' }}>💡</div>
                                 <p>Salida = {inputA && inputB ? '1' : '0'}</p>
-                                <small>Ambos 1</small>
+                                <table style={{ width: '100%', marginTop: '10px', fontSize: '0.8rem', borderCollapse: 'collapse' }}>
+                                    <thead><tr style={{ borderBottom: '1px solid #555' }}><th>A</th><th>B</th><th>Q</th></tr></thead>
+                                    <tbody>
+                                        <tr style={{ background: (!inputA && !inputB) ? 'rgba(76,175,80,0.2)' : '' }}><td>0</td><td>0</td><td>0</td></tr>
+                                        <tr style={{ background: (inputA && !inputB) ? 'rgba(76,175,80,0.2)' : '' }}><td>1</td><td>0</td><td>0</td></tr>
+                                        <tr style={{ background: (!inputA && inputB) ? 'rgba(76,175,80,0.2)' : '' }}><td>0</td><td>1</td><td>0</td></tr>
+                                        <tr style={{ background: (inputA && inputB) ? 'rgba(76,175,80,0.2)' : '' }}><td>1</td><td>1</td><td>1</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div className="glass-card" style={{ textAlign: 'center' }}>
-                                <h3>OR</h3>
+                                <h3>OR (O)</h3>
                                 <div style={{ fontSize: '3rem', color: (inputA || inputB) ? '#ffeb3b' : '#555' }}>💡</div>
                                 <p>Salida = {inputA || inputB ? '1' : '0'}</p>
-                                <small>Alguno 1</small>
+                                <table style={{ width: '100%', marginTop: '10px', fontSize: '0.8rem', borderCollapse: 'collapse' }}>
+                                    <thead><tr style={{ borderBottom: '1px solid #555' }}><th>A</th><th>B</th><th>Q</th></tr></thead>
+                                    <tbody>
+                                        <tr style={{ background: (!inputA && !inputB) ? 'rgba(76,175,80,0.2)' : '' }}><td>0</td><td>0</td><td>0</td></tr>
+                                        <tr style={{ background: (inputA && !inputB) ? 'rgba(76,175,80,0.2)' : '' }}><td>1</td><td>0</td><td>1</td></tr>
+                                        <tr style={{ background: (!inputA && inputB) ? 'rgba(76,175,80,0.2)' : '' }}><td>0</td><td>1</td><td>1</td></tr>
+                                        <tr style={{ background: (inputA && inputB) ? 'rgba(76,175,80,0.2)' : '' }}><td>1</td><td>1</td><td>1</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div className="glass-card" style={{ textAlign: 'center' }}>
-                                <h3>NOT (A)</h3>
+                                <h3>NOT (Inversora)</h3>
                                 <div style={{ fontSize: '3rem', color: (!inputA) ? '#ffeb3b' : '#555' }}>💡</div>
                                 <p>Salida = {!inputA ? '1' : '0'}</p>
-                                <small>Opuesto de A</small>
+                                <table style={{ width: '100%', marginTop: '10px', fontSize: '0.8rem', borderCollapse: 'collapse' }}>
+                                    <thead><tr style={{ borderBottom: '1px solid #555' }}><th>A</th><th>Q</th></tr></thead>
+                                    <tbody>
+                                        <tr style={{ background: (!inputA) ? 'rgba(76,175,80,0.2)' : '' }}><td>0</td><td>1</td></tr>
+                                        <tr style={{ background: (inputA) ? 'rgba(76,175,80,0.2)' : '' }}><td>1</td><td>0</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </section>
@@ -139,15 +163,37 @@ const ElectronicComponentsPage = () => {
                 {activeComponent === 'ic' && (
                     <section className="elec-card flow-section full-width">
                         <h2>El Temporizador NE555</h2>
-                        <p>El circuito integrado más famoso del mundo. Puede parpadear LEDs, crear tonos de audio y servir como temporizador confiable.</p>
-                        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', justifyContent: 'center', padding: '2rem', background: '#222', borderRadius: '10px' }}>
-                            <div style={{ width: '100px', height: '100px', background: '#111', color: '#ccc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '5px', border: '1px solid #444', position: 'relative' }}>
-                                <strong>NE555</strong>
-                                <div style={{ position: 'absolute', left: '-5px', top: '10px', color: '#ffeb3b', fontSize: '0.6rem' }}>●</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                            <div className="text-content">
+                                <p>El IC 555 es un circuito integrado extremadamente versátil que se utiliza en la generación de pulsos y de oscilaciones. Puede funcionar en tres modos principales:</p>
+                                <ul>
+                                    <li><strong>Astable:</strong> Genera una onda cuadrada constante (parpadeo automático). Ideal para osciladores de sonido o LEDs.</li>
+                                    <li><strong>Monoestable:</strong> Genera un solo pulso de duración definida tras un disparo (Trigger). Ideal para temporizadores.</li>
+                                    <li><strong>Biestable:</strong> Funciona como un interruptor de "un toque" con memoria.</li>
+                                </ul>
+                                <p><strong>Pines Clave:</strong></p>
+                                <ul style={{ fontSize: '0.85rem' }}>
+                                    <li><strong>Pin 1 (GND):</strong> Tierra.</li>
+                                    <li><strong>Pin 2 (Trigger):</strong> Dispara el inicio del ciclo.</li>
+                                    <li><strong>Pin 3 (Out):</strong> Donde conectamos la carga (LED, Buzzer).</li>
+                                    <li><strong>Pin 8 (VCC):</strong> Alimentación (+).</li>
+                                </ul>
                             </div>
-                            <div className="flowing-electron fast-flow" style={{ fontSize: '2rem', animation: 'pulsate 0.5s infinite alternate' }}>💡</div>
+                            <div className="visual-content">
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center', justifyContent: 'center', padding: '1rem', background: '#222', borderRadius: '10px' }}>
+                                    <div style={{ width: '120px', height: '140px', background: '#111', color: '#ccc', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '5px', border: '1px solid #444', position: 'relative' }}>
+                                        <div style={{ position: 'absolute', left: '10px', top: '5px', width: '10px', height: '10px', borderRadius: '50%', background: '#333' }}></div>
+                                        <strong style={{ fontSize: '1.2rem' }}>NE555</strong>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', position: 'absolute', width: '100%', top: '30px' }}>
+                                            <div style={{ textAlign: 'left', paddingLeft: '5px' }}>1 .<br />2 .<br />3 .<br />4 .</div>
+                                            <div style={{ textAlign: 'right', paddingRight: '5px' }}>. 8<br />. 7<br />. 6<br />. 5</div>
+                                        </div>
+                                    </div>
+                                    <div className="flowing-electron fast-flow" style={{ fontSize: '2.5rem', animation: 'pulsate 0.5s infinite alternate' }}>💡</div>
+                                    <p style={{ fontSize: '0.8rem', color: '#888' }}>Configuración Astable (Oscilador)</p>
+                                </div>
+                            </div>
                         </div>
-                        <p style={{ textAlign: 'center', color: '#888', marginTop: '1rem' }}>Configuración Astable (Oscilador continuo)</p>
                     </section>
                 )}
             </div>

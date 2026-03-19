@@ -83,6 +83,24 @@ const RenewableEnergyPage = () => {
                         </div>
                     </div>
                 </section>
+
+                <section className="elec-card info-section full-width">
+                    <h2>Conceptos Teóricos: Energía Fotovoltaica</h2>
+                    <div className="info-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                        <div className="info-block">
+                            <h3 style={{ color: '#ffc107' }}>Los Paneles Solares</h3>
+                            <p>Compuestos por celdas de silicio que liberan electrones al recibir fotones del sol (Efecto Fotoeléctrico). Generan corriente continua (DC). Su rendimiento depende de la inclinación, orientación y limpieza.</p>
+                        </div>
+                        <div className="info-block">
+                            <h3 style={{ color: '#2196f3' }}>Regulador e Inversor</h3>
+                            <p><strong>Regulador de Carga:</strong> Protege las baterías evitando que se sobrecarguen o descarguen demasiado. <br /><strong>Inversor:</strong> Transforma la corriente continua (DC, 12V/24V) de los paneles o baterías en corriente alterna (AC, 220V) para usar en electrodomésticos.</p>
+                        </div>
+                        <div className="info-block">
+                            <h3 style={{ color: '#4caf50' }}>On-Grid vs Off-Grid</h3>
+                            <p><strong>On-Grid (Vinculado a Red):</strong> No usa baterías. Si te sobra energía, se la vendes a la red eléctrica. Si falta, la red te la provee automáticamente. <br /><strong>Off-Grid (Aislado):</strong> Usa baterías para almacenar energía durante el día y usarla de noche. Es ideal para zonas rurales.</p>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     );
