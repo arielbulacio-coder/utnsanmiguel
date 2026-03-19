@@ -16,8 +16,8 @@ export default defineConfig({
         theme_color: '#00f2ff',
         background_color: '#0a0a0a',
         display: 'standalone',
-        scope: '/',
-        start_url: '/',
+        scope: process.env.VITE_BASE_PATH || '/',
+        start_url: process.env.VITE_BASE_PATH || '/',
         orientation: 'portrait',
         icons: [
           {
@@ -58,5 +58,5 @@ export default defineConfig({
       }
     })
   ],
-  base: '/',
+  base: process.env.VITE_BASE_PATH || '/',
 })
