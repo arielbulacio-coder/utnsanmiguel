@@ -5,11 +5,11 @@ import '../carousel.css';
 import { useAuth } from '../context/AuthContext';
 
 // Import Assets
-import carrousel1 from '../assets/IMG-20260311-WA0014.jpg';
-import carrousel2 from '../assets/IMG-20260311-WA0017.jpg';
-import carrousel3 from '../assets/IMG-20260311-WA0020.jpg';
-import carrousel4 from '../assets/IMG-20260311-WA0023.jpg';
-import carrousel5 from '../assets/IMG-20260311-WA0039.jpg';
+import carrousel1 from '../assets/carousel_1.png';
+import carrousel2 from '../assets/carousel_2.png';
+import carrousel3 from '../assets/carousel_3.png';
+import carrousel4 from '../assets/carousel_4.png';
+import carrousel5 from '../assets/carousel_5.png';
 
 // Import Tool Icons
 import imgMicrometer from '../assets/micrometer_icon.png';
@@ -38,7 +38,7 @@ const Home = () => {
                         <img
                             className="d-block w-100"
                             src={carrousel1}
-                            alt="EEST Nro 5 José C. Paz - Instalaciones"
+                            alt="Ingeniería y Electrónica"
                             style={{ height: '500px', objectFit: 'cover' }}
                         />
                         <Carousel.Caption style={{
@@ -46,8 +46,8 @@ const Home = () => {
                             borderRadius: '8px',
                             padding: '1rem'
                         }}>
-                            <h3>EEST Nro 5 José C. Paz</h3>
-                            <p>Especialidad Energías Renovables</p>
+                            <h3>Simuladores Electrónicos</h3>
+                            <p>Análisis de circuitos en tiempo real</p>
                         </Carousel.Caption>
                     </Carousel.Item>
 
@@ -55,7 +55,7 @@ const Home = () => {
                         <img
                             className="d-block w-100"
                             src={carrousel2}
-                            alt="Taller y Prácticas"
+                            alt="Energías Renovables"
                             style={{ height: '500px', objectFit: 'cover' }}
                         />
                         <Carousel.Caption style={{
@@ -63,8 +63,8 @@ const Home = () => {
                             borderRadius: '8px',
                             padding: '1rem'
                         }}>
-                            <h3>Laboratorios Especializados</h3>
-                            <p>Equipamiento de última generación</p>
+                            <h3>Sistemas Sustentables</h3>
+                            <p>Simulación de paneles solares y energías limpias</p>
                         </Carousel.Caption>
                     </Carousel.Item>
 
@@ -72,7 +72,7 @@ const Home = () => {
                         <img
                             className="d-block w-100"
                             src={carrousel3}
-                            alt="Educación Técnica"
+                            alt="Robótica y Arduino"
                             style={{ height: '500px', objectFit: 'cover' }}
                         />
                         <Carousel.Caption style={{
@@ -80,8 +80,8 @@ const Home = () => {
                             borderRadius: '8px',
                             padding: '1rem'
                         }}>
-                            <h3>Formación Profesional</h3>
-                            <p>Prácticas profesionalizantes y vinculación productiva</p>
+                            <h3>Programación y Control</h3>
+                            <p>Entorno de simulación para proyectos robóticos</p>
                         </Carousel.Caption>
                     </Carousel.Item>
 
@@ -89,7 +89,7 @@ const Home = () => {
                         <img
                             className="d-block w-100"
                             src={carrousel4}
-                            alt="Proyectos Escolares"
+                            alt="Taller y Herramientas"
                             style={{ height: '500px', objectFit: 'cover' }}
                         />
                         <Carousel.Caption style={{
@@ -97,8 +97,8 @@ const Home = () => {
                             borderRadius: '8px',
                             padding: '1rem'
                         }}>
-                            <h3>Proyectos Didácticos</h3>
-                            <p>Desarrollo de prototipos y sistemas renovables</p>
+                            <h3>Laboratorio Virtual</h3>
+                            <p>Uso de instrumentos de medición y herramientas técnicas</p>
                         </Carousel.Caption>
                     </Carousel.Item>
 
@@ -106,7 +106,7 @@ const Home = () => {
                         <img
                             className="d-block w-100"
                             src={carrousel5}
-                            alt="Comunidad Educativa"
+                            alt="Educación Moderna"
                             style={{ height: '500px', objectFit: 'cover' }}
                         />
                         <Carousel.Caption style={{
@@ -114,8 +114,8 @@ const Home = () => {
                             borderRadius: '8px',
                             padding: '1rem'
                         }}>
-                            <h3>Compromiso y Futuro</h3>
-                            <p>Construyendo el futuro de nuestra comunidad</p>
+                            <h3>Aprendizaje Iteractivo</h3>
+                            <p>Material didáctico adaptado a la industria moderna</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
@@ -124,29 +124,26 @@ const Home = () => {
             <div className="glass-card" style={{ maxWidth: '800px', margin: '0 auto 3rem auto', padding: '3rem' }}>
                 <div style={{ marginBottom: '2rem' }}>
                     <img
-                        src="/logo_escuela.jpg"
-                        alt="Logo EEST Nro 5"
+                        src="/logo_simuladores.png"
+                        alt="Logo Simuladores Técnicos"
                         style={{
-                            width: '120px',
-                            height: '120px',
-                            borderRadius: '50%',
+                            width: '140px',
+                            height: '140px',
+                            borderRadius: '24px',
                             margin: '0 auto 1rem auto',
                             objectFit: 'contain',
                             background: '#fff',
-                            boxShadow: '0 0 30px rgba(0, 242, 255, 0.3)'
+                            boxShadow: '0 0 40px rgba(0, 242, 255, 0.4)',
+                            padding: '10px'
                         }}
                     />
-                    <h1>EEST Nro 5 José C. Paz</h1>
-                    <h2 style={{ fontSize: '1.5rem', color: 'var(--text-main)', marginTop: '0.5rem' }}>Especialidad Energías Renovables</h2>
+                    <h1>Simuladores Técnicos</h1>
+                    <h2 style={{ fontSize: '1.5rem', color: 'var(--text-main)', marginTop: '0.5rem' }}>Plataforma de Educación Tecnológica Digital</h2>
                 </div>
 
                 <p>
-                    Plataforma de soporte didÃ¡ctico para estudiantes y docentes.
+                    Soporte didáctico interactivo para la formación técnica y científica.
                 </p>
-
-                <div style={{ marginTop: '2rem', fontSize: '0.9rem', color: 'var(--text-dim)' }}>
-                    <p><a href="https://maps.app.goo.gl/fRkYSy4dkfSBhfwU9" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>📍 Ver ubicación en Google Maps</a></p>
-                </div>
             </div>
 
             {isAuthenticated && (

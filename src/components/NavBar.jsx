@@ -59,11 +59,11 @@ const NavBar = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <Link to="/" style={{ textDecoration: 'none', color: 'var(--text-main)', fontWeight: 'bold', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }} onClick={closeAll}>
                     <img
-                        src="/logo_escuela.jpg"
+                        src="/logo_simuladores.png"
                         alt="Logo"
-                        style={{ width: '35px', height: '35px', borderRadius: '50%', objectFit: 'contain', background: '#fff', border: '2px solid var(--primary-color)' }}
+                        style={{ width: '35px', height: '35px', borderRadius: '8px', objectFit: 'contain', background: '#fff', border: '1px solid var(--primary-color)' }}
                     />
-                    <span className="brand-text">EEST Nro 5 José C. Paz</span>
+                    <span className="brand-text">Simuladores Técnicos</span>
                 </Link>
             </div>
 
