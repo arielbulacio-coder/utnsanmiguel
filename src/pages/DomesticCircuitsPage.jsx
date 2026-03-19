@@ -189,37 +189,45 @@ const DomesticCircuitsPage = () => {
                         <div className="wire-bus neutral-bus" title="Neutro (Celeste) - 0V">N (Neutro)</div>
                         <div className="wire-bus earth-bus" title="Tierra (Verde/Amarillo)">PE (Tierra)</div>
 
-                        <div className="interactive-area">
+                        <div className="interactive-area" style={{ position: 'relative', width: '100%', height: '350px' }}>
                             {/* CIRCUITO SIMPLE */}
                             {circuitType === 'simple' && (
-                                <div className="circuit-diagram simple-circuit">
-                                    <svg width="100%" height="200" className="wiring-svg">
-                                        <line x1="20%" y1="0" x2="20%" y2="50%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="20%" y1="20%" x2="45%" y2="20%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="55%" y1="20%" x2="80%" y2="20%" stroke="var(--return-color)" strokeWidth="4" className={isPowered && sw1 ? 'live-wire' : ''} />
-                                        <line x1="80%" y1="20%" x2="80%" y2="40%" stroke="var(--return-color)" strokeWidth="4" className={isPowered && sw1 ? 'live-wire' : ''} />
-                                        <line x1="80%" y1="60%" x2="80%" y2="80%" stroke="var(--neutral-color)" strokeWidth="4" />
-                                        <line x1="80%" y1="80%" x2="50%" y2="80%" stroke="var(--neutral-color)" strokeWidth="4" />
+                                <div className="circuit-diagram simple-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        {/* BARRAS TRONCALES HORIZONTALES */}
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+                                        <line x1="0" y1="35%" x2="100%" y2="35%" stroke="var(--earth-color)" />
+
+                                        {/* DERIVACIONES */}
+                                        <line x1="30%" y1="15%" x2="30%" y2="55%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+
+                                        <line x1="30%" y1="75%" x2="70%" y2="75%" stroke="var(--return-color)" className={isPowered && sw1 ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="75%" x2="70%" y2="55%" stroke="var(--return-color)" className={isPowered && sw1 ? 'live-wire' : ''} />
+
+                                        <line x1="70%" y1="25%" x2="70%" y2="45%" stroke="var(--neutral-color)" />
                                     </svg>
-                                    <div className="component-node switch-node" style={{ left: '50%', top: '20%' }} onClick={() => setSw1(!sw1)}>
+                                    <div className="component-node switch-node" style={{ left: '30%', top: '65%', transform: 'translate(-50%, -50%)' }} onClick={() => setSw1(!sw1)}>
                                         <div className={`switch-icon ${sw1 ? 'on' : 'off'}`}></div>
                                         <span>Llave</span>
                                     </div>
-                                    <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '80%', top: '50%' }}>💡</div>
+                                    <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '70%', top: '50%', transform: 'translate(-50%, -50%)' }}>💡</div>
                                 </div>
                             )}
 
                             {/* CIRCUITO TOMACORRIENTE */}
                             {circuitType === 'toma' && (
-                                <div className="circuit-diagram toma-circuit">
-                                    <svg width="100%" height="200" className="wiring-svg">
-                                        <line x1="20%" y1="0" x2="20%" y2="45%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="20%" y1="45%" x2="45%" y2="45%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="80%" y1="80%" x2="80%" y2="55%" stroke="var(--neutral-color)" strokeWidth="4" />
-                                        <line x1="80%" y1="55%" x2="55%" y2="55%" stroke="var(--neutral-color)" strokeWidth="4" />
-                                        <line x1="50%" y1="100%" x2="50%" y2="60%" stroke="var(--earth-color)" strokeWidth="4" strokeDasharray="10,5" />
+                                <div className="circuit-diagram toma-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+                                        <line x1="0" y1="35%" x2="100%" y2="35%" stroke="var(--earth-color)" strokeDasharray="10,5" />
+
+                                        <line x1="45%" y1="15%" x2="45%" y2="60%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="55%" y1="25%" x2="55%" y2="60%" stroke="var(--neutral-color)" />
+                                        <line x1="50%" y1="35%" x2="50%" y2="60%" stroke="var(--earth-color)" strokeDasharray="10,5" />
                                     </svg>
-                                    <div className="component-node outlet-node" style={{ left: '50%', top: '50%' }}>
+                                    <div className="component-node outlet-node" style={{ left: '50%', top: '70%', transform: 'translate(-50%, -50%)' }}>
                                         <div className="outlet-face">
                                             <div className={`hole phase-hole ${isOutletPowered ? 'danger' : ''}`}></div>
                                             <div className="hole neutral-hole"></div>
@@ -228,92 +236,101 @@ const DomesticCircuitsPage = () => {
                                         <span>Tomacorriente</span>
                                     </div>
                                     {isOutletPowered && (
-                                        <div className="power-indicator" style={{ left: '50%', top: '25%' }}>⚡ 220V Disponibles</div>
+                                        <div className="power-indicator" style={{ left: '50%', top: '45%', transform: 'translate(-50%, -50%)' }}>⚡ 220V</div>
                                     )}
                                 </div>
                             )}
 
                             {/* CIRCUITO PUNTO Y TOMA */}
                             {circuitType === 'punto_toma' && (
-                                <div className="circuit-diagram puntotoma-circuit">
-                                    <svg width="100%" height="200" className="wiring-svg">
-                                        <line x1="20%" y1="0" x2="20%" y2="80%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="20%" y1="80%" x2="45%" y2="80%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="45%" y1="80%" x2="45%" y2="50%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
+                                <div className="circuit-diagram puntotoma-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+                                        <line x1="0" y1="35%" x2="100%" y2="35%" stroke="var(--earth-color)" strokeDasharray="10,5" />
 
-                                        <line x1="55%" y1="50%" x2="80%" y2="50%" stroke="var(--return-color)" strokeWidth="4" className={isLightOn ? 'live-wire' : ''} />
-                                        <line x1="80%" y1="50%" x2="80%" y2="40%" stroke="var(--return-color)" strokeWidth="4" className={isLightOn ? 'live-wire' : ''} />
+                                        <line x1="40%" y1="15%" x2="40%" y2="55%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="40%" y1="75%" x2="40%" y2="85%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="40%" y1="85%" x2="50%" y2="85%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
 
-                                        <line x1="80%" y1="60%" x2="80%" y2="90%" stroke="var(--neutral-color)" strokeWidth="4" />
-                                        <line x1="80%" y1="90%" x2="55%" y2="90%" stroke="var(--neutral-color)" strokeWidth="4" />
-                                        <line x1="80%" y1="0" x2="80%" y2="20%" stroke="var(--neutral-color)" strokeWidth="4" />
+                                        <line x1="40%" y1="75%" x2="70%" y2="75%" stroke="var(--return-color)" className={isLightOn ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="75%" x2="70%" y2="55%" stroke="var(--return-color)" className={isLightOn ? 'live-wire' : ''} />
 
-                                        <line x1="50%" y1="100%" x2="50%" y2="90%" stroke="var(--earth-color)" strokeWidth="4" strokeDasharray="10,5" />
+                                        <line x1="70%" y1="25%" x2="70%" y2="45%" stroke="var(--neutral-color)" />
+                                        <line x1="60%" y1="25%" x2="60%" y2="85%" stroke="var(--neutral-color)" />
+
+                                        <line x1="55%" y1="35%" x2="55%" y2="85%" stroke="var(--earth-color)" strokeDasharray="10,5" />
                                     </svg>
-                                    <div className="component-node outlet-node" style={{ left: '50%', top: '85%' }}>
-                                        <div className="outlet-face" style={{ transform: 'scale(0.8)' }}>
+                                    <div className="component-node switch-node" style={{ left: '40%', top: '65%', transform: 'translate(-50%, -50%)' }} onClick={() => setSw1(!sw1)}>
+                                        <div className={`switch-icon ${sw1 ? 'on' : 'off'}`}></div>
+                                        <span style={{ fontSize: '0.6rem' }}>Llave</span>
+                                    </div>
+                                    <div className="component-node outlet-node" style={{ left: '55%', top: '85%', transform: 'translate(-50%, -50%)', scale: '0.8' }}>
+                                        <div className="outlet-face">
                                             <div className={`hole phase-hole ${isOutletPowered ? 'danger' : ''}`}></div>
                                             <div className="hole neutral-hole"></div>
                                             <div className="hole earth-hole"></div>
                                         </div>
-                                        <span style={{ fontSize: '0.6rem' }}>Toma</span>
                                     </div>
-                                    <div className="component-node switch-node" style={{ left: '50%', top: '50%' }} onClick={() => setSw1(!sw1)}>
-                                        <div className={`switch-icon ${sw1 ? 'on' : 'off'}`}></div>
-                                        <span style={{ fontSize: '0.6rem' }}>Llave</span>
-                                    </div>
-                                    <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '80%', top: '50%' }}>💡</div>
+                                    <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '70%', top: '50%', transform: 'translate(-50%, -50%)' }}>💡</div>
                                 </div>
                             )}
 
                             {/* CIRCUITO DOBLE PUNTO */}
                             {circuitType === 'doble_punto' && (
-                                <div className="circuit-diagram doble-circuit">
-                                    <svg width="100%" height="200" className="wiring-svg">
-                                        <line x1="20%" y1="0" x2="20%" y2="50%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="20%" y1="50%" x2="40%" y2="50%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
+                                <div className="circuit-diagram doble-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+                                        <line x1="0" y1="35%" x2="100%" y2="35%" stroke="var(--earth-color)" />
 
-                                        <line x1="50%" y1="40%" x2="70%" y2="40%" stroke="var(--return-color)" strokeWidth="4" className={isLightOn ? 'live-wire' : ''} />
-                                        <line x1="70%" y1="40%" x2="70%" y2="30%" stroke="var(--return-color)" strokeWidth="4" className={isLightOn ? 'live-wire' : ''} />
+                                        <line x1="50%" y1="15%" x2="50%" y2="55%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
 
-                                        <line x1="50%" y1="60%" x2="90%" y2="60%" stroke="#ccc" strokeWidth="4" className={isLight2On ? 'live-wire' : ''} />
-                                        <line x1="90%" y1="60%" x2="90%" y2="50%" stroke="#ccc" strokeWidth="4" className={isLight2On ? 'live-wire' : ''} />
+                                        <line x1="45%" y1="75%" x2="30%" y2="75%" stroke="var(--return-color)" className={isLightOn ? 'live-wire' : ''} />
+                                        <line x1="30%" y1="75%" x2="30%" y2="55%" stroke="var(--return-color)" className={isLightOn ? 'live-wire' : ''} />
 
-                                        <line x1="60%" y1="80%" x2="90%" y2="80%" stroke="var(--neutral-color)" strokeWidth="4" />
-                                        <line x1="70%" y1="80%" x2="70%" y2="55%" stroke="var(--neutral-color)" strokeWidth="4" />
-                                        <line x1="90%" y1="80%" x2="90%" y2="75%" stroke="var(--neutral-color)" strokeWidth="4" />
+                                        <line x1="55%" y1="75%" x2="70%" y2="75%" stroke="#ccc" className={isLight2On ? 'live-wire' : ''} />
+                                        <line x1="70%" y1="75%" x2="70%" y2="55%" stroke="#ccc" className={isLight2On ? 'live-wire' : ''} />
+
+                                        <line x1="30%" y1="25%" x2="30%" y2="45%" stroke="var(--neutral-color)" />
+                                        <line x1="70%" y1="25%" x2="70%" y2="45%" stroke="var(--neutral-color)" />
                                     </svg>
-                                    <div className="component-node" style={{ left: '45%', top: '50%', display: 'flex', flexDirection: 'row', gap: '5px' }}>
+                                    <div className="component-node" style={{ left: '50%', top: '65%', transform: 'translate(-50%, -50%)', display: 'flex', gap: '5px' }}>
                                         <div className={`switch-icon ${sw1 ? 'on' : 'off'}`} onClick={() => setSw1(!sw1)}></div>
                                         <div className={`switch-icon ${sw2 ? 'on' : 'off'}`} onClick={() => setSw2(!sw2)}></div>
                                     </div>
-                                    <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '70%', top: '40%' }}>💡</div>
-                                    <div className={`component-node bulb-node ${isLight2On ? 'glowing' : ''}`} style={{ left: '90%', top: '60%' }}>💡</div>
+                                    <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '30%', top: '50%', transform: 'translate(-50%, -50%)' }}>💡</div>
+                                    <div className={`component-node bulb-node ${isLight2On ? 'glowing' : ''}`} style={{ left: '70%', top: '50%', transform: 'translate(-50%, -50%)' }}>💡</div>
                                 </div>
                             )}
 
                             {/* CIRCUITO COMBINACION */}
                             {circuitType === 'combinacion' && (
-                                <div className="circuit-diagram combinacion-circuit">
-                                    <svg width="100%" height="200" className="wiring-svg">
-                                        <line x1="10%" y1="0" x2="10%" y2="30%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="10%" y1="30%" x2="25%" y2="30%" stroke="var(--phase-color)" strokeWidth="4" className={isPowered ? 'live-wire' : ''} />
-                                        <line x1="35%" y1="20%" x2="65%" y2="20%" stroke="gray" strokeWidth="4" className={isPowered && !sw1 ? 'live-wire' : ''} />
-                                        <line x1="35%" y1="40%" x2="65%" y2="40%" stroke="gray" strokeWidth="4" className={isPowered && sw1 ? 'live-wire' : ''} />
-                                        <line x1="75%" y1="30%" x2="90%" y2="30%" stroke="var(--return-color)" strokeWidth="4" className={isLightOn ? 'live-wire' : ''} />
-                                        <line x1="90%" y1="30%" x2="90%" y2="40%" stroke="var(--return-color)" strokeWidth="4" className={isLightOn ? 'live-wire' : ''} />
-                                        <line x1="90%" y1="60%" x2="90%" y2="80%" stroke="var(--neutral-color)" strokeWidth="4" />
-                                        <line x1="90%" y1="80%" x2="50%" y2="80%" stroke="var(--neutral-color)" strokeWidth="4" />
+                                <div className="circuit-diagram combinacion-circuit" style={{ height: '100%' }}>
+                                    <svg width="100%" height="100%" className="wiring-svg">
+                                        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+                                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="var(--neutral-color)" />
+                                        <line x1="0" y1="35%" x2="100%" y2="35%" stroke="var(--earth-color)" />
+
+                                        <line x1="20%" y1="15%" x2="20%" y2="55%" stroke="var(--phase-color)" className={isPowered ? 'live-wire' : ''} />
+
+                                        <line x1="20%" y1="70%" x2="60%" y2="70%" stroke="gray" className={isPowered && !sw1 ? 'live-wire' : ''} />
+                                        <line x1="20%" y1="80%" x2="60%" y2="80%" stroke="gray" className={isPowered && sw1 ? 'live-wire' : ''} />
+
+                                        <line x1="60%" y1="75%" x2="80%" y2="75%" stroke="var(--return-color)" className={isLightOn ? 'live-wire' : ''} />
+                                        <line x1="80%" y1="75%" x2="80%" y2="55%" stroke="var(--return-color)" className={isLightOn ? 'live-wire' : ''} />
+
+                                        <line x1="80%" y1="25%" x2="80%" y2="45%" stroke="var(--neutral-color)" />
                                     </svg>
-                                    <div className="component-node switch-node combo-switch" style={{ left: '30%', top: '30%' }} onClick={() => setSw1(!sw1)}>
+                                    <div className="component-node switch-node combo-switch" style={{ left: '20%', top: '65%', transform: 'translate(-50%, -50%)' }} onClick={() => setSw1(!sw1)}>
                                         <div className={`switch-icon ${sw1 ? 'pos1' : 'pos2'}`}></div>
                                         <span>Llave A</span>
                                     </div>
-                                    <div className="component-node switch-node combo-switch" style={{ left: '70%', top: '30%' }} onClick={() => setSw2(!sw2)}>
+                                    <div className="component-node switch-node combo-switch" style={{ left: '60%', top: '65%', transform: 'translate(-50%, -50%)' }} onClick={() => setSw2(!sw2)}>
                                         <div className={`switch-icon ${sw2 ? 'pos1' : 'pos2'}`}></div>
                                         <span>Llave B</span>
                                     </div>
-                                    <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '90%', top: '50%' }}>💡</div>
+                                    <div className={`component-node bulb-node ${isLightOn ? 'glowing' : ''}`} style={{ left: '80%', top: '50%', transform: 'translate(-50%, -50%)' }}>💡</div>
                                 </div>
                             )}
 

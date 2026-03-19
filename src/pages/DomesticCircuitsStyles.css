@@ -250,34 +250,39 @@
 }
 
 .wire-bus {
-    padding: 5px 10px;
+    padding: 2px 8px;
     font-weight: bold;
     color: #000;
     border-radius: 3px;
     display: inline-block;
     position: absolute;
-    left: 20px;
+    left: 10px;
+    z-index: 10;
+    font-size: 0.8rem;
 }
 
 .phase-bus {
     background: var(--phase-color);
     color: #fff;
-    top: 20px;
+    top: 15%;
+    transform: translateY(-50%);
 }
 
 .neutral-bus {
     background: var(--neutral-color);
-    top: 60px;
+    top: 25%;
+    transform: translateY(-50%);
 }
 
 .earth-bus {
     background: var(--earth-color);
-    top: 100px;
+    top: 35%;
+    transform: translateY(-50%);
 }
 
 .interactive-area {
     position: absolute;
-    top: 150px;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
