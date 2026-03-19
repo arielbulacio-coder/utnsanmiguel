@@ -13,10 +13,10 @@ const Footer = () => {
             textAlign: 'center'
         }}>
             <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                <h3 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>Simuladores Técnicos</h3>
+                <h3 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>simutec.com.ar</h3>
                 <p style={{ fontStyle: 'italic' }}>"Soporte didáctico interactivo para la formación tecnológica"</p>
                 <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid var(--glass-border)' }}>
-                    <p>© 2026 Simuladores Técnicos. Desarrollo Educativo.</p>
+                    <p>© 2026 simutec.com.ar. Desarrollo Educativo.</p>
                 </div>
             </div>
         </footer>

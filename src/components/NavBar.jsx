@@ -59,11 +59,11 @@ const NavBar = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <Link to="/" style={{ textDecoration: 'none', color: 'var(--text-main)', fontWeight: 'bold', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }} onClick={closeAll}>
                     <img
-                        src="/logo_simuladores.png"
-                        alt="Logo"
-                        style={{ width: '35px', height: '35px', borderRadius: '8px', objectFit: 'contain', background: '#fff', border: '1px solid var(--primary-color)' }}
+                        src="/logo_simutec.png"
+                        alt="Logo SimuTec"
+                        style={{ width: '35px', height: '35px', borderRadius: '4px', objectFit: 'contain', background: 'transparent', border: '1px solid var(--primary-color)' }}
                     />
-                    <span className="brand-text">Simuladores Técnicos</span>
+                    <span className="brand-text">simutec.com.ar</span>
                 </Link>
             </div>
 
@@ -170,10 +170,7 @@ const NavBar = () => {
                     </div>
                 </div>
 
-                {/* Material Didactico - Publico */}
-                <a href="https://drive.google.com/drive/folders/1-AR-bhwYmRbdB0T03FTiBMLSJc4iTxUV?usp=drive_link" target="_blank" rel="noopener noreferrer" style={linkStyle} onClick={closeAll}>
-                    {"Material Did\u00e1ctico"}
-                </a>
+
 
                 {/* Submenu Gestión Académica - Solo si está autenticado */}
                 {isAuthenticated && (

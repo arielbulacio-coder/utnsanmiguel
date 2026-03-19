@@ -124,21 +124,25 @@ const Home = () => {
             <div className="glass-card" style={{ maxWidth: '800px', margin: '0 auto 3rem auto', padding: '3rem' }}>
                 <div style={{ marginBottom: '2rem' }}>
                     <img
-                        src="/logo_simuladores.png"
-                        alt="Logo Simuladores Técnicos"
+                        src="/logo_simutec.png"
+                        alt="Logo simutec.com.ar"
                         style={{
-                            width: '140px',
-                            height: '140px',
-                            borderRadius: '24px',
+                            width: '200px',
+                            height: 'auto',
                             margin: '0 auto 1rem auto',
                             objectFit: 'contain',
-                            background: '#fff',
-                            boxShadow: '0 0 40px rgba(0, 242, 255, 0.4)',
-                            padding: '10px'
+                            filter: 'drop-shadow(0 0 15px var(--primary-color))',
+                            borderRadius: '12px'
                         }}
                     />
-                    <h1>Simuladores Técnicos</h1>
-                    <h2 style={{ fontSize: '1.5rem', color: 'var(--text-main)', marginTop: '0.5rem' }}>Plataforma de Educación Tecnológica Digital</h2>
+                    <h1 style={{
+                        fontSize: '3rem',
+                        background: 'linear-gradient(to right, #00f2ff, #fff)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        fontWeight: '900'
+                    }}>simutec.com.ar</h1>
+                    <h2 style={{ fontSize: '1.2rem', color: 'var(--text-main)', marginTop: '0.5rem', opacity: 0.8 }}>Plataforma de Simulación y Educación Tecnológica</h2>
                 </div>
 
                 <p>
