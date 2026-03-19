@@ -395,7 +395,7 @@ const DomesticCircuitsPage = () => {
                         <div className="empalme-card">
                             <h4>Cola de Ratón (Trenzado)</h4>
                             <div className="empalme-graphic">
-                                <img src="/img/empalmes/cola_raton.png" alt="Cola de Ratón" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+                                <img src={`${import.meta.env.BASE_URL}img/empalmes/cola_raton.png`} alt="Cola de Ratón" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                             </div>
                             <p><strong>Uso:</strong> Cajas de derivación (octogonales, rectangulares). Se somete a poca tracción mecánica y se encinta "hacia arriba" para no perforar la cinta.</p>
                             <p><strong>Cómo se hace:</strong> Se pelan las puntas (aprox 5 cm), se cruzan formando una X y se trenzan firmemente utilizando una pinza universal. Finalmente se corta la punta excedente dejando una terminación roma.</p>
@@ -404,7 +404,7 @@ const DomesticCircuitsPage = () => {
                         <div className="empalme-card">
                             <h4>Derivación (Tipo T)</h4>
                             <div className="empalme-graphic">
-                                <img src="/img/empalmes/derivacion.png" alt="Derivación en T" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+                                <img src={`${import.meta.env.BASE_URL}img/empalmes/derivacion.png`} alt="Derivación en T" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                             </div>
                             <p><strong>Uso:</strong> Especial para sacar una línea secundaria desde un cable principal (línea pasante o troncal) sin tener que cortarlo.</p>
                             <p><strong>Cómo se hace:</strong> Se quita la aislación del cable principal en un sector intermedio. El cable derivado se pela en su extremo y se enrolla dando vueltas apretadas sobre el cobre descubierto del cable troncal.</p>
@@ -413,10 +413,42 @@ const DomesticCircuitsPage = () => {
                         <div className="empalme-card">
                             <h4>Prolongación (Western Union)</h4>
                             <div className="empalme-graphic">
-                                <img src="/img/empalmes/western.png" alt="Western Union" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+                                <img src={`${import.meta.env.BASE_URL}img/empalmes/western.png`} alt="Western Union" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                             </div>
                             <p><strong>Uso:</strong> Ideal para extender cables conductores que van a estar sujetos a esfuerzos mecánicos o estiramientos severos, ya que esta unión es sumamente fuerte.</p>
                             <p><strong>Cómo se hace:</strong> Se pelan unos 8 cm de cada punta, se cruzan en el medio y luego cada cable se enrolla apretadamente en espiral sobre el cobre recto del otro cable en direcciones opuestas.</p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* PROTECCIONES SECTION */}
+                <section className="circuit-card full-width empalmes-section" style={{ marginTop: '2rem' }}>
+                    <h2>Protecciones Eléctricas Base</h2>
+                    <p>Los tableros domiciliarios utilizan dispositivos automáticos diseñados para prevenir distintas clases de accidentes, tanto riesgos de incendio en los cables como riesgos de electrocución en personas.</p>
+
+                    <div className="empalmes-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))' }}>
+                        <div className="empalme-card">
+                            <h4>Llave Termomagnética (PIA)</h4>
+                            <div className="empalme-graphic" style={{ height: '150px' }}>
+                                <img src={`${import.meta.env.BASE_URL}img/protecciones/termica.png`} alt="Llave Termomagnética" style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: '#fff', borderRadius: '8px' }} />
+                            </div>
+                            <p style={{ marginTop: '1rem' }}><strong style={{ color: 'var(--primary-color)' }}>Función principal:</strong> Proteger a <strong>los cables y la propiedad</strong>.</p>
+                            <div style={{ textAlign: 'left', fontSize: '0.9rem', color: '#ccc' }}>
+                                <p style={{ margin: '5px 0' }}><strong>Corte Térmico:</strong> Actúa lentamente cuando la instalación está <strong>sobrecargada</strong> (ej. prender 3 estufas de golpe). El cable se calienta y una lengüeta bimetálica dentro de la llave se dobla hasta cortar el paso.</p>
+                                <p style={{ margin: '5px 0' }}><strong>Corte Magnético:</strong> Actúa instantáneamente ante un <strong>cortocircuito</strong> (cuando la fase toca directo al neutro o tierra). Crea un campo electromagnético que dispara un percutor cortando el circuito antes que los cables se fundan.</p>
+                            </div>
+                        </div>
+
+                        <div className="empalme-card">
+                            <h4>Interruptor Diferencial (Disyuntor)</h4>
+                            <div className="empalme-graphic" style={{ height: '150px' }}>
+                                <img src={`${import.meta.env.BASE_URL}img/protecciones/disyuntor.png`} alt="Disyuntor Diferencial" style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: '#fff', borderRadius: '8px' }} />
+                            </div>
+                            <p style={{ marginTop: '1rem' }}><strong style={{ color: 'var(--secondary-color)' }}>Función principal:</strong> Proteger a <strong>las personas y animales</strong>.</p>
+                            <div style={{ textAlign: 'left', fontSize: '0.9rem', color: '#ccc' }}>
+                                <p style={{ margin: '5px 0' }}><strong>Fuga de Corriente:</strong> Mide constantemente la diferencia entre los electrones que "entran" por la Fase y los que "vuelven" por el Neutro. Si la resta no da cero exacto (ej. 30mA de diferencia), significa que la corriente encontró otro camino físico (una persona tocando una heladera electrificada) y se dispara en milisegundos.</p>
+                                <p style={{ margin: '5px 0' }}><strong>Botón T (Test):</strong> Sirve para provocar una falla interna controlada y verificar que las bobinas de accionamiento mecánico interno no se oxidaron ni trabaron. Debe presionarse una vez al mes.</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -449,8 +481,8 @@ const DomesticCircuitsPage = () => {
                         </div>
                     </div>
                 </section>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
