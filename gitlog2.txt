@@ -1,0 +1,5 @@
+﻿47eb06c feat: complete domestic circuits logic
+7dbda42 feat: adds EV, components, and renewable energy simulators
+515a84c Corregir path de im├ígenes y a├▒adir secci├│n de protecciones con IA
+d1c0a8c Mejorar dise├▒o SVG para distinguir cables principales con IA en empalmes
+fcec19a Improve cable colors for better visibility
