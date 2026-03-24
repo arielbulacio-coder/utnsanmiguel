@@ -44,6 +44,7 @@ import SensorsPage from './pages/SensorsPage';
 import SerialPage from './pages/SerialPage';
 import ScratchPage from './pages/ScratchPage';
 import RobotEvitaObstaculosPage from './pages/RobotEvitaObstaculosPage';
+import GeneracionesComputadorasPage from './pages/GeneracionesComputadorasPage';
 
 // Gestión Académica
 import AcademicOverviewPage from './pages/AcademicOverviewPage';
@@ -120,6 +121,7 @@ function App() {
             <Route path="/comunicacion-serial" element={<SerialPage />} />
             <Route path="/scratch" element={<ScratchPage />} />
             <Route path="/robot-evita-obstaculos" element={<RobotEvitaObstaculosPage />} />
+            <Route path="/generaciones-computadoras" element={<GeneracionesComputadorasPage />} />
 
             {/* Rutas Protegidas - Gestión Académica */}
             <Route element={<ProtectedRoute />}>

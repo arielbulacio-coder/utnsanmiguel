@@ -1,0 +1,1012 @@
+/* ============================================================
+   Generaciones de Computadoras – Estilos
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+
+/* ── ROOT & PAGE ─────────────────────────────────────────── */
+.gen-page {
+  min-height: 100vh;
+  background: var(--bg-color, #0a0a0f);
+  color: var(--text-main, #e0e0e0);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── HEADER ─────────────────────────────────────────────── */
+.gen-header {
+  background: linear-gradient(135deg, #0d0d1a 0%, #12122a 50%, #0a0a12 100%);
+  border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+  padding: 3rem 2rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.gen-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 242, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.gen-header-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.gen-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 900;
+  background: linear-gradient(90deg, #00f2ff, #a55eea, #f7b731);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.gen-title-icon {
+  -webkit-text-fill-color: initial;
+  font-size: 1em;
+}
+
+.gen-subtitle {
+  font-size: 1rem;
+  color: rgba(224, 224, 224, 0.7);
+  margin-bottom: 1.5rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Progress Bar */
+.gen-progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin: 0 auto 0.5rem;
+  overflow: hidden;
+}
+
+.gen-progress-val {
+  height: 100%;
+  background: linear-gradient(90deg, #00f2ff, #a55eea);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.gen-progress-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+/* ── LAYOUT ─────────────────────────────────────────────── */
+.gen-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: calc(100vh - 180px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .gen-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── TIMELINE SIDEBAR ───────────────────────────────────── */
+.gen-timeline {
+  background: rgba(0, 0, 0, 0.4);
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.timeline-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 1rem 0.5rem;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: none;
+  border-left: 3px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-main, #e0e0e0);
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.timeline-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.timeline-active {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.timeline-done .tl-nombre::after {
+  content: ' ✓';
+  color: #26de81;
+  font-size: 0.75rem;
+}
+
+.tl-emoji {
+  font-size: 1.5rem;
+  min-width: 30px;
+  text-align: center;
+}
+
+.tl-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.tl-nombre {
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: color 0.25s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-periodo {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.tl-tech {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+.tl-check {
+  font-size: 1rem;
+  color: #26de81;
+  font-weight: 900;
+}
+
+/* ── MAIN PANEL ─────────────────────────────────────────── */
+.gen-main {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Card Header */
+.gen-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba(var(--gen-color-rgb, 0, 242, 255), 0.06) 0%, transparent 100%);
+  border: 1px solid color-mix(in srgb, var(--gen-color) 30%, transparent);
+  border-radius: 16px;
+  box-shadow: 0 0 40px var(--gen-glow, transparent);
+  transition: all 0.4s ease;
+}
+
+.gen-badge {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--gen-color, #00f2ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px var(--gen-glow, transparent);
+}
+
+.gen-emoji-big {
+  font-size: 2.5rem;
+}
+
+.gen-nombre {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin: 0 0 0.25rem;
+}
+
+.gen-tech {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ── TABS ───────────────────────────────────────────────── */
+.gen-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0;
+}
+
+.gen-tab {
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  border-radius: 8px 8px 0 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.gen-tab:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-active {
+  color: var(--tab-color, #00f2ff) !important;
+  border-bottom-color: var(--tab-color, #00f2ff) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── INFO CONTENT ───────────────────────────────────────── */
+.gen-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.gen-descripcion {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(224, 224, 224, 0.9);
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border-left: 4px solid rgba(255, 255, 255, 0.15);
+  margin: 0;
+}
+
+/* Datos Grid */
+.gen-datos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.dato-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dato-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.dato-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.dato-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.dato-valor {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Section */
+.gen-section h3 {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 1rem;
+}
+
+/* Ejemplos */
+.ejemplos-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ejemplo-chip {
+  padding: 0.4rem 1rem;
+  border: 1px solid;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Curiosidad */
+.curiosidad-box {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid;
+  border-radius: 12px;
+  align-items: flex-start;
+}
+
+.curiosidad-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.curiosidad-box strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.curiosidad-box p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ── SIMULATION ─────────────────────────────────────────── */
+.gen-sim-content,
+.gen-quiz-content {
+  animation: fadeIn 0.4s ease;
+}
+
+.sim-container {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sim-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  color: #00f2ff;
+  margin: 0;
+}
+
+.sim-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.sim-info {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  text-align: center;
+}
+
+.sim-btn {
+  padding: 0.65rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: 'Inter', sans-serif;
+  align-self: center;
+}
+
+.sim-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.sim-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ── VÁLVULAS ────────────────────────────────────────────── */
+.valvulas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.valvula {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  user-select: none;
+}
+
+.valvula:hover {
+  transform: scale(1.05);
+}
+
+.valvula-tubo {
+  width: 36px;
+  height: 80px;
+  border-radius: 18px 18px 8px 8px;
+  background: rgba(100, 80, 60, 0.4);
+  border: 2px solid rgba(200, 160, 100, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.valvula-filamento {
+  width: 4px;
+  height: 40px;
+  background: linear-gradient(180deg, #ff8c00, #ff4500);
+  border-radius: 2px;
+  transition: opacity 0.3s;
+  filter: blur(1px);
+}
+
+.valvula-on .valvula-tubo {
+  border-color: rgba(255, 150, 50, 0.8);
+  box-shadow: 0 0 15px rgba(255, 100, 0, 0.6);
+}
+
+.valvula-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 150, 50, 0.4), transparent);
+  transition: opacity 0.3s;
+  border-radius: inherit;
+}
+
+.valvula-base {
+  width: 44px;
+  height: 16px;
+  background: #3a3a3a;
+  border: 1px solid #555;
+  border-radius: 0 0 6px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: #888;
+}
+
+.valvula-bit {
+  margin-top: 0.3rem;
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+.bit-1 {
+  color: #ff6b35;
+  text-shadow: 0 0 8px #ff6b35;
+}
+
+.bit-0 {
+  color: #444;
+}
+
+/* ── TRANSISTOR ──────────────────────────────────────────── */
+.transistor-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.trans-terminal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.trans-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 0.3rem;
+}
+
+.trans-wire {
+  width: 60px;
+  height: 8px;
+  border-radius: 4px;
+  transition: background 0.4s;
+}
+
+.trans-body {
+  display: flex;
+  align-items: center;
+}
+
+.trans-chip {
+  width: 80px;
+  height: 80px;
+  background: #1a1a2e;
+  border: 3px solid #f7b731;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #f7b731;
+  transition: box-shadow 0.4s;
+}
+
+.trans-base-ctrl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trans-base-ctrl label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.trans-base-ctrl input {
+  width: 100%;
+}
+
+.trans-status {
+  padding: 1rem 1.5rem;
+  border: 2px solid;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.4s ease;
+}
+
+/* ── CHIP ───────────────────────────────────────────────── */
+.chip-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.chip-btn {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.25s;
+  font-family: 'Inter', sans-serif;
+}
+
+.chip-btn:hover {
+  border-color: var(--chip-color);
+  color: var(--chip-color);
+}
+
+.chip-btn.active {
+  background: color-mix(in srgb, var(--chip-color) 20%, transparent);
+  border-color: var(--chip-color);
+  color: var(--chip-color);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--chip-color) 30%, transparent);
+}
+
+.chip-visual {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.chip-body {
+  width: 220px;
+  height: 220px;
+  background: #0d1117;
+  border: 3px solid #26de81;
+  border-radius: 12px;
+  padding: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.4s;
+}
+
+.chip-grid {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+}
+
+.chip-cell {
+  border-radius: 1px;
+  opacity: 0.7;
+  animation: chipPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes chipPulse {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.chip-info-box {
+  border: 2px solid;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  min-width: 180px;
+}
+
+.chip-transistor-count {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.chip-transistor-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.5rem;
+}
+
+.chip-transistor-desc {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* ── CPU ─────────────────────────────────────────────────── */
+.cpu-diagram {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .cpu-diagram {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.cpu-stage {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.4s ease;
+}
+
+.cpu-active {
+  animation: stagePulse 0.5s ease;
+}
+
+@keyframes stagePulse {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.cpu-stage-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.cpu-stage-data {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ── NEURAL ─────────────────────────────────────────────── */
+.neural-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.neural-inputs,
+.neural-weights {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.neural-weights {
+  gap: 0.75rem;
+}
+
+.weight-ctrl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: #f7b731;
+  font-weight: 600;
+}
+
+.weight-ctrl input {
+  width: 100px;
+}
+
+.neural-node {
+  border-radius: 12px;
+  padding: 0.75rem;
+  text-align: center;
+  min-width: 80px;
+  border: 2px solid;
+}
+
+.input-node {
+  border-color: rgba(165, 94, 234, 0.4);
+  background: rgba(165, 94, 234, 0.05);
+}
+
+.input-node input {
+  width: 80px;
+  margin-top: 0.4rem;
+}
+
+.center-node {
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 50% !important;
+  border-color: #a55eea;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.output-node {
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.neural-val {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.neural-lbl {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+/* ── QUANTUM ─────────────────────────────────────────────── */
+.bloch-sphere-container {
+  display: flex;
+  justify-content: center;
+  filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.3));
+}
+
+.quantum-state {
+  text-align: center;
+}
+
+.quantum-formula {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  display: inline-block;
+}
+
+/* ── QUIZ ───────────────────────────────────────────────── */
+.quiz-panel {
+  border: 1px solid;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.quiz-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.quiz-question-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+}
+
+.quiz-q {
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quiz-opt {
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.quiz-opt:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.opt-selected {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.opt-correct {
+  border-color: #26de81 !important;
+  background: rgba(38, 222, 129, 0.15) !important;
+  color: #26de81 !important;
+}
+
+.opt-wrong {
+  border-color: #f44336 !important;
+  background: rgba(244, 67, 54, 0.15) !important;
+  color: #f44336 !important;
+}
+
+.quiz-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.quiz-result {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.quiz-score {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ── NAVIGATION ─────────────────────────────────────────── */
+.gen-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
+}
+
+.gen-nav-btn {
+  padding: 0.65rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.gen-nav-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.gen-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.gen-nav-indicator {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ── ANIMATIONS ─────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .gen-main {
+    padding: 1rem;
+  }
+
+  .gen-card-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gen-datos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gen-tabs {
+    overflow-x: auto;
+  }
+
+  .gen-tab {
+    white-space: nowrap;
+    padding: 0.5rem 0.9rem;
+  }
+
+  .neural-diagram {
+    flex-direction: column;
+  }
+}
