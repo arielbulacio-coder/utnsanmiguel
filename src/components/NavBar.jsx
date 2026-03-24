@@ -170,6 +170,16 @@ const NavBar = () => {
                     </div>
                 </div>
 
+                {/* INFORMÁTICA */}
+                <div className={`dropdown ${openSubmenu === 'informatica' ? 'active' : ''}`}>
+                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('informatica')}>
+                        🖥️ Informática <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Historia de la Computación</div>
+                        <Link to="/generaciones-computadoras" style={linkStyle} onClick={closeAll}>🎮 Generaciones de Computadoras</Link>
+                    </div>
+                </div>
 
 
                 {/* Submenu Gestión Académica - Solo si está autenticado */}
