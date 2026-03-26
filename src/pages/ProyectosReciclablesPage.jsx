@@ -10,25 +10,6 @@ const ProyectosReciclablesPage = () => {
     const ProjectCard = ({ title, description, objectives, materials, instructions, emoji, simContent, simStatus, simOn, setSimOn, videoId, imageSrc, num }) => {
         return (
             <div className="proyecto-card">
-                <div style={{ position: 'relative' }}>
-                    <img src={imageSrc} alt={title} className="proyecto-image" />
-                    <div style={{
-                        position: 'absolute',
-                        top: '15px',
-                        right: '15px',
-                        background: 'rgba(0,0,0,0.7)',
-                        color: 'var(--primary-color)',
-                        padding: '5px 12px',
-                        borderRadius: '20px',
-                        fontSize: '0.7rem',
-                        fontWeight: 'bold',
-                        border: '1px solid var(--primary-color)',
-                        backdropFilter: 'blur(5px)',
-                        zIndex: 2
-                    }}>
-                        🤖 ILUSTRACIÓN IA
-                    </div>
-                </div>
                 <div className="proyecto-content">
                     <h2 className="proyecto-title">
                         <span style={{ background: 'var(--primary-color)', color: '#000', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>{num}</span>
@@ -40,6 +21,25 @@ const ProyectosReciclablesPage = () => {
                             <div className="proyecto-section">
                                 <h3>📋 Descripción</h3>
                                 <p>{description}</p>
+                            </div>
+
+                            <div className="proyecto-section">
+                                <h3>🚀 Prototipo Sugerido (Diseño IA)</h3>
+                                <div style={{ position: 'relative', borderRadius: '15px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+                                    <img src={imageSrc} alt={title} style={{ width: '100%', display: 'block' }} />
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '10px',
+                                        right: '10px',
+                                        background: 'rgba(0,0,0,0.8)',
+                                        color: '#00f2ff',
+                                        padding: '4px 10px',
+                                        borderRadius: '8px',
+                                        fontSize: '0.65rem'
+                                    }}>
+                                        Generado por IA
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="proyecto-section">
