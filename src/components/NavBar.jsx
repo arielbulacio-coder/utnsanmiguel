@@ -181,6 +181,17 @@ const NavBar = () => {
                     </div>
                 </div>
 
+                {/* PROYECTOS */}
+                <div className={`dropdown ${openSubmenu === 'proyectos' ? 'active' : ''}`}>
+                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('proyectos')}>
+                        🚀 Proyectos <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+                        <Link to="/proyectos-reciclables" style={linkStyle} onClick={closeAll}>Robótica Reciclable</Link>
+                    </div>
+                </div>
+
+
 
                 {/* Submenu Gestión Académica - Solo si está autenticado */}
                 {isAuthenticated && (

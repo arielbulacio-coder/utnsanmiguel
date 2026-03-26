@@ -1,0 +1,126 @@
+.proyectos-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: var(--text-main);
+}
+
+.proyectos-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.proyectos-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.proyectos-header p {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+}
+
+.proyecto-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.proyecto-title {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.proyecto-section {
+    margin-bottom: 1.5rem;
+}
+
+.proyecto-section h3 {
+    font-size: 1.2rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.proyecto-section p, .proyecto-section ul {
+    color: var(--text-dim);
+    line-height: 1.6;
+}
+
+.proyecto-section ul {
+    padding-left: 1.5rem;
+}
+
+.simulacion-box {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-top: 1.5rem;
+    border: 1px dashed var(--primary-color);
+}
+
+/* Animations for simulations */
+
+/* 1. Robot Simple */
+.robot-sim {
+    font-size: 4rem;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+.robot-moving {
+    animation: robotMove 1s infinite alternate;
+}
+@keyframes robotMove {
+    0% { transform: translateX(-30px) rotate(-10deg); }
+    100% { transform: translateX(30px) rotate(10deg); }
+}
+
+/* 2. Velador */
+.velador-sim {
+    font-size: 4rem;
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+.velador-on {
+    color: #ffeb3b;
+    text-shadow: 0 0 20px #ffeb3b, 0 0 40px #ffeb3b;
+}
+.velador-off {
+    color: #555;
+}
+
+/* 3. Ventilador */
+.ventilador-sim {
+    font-size: 4rem;
+    display: inline-block;
+    transition: transform 0.2s linear;
+}
+.ventilador-on {
+    animation: spin 0.5s linear infinite;
+}
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+.btn-simular {
+    background: var(--primary-color);
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.3s;
+}
+
+.btn-simular:hover {
+    background: #00c3cc;
+}
