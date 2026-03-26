@@ -56,7 +56,7 @@ const ProyectosReciclablesPage = () => {
         if (huertaActive) {
             interval = setInterval(() => {
                 setIsDay(prev => !prev);
-            }, 4000); // 4 seconds day, 4 seconds night
+            }, 4000);
         } else {
             setIsDay(true);
         }
@@ -70,6 +70,9 @@ const ProyectosReciclablesPage = () => {
     };
 
     const ProjectCard = ({ title, description, functioning, materials, instructions, simContent, simStatus, simOn, setSimOn, videoId, imageSrc, num, children }) => {
+        // Use standard embedding with security headers
+        const videoUrl = `https://www.youtube.com/embed/${videoId}?rel=0&enablejsapi=1&origin=${window.location.host}`;
+
         return (
             <div className="proyecto-card">
                 <div className="proyecto-content">
@@ -80,12 +83,10 @@ const ProyectosReciclablesPage = () => {
                     
                     <div className="proyecto-info-grid">
                         <div className="info-left">
-                            {description && (
-                                <div className="proyecto-section">
-                                    <h3>📋 Descripción</h3>
-                                    <p>{description}</p>
-                                </div>
-                            )}
+                            <div className="proyecto-section">
+                                <h3>📋 Descripción</h3>
+                                <p>{description}</p>
+                            </div>
 
                             {functioning && (
                                 <div className="proyecto-section">
@@ -96,17 +97,16 @@ const ProyectosReciclablesPage = () => {
 
                             {imageSrc && !Array.isArray(imageSrc) && (
                                 <div className="proyecto-section">
-                                    <h3>🚀 Prototipo Sugerido (Diseño IA)</h3>
+                                    <h3>🚀 Prototipo Sugerido</h3>
                                     <div style={{ position: 'relative', borderRadius: '15px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', background: '#111', minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         <img src={getImagePath(imageSrc)} alt={title} style={{ width: '100%', display: 'block' }} />
-                                        <div style={{ position: 'absolute', bottom: '10px', right: '10px', background: 'rgba(0,0,0,0.8)', color: '#00f2ff', padding: '4px 10px', borderRadius: '8px', fontSize: '0.65rem' }}>Diseño IA</div>
                                     </div>
                                 </div>
                             )}
 
                             {Array.isArray(imageSrc) && (
                                 <div className="proyecto-section">
-                                    <h3>🧪 Comparativa IA</h3>
+                                    <h3>🧪 Comparativa</h3>
                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                                         {imageSrc.map((src, i) => (
                                             <div key={i} style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
@@ -119,7 +119,7 @@ const ProyectosReciclablesPage = () => {
                             )}
 
                             <div className="proyecto-section">
-                                <h3>🛠️ Materiales y Recursos</h3>
+                                <h3>🛠️ Materiales</h3>
                                 <div className="materials-list">
                                     <ul>
                                         {materials.map((mat, i) => <li key={i}>{mat}</li>)}
@@ -130,7 +130,7 @@ const ProyectosReciclablesPage = () => {
 
                         <div className="info-right">
                             <div className="proyecto-section">
-                                <h3>⚙️ Actividades Paso a Paso</h3>
+                                <h3>⚙️ Actividades</h3>
                                 <ol className="instructions-list">
                                     {instructions.map((ins, i) => <li key={i}>{ins}</li>)}
                                 </ol>
@@ -140,31 +140,32 @@ const ProyectosReciclablesPage = () => {
                                 {simContent}
                                 <div className="sim-controls">
                                     <button className="btn-toggle-sim" onClick={() => setSimOn(!simOn)}>
-                                        {simOn ? 'Detener' : 'Activar Lógica'}
+                                        {simOn ? 'Detener' : 'Activar Simulación'}
                                     </button>
                                     <div className={`sim-status ${simOn ? 'status-on' : 'status-off'}`}>
-                                        {simOn ? '>>> ACTIVE: ' + simStatus.on : '>>> IDLE: ' + simStatus.off}
+                                        {simOn ? 'ACTIVE: ' + simStatus.on : 'IDLE: ' + simStatus.off}
                                     </div>
                                 </div>
                             </div>
-                            
                             {children}
                         </div>
                     </div>
 
                     {videoId && (
                         <div className="proyecto-section" style={{ marginTop: '2rem' }}>
-                            <h3>📺 Video Guía y Recursos</h3>
-                            <div className="video-container" style={{ position: 'relative', paddingTop: '56.25%', background: '#000', borderRadius: '15px', overflow: 'hidden' }}>
+                            <h3>📺 Video Guía</h3>
+                            <div className="video-container" style={{ position: 'relative', paddingTop: '56.25%', background: '#000', borderRadius: '15px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
                                 <iframe 
                                     title={title} 
                                     style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                                    src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`} 
+                                    src={videoUrl}
                                     frameBorder="0" 
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
+                                    referrerPolicy="no-referrer-when-downgrade"
                                 ></iframe>
                             </div>
+                            <p style={{ fontSize: '0.7rem', opacity: 0.5, marginTop: '5px', textAlign: 'center' }}>ID: {videoId} - Si el video no carga, presiona Ctrl+F5.</p>
                         </div>
                     )}
                 </div>
@@ -176,109 +177,55 @@ const ProyectosReciclablesPage = () => {
         <div className="proyectos-container fade-in">
             <header className="proyectos-header">
                 <h1>🔌 Robótica, Eco-Tecnología y Taller</h1>
-                <p>Proyectos integradores para un futuro sustentable. Electrónica aplicada, huella verde y programación.</p>
-                <div className="youtube-invite">
-                    <span>🔴</span>
-                    <p>¡Investiga en YouTube buscando "Robótica Sustentable" o "Arduino Solar Garden"!</p>
-                </div>
+                <p>Proyectos integradores para un futuro sustentable.</p>
             </header>
 
             <div className="proyecto-grid">
                 
-                {/* 1 - 7 (Shortened calls to keep file manageable) */}
-                <ProjectCard num="1" title="Robot Móvil Simple" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" description="Robot básico con botella." materials={["Botella", "Motores", "Pilas"]} instructions={["Perforar tapas", "Pegar motores", "Conectar"]} simOn={robotMoving} setSimOn={setRobotMoving} simContent={<div className={robotMoving ? 'moving' : ''} style={{fontSize:'4rem'}}>🤖</div>} simStatus={{on:"Avance lineal",off:"Parado"}} />
-                <ProjectCard num="2" title="Velador LED" imageSrc="/proj_velador.png" videoId="-BIs-z5g7tY" description="Lámpara reciclada." materials={["Lata", "LED", "CD"]} instructions={["Armar base", "Soldar LED", "Conectar USB"]} simOn={veladorOn} setSimOn={setVeladorOn} simContent={<div style={{fontSize:'4rem', color: veladorOn ? 'yellow' : '#444'}}>💡</div>} simStatus={{on:"Luz emitida",off:"Apagado"}} />
-                <ProjectCard num="3" title="Ventilador Personal" imageSrc="/proj_ventilador.png" videoId="YqXf8zXW77A" description="Motor + Aspas CD." materials={["Motor", "CD", "Soporte"]} instructions={["Cortar CD", "Fijar motor", "Energizar"]} simOn={ventiladorOn} setSimOn={setVentiladorOn} simContent={<div style={{fontSize:'4rem', animation: ventiladorOn ? 'spin 0.2s linear infinite' : 'none'}}>🌀</div>} simStatus={{on:"Aire fluyendo",off:"Estático"}} />
-                <ProjectCard num="4" title="Araña Vibrobot" imageSrc="/proj_arana.png" videoId="pGisAks_2sU" description="Movimiento por vibración." materials={["Motor vibrador", "Pila botón", "Alambres"]} instructions={["Montar motor", "Poner patas", "Conectar pila"]} simOn={aranaMoving} setSimOn={setAranaMoving} simContent={<div className={aranaMoving ? 'arana-moving' : ''} style={{fontSize:'4rem'}}>🕷️</div>} simStatus={{on:"Vibración",off:"Sueño"}} />
-                <ProjectCard num="5" title="Amplificador TDA 2005" imageSrc="/proj_amp.png" videoId="5VIda0n8t-E" description="Audio Hi-Fi 20W." materials={["TDA 2005", "Disipador", "Módulo BT", "Fuente 12V"]} instructions={["Montar disipador", "Cablear TDA", "Vincular BT"]} simOn={ampActive} setSimOn={setAmpActive} simContent={<div style={{fontSize:'4rem', transform: ampActive ? 'scale(1.1)' : 'scale(1)', transition: 'transform 0.1s'}}>🔊</div>} simStatus={{ on: "Reproduciendo", off: "Silencio" }} />
-                <ProjectCard num="6" title="Robot Evita Obstáculos" imageSrc="/proj_evita.png" videoId="3oA-O9H-8Rk" description="Robot autónomo Arduino." functioning="Lógica: ¿Distancia < 10cm? → Girar." materials={["Arduino UNO", "Motores", "Sensor Ultrasonido", "L298N"]} instructions={["Conectar Sensor", "Driver L298N", "Programar mBlock"]} simOn={evitaActive} setSimOn={setEvitaActive} simContent={<div style={{fontSize:'3rem', animation: evitaActive ? 'jitter 0.1s infinite' : 'none'}}>🛰️</div>} simStatus={{ on: "Buscando camino", off: "Parado" }} />
-                <ProjectCard num="7" title="Taller de Soldadura" videoId="GscBUnUonqM" description="Soldadura profesional." functioning="Conicidad y brillo." materials={["Soldador", "Estaño", "Perfboard"]} instructions={["Limpiar punta", "Calentar unión", "Aplicar estaño"]} imageSrc={[{ url: '/proj_soldadura_ok.png', label: '✅ OK' }, { url: '/proj_soldadura_error.png', label: '❌ ERROR' }]} simOn={solderActive} setSimOn={setSolderActive} simContent={<div style={{fontSize:'4rem'}}>🩹</div>} simStatus={{ on: "Soldando", off: "Frío" }} />
+                <ProjectCard num="1" title="Robot Móvil Simple" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" description="Robot básico con botella." materials={["Botella", "Motores", "Pilas"]} instructions={["Perforar tapas", "Pegar motores"]} simOn={robotMoving} setSimOn={setRobotMoving} simContent={<div className={robotMoving ? 'moving' : ''} style={{fontSize:'4rem'}}>🤖</div>} simStatus={{on:"Avance lineal",off:"Parado"}} />
+                
+                <ProjectCard num="2" title="Velador LED" imageSrc="/proj_velador.png" videoId="-BIs-z5g7tY" description="Lámpara reciclada." materials={["Lata", "LED", "CD"]} instructions={["Armar base", "Soldar LED"]} simOn={veladorOn} setSimOn={setVeladorOn} simContent={<div style={{fontSize:'4rem', color: veladorOn ? 'yellow' : '#444'}}>💡</div>} simStatus={{on:"Luz emitida",off:"Apagado"}} />
 
-                {/* 8. HUERTA SOLAR INTELIGENTE */}
+                <ProjectCard num="3" title="Ventilador Personal" imageSrc="/proj_ventilador.png" videoId="YqXf8zXW77A" description="Motor + Aspas CD." materials={["Motor", "CD", "Soporte"]} instructions={["Cortar CD", "Fijar motor"]} simOn={ventiladorOn} setSimOn={setVentiladorOn} simContent={<div style={{fontSize:'4rem', animation: ventiladorOn ? 'spin 0.2s linear infinite' : 'none'}}>🌀</div>} simStatus={{on:"Aire fluyendo",off:"Estático"}} />
+
+                <ProjectCard num="4" title="Araña Vibrobot" imageSrc="/proj_arana.png" videoId="pGisAks_2sU" description="Movimiento por vibración." materials={["Motor vibrador", "Pila botón"]} instructions={["Montar motor", "Poner patas"]} simOn={aranaMoving} setSimOn={setAranaMoving} simContent={<div className={aranaMoving ? 'arana-moving' : ''} style={{fontSize:'4rem'}}>🕷️</div>} simStatus={{on:"Vibración",off:"Sueño"}} />
+
+                <ProjectCard num="5" title="Amplificador TDA 2005" imageSrc="/proj_amp.png" videoId="5VIda0n8t-E" description="Audio Hi-Fi 20W." materials={["TDA 2005", "Disipador", "Módulo BT"]} instructions={["Montar disipador", "Cablear TDA"]} simOn={ampActive} setSimOn={setAmpActive} simContent={<div style={{fontSize:'4rem', transform: ampActive ? 'scale(1.1)' : 'scale(1)', transition: 'transform 0.1s'}}>🔊</div>} simStatus={{ on: "Reproduciendo", off: "Silencio" }} />
+
+                <ProjectCard num="6" title="Robot Evita Obstáculos" imageSrc="/proj_evita.png" videoId="3oA-O9H-8Rk" description="Robot autónomo Arduino." functioning="Lógica: ¿Distancia < 10cm? → Girar." materials={["Arduino UNO", "Motores", "Sensor Ultrasonido", "L298N"]} instructions={["Conectar Sensor", "Driver L298N", "Programar mBlock"]} simOn={evitaActive} setSimOn={setEvitaActive} simContent={<div style={{fontSize:'3rem', animation: evitaActive ? 'jitter 0.1s infinite' : 'none'}}>🛰️</div>} simStatus={{ on: "Buscando camino", off: "Parado" }} />
+
+                <ProjectCard num="7" title="Taller de Soldadura" videoId="J5Sb21qbpEQ" description="Soldadura profesional." materials={["Soldador", "Estaño", "Perfboard"]} instructions={["Limpiar punta", "Calentar unión", "Aplicar estaño"]} imageSrc={[{ url: '/proj_soldadura_ok.png', label: '✅ OK' }, { url: '/proj_soldadura_error.png', label: '❌ ERROR' }]} simOn={solderActive} setSimOn={setSolderActive} simContent={<div style={{fontSize:'4rem'}}>🩹</div>} simStatus={{ on: "Soldando", off: "Frío" }} />
+
                 <ProjectCard 
                     num="8"
-                    title="Huerta Solar con Iluminación Forzada LED"
+                    title="Huerta Solar Inteligente"
                     imageSrc="/proj_huerta.png"
                     videoId="Yf0BvGf7oXY" 
-                    description="Un sistema de cultivo hidropónico o en tierra que utiliza energía solar para alimentar LEDs de crecimiento (Grow Lights), maximizando la producción tanto de día como de noche."
-                    functioning={`Principio Fotovoltaico: El panel convierte la luz solar en electricidad almacenada en baterías.
-                    Iluminación Forzada: LEDs de espectro azul/rojo (Grow LEDs) aceleran la fotosíntesis al emitir las longitudes de onda exactas que la planta absorbe.
-                    Huella Verde: Uso de energía limpia y optimización de espacios urbanos.`}
-                    materials={[
-                        "Panel Solar (12V 5W mín)",
-                        "Lámparas/Tiras LED Grow (Rojo+Azul)",
-                        "Controlador de carga solar (opcional) o Diodo anti-retorno",
-                        "Batería recargable (Gel o Litio)",
-                        "Cajón de madera o tubos PVC (Reciclado)",
-                        "Plántulas de lechuga, albahaca o aromáticas"
-                    ]}
-                    instructions={[
-                        "Instala el panel solar en un lugar con luz directa apuntando al Norte.",
-                        "Conecta el panel a la batería mediante el controlador de carga.",
-                        "Monta la tira LED sobre la estructura de la huerta, a unos 20-30cm de las plantas.",
-                        "Usa un temporizador (o Arduino) para encender los LEDs durante la noche o días nublados.",
-                        "Mide semanalmente el crecimiento para comparar la eficiencia de la luz forzada."
-                    ]}
+                    description="Cultivo hidropónico con LEDs Grow y energía solar."
+                    functioning="Espectro electromagnético + Clorofila. Huella verde."
+                    materials={["Panel Solar", "Leds Grow", "Batería", "Tubería/Cajón"]}
+                    instructions={["Instalar panel", "Conectar LEDs", "Medir crecimiento"]}
                     simOn={huertaActive}
                     setSimOn={setHuertaActive}
                     simContent={
                         <div style={{ position: 'relative', width: '200px', height: '150px', background: isDay ? '#87CEEB' : '#0a0a20', borderRadius: '15px', transition: 'background 2s linear', overflow: 'hidden' }}>
-                            {/* Sun / Moon */}
-                            <div style={{ 
-                                position: 'absolute', 
-                                width: '40px', height: '40px', 
-                                background: isDay ? 'yellow' : '#eee', 
-                                borderRadius: '50%', 
-                                left: '140px', 
-                                top: isDay ? '20px' : '30px',
-                                boxShadow: isDay ? '0 0 20px yellow' : '0 0 10px #fff',
-                                transition: 'all 2s ease'
-                            }}></div>
-                            {/* Plants */}
-                            <div style={{ position: 'absolute', bottom: '10px', left: '20px', display: 'flex', gap: '5px' }}>
-                                {[1, 2, 3, 4].map(i => (
-                                    <div key={i} style={{ 
-                                        width: '20px', 
-                                        height: huertaActive ? '40px' : '20px', 
-                                        background: '#2e7d32', 
-                                        borderRadius: '10px 10px 0 0',
-                                        transition: 'height 5s linear' 
-                                    }}></div>
-                                ))}
-                            </div>
-                            {/* Grow LEDs (Night only) */}
-                            {!isDay && huertaActive && (
-                                <div style={{ 
-                                    position: 'absolute', 
-                                    width: '100%', 
-                                    height: '60px', 
-                                    background: 'linear-gradient(to bottom, rgba(255,0,255,0.4), transparent)', 
-                                    top: '40px' 
-                                }}></div>
-                            )}
-                            {/* Panel */}
-                            <div style={{ position: 'absolute', width: '40px', height: '25px', background: '#222', border: '1px solid #444', top: '80px', left: '10px', transform: 'rotate(-20deg)' }}>
-                                <div style={{ width: '100%', height: '2px', background: '#555', marginTop: '5px' }}></div>
-                                <div style={{ width: '100%', height: '2px', background: '#555', marginTop: '5px' }}></div>
-                            </div>
+                            <div style={{ position: 'absolute', width: '40px', height: '40px', background: isDay ? 'yellow' : '#eee', borderRadius: '50%', left: '140px', top: isDay ? '20px' : '30px', boxShadow: isDay ? '0 0 20px yellow' : '0 0 10px #fff', transition: 'all 2s ease' }}></div>
+                            {!isDay && huertaActive && <div style={{ position: 'absolute', width: '100%', height: '60px', background: 'linear-gradient(to bottom, rgba(255,0,255,0.4), transparent)', top: '40px' }}></div>}
+                            <div style={{ position: 'absolute', bottom: '10px', left: '20px', display: 'flex', gap: '5px' }}>{[1,2,3].map(i=><div key={i} style={{width:'20px',height:'30px',background:'#2e7d32',borderRadius:'10px 10px 0 0'}}></div>)}</div>
                         </div>
                     }
                     simStatus={{ on: isDay ? "Panel cargando batería (☀️)" : "Grow LEDs ACTIVOS (💜)", off: "Sistema inactivo" }}
                 >
                     <div className="proyecto-section" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
-                        <h4 style={{ color: 'var(--primary-color)' }}>🔬 Módulo STEAM (Ciencias y Matemáticas)</h4>
-                        <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>
-                            <p><strong>Naturales:</strong> Estudio del espectro electromagnético y clorofila.</p>
-                            <p><strong>Matemáticas:</strong> Cálculo de eficiencia energética (P = V x I) y estimación de tasa de crecimiento porcentual vs control sin LEDs.</p>
-                            <p><strong>Impacto:</strong> Reduce la huella de carbono mediante agricultura urbana sustentable.</p>
-                        </div>
+                        <h4 style={{ color: 'var(--primary-color)' }}>🔬 Módulo STEAM</h4>
+                        <p style={{ fontSize: '0.8rem', opacity: 0.8 }}>Naturales: Fotosíntesis. Matemática: Eficiencia energética (P = V x I).</p>
                     </div>
                 </ProjectCard>
 
             </div>
 
             <footer style={{ marginTop: '5rem', textAlign: 'center', opacity: 0.7, padding: '4rem', borderTop: '1px solid var(--glass-border)' }}>
-                <p>© SimuTec - Proyecto Educativo. "Tecnología para un mundo más verde."</p>
+                <p>© SimuTec - Proyecto Educativo.</p>
             </footer>
         </div>
     );
