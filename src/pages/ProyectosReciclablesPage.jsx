@@ -10,7 +10,25 @@ const ProyectosReciclablesPage = () => {
     const ProjectCard = ({ title, description, objectives, materials, instructions, emoji, simContent, simStatus, simOn, setSimOn, videoId, imageSrc, num }) => {
         return (
             <div className="proyecto-card">
-                <img src={imageSrc} alt={title} className="proyecto-image" />
+                <div style={{ position: 'relative' }}>
+                    <img src={imageSrc} alt={title} className="proyecto-image" />
+                    <div style={{
+                        position: 'absolute',
+                        top: '15px',
+                        right: '15px',
+                        background: 'rgba(0,0,0,0.7)',
+                        color: 'var(--primary-color)',
+                        padding: '5px 12px',
+                        borderRadius: '20px',
+                        fontSize: '0.7rem',
+                        fontWeight: 'bold',
+                        border: '1px solid var(--primary-color)',
+                        backdropFilter: 'blur(5px)',
+                        zIndex: 2
+                    }}>
+                        🤖 ILUSTRACIÓN IA
+                    </div>
+                </div>
                 <div className="proyecto-content">
                     <h2 className="proyecto-title">
                         <span style={{ background: 'var(--primary-color)', color: '#000', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>{num}</span>
