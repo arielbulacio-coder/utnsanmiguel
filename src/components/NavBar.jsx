@@ -59,7 +59,7 @@ const NavBar = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <Link to="/" style={{ textDecoration: 'none', color: 'var(--text-main)', fontWeight: 'bold', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }} onClick={closeAll}>
                     <img
-                        src="/logo_simutec.png"
+                        src={`${import.meta.env.BASE_URL || '/'}logo_simutec.png`.replace('//', '/')}
                         alt="Logo SimuTec"
                         style={{ width: '35px', height: '35px', borderRadius: '4px', objectFit: 'contain', background: 'transparent', border: '1px solid var(--primary-color)' }}
                     />
