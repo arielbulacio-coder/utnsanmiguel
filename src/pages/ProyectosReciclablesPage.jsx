@@ -169,7 +169,7 @@ const ProyectosReciclablesPage = () => {
         <div className="proyectos-container fade-in">
             <header className="proyectos-header" style={{ borderBottom: '6px solid var(--primary-color)', paddingBottom: '3.5rem', marginBottom: '5rem', background: 'linear-gradient(180deg, rgba(0,20,40,0.8) 0%, transparent 100%)' }}>
                 <h1 style={{ fontWeight: '900', letterSpacing: '5px' }}>🚀 ROBÓTICA EDUCATIVA: PROYECTOS CON RECICLADOS</h1>
-                <p style={{ fontSize: '1.7rem', fontWeight: '300', opacity: 0.9 }}>Laboratorio Nacional de Ingeniería, Diseño Sustentable y Biotecnología.</p>
+                <p style={{ fontSize: '1.7rem', fontWeight: '300', opacity: 0.9 }}>Tecnología inteligente, sustentable e innovadora para el siglo XXI.</p>
             </header>
 
             <div className="proyecto-grid">
@@ -246,7 +246,7 @@ const ProyectosReciclablesPage = () => {
                 {/* 4. ENJAMBRE VIBROBOT */}
                 <ProjectCard 
                     num="4" title="Enjambre de Micro-Robots Vibratorios" imageSrc="/proj_arana.png" videoId="pGisAks_2sU" 
-                    description="Mini-robots capaces de desplazarse mediante impulsos vibratorios rítmicos. Estudio de la cinemática experimental."
+                    description="Mini-robots capables de desplazarse mediante impulsos vibratorios rítmicos. Estudio de la cinemática experimental."
                     functioning={`🕷️ FÍSICA DE OSCILACIÓN:
                     • Masa Excéntrica: Generamos una fuerza centrífuga cíclica mediante un desbalance en el eje.
                     • Elasticidad: Las patas actúan como resortes que convierten el temblor en avance direccional.
@@ -316,8 +316,8 @@ const ProyectosReciclablesPage = () => {
             </div>
 
             <footer style={{ marginTop: '12rem', textAlign: 'center', opacity: 0.8, padding: '10rem', borderTop: '4px solid rgba(0,242,255,0.5)' }}>
-                <p style={{ fontSize: '1.6rem', fontWeight: '900', color: 'var(--primary-color)', letterSpacing: '5px' }}>ROBÓTICA EDUCATIVA - SIMUTEC 2026</p>
-                <p style={{ fontSize: '1.2rem', marginTop: '18px' }}>© SimonTec.com.ar - Formando a los próximos Inventores Argentinos.</p>
+                <p style={{ fontSize: '1.6rem', fontWeight: '900', color: 'var(--primary-color)', letterSpacing: '5px' }}>TECNOLOGÍA E INNOVACIÓN - SIMUTEC 2026</p>
+                <p style={{ fontSize: '1.2rem', marginTop: '18px' }}>© SimonTec.com.ar - Proyectos tecnológicos, sustentables e innovadores.</p>
             </footer>
         </div>
     );
