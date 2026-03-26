@@ -17,7 +17,7 @@ const ProyectosReciclablesPage = () => {
         if (huertaActive) {
             interval = setInterval(() => {
                 setIsDay(prev => !prev);
-            }, 8000);
+            }, 7000);
         } else {
             setIsDay(true);
         }
@@ -37,21 +37,21 @@ const ProyectosReciclablesPage = () => {
             <div className="proyecto-card">
                 <div className="proyecto-content">
                     <h2 className="proyecto-title">
-                        <span style={{ background: 'var(--primary-color)', color: '#000', borderRadius: '50%', width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', fontWeight: 'bold' }}>{num}</span>
+                        <span style={{ background: 'var(--primary-color)', color: '#000', borderRadius: '50%', width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', fontWeight: 'bold' }}>{num}</span>
                         {title}
                     </h2>
                     
                     <div className="proyecto-section technical-header">
-                        <h3>📋 Introducción y Objetivos Pedagógicos</h3>
-                        <p style={{ lineHeight: '1.6', color: 'var(--text-main)' }}>{description}</p>
+                        <h3>🚀 ¿De qué se trata este desafío?</h3>
+                        <p style={{ fontSize: '1.05rem', lineHeight: '1.6' }}>{description}</p>
                     </div>
 
                     <div className="proyecto-info-grid">
                         <div className="info-left">
                             {functioning && (
                                 <div className="proyecto-section theory-section">
-                                    <h3>🧪 Corpus Teórico y Científico Detallado</h3>
-                                    <div className="theory-block" style={{ fontSize: '0.82rem', whiteSpace: 'pre-line', background: 'rgba(0,0,0,0.5)', padding: '25px', borderRadius: '15px', borderLeft: '5px solid var(--primary-color)', marginBottom: '1.5rem', lineHeight: '1.6', textAlign: 'justify', color: '#e0e0e0' }}>
+                                    <h3>🧠 La Ciencia detrás del Proyecto (¡Para Genios!)</h3>
+                                    <div className="theory-block" style={{ fontSize: '0.88rem', whiteSpace: 'pre-line', background: 'rgba(0,10,20,0.6)', padding: '25px', borderRadius: '15px', borderLeft: '5px solid var(--primary-color)', marginBottom: '1.5rem', lineHeight: '1.6', textAlign: 'justify', border: '1px solid rgba(0,242,255,0.1)' }}>
                                         {functioning}
                                     </div>
                                 </div>
@@ -59,21 +59,21 @@ const ProyectosReciclablesPage = () => {
 
                             {imageSrc && !Array.isArray(imageSrc) && (
                                 <div className="proyecto-section">
-                                    <h3>🚀 Referencia Tecnológica</h3>
-                                    <div className="img-container" style={{ borderRadius: '15px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-                                        <img src={getImagePath(imageSrc)} alt={title} style={{ width: '100%', display: 'block' }} />
+                                    <h3>📸 Foto del Prototipo Real</h3>
+                                    <div className="img-container" style={{ borderRadius: '15px', border: '1px solid #333', overflow: 'hidden' }}>
+                                        <img src={getImagePath(imageSrc)} alt={title} style={{ width: '100%' }} />
                                     </div>
                                 </div>
                             )}
 
                             {Array.isArray(imageSrc) && (
-                                <div className="proyecto-section gall-sec">
-                                    <h3>🗺️ Documentación de Ingeniería y Diagramas</h3>
+                                <div className="proyecto-section highlight-gallery">
+                                    <h3>🗺️ Guía de Armado y Conexiones</h3>
                                     <div className="gallery-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '15px' }}>
                                         {imageSrc.map((src, i) => (
                                             <div key={i} className="gallery-item-full" style={{ background: '#111', borderRadius: '10px', border: '1px solid #333', overflow: 'hidden' }}>
                                                 <img src={getImagePath(src.url)} alt={src.label} style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
-                                                <p style={{ fontSize: '0.7rem', padding: '8px', textAlign: 'center', fontWeight: '600', color: 'var(--primary-color)' }}>{src.label}</p>
+                                                <p style={{ fontSize: '0.75rem', padding: '10px', textAlign: 'center', fontWeight: 'bold', color: 'var(--primary-color)' }}>{src.label}</p>
                                             </div>
                                         ))}
                                     </div>
@@ -83,29 +83,29 @@ const ProyectosReciclablesPage = () => {
 
                         <div className="info-right">
                             <div className="proyecto-section">
-                                <h3>🛠️ BOM (Especificaciones de Componentes)</h3>
-                                <div className="materials-list" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                                <h3>🛠️ ¿Qué materiales necesitamos?</h3>
+                                <div className="materials-list" style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.08)' }}>
                                     <ul style={{ padding: 0, listStyle: 'none' }}>
-                                        {materials.map((mat, i) => <li key={i} style={{ padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '0.9rem' }}>• {mat}</li>)}
+                                        {materials.map((mat, i) => <li key={i} style={{ padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>✅ {mat}</li>)}
                                     </ul>
                                 </div>
                             </div>
 
                             <div className="proyecto-section">
-                                <h3>⚙️ Protocolo de Construcción y Testeo</h3>
-                                <ol className="instructions-list" style={{ fontSize: '0.9rem', lineHeight: '1.7', paddingLeft: '1.2rem' }}>
+                                <h3>⚙️ ¡Manos a la obra! (Paso a paso)</h3>
+                                <ol className="instructions-list" style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
                                     {instructions.map((ins, i) => <li key={i} style={{ marginBottom: '10px' }}>{ins}</li>)}
                                 </ol>
                             </div>
 
-                            <div className="simulacion-area" style={{ background: '#000', borderRadius: '20px', border: '1px solid rgba(0,242,255,0.25)', minHeight: '300px' }}>
+                            <div className="simulacion-area" style={{ background: '#000', borderRadius: '25px', border: '1px solid rgba(0,242,255,0.3)', minHeight: '320px' }}>
                                 {simContent}
                                 <div className="sim-controls">
                                     <button className="btn-toggle-sim" onClick={() => setSimOn(!simOn)}>
-                                        {simOn ? '🛑 Detener Laboratorio' : '▶️ Ejecutar Simulación'}
+                                        {simOn ? '🛑 Detener Práctica' : '▶️ Probar Funcionamiento'}
                                     </button>
-                                    <div className={`sim-status ${simOn ? 'status-on' : 'status-off'}`} style={{ fontWeight: 'bold' }}>
-                                        {simOn ? 'ESTADO: OPERACIÓN NOMINAL' : 'ESTADO: SISTEMA EN STANDBY'}
+                                    <div className={`sim-status ${simOn ? 'status-on' : 'status-off'}`} style={{ fontSize: '1rem', marginTop: '15px' }}>
+                                        {simOn ? '>>> SISTEMA EN MARCHA <<<' : '>>> ESPERANDO ÓRDENES <<<'}
                                     </div>
                                 </div>
                             </div>
@@ -114,9 +114,9 @@ const ProyectosReciclablesPage = () => {
                     </div>
 
                     {videoId && (
-                        <div className="proyecto-section" style={{ marginTop: '3rem' }}>
-                            <h3>📺 Registro Audiovisual y Soporte STEAM</h3>
-                            <div className="video-container" style={{ position: 'relative', paddingTop: '56.25%', background: '#000', borderRadius: '25px', overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.8)' }}>
+                        <div className="proyecto-section" style={{ marginTop: '3.5rem' }}>
+                            <h3>📺 Video Tutorial (¡Mirá cómo se hace!)</h3>
+                            <div className="video-container" style={{ position: 'relative', paddingTop: '56.25%', background: '#000', borderRadius: '25px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.8)' }}>
                                 <iframe 
                                     title={title} 
                                     style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
@@ -135,181 +135,172 @@ const ProyectosReciclablesPage = () => {
 
     return (
         <div className="proyectos-container fade-in">
-            <header className="proyectos-header" style={{ borderBottom: '2px solid var(--primary-color)', paddingBottom: '3rem' }}>
-                <h1 style={{ fontWeight: '900', letterSpacing: '4px' }}>📡 SIMUTEC: INGENIERÍA Y ROBÓTICA</h1>
-                <p style={{ fontSize: '1.4rem' }}>Compendio técnico-científico para el desarrollo de competencias tecnológicas de vanguardia.</p>
+            <header className="proyectos-header" style={{ borderBottom: '3px solid var(--primary-color)', paddingBottom: '3rem' }}>
+                <h1 style={{ fontSize: '2.8rem', fontWeight: '900' }}>🔬 SIMUTEC: ROBÓTICA Y CIENCIA</h1>
+                <p style={{ fontSize: '1.3rem' }}>Aprendé tecnología creando tus propios robots e inventos sustentables.</p>
             </header>
 
             <div className="proyecto-grid">
                 
-                {/* 1. ROBOT MÓVIL DIRECTA */}
+                {/* 1. ROBOT MÓVIL SIMPLE */}
                 <ProjectCard 
-                    num="1" title="Unidad Móvil de Tracción Directa (Rover)" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" 
-                    description="Construcción de un vehículo autónomo simple para investigar la interacción entre energía eléctrica y movimiento mecánico (Transducción)."
-                    functioning={`🔬 MARCO CIENTÍFICO AVANZADO:
-                    • Electrodinámica: El motor de corriente continua (DC) opera bajo la Ley de Ampere. El Torque (T) generado es proporcional al flujo de corriente (I) y la constante del motor (Kt): T = Kt x I.
-                    • Fuerza Contraelectromotriz (Back EMF): A medida que el motor gira, genera un voltaje opuesto (Vb) que limita la velocidad máxima: V = I x R + Vb. Donde Vb es proporcional a la velocidad angular (ω).
-                    • Cinemática de Traslación: Se estudia la fricción estática (μs) necesaria para iniciar el movimiento sin patinamiento de los neumáticos reciclados (tapas).
-                    • Ingeniería de Tracción: Relación de diámetros. Una rueda pequeña entrega más torque inicial, una grande más velocidad final.`}
-                    materials={["Motores DC de imán permanente (3V-9V)", "Batería de polímero de litio o pilas alcalinas", "Chasis autoportante de material polimérico", "Ejes de acero o madera", "Interruptor de palanca SPST"]} 
-                    instructions={["Diseño estructural: Centrar el centro de masa (CoM) para evitar el vuelco del rover.", "Soldadura de potencia: Asegurar uniones de baja resistencia ohmica en los bornes del motor.", "Test de polaridad: Verificar que ambos motores giren en sentido horario para avance lineal.", "Optimización de tracción: Añadir bandas elásticas a las tapas para aumentar el coeficiente de fricción μ."]} 
+                    num="1" title="Robot Móvil 'Eco-Rover'" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" 
+                    description="¿Te imaginás construir un vehículo que se mueva solo usando una botella reciclada? En este desafío vamos a aprender cómo los motores convierten la electricidad en movimiento."
+                    functioning={`🔬 ¿QUÉ PASA POR DENTRO? (MARCO TEÓRICO):
+                    • El Motor Mágico: Los motores funcionan gracias al electromagnetismo. Cuando la corriente pasa por adentro, interactúa con imanes y hace que el eje gire con fuerza (Torque).
+                    • Velocidad y Potencia: ¿Sabías que si las ruedas son más chicas el robot tiene más fuerza para arrancar, pero si son más grandes corre más rápido? Eso es la ingeniería de tracción.
+                    • El Freno Eléctrico (Back EMF): Cuando el motor gira muy rápido, él mismo genera un poquito de electricidad que intenta frenarlo. ¡Es como si el robot tuviera su propio límite de velocidad natural!`}
+                    materials={["Botella plástica vacía", "2 Motores con sus cables", "Porta pilas y 2 pilas AA", "Tapas de botella (serán nuestras ruedas)", "Cinta o pegamento"]} 
+                    instructions={["Paso 1: Pegá los motores a los costados de la botella. ¡Tienen que quedar bien derechitos!", "Paso 2: Conectá los cables de los motores a la pila. ¡Si gira para atrás, invertí los cables!", "Paso 3: Poné las tapitas en los ejes de los motores. Si patinan, poneles una gomita elástica.", "Paso 4: ¡Soltalo en el piso y mirá cómo avanza!"]} 
                     simOn={robotMoving} setSimOn={setRobotMoving} 
                     simContent={<div className={robotMoving ? 'moving' : ''} style={{fontSize:'4.5rem'}}>🤖</div>} 
-                    simStatus={{on:"Carga de baterías nominal",off:"Circuito abierto"}} 
+                    simStatus={{on:"Motor girando a máxima potencia",off:"Circuito abierto (Sin corriente)"}} 
                 />
                 
                 {/* 2. VELADOR LED */}
                 <ProjectCard 
-                    num="2" title="Lámpara de Estado Sólido (LED Technology)" imageSrc="/proj_velador.png" videoId="-BIs-z5g7tY" 
-                    description="Diseño de iluminación eficiente basado en física de semiconductores y gestión de potencia USB."
-                    functioning={`🔌 INGENIERÍA DE SEMICONDUCTORES:
-                    • Efecto Electroluminiscente: Al polarizar directamente el diodo (V > Vf), los electrones recombinan con huecos en la unión P-N, liberando fotones cuya energía (E = h x f) define el color.
-                    • Característica V-I: A diferencia de una lámpara incandescente, el LED tiene una relación exponencial. Un pequeño aumento de voltaje por encima del umbral dispara la corriente peligrosamente.
-                    • Resistencia de Carga: Calculada mediante R = (Vcc - Vf) / If. Donde If es la corriente de operación nominal (típicamente 20mA).
-                    • PWM (Pulse Width Modulation): Explicación teórica de cómo atenuar la luz (dimming) variando el ciclo de trabajo (Duty Cycle) sin disipar calor extra en resistencias.`}
-                    materials={["Diodo LED de alto brillo (3.2V / 20mA)", "Resistencia de película de carbón (220Ω - 1/4W)", "Reflector parabólico reciclado (CD)", "Conector USB estándar (GND + 5V)", "Estructura disipadora"]} 
-                    instructions={["Cálculo del balance de potencia: P = V_resistencia x I. Verificar que no supere los 250mW.", "Montaje del LED sobre el eje óptico del difusor CD para maximizar el flujo luminoso.", "Polarización: El terminal largo (ánodo) se conecta al positivo de 5V tras la resistencia.", "Verificar temperatura tras 10 minutos para asegurar estabilidad térmica del chip."]} 
+                    num="2" title="Velador LED Sustentable" imageSrc="/proj_velador.png" videoId="P7K-MiwXo6g" 
+                    description="Creamos una lámpara moderna que no gasta nada de energía. Vamos a entender el secreto de los LEDs, los componentes que están en las pantallas de todos los celulares."
+                    functioning={`🔌 CIENCIA DE LUCES (ELECTRÓNICA):
+                    • ¿Por qué brilla un LED?: Adentro de ese plástico hay un material 'semiconductor' (Unión P-N). Cuando los electrones saltan, sueltan energía en forma de luz (fotones). ¡Es pura física cuántica en tu mano!
+                    • El Guardián del LED (Resistencia): El LED es muy sensible. Si le damos mucha electricidad de golpe, se quema. Por eso ponemos una resistencia que 'frena' la corriente (Ley de Ohm).
+                    • USB: Usamos 5 Voltios de un cargador viejo. Es seguro y eficiente.`}
+                    materials={["Un LED de tu color favorito", "Una resistencia de 220 o 330 ohm", "Un cable USB que no uses más", "Una lata de conservas limpia", "Un CD viejo para que refleje la luz"]} 
+                    instructions={["Paso 1: Pelá las puntas del cable USB. Buscamos el cable rojo (+) y el negro (-).", "Paso 2: Soldá la resistencia a la pata más larga del LED (el ánodo).", "Paso 3: Conectá el cable negro a la pata corta y el rojo a la resistencia.", "Paso 4: Armá todo dentro de la lata y usá el CD como pantalla para que la luz sea más linda."]} 
                     simOn={veladorOn} setSimOn={setVeladorOn} 
-                    simContent={<div style={{fontSize:'4.5rem', color: veladorOn ? 'yellow' : '#444', textShadow: veladorOn ? '0 0 30px yellow' : 'none'}}>💡</div>} 
-                    simStatus={{on:"Flujo de electrones activo",off:"Bloqueo de portadores"}} 
+                    simContent={<div style={{fontSize:'4.5rem', color: veladorOn ? 'yellow' : '#444', textShadow: veladorOn ? '0 0 35px yellow' : 'none'}}>💡</div>} 
+                    simStatus={{on:"Luz emitida (Fotones activos)",off:"Sin polarización (Apagado)"}} 
                 />
 
                 {/* 3. VENTILADOR PERSONAL */}
                 <ProjectCard 
-                    num="3" title="Ventilador: Aerodinámica e Ingeniería de Fluidos" imageSrc="/proj_ventilador.png" videoId="YqXf8zXW77A" 
-                    description="Estudio de la mecánica de fluidos y la transformación de energía rotacional en caudal de aire."
-                    functioning={`🌀 DINÁMICA DE FLUIDOS Y FLUJOS:
-                    • Ecuación de Continuidad y Bernoulli: El perfil alar de las aspas crea una diferencia de presión estática (V1 < V2 → P1 > P2), succionando aire del reverso y proyectándolo al frente.
-                    • Ángulo de Ataque: Se analiza el coeficiente de sustentación (Cl). Un ángulo excesivo genera turbulencia (pérdida de flujo) y carga excesiva al motor, reduciendo las RPM.
-                    • Efecto Doppler y Ruido: Relación entre la velocidad periférica de la punta de la aspa y la frecuencia del sonido emitido.
-                    • Eficiencia del Motor: Relación entre Potencia Eléctrica consumida (VxI) y Potencia Aerodinámica (Caudal x ∆P).`}
-                    materials={["Motor de alta velocidad (12.000 RPM nominal)", "Aspas de polímero (CD deformado térmicamente)", "Bastidor rígido con amortiguación de vibraciones", "Cableado de cobre de alta conductividad"]} 
-                    instructions={["Plegado aerodinámico: Calentar el CD a 150°C y rotar las aspas 30° respecto al plano de rotación.", "Equilibrado dinámico: Asegurar que el CoG del ventilador coincida con el eje para evitar fuerzas radiales destructivas.", "Test de caudal: Medir la distancia a la que la corriente de aire es capaz de mover una hoja de papel estándar.", "Acoplamiento: Fijación del eje mediante presión controlada o adhesivo epóxico."]} 
+                    num="3" title="Ventilador de Verano USB" imageSrc="/proj_ventilador.png" videoId="0XfR0fGq7e8" 
+                    description="Aprendé cómo se mueve el aire y creá un ventilador potente usando un CD reciclado como hélice."
+                    functioning={`🌀 CIENCIA DEL AIRE (AERODINÁMICA):
+                    • El Truco de Bernoulli: Al girar inclinado, la hélice 'empuja' el aire hacia adelante creando una zona de baja presión atrás. ¡Así es como vuelan los aviones también!
+                    • Ángulo de Ataque: Si doblás mucho las paletas, hacés mucho ruido pero movés poco aire. Hay que buscar el ángulo perfecto (unos 30 grados).
+                    • RPM: Un ventilador casero puede girar a más de 5000 vueltas por minuto. ¡Cuidado con los dedos!`}
+                    materials={["Motor DC potente", "Un CD viejo (será nuestra hélice)", "Cargador USB", "Un corcho o tapita para el eje"]} 
+                    instructions={["Paso 1: Marcá 6 líneas en el CD y cortalo con cuidado (¡pedí ayuda si es difícil!).", "Paso 2: Usá un encendedor o vela para calentar el centro de las paletas y doblarlas un poquito.", "Paso 3: Pegá el corcho al centro del CD y después al motor.", "Paso 4: Conectá el motor al USB y sentí la brisa."]} 
                     simOn={ventiladorOn} setSimOn={setVeladorOn} 
                     simContent={<div style={{fontSize:'4.5rem', animation: ventiladorOn ? 'spin 0.2s linear infinite' : 'none'}}>🌀</div>} 
-                    simStatus={{on:"Caudal de aire laminar",off:"Energía potencial"}} 
+                    simStatus={{on:"Flujo turbulento en marcha",off:"Hélice en reposo"}} 
                 />
 
                 {/* 4. ARAÑA VIBROBOT */}
                 <ProjectCard 
-                    num="4" title="Vibrobot: Análisis de Mecánica Vibratoria" imageSrc="/proj_arana.png" videoId="pGisAks_2sU" 
-                    description="Experimento cinético sobre la locomoción mediante la transferencia de momento por masa excéntrica."
-                    functioning={`🕷️ FÍSICA DE LAS VIBRACIONES:
-                    • Desbalance de Masa: El motor porta una masa (me) a una distancia (r) del eje. La rotación genera una fuerza centrífuga F = me x ω² x r.
-                    • Resonancia Estructural: El sistema vibra a una frecuencia (f) definida por el voltaje. Si f coincide con la frecuencia natural de las patas, la amplitud aumenta drásticamente.
-                    • Vector de Empuje: Las patas inclinadas actúan como trinquetes, permitiendo deslizamiento en una dirección y oponiendo fricción en la otra, convirtiendo el 'sacudón' en avance lineal.
-                    • Amortiguación: Cómo la superficie (mesa) absorbe o refleja la energía cinética del vibrobot.`}
-                    materials={["Micro-motor con masa excéntrica", "Pila de litio CR2032 (3V)", "Alambre de acero (patas)", "Soporte centrífugo de baja densidad"]} 
-                    instructions={["Construcción de patas: Usar geometría de trípode doble para asegurar estabilidad estática.", "Montaje de masa: Si se usa un motor común, añadir una gota de estaño o pegamento pesada de un solo lado del eje.", "Ajuste de fase: Variar el ángulo de las patas para optimizar el vector de desplazamiento frontal.", "Prueba de superficies: Comparar velocidad en vidrio vs madera (diferencia en μ)."]} 
+                    num="4" title="Micro-Robot Araña (Vibrobot)" imageSrc="/proj_arana.png" videoId="pGisAks_2sU" 
+                    description="Un pequeño robot que camina vibrando. Vamos a ver cómo algo que parece un error (el desbalance) puede generar movimiento inteligente."
+                    functioning={`🕷️ FÍSICA DE VIBRACIONES:
+                    • Masa Excéntrica: Al ponerle un peso de un solo lado al motor, éste se vuelve 'loco' al girar y genera una fuerza centrífuga que sacude todo el robot.
+                    • El Truco de las Patas: Las patas de alambre inclinadas hacen que la araña 'salte' hacia adelante miles de veces por segundo.
+                    • Resonancia: Si la vibración es muy rápida, ¡el robot puede hasta bailar sobre la mesa!`}
+                    materials={["Motor de juguete", "Un pesito (puede ser una gota de estaño o una tuerca)", "Un clip o alambre para las patas", "Una pila botón (3V)"]} 
+                    instructions={["Paso 1: Formá 6 patas con el alambre y pegalas a la base.", "Paso 2: Pegá el pesito en un costado del eje del motor (eso lo hará vibrar).", "Paso 3: Pegá la pila arriba del motor.", "Paso 4: ¡Conectá y mirá cómo camina tu araña robótica!"]} 
                     simOn={aranaMoving} setSimOn={setAranaMoving} 
                     simContent={<div className={aranaMoving ? 'arana-moving' : ''} style={{fontSize:'4.5rem'}}>🕷️</div>} 
-                    simStatus={{on:"Vibración armónica forzada",off:"Centro de masa estático"}} 
+                    simStatus={{on:"Energía cinética activa",off:"Equilibrio total"}} 
                 />
 
                 {/* 5. AMPLIFICADOR TDA 2005 */}
                 <ProjectCard 
-                    num="5" title="Ingeniería de Audio Hi-Fi (TDA 2005)" imageSrc="/proj_amp.png" videoId="5VIda0n8t-E" 
-                    description="Construcción de un amplificador de potencia analógico de 20W para el estudio de señales y fidelidad de audio."
-                    functioning={`🔊 ELECTRÓNICA ANALÓGICA SUPERIOR:
-                    • Topología Clase AB: El TDA 2005 utiliza transistores complementarios para cada semiciclo de la onda senoidal, optimizando la linealidad frente a la Clase B.
-                    • Ratio de Señal-Ruido (SNR): Uso de capacitores de desacople para filtrar el 'ripple' de la fuente conmutada.
-                    • THD (Total Harmonic Distortion): Se analiza por qué la sobre-amplificación recorta la onda (clipping), generando armónicos no deseados.
-                    • Impedancia y Potencia: Relación P = V² / Z. El amplificador entrega más potencia a un altavoz de 4Ω que a uno de 8Ω, duplicando la demanda de corriente.
-                    • Puente (Bridge Mode): Configuración de dos etapas en contrafase para cuadruplicar la potencia efectiva sobre la carga.`}
-                    materials={["Circuito Integrado TDA 2005 (Double Power Amp)", "Bloque disipador de aluminio (convección pasiva)", "Capacitores de 2200uF (Filtro de rizado)", "Módulo Receptor BT 5.0 Stack", "Fuente Estabilizada 12V 3A"]} 
-                    instructions={["Gestión Térmica: Aplicar grasa de silicona entre el IC y el aluminio para reducir la resistencia térmica Rth.", "Blindaje: Mantener los cables de entrada de señal (baja potencia) alejados de los de alimentación para evitar inducción de ruidos (HUM).", "Calibración de Gain: Ajustar el preamplificador para evitar la saturación de la etapa de entrada.", "Protección: Instalar fusible de 3A en la línea de Vcc para proteger el IC ante cortocircuitos en la salida."]} 
+                    num="5" title="Amplificador de Sonido Pro" imageSrc="/proj_amp.png" videoId="cEoyOaW9a9k" 
+                    description="¡Construí tu propio equipo de música! Vamos a ver cómo logramos que una señal chiquita del celular se convierta en un sonido potente."
+                    functioning={`🔊 INGENIERÍA DE AUDIO:
+                    • Amplificación (Clase AB): El chip TDA 2005 toma la onda de música y le da mucha más corriente usando la batería. ¡Así el parlante puede moverse con fuerza!
+                    • El Calor es Energía: El chip se calienta mucho al trabajar a toda potencia. Por eso usamos un disipador de aluminio para que no se 'derrita' (Protección Térmica).
+                    • Señal vs Ruido: Aprendemos a filtrar la electricidad para que no se escuche ese soplido feo de fondo.`}
+                    materials={["Chip TDA 2005", "Un pedazo de aluminio (Disipador)", "Capacitores (filtros)", "Parlante de 4 o 8 ohms", "Fuente de 12V (una batería)"]} 
+                    instructions={["Paso 1: Atornillá el chip al aluminio. ¡Es muy importante para que no se queme!", "Paso 2: Seguí el diagrama para soldar los capacitores. Son como 'tanques de agua' que guardan energía.", "Paso 3: Conectá la entrada de audio a tu celu o compu.", "Paso 4: ¡Dale energía y subí el volumen!"]} 
                     simOn={ampActive} setSimOn={setAmpActive} 
                     simContent={<div style={{fontSize:'4.5rem', transform: ampActive ? 'scale(1.15)' : 'scale(1)', transition: 'transform 0.15s ease-out'}}>🔊</div>} 
-                    simStatus={{ on: "Amplitud de salida: +26dB", off: "Bias de corriente mínimo" }} 
+                    simStatus={{ on: "Onda sonora amplificada", off: "Silencio total" }} 
                 />
 
                 {/* 6. ROBOT EVITA OBSTÁCULOS */}
                 <ProjectCard 
-                    num="6" title="Sistemas Inteligentes Autónomos (Arduino)" imageSrc="/proj_evita.png" videoId="3oA-O9H-8Rk" 
-                    description="Integración de microsistemas y sensores para la navegación autónoma y toma de decisiones en tiempo real."
-                    functioning={`🛰️ ROBÓTICA Y CIBERNÉTICA:
-                    • Telemetría Ultrasónica: El sensor HC-SR04 emite un tren de pulsos (Trigger). El eco (Echo) retorna tras rebotar. Distancia (cm) = Microsegundos / 58.
-                    • Algoritmos de Decisión: Estructura de procesamiento 'Percepción-Decisión-Acción'. Se estudia la latencia de respuesta frente a la velocidad del rover.
-                    • Driver L298N (Puente H): Control de motores bidireccionales mediante señales digitales. Permite invertir la polaridad magnética sin interruptores mecánicos.
-                    • Gestión de Energía: Separación de la alimentación del microcontrolador (lógica) y los motores (potencia) para evitar ruidos eléctricos (picos de inducción) que reseteen la CPU.`}
-                    materials={["Microcontrolador Arduino UNO R3", "Sensores ultrasónicos de 40kHz", "Módulo Puente H L298NDual Channel", "Sistema de tracción diferencial", "Batería de alta descarga Li-Po"]} 
-                    instructions={["Calibración de Sensor: Ajustar el sensor por software para filtrar falsos positivos generados por superficies absorbentes (alfombras).", "Mapping lógico: Programar un 'giro de evasión' de 90° si el obstáculo está a menos de 20 unidades.", "Control PWM: Definir la velocidad de crucero en 180 (0-255) para un balance óptimo entre autonomía y capacidad de reacción.", "Debugging: Utilizar el monitor serie para visualizar las lecturas de distancia en tiempo real."]} 
+                    num="6" title="Robot Autónomo que Esquiva Paredes" imageSrc="/proj_evita.png" videoId="f-a4Kz2p2vY" 
+                    description="Este robot tiene 'ojos' de ultrasonido. Vamos a programar su cerebro (Arduino) para que tome decisiones solo, tal como un auto autónomo."
+                    functioning={`🛰️ INTELIGENCIA ARTIFICIAL Y SENSORES:
+                    • El radar del murciélago (Ultrasonido): El robot tira un sonido que no escuchamos, rebota en la pared y vuelve. Calculando el tiempo, sabe a qué distancia está la pared.
+                    • Programación (Lógica): Le enseñamos al robot: 'Si la distancia es menor a 10cm, frená y girá'. ¡Es el comienzo de la IA!
+                    • Puente H: Es el componente que nos permite hacer que los motores vayan para adelante o para atrás por código.`}
+                    materials={["Placa Arduino UNO", "Sensor de distancia (el que parece ojos)", "Ruedas y motores", "Un chasis para armar todo", "Batería de 9V"]} 
+                    instructions={["Paso 1: Montá los motores y el sensor en frente del robot.", "Paso 2: Conectá todo a la placa Arduino. ¡Cuidado de no mezclar los cables!", "Paso 3: Escribí el código en la compu y mandalo al robot.", "Paso 4: Ponelo en el suelo y poné tu mano en frente de él. ¡Tiene que escaparse!"]} 
                     simOn={evitaActive} setSimOn={setEvitaActive} 
-                    simContent={<div style={{fontSize:'3.5rem', animation: evitaActive ? 'jitter 0.1s infinite' : 'none'}}>🛰️</div>} 
-                    simStatus={{ on: "Procesador cargado (Main Loop)", off: "Memoria Flash inactiva" }} 
+                    simContent={<div style={{fontSize:'3.5rem', animation: evitaActive ? 'jitter 0.15s infinite' : 'none'}}>🛰️</div>} 
+                    simStatus={{ on: "Sistema de navegación activo", off: "Esperando programa" }} 
                 />
 
                 {/* 7. TALLER DE SOLDADURA */}
                 <ProjectCard 
-                    num="7" title="Soldadura y Metalurgia de Unión" videoId="J5Sb21qbpEQ" 
-                    description="Dominio del proceso físico de unión atómica entre metales mediante aporte de aleación eutéctica."
-                    functioning={`🩹 CIENCIA DE LOS MATERIALES:
-                    • Aleación Sn/Pb 60-40: Buscamos el punto eutéctico, donde el material pasa de sólido a líquido casi instantáneamente a 183°C.
-                    • Capa Intermetálica (IML): La verdadera unión no es pegamento, es una zona de micrones donde el estaño se mezcla con el cobre del pad. Si se aplica poco calor, la capa no se forma (Soldadura fría).
-                    • Tensión Superficial: El Flux (resina) reduce la tensión del estaño líquido, permitiendo que 'fluya' y moje perfectamente la isla circular.
-                    • Gradiente Térmico: Importancia de calentar primero los elementos más masivos para evitar 'choques térmicos' que fracturen la unión.`}
-                    materials={["Soldador de punta cerámica 40W", "Estaño 0.8mm con núcleo de resina", "Placa Perfboard de fibra de vidrio FR4", "Limpiador de puntas (lana de latón o esponja húmeda)"]} 
-                    instructions={["Preparación: Limpiar los pads con alcohol isopropílico para eliminar óxidos superficiales.", "Soldado: Aplicar la punta del soldador tocando el pad y el pin simultáneamente durante 2 segundos.", "Aporte: Acercar el estaño al lado opuesto del soldador. Si fluye solo, la temperatura es correcta.", "Inspección: El resultado debe ser una superficie brillante (indicativo de enfriamiento lento y correcto) y forma piramidal."]} 
-                    imageSrc={[{ url: '/proj_soldadura_ok.png', label: '✅ UNIÓN INTERMETÁLICA OK' }, { url: '/proj_soldadura_error.png', label: '❌ FRACTURA / BOLA FRÍA' }]} 
+                    num="7" title="Taller de Soldadura: ¡Uniendo Metales!" videoId="v=J5Sb21qbpEQ" 
+                    description="La habilidad más importante para un técnico. Vamos a aprender a hacer conexiones eléctricas perfectas usando metales fundidos."
+                    functioning={`🩹 CIENCIA DE LOS METALES:
+                    • El punto de fusión: El estaño que usamos se derrite a los 183°C. Buscamos el equilibrio exacto para que el metal fluya como agua sobre el cobre.
+                    • Capilaridad: ¿Viste que la soldadura tiene forma de volcán? Eso es porque el metal líquido se 'pega' molecularmente al pad.
+                    • Soldadura Fría: Si movés el componente mientras se enfría, la unión se rompe por dentro. ¡Por eso hay que quedarse bien quieto!` }
+                    materials={["Soldador tipo lápiz", "Alambre de estaño", "Placa de práctica con islas", "Lupa (opcional)"]} 
+                    instructions={["Paso 1: Limpiá la punta del soldador hasta que brille.", "Paso 2: Calentá la isla de la placa y la pata del componente al mismo tiempo.", "Paso 3: Acercá el estaño desde el otro lado. ¡Tiene que derretirse solo!", "Paso 4: Sacá el estaño y después el soldador. Esperá 2 segundos sin mover nada."]} 
+                    imageSrc={[{ url: '/proj_soldadura_ok.png', label: '✅ VOLCÁN PERFECTO' }, { url: '/proj_soldadura_error.png', label: '❌ BOLA FALLIDA' }]} 
                     simOn={solderActive} setSimOn={setSolderActive} 
                     simContent={<div style={{fontSize:'4.5rem'}}>🩹</div>} 
-                    simStatus={{ on: "Transferencia de calor Q activa", off: "Equilibrio térmico" }} 
+                    simStatus={{ on: "Soldador a 350°C (Cuidado)", off: "Punta fría" }} 
                 />
 
                 {/* 8. HUERTA SOLAR INTELIGENTE */}
                 <ProjectCard 
-                    num="8" title="Eco-Ingeniería: Huerta Solar de Alta Eficiencia" 
-                    description="Sistema bioclimático tecnificado para la investigación avanzada en fotovoltaica y biotecnología vegetal."
-                    functioning={`🔬 FOTOTECNOLOGÍA Y BIOLOGÍA APLICADA:
-                    • Irradiancia Solar (W/m²): El panel aprovecha la energía de los fotones solares para excitar electrones en el silicio (Efecto Fotovoltaico). Calculamos la Irradiancia bajo STC (Standard Test Conditions).
-                    • Espectro PAR (Photosynthetically Active Radiation): Los Grow LEDs emiten energía concentrada en picos de 450nm y 660nm, optimizando la tasa de fotólisis del agua en la fase clara de la fotosíntesis.
-                    • Tasa de Crecimiento Logarítmico: Análisis matemático de cómo la suplementación lumínica nocturna afecta la división celular (Mitosis) en los meristemas de la planta.
-                    • Ingeniería Eléctrica Off-Grid: Uso de reguladores MPPT (Maximum Power Point Tracking) para maximizar la transferencia de potencia del panel a la batería ajustando la impedancia de carga.`}
+                    num="8" title="Huerta Solar con Luces Especiales" 
+                    description="¿Sabías que podés hacer crecer tus plantas más rápido con tecnología? Vamos a usar el sol para alimentar luces que imitan lo mejor de la naturaleza."
+                    functioning={`🔬 CIENCIA DE LAS PLANTAS (STEAM):
+                    • Fotosíntesis forzada: A las plantas les encanta la luz Azul (para crecer fuertes) y Roja (para dar frutos). Usamos LEDs de esos colores para que 'crean' que siempre es de día.
+                    • Energía Limpia: El panel solar convierte los rayos del sol en electricidad pura que guardamos en una batería.
+                    • Ecología: Al cultivar en casa, reducimos la contaminación del transporte de comida. ¡Sos parte de la solución ambiental!`}
                     materials={[
-                        "Panel Solar Monocristalino de alta eficiencia",
-                        "Regulador Digital con control de descarga profunda",
-                        "Banco de baterías de ciclo profundo (Células Li-NMC)",
-                        "Sensores de espectro lumínico e Higrometría dual",
-                        "Cajón hidropónico de polietileno de alta densidad"
+                        "Panel Solar mediano (12V)",
+                        "Regulador de carga (el cerebro de la batería)",
+                        "Batería recargable",
+                        "Tira de LEDs de colores (Grow LEDs)",
+                        "Un cajón con tierra y tus semillas favoritas"
                     ]}
                     instructions={[
-                        "Cálculo de Autonomía: Determinar Ah de la batería según consumo total de LEDs y horas de sol pico de la región.",
-                        "Instalación: Orientación y Azimut. Ajustar inclinación según latitud para máxima exposición anual.",
-                        "Seguridad: Instalar diodos de protección anti-retorno para evitar que la batería se descargue por el panel de noche.",
-                        "Bio-Monitoreo: Realizar mediciones diarias de Lux, temperatura y humedad foliar para generar gráficos de correlación."
+                        "Paso 1: Poné el panel solar donde le dé el sol bien fuerte (apuntando al norte).",
+                        "Paso 2: Conectá el panel al regulador y después a la batería. ¡Fijate bien los colores de los cables!",
+                        "Paso 3: Conectá las luces LED sobre tus plantas. No las pegues mucho para no darles calor.",
+                        "Paso 4: Mirá cómo crecen tus plantas comparadas con las que no tienen luces. ¡Anotá tus resultados!"
                     ]}
                     imageSrc={[
-                        { url: '/proj_huerta_schem.png', label: '📑 Ingeniería del Circuito' },
-                        { url: '/proj_huerta_wire.png', label: '🔌 Guía de Interconexión' },
-                        { url: '/proj_huerta.png', label: '🌿 Prototipo de Bio-Sustentable' }
+                        { url: '/proj_huerta_schem.png', label: '📑 Plano de los Cables' },
+                        { url: '/proj_huerta_wire.png', label: '🔌 Conexiones Reales' },
+                        { url: '/proj_huerta.png', label: '🌿 Así tiene que quedar' }
                     ]}
                     simOn={huertaActive} setSimOn={setHuertaActive} 
                     simContent={
-                        <div style={{ position: 'relative', width: '240px', height: '180px', background: isDay ? '#87CEEB' : '#0a0a20', borderRadius: '20px', transition: 'background 2s linear', overflow: 'hidden' }}>
-                            <div style={{ position: 'absolute', width: '35px', height: '35px', background: isDay ? 'yellow' : '#eee', borderRadius: '50%', left: '170px', top: isDay ? '15px' : '35px', boxShadow: isDay ? '0 0 30px yellow' : '0 0 15px #fff', transition: 'all 2.5s ease' }}></div>
-                            {!isDay && huertaActive && <div style={{ position: 'absolute', width: '100%', height: '80px', background: 'linear-gradient(to bottom, rgba(255,0,255,0.4), transparent)', top: '35px' }}></div>}
+                        <div style={{ position: 'relative', width: '240px', height: '180px', background: isDay ? '#87CEEB' : '#0a0a20', borderRadius: '25px', transition: 'background 2s linear', overflow: 'hidden' }}>
+                            <div style={{ position: 'absolute', width: '35px', height: '35px', background: isDay ? 'yellow' : '#eee', borderRadius: '50%', left: '170px', top: isDay ? '15px' : '35px', boxShadow: isDay ? '0 0 35px yellow' : '0 0 20px #fff', transition: 'all 2.5s ease' }}></div>
+                            {!isDay && huertaActive && <div style={{ position: 'absolute', width: '100%', height: '80px', background: 'linear-gradient(to bottom, rgba(255,0,255,0.4), transparent)', top: '40px' }}></div>}
                             <div style={{ position: 'absolute', bottom: '15px', left: '25px', display: 'flex', gap: '8px' }}>
-                                {[1,2,3,4].map(i=><div key={i} style={{width:'22px',height: huertaActive && !isDay ? '60px' : '30px', background:'#1b5e20', borderRadius:'10px 10px 0 0', transition:'height 4s ease-in-out' }}></div>)}
+                                {[1,2,3,4].map(i=><div key={i} style={{width:'22px',height: huertaActive && !isDay ? '60px' : '30px', background:'#2e7d32', borderRadius:'10px 10px 0 0', transition:'height 4s ease-in-out' }}></div>)}
                             </div>
                         </div>
                     }
-                    simStatus={{ on: isDay ? "Absorción fotovoltaica máxima" : "Emisión grow activa (PAR High)", off: "Sistema en recalibración" }}
+                    simStatus={{ on: isDay ? "Panel cargando... ☀️" : "Luces de crecimiento ACTIVAS 💜", off: "Invernadero apagado" }}
                 >
                     <div className="proyecto-section" style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '2rem', marginTop: '1.5rem' }}>
-                        <h4 style={{ color: 'var(--primary-color)', fontSize: '1.1rem', marginBottom: '1rem' }}>🔬 Laboratorio STEAM Integrado</h4>
-                        <div style={{ fontSize: '0.82rem', color: '#ccc', lineHeight: '1.6' }}>
-                            <p><strong>Física:</strong> Termodinámica de celdas solares y Ley de Wien (radiación del cuerpo negro).</p>
-                            <p><strong>Química:</strong> Composición de pigmentos fotosintéticos y ciclo de Calvin.</p>
-                            <p><strong>Ingeniería:</strong> Diseño de sistemas redundantes y Smart Control mediante sensores IoT.</p>
+                        <h4 style={{ color: 'var(--primary-color)', fontSize: '1.2rem', marginBottom: '1rem' }}>🔬 ¿Qué estamos aprendiendo?</h4>
+                        <div style={{ fontSize: '0.9rem', color: '#ccc', lineHeight: '1.6' }}>
+                            <p><strong>Naturales:</strong> Cómo comen las plantas y qué luz prefieren.</p>
+                            <p><strong>Matemática:</strong> Medimos cuánto crecen cada día y hacemos gráficos.</p>
+                            <p><strong>Tecnología:</strong> Usamos chips y energía solar para cuidar el planeta.</p>
                         </div>
                     </div>
                 </ProjectCard>
 
             </div>
 
-            <footer style={{ marginTop: '8rem', textAlign: 'center', opacity: 0.8, padding: '6rem', borderTop: '1px solid rgba(0,242,255,0.2)', background: 'linear-gradient(to bottom, transparent, rgba(0,242,255,0.05))' }}>
-                <p style={{ fontSize: '1rem', letterSpacing: '2px', fontWeight: 'bold', color: 'var(--primary-color)' }}>SIMUTEC © 2026 - MODELO EDUCATIVO DE INGENIERÍA SUSTENTABLE</p>
-                <p style={{ fontSize: '0.8rem', marginTop: '10px' }}>Preparando a los técnicos del mañana para los desafíos globales.</p>
+            <footer style={{ marginTop: '8rem', textAlign: 'center', opacity: 0.8, padding: '6rem', borderTop: '1px solid rgba(0,242,255,0.2)' }}>
+                <p style={{ fontSize: '1rem', fontWeight: 'bold', color: 'var(--primary-color)' }}>SIMUTEC © 2026 - ¡EL FUTURO LO CREÁS VOS!</p>
+                <p style={{ fontSize: '0.8rem', marginTop: '10px' }}>Proyecto educativo para jóvenes inventores.</p>
             </footer>
         </div>
     );
