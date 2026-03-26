@@ -162,7 +162,7 @@ const ProyectosReciclablesPage = () => {
             <div className="proyecto-grid">
                 
                 {/* 1 - 6 (Shortened calls to keep file manageable) */}
-                <ProjectCard num="1" title="Robot Móvil Simple" imageSrc="/proj_robot.png" videoId="h3M9_N-UoX0" description="Robot básico con botella." materials={["Botella", "Motores", "Pilas"]} instructions={["Perforar tapas", "Pegar motores", "Conectar"]} simOn={robotMoving} setSimOn={setRobotMoving} simContent={<div className={robotMoving ? 'moving' : ''} style={{fontSize:'4rem'}}>🤖</div>} simStatus={{on:"Avance lineal",off:"Parado"}} />
+                <ProjectCard num="1" title="Robot Móvil Simple" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" description="Robot básico con botella." materials={["Botella", "Motores", "Pilas"]} instructions={["Perforar tapas", "Pegar motores", "Conectar"]} simOn={robotMoving} setSimOn={setRobotMoving} simContent={<div className={robotMoving ? 'moving' : ''} style={{fontSize:'4rem'}}>🤖</div>} simStatus={{on:"Avance lineal",off:"Parado"}} />
                 
                 <ProjectCard num="2" title="Velador LED" imageSrc="/proj_velador.png" videoId="-BIs-z5g7tY" description="Lámpara reciclada." materials={["Lata", "LED", "CD"]} instructions={["Armar base", "Soldar LED", "Conectar USB"]} simOn={veladorOn} setSimOn={setVeladorOn} simContent={<div style={{fontSize:'4rem', color: veladorOn ? 'yellow' : '#444'}}>💡</div>} simStatus={{on:"Luz emitida",off:"Apagado"}} />
 
@@ -240,7 +240,7 @@ const ProyectosReciclablesPage = () => {
                         </div>
                     }
                     simStatus={{ on: "Temperatura ideal lograda. Flujo cónico.", off: "Punta fría." }}
-                    videoId="J5Sb21qbpEQ"
+                    videoId="GscBUnUonqM"
                 />
 
             </div>
