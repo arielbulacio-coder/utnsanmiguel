@@ -28,12 +28,12 @@ const ProyectosReciclablesPage = () => {
                     const dist = Math.abs(obstacleX - nextX);
                     setSensorDist(dist);
                     if (dist < 40 && evitaRotation === 0) {
-                        setEvitaRotation(90); // Turn down
+                        setEvitaRotation(90);
                         return prev;
                     }
                     if (nextY > 100) {
                         setEvitaRotation(0);
-                        return { x: 20, y: 50 }; // Reset
+                        return { x: 20, y: 50 };
                     }
                     return { x: nextX, y: nextY };
                 });
@@ -63,12 +63,10 @@ const ProyectosReciclablesPage = () => {
                     
                     <div className="proyecto-info-grid">
                         <div className="info-left">
-                            {description && (
-                                <div className="proyecto-section">
-                                    <h3>📋 Descripción</h3>
-                                    <p>{description}</p>
-                                </div>
-                            )}
+                            <div className="proyecto-section">
+                                <h3>📋 Descripción</h3>
+                                <p>{description}</p>
+                            </div>
 
                             {functioning && (
                                 <div className="proyecto-section">
@@ -138,8 +136,15 @@ const ProyectosReciclablesPage = () => {
                     {videoId && (
                         <div className="proyecto-section" style={{ marginTop: '2rem' }}>
                             <h3>📺 Video Guía y Recursos</h3>
-                            <div className="video-container">
-                                <iframe title={title} src={`https://www.youtube.com/embed/${videoId}`} frameBorder="0" allowFullScreen></iframe>
+                            <div className="video-container" style={{ position: 'relative', paddingTop: '56.25%', background: '#000', borderRadius: '15px', overflow: 'hidden' }}>
+                                <iframe 
+                                    title={title} 
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                                    src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`} 
+                                    frameBorder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
                             </div>
                         </div>
                     )}
@@ -161,7 +166,6 @@ const ProyectosReciclablesPage = () => {
 
             <div className="proyecto-grid">
                 
-                {/* 1 - 6 (Shortened calls to keep file manageable) */}
                 <ProjectCard num="1" title="Robot Móvil Simple" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" description="Robot básico con botella." materials={["Botella", "Motores", "Pilas"]} instructions={["Perforar tapas", "Pegar motores", "Conectar"]} simOn={robotMoving} setSimOn={setRobotMoving} simContent={<div className={robotMoving ? 'moving' : ''} style={{fontSize:'4rem'}}>🤖</div>} simStatus={{on:"Avance lineal",off:"Parado"}} />
                 
                 <ProjectCard num="2" title="Velador LED" imageSrc="/proj_velador.png" videoId="-BIs-z5g7tY" description="Lámpara reciclada." materials={["Lata", "LED", "CD"]} instructions={["Armar base", "Soldar LED", "Conectar USB"]} simOn={veladorOn} setSimOn={setVeladorOn} simContent={<div style={{fontSize:'4rem', color: veladorOn ? 'yellow' : '#444'}}>💡</div>} simStatus={{on:"Luz emitida",off:"Apagado"}} />
@@ -174,82 +178,27 @@ const ProyectosReciclablesPage = () => {
 
                 <ProjectCard num="6" title="Robot Evita Obstáculos" imageSrc="/proj_evita.png" videoId="3oA-O9H-8Rk" description="Robot autónomo Arduino." functioning="Lógica: ¿Distancia < 10cm? → Girar." materials={["Arduino UNO", "Motores", "Sensor Ultrasonido", "L298N"]} instructions={["Conectar Sensor", "Driver L298N", "Programar mBlock"]} simOn={evitaActive} setSimOn={setEvitaActive} simContent={<div style={{fontSize:'3rem', animation: evitaActive ? 'jitter 0.1s infinite' : 'none'}}>🛰️</div>} simStatus={{ on: "Buscando camino", off: "Parado" }} />
 
-                {/* 7. PRÁCTICA DE SOLDADURA */}
                 <ProjectCard 
                     num="7"
                     title="Práctica de Soldadura en Placa de Islas"
-                    description="Aprende la técnica fundamental de la electrónica: unir componentes de forma segura y duradera mediante soldadura de estaño."
-                    functioning="La soldadura correcta debe ser un nexo eléctrico y mecánico perfecto. Se requiere el calentamiento previo de ambas superficies (pad y componente) para que el estaño fluya por capilaridad."
-                    materials={[
-                        "Soldador tipo lápiz (30W-40W)",
-                        "Estaño de 0.8mm o 1mm (con resina)",
-                        "Placa de experimentación de islas redondas (Perfboard)",
-                        "Esponja vegetal húmeda (para limpiar punta)",
-                        "Soporte para soldador"
-                    ]}
-                    instructions={[
-                        "Limpia la punta del soldador en la esponja húmeda hasta que brille.",
-                        "Coloca el componente en la isla y dobla un poco sus patas para fijarlo.",
-                        "Calienta la isla (cobre) y el terminal del componente simultáneamente por 2 segundos.",
-                        "Aplica una pequeña cantidad de estaño justo en la unión (no en la punta del soldador directamente).",
-                        "Retira el estaño pero mantén el soldador un segundo más para que fluya.",
-                        "Retira el soldador y deja enfriar sin soplar para evitar soldaduras frías."
-                    ]}
+                    description="Soldadura de estaño profesional."
+                    functioning="Nexo mecánico y eléctrico perfecto."
+                    materials={["Soldador", "Estaño", "Perfboard"]}
+                    instructions={["Calentar", "Aplicar estaño", "Enfriar"]}
                     imageSrc={[
-                        { url: '/proj_soldadura_ok.png', label: '✅ CORRECTA: Cónica y Brillante', color: '#1b5e20' },
-                        { url: '/proj_soldadura_error.png', label: '❌ INCORRECTA: Opaca y Deforme', color: '#b71c1c' }
+                        { url: '/proj_soldadura_ok.png', label: '✅ CORRECTA', color: '#1b5e20' },
+                        { url: '/proj_soldadura_error.png', label: '❌ INCORRECTA', color: '#b71c1c' }
                     ]}
-                    simOn={solderActive}
-                    setSimOn={setSolderActive}
-                    simContent={
-                        <div style={{ position: 'relative', width: '200px', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            {/* PCB Pad */}
-                            <div style={{ width: '40px', height: '40px', background: 'gold', borderRadius: '50%', border: '2px solid #5d2e0d', position: 'relative' }}>
-                                {/* Component Lead */}
-                                <div style={{ position: 'absolute', width: '4px', height: '40px', background: '#999', left: '16px', top: '-20px', borderRadius: '2px' }}></div>
-                                {/* Solder Cone */}
-                                {solderActive && (
-                                    <div style={{ 
-                                        position: 'absolute', 
-                                        bottom: '2px', 
-                                        left: '4px', 
-                                        width: '28px', 
-                                        height: '25px', 
-                                        background: 'linear-gradient(to top, #ccc, #fff)', 
-                                        clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-                                        animation: 'pulse 1s infinite alternate',
-                                        boxShadow: '0 0 10px #fff'
-                                    }}></div>
-                                )}
-                            </div>
-                            {/* Soldering Iron */}
-                            <div style={{ 
-                                position: 'absolute', 
-                                width: '100px', 
-                                height: '10px', 
-                                background: '#555', 
-                                left: solderActive ? '135px' : '220px', 
-                                top: '55px', 
-                                transform: 'rotate(-45deg)',
-                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                borderRadius: '5px'
-                            }}>
-                                <div style={{ position: 'absolute', width: '20px', height: '100%', background: '#ff4400', left: '-5px', borderRadius: '5px', opacity: solderActive ? 1 : 0.3 }}></div>
-                                {solderActive && <div style={{ position: 'absolute', width: '2px', height: '15px', background: 'rgba(255,255,255,0.3)', top: '-20px', left: '0', animation: 'evaporate 1s infinite' }}></div>}
-                            </div>
-                        </div>
-                    }
-                    simStatus={{ on: "Temperatura ideal lograda. Flujo cónico.", off: "Punta fría." }}
+                    simOn={solderActive} setSimOn={setSolderActive}
+                    simContent={<div style={{fontSize:'4rem'}}>🩹</div>}
+                    simStatus={{ on: "Soldando con precisión", off: "Frío" }}
                     videoId="GscBUnUonqM"
                 />
 
             </div>
 
             <footer style={{ marginTop: '5rem', textAlign: 'center', opacity: 0.7, padding: '4rem', borderTop: '1px solid var(--glass-border)' }}>
-                <div style={{ maxWidth: '600px', margin: '0 auto', fontSize: '0.8rem', color: 'var(--text-dim)' }}>
-                    <p>⚠️ Precaución: El soldador alcanza temperaturas de hasta 400°C. Trabaja siempre en un lugar ventilado.</p>
-                    <p>© SimuTec - Proyecto Educativo. "En la prolijidad de la soldadura reside la fiabilidad de tu circuito."</p>
-                </div>
+                <p>© SimuTec - Proyecto Educativo. "En la prolijidad de la soldadura reside la fiabilidad de tu circuito."</p>
             </footer>
             <style>{`
                 @keyframes evaporate { 0% { opacity: 0.8; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-30px); } }
