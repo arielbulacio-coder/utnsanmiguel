@@ -5,185 +5,215 @@ const ProyectosReciclablesPage = () => {
     const [robotMoving, setRobotMoving] = useState(false);
     const [veladorOn, setVeladorOn] = useState(false);
     const [ventiladorOn, setVentiladorOn] = useState(false);
+    const [aranaMoving, setAranaMoving] = useState(false);
+
+    const ProjectCard = ({ title, description, objectives, materials, instructions, emoji, simContent, simStatus, simOn, setSimOn, videoId, imageSrc, num }) => {
+        return (
+            <div className="proyecto-card">
+                <img src={imageSrc} alt={title} className="proyecto-image" />
+                <div className="proyecto-content">
+                    <h2 className="proyecto-title">
+                        <span style={{ background: 'var(--primary-color)', color: '#000', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>{num}</span>
+                        {title}
+                    </h2>
+                    
+                    <div className="proyecto-info-grid">
+                        <div className="info-left">
+                            <div className="proyecto-section">
+                                <h3>📋 Descripción</h3>
+                                <p>{description}</p>
+                            </div>
+
+                            <div className="proyecto-section">
+                                <h3>🛠️ Materiales Requeridos</h3>
+                                <div className="materials-list">
+                                    <ul>
+                                        {materials.map((mat, i) => <li key={i}>{mat}</li>)}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="info-right">
+                            <div className="proyecto-section">
+                                <h3>⚙️ Instrucciones de Armado</h3>
+                                <ol className="instructions-list">
+                                    {instructions.map((ins, i) => <li key={i}>{ins}</li>)}
+                                </ol>
+                            </div>
+
+                            <div className="simulacion-area">
+                                {simContent}
+                                <div className="sim-controls">
+                                    <button className="btn-toggle-sim" onClick={() => setSimOn(!simOn)}>
+                                        {simOn ? 'Detener' : 'Activar Simulación'}
+                                    </button>
+                                    <div className={`sim-status ${simOn ? 'status-on' : 'status-off'}`}>
+                                        {simOn ? '>>> CIRCUIT CLOSED: ' + simStatus.on : '>>> CIRCUIT OPEN: ' + simStatus.off}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="proyecto-section" style={{ marginTop: '2rem' }}>
+                        <h3>📺 Video Guía (YouTube)</h3>
+                        <div className="video-container">
+                            <iframe 
+                                title={title}
+                                src={`https://www.youtube.com/embed/${videoId}`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
 
     return (
         <div className="proyectos-container fade-in">
-            <div className="proyectos-header">
-                <h1>Robótica con Materiales Reciclables</h1>
-                <p>Proyectos prácticos para aprender electrónica y mecánica reutilizando materiales cotidianos.</p>
-            </div>
+            <header className="proyectos-header">
+                <h1>🔌 Robótica y Proyectos Reciclables</h1>
+                <p>Aprende las bases de la ingeniería construyendo tus propios prototipos con materiales que ya tienes en casa. ¡Dale una segunda vida a la tecnología!</p>
+                <div className="youtube-invite">
+                    <span>🔴</span>
+                    <p>¡Investiga más en YouTube buscando "Robótica Educativa Reciclada"!</p>
+                </div>
+            </header>
 
-            {/* Proyecto 1: Robot Simple */}
-            <div className="proyecto-card">
-                <h2 className="proyecto-title">1) Robot Simple (Introducción a la Mecánica y Electrónica Básica)</h2>
+            <div className="proyecto-grid">
                 
-                <div className="proyecto-section">
-                    <h3>Descripción del Proyecto</h3>
-                    <p>Construcción de un robot móvil muy básico, a menudo un modelo bípedo o con ruedas, utilizando elementos como botellas de plástico, cartón, tapas, y motores de juguetes viejos o componentes electrónicos de bajo costo (como motores DC, portapilas, interruptores).</p>
-                </div>
+                {/* 1. ROBOT SIMPLE */}
+                <ProjectCard 
+                    num="1"
+                    title="Robot Móvil Simple"
+                    imageSrc="/proj_robot.png"
+                    videoId="h3M9_N-UoX0" // Ejemplo de robot con botella
+                    description="Un robot móvil básico que utiliza una botella como chasis. Es el primer paso para entender la tracción y los circuitos DC."
+                    materials={[
+                        "1 Botella de plástico (chasis)",
+                        "2 Motores DC pequeños (6V)",
+                        "4 Tapas de botella (ruedas)",
+                        "1 Interruptor",
+                        "Portapilas con 2 pilas AA",
+                        "Cartón y silicona caliente"
+                    ]}
+                    instructions={[
+                        "Perfora el centro de las 4 tapas y pégalas a los ejes de los motores (serán las ruedas).",
+                        "Pega los dos motores a los costados traseros de la botella usando silicona.",
+                        "En la parte delantera, pega un pedazo de cartón curvado para que actúe como apoyo deslizante.",
+                        "Conecta los cables de los motores en paralelo (unidos entre sí).",
+                        "Intercala el interruptor entre el positivo de la batería y los motores.",
+                        "Pega el portapilas arriba de la botella para equilibrar el peso."
+                    ]}
+                    simOn={robotMoving}
+                    setSimOn={setRobotMoving}
+                    simContent={<div className={`robot-box ${robotMoving ? 'moving' : ''}`}>🤖</div>}
+                    simStatus={{ on: "Motors spinning. Kinetic energy active.", off: "Idle. Ready to move." }}
+                />
 
-                <div className="proyecto-section">
-                    <h3>Objetivos de Aprendizaje</h3>
-                    <ul>
-                        <li>Comprender el funcionamiento de un circuito simple.</li>
-                        <li>Transformación de energía eléctrica en cinética (movimiento).</li>
-                        <li>Principios de la mecánica básica (ejes, engranajes rudimentarios si aplica).</li>
-                    </ul>
-                </div>
+                {/* 2. VELADOR RECICLADO */}
+                <ProjectCard 
+                    num="2"
+                    title="Velador de Escritorio LED"
+                    imageSrc="/proj_velador.png"
+                    videoId="-BIs-z5g7tY" // Ejemplo de lampara reciclada
+                    description="Una lámpara funcional con LEDs de bajo consumo. Ideal para aprender sobre polaridad y componentes optoelectrónicos."
+                    materials={[
+                        "1 Lata de refresco vacía",
+                        "2 CDs viejos (base y reflector)",
+                        "1 LED de alto brillo (Blanco)",
+                        "1 Resistencia de 220 ohms",
+                        "Cable USB viejo o batería 9V",
+                        "Cinta aislante"
+                    ]}
+                    instructions={[
+                        "Limpia la lata y haz un orificio en la parte superior para pasar los cables.",
+                        "Pega la lata sobre uno de los CDs para crear una base estable.",
+                        "Suelda o une la resistencia a la pata más larga del LED (ánodo, positivo).",
+                        "Conecta el cable rojo (+5V del USB) a la resistencia y el negro al cátodo del LED.",
+                        "Coloca el LED dentro de la lata o en la punta de un sorbete flexible pegado a la base.",
+                        "Cubre las conexiones con cinta para evitar cortocircuitos."
+                    ]}
+                    simOn={veladorOn}
+                    setSimOn={setVeladorOn}
+                    simContent={<div className={`velador-sim ${veladorOn ? 'velador-on' : 'velador-off'}`} style={{fontSize: '5rem'}}>💡</div>}
+                    simStatus={{ on: "Photons emitted. Circuit closed.", off: "Dark. Circuit open." }}
+                />
 
-                <div className="proyecto-section">
-                    <h3>Materiales Clave</h3>
-                    <ul>
-                        <li>Botellas o envases de plástico.</li>
-                        <li>Cartón grueso.</li>
-                        <li>Palitos de madera o brochetas (para ejes).</li>
-                        <li>Tapas de botellas (para ruedas o pies).</li>
-                        <li>Motor de vibración o motor DC pequeño.</li>
-                        <li>Interruptor simple, portapilas y baterías.</li>
-                    </ul>
-                </div>
-
-                <div className="proyecto-section">
-                    <h3>Resultado Esperado</h3>
-                    <p>Un pequeño robot capaz de moverse en línea recta o vibrar/deambular sobre una superficie plana.</p>
-                </div>
-
-                <div className="simulacion-box">
-                    <h3>Simulación Interactiva: Robot Simple</h3>
-                    <div className={`robot-sim ${robotMoving ? 'robot-moving' : ''}`}>
-                        🤖
-                    </div>
-                    <br />
-                    <button 
-                        className="btn-simular" 
-                        onClick={() => setRobotMoving(!robotMoving)}
-                    >
-                        {robotMoving ? 'Detener Robot' : 'Activar Robot'}
-                    </button>
-                    <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--text-dim)' }}>
-                        {robotMoving ? 'El circuito está cerrado. Energía eléctrica convirtiéndose en movimiento lineal/vibratorio.' : 'El circuito está abierto. El motor no recibe energía.'}
-                    </p>
-                </div>
-            </div>
-
-            {/* Proyecto 2: Velador */}
-            <div className="proyecto-card">
-                <h2 className="proyecto-title">2) Velador (Aplicación de Iluminación y Circuitos Sencillos)</h2>
-                
-                <div className="proyecto-section">
-                    <h3>Descripción del Proyecto</h3>
-                    <p>Diseño y construcción de una lámpara de mesa o velador funcional, utilizando principalmente latas, botellas de vidrio o plástico, CDs viejos, y otros materiales reciclados para la estructura y la pantalla. La fuente de luz será un LED de bajo consumo o una tira de LEDs, integrando un circuito simple con un interruptor.</p>
-                </div>
-
-                <div className="proyecto-section">
-                    <h3>Objetivos de Aprendizaje</h3>
-                    <ul>
-                        <li>Entender la polaridad de los LEDs.</li>
-                        <li>La necesidad de resistencias (si aplica) para proteger el componente.</li>
-                        <li>Diseño de estructuras estables y aplicación práctica de la iluminación en el hogar.</li>
-                    </ul>
-                </div>
-
-                <div className="proyecto-section">
-                    <h3>Materiales Clave</h3>
-                    <ul>
-                        <li>Latas de refresco o conservas, botellas de plástico grandes.</li>
-                        <li>CDs/DVDs viejos (como base reflectante).</li>
-                        <li>Cable, interruptor.</li>
-                        <li>LED de alto brillo o tira de LED.</li>
-                        <li>Resistencia (si es necesaria).</li>
-                        <li>Portapilas o fuente de alimentación USB reciclada.</li>
-                    </ul>
-                </div>
-
-                <div className="proyecto-section">
-                    <h3>Resultado Esperado</h3>
-                    <p>Un velador decorativo y funcional que utiliza componentes de bajo consumo y materiales reciclados en su estructura.</p>
-                </div>
-
-                <div className="simulacion-box">
-                    <h3>Simulación Interactiva: Circuito LED Velador</h3>
-                    <div 
-                        className={`velador-sim ${veladorOn ? 'velador-on' : 'velador-off'}`}
-                        onClick={() => setVeladorOn(!veladorOn)}
-                        style={{ display: 'inline-block' }}
-                    >
-                        💡
-                    </div>
-                    <br />
-                    <button 
-                        className="btn-simular" 
-                        onClick={() => setVeladorOn(!veladorOn)}
-                    >
-                        {veladorOn ? 'Apagar Lámpara' : 'Encender Lámpara'}
-                    </button>
-                    <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--text-dim)' }}>
-                        {veladorOn ? 'Interruptor en posición ON. Corriente fluye respetando polaridad (+ a -).' : 'Interruptor en posición OFF. El circuito está abierto.'}
-                    </p>
-                </div>
-            </div>
-
-            {/* Proyecto 3: Ventilador Personal */}
-            <div className="proyecto-card">
-                <h2 className="proyecto-title">3) Ventilador Personal (Conversión de Energía y Movimiento Rotatorio)</h2>
-                
-                <div className="proyecto-section">
-                    <h3>Descripción del Proyecto</h3>
-                    <p>Creación de un pequeño ventilador de escritorio, impulsado por un motor DC (como los de juguetes o impresoras viejas), con aspas hechas de plástico de botellas o CDs cortados. La base y la carcasa se construirán con materiales como cartón, envases plásticos o tubos de PVC reciclados.</p>
-                </div>
-
-                <div className="proyecto-section">
-                    <h3>Objetivos de Aprendizaje</h3>
-                    <ul>
-                        <li>Observar la conversión de energía eléctrica a energía eólica y movimiento rotatorio.</li>
-                        <li>Entender la importancia del balance de las aspas para evitar vibraciones excesivas.</li>
-                        <li>Practicar la conexión de un motor a una fuente de energía (pila o USB reciclado).</li>
-                    </ul>
-                </div>
-
-                <div className="proyecto-section">
-                    <h3>Materiales Clave</h3>
-                    <ul>
-                        <li>Motor DC pequeño (recuperado de juguetes, lectoras de CD).</li>
-                        <li>Aspas de ventilador improvisadas (hechas de tapas plásticas o CDs moldeados al calor).</li>
-                        <li>Base y estructura de cartón o plástico reciclado.</li>
-                        <li>Interruptor, cable y tubo de soporte (ej. marcador plástico vacío).</li>
-                        <li>Fuente de alimentación (pila AA/AAA o cable USB viejo).</li>
-                    </ul>
-                </div>
-
-                <div className="proyecto-section">
-                    <h3>Resultado Esperado</h3>
-                    <p>Un pequeño ventilador de escritorio funcional, seguro y construido en su totalidad con materiales útiles recuperados.</p>
-                </div>
-
-                <div className="simulacion-box">
-                    <h3>Simulación Interactiva: Motor DC Ventilador</h3>
-                    <div className="ventilador-sim-container" style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+                {/* 3. VENTILADOR PERSONAL */}
+                <ProjectCard 
+                    num="3"
+                    title="Ventilador de Escritorio"
+                    imageSrc="/proj_ventilador.png"
+                    videoId="YqXf8zXW77A" // Ejemplo de ventilador con motor
+                    description="Construye un ventilador que mueva aire real. Aprenderás sobre aspas, aerodinámica y conversión de energía rotatoria."
+                    materials={[
+                        "1 Motor DC pequeño (de juguete o DVD)",
+                        "1 CD viejo (para las aspas)",
+                        "Tubo de cartón o PVC (soporte)",
+                        "Interruptor y Cables",
+                        "Tapa de botella (nexo motor-aspas)"
+                    ]}
+                    instructions={[
+                        "Corta el CD en 4 o 6 sectores sin llegar al centro para formar las aspas. Caliéntalas un poco con un encendedor para darles ángulo.",
+                        "Pega la tapa de botella al centro del CD (aspas) y encájala en el eje del motor.",
+                        "Monta el motor en el extremo del tubo de soporte.",
+                        "Pasa los cables por dentro del tubo hasta la base.",
+                        "Conecta el interruptor y la fuente de energía en la base del soporte.",
+                        "Asegura la base con un bloque de madera o cartón pesado."
+                    ]}
+                    simOn={ventiladorOn}
+                    setSimOn={setVentiladorOn}
+                    simContent={
                         <div className={`ventilador-sim ${ventiladorOn ? 'ventilador-on' : ''}`}>
-                            <svg viewBox="0 0 100 100" width="80" height="80">
+                            <svg viewBox="0 0 100 100" width="100" height="100">
                                 <circle cx="50" cy="50" r="45" fill="none" stroke="var(--primary-color)" strokeWidth="4" />
-                                <circle cx="50" cy="50" r="10" fill="var(--glass-border)" />
-                                {/* Aspas */}
-                                <path d="M50 50 Q60 20 50 10 Q40 20 50 50" fill="var(--text-dim)" opacity="0.8" />
-                                <path d="M50 50 Q80 40 90 50 Q80 60 50 50" fill="var(--text-dim)" opacity="0.8" />
-                                <path d="M50 50 Q40 80 50 90 Q60 80 50 50" fill="var(--text-dim)" opacity="0.8" />
-                                <path d="M50 50 Q20 60 10 50 Q20 40 50 50" fill="var(--text-dim)" opacity="0.8" />
+                                <circle cx="50" cy="50" r="10" fill="#fff" />
+                                <path d="M50 50 L50 10 M50 50 L90 50 M50 50 L50 90 M50 50 L10 50" stroke="var(--primary-color)" strokeWidth="8" strokeLinecap="round" />
+                                <path d="M50 50 Q75 10 90 40 Q60 60 50 50" fill="rgba(0,242,255,0.3)" />
                             </svg>
                         </div>
-                    </div>
-                    <button 
-                        className="btn-simular" 
-                        onClick={() => setVentiladorOn(!ventiladorOn)}
-                    >
-                        {ventiladorOn ? 'Frenar Motor' : 'Encender Motor'}
-                    </button>
-                    <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--text-dim)' }}>
-                        {ventiladorOn ? 'Circuito cerrado. Motor DC girando por inducción electromagnética. Aire fluyendo.' : 'Motor detenido. Sin flujo de corriente.'}
-                    </p>
-                </div>
+                    }
+                    simStatus={{ on: "Spinning... Wind detected.", off: "Stopped. Static state." }}
+                />
+
+                {/* 4. ARAÑA ROBÓTICA (VIBROBOT) */}
+                <ProjectCard 
+                    num="4"
+                    title="Araña Robótica (Vibrobot)"
+                    imageSrc="/proj_arana.png"
+                    videoId="pGisAks_2sU" // Ejemplo de vibrobot
+                    description="Un robot que se desplaza mediante vibraciones de alta frecuencia. Parecerá que tiene vida propia al activarlo."
+                    materials={[
+                        "1 Motor de vibración (de celular viejo) o motor DC pequeño",
+                        "1 Pila de botón (CR2032) o 2 pilas AA",
+                        "Cepillo de dientes viejo (cabezal) o Alambres (patas)",
+                        "Cinta doble faz",
+                        "Ojitos locos (opcional)"
+                    ]}
+                    instructions={[
+                        "Si usas un motor DC normal, pega un pedacito de goma de borrar desfasado al eje para que vibre al girar.",
+                        "Pega el motor sobre el cuerpo (un trozo de cartón o el cabezal de un cepillo).",
+                        "Dale forma de patas a 4 trozos de alambre y pégalos a los costados del cuerpo.",
+                        "Conecta un cable a cada cara de la pila de botón usando cinta.",
+                        "Asegura la pila y el interruptor en la 'espalda' de la araña.",
+                        "Ajusta el ángulo de las patas para que el movimiento sea errático pero fluido."
+                    ]}
+                    simOn={aranaMoving}
+                    setSimOn={setAranaMoving}
+                    simContent={<div className={`arana-box ${aranaMoving ? 'arana-moving' : ''}`}>🕷️</div>}
+                    simStatus={{ on: "Vibration frequency stabilized. Movement initiated.", off: "Dormant. Waiting for signals." }}
+                />
+
             </div>
 
+            <footer style={{ marginTop: '5rem', textAlign: 'center', opacity: 0.7, padding: '2rem', borderTop: '1px solid var(--glass-border)' }}>
+                <p>© SimuTec - Proyecto Educativo. Los proyectos aquí presentados deben realizarse bajo supervisión adulta. ¡Sé creativo!</p>
+            </footer>
         </div>
     );
 };
