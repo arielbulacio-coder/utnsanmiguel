@@ -89,7 +89,7 @@ const ProyectosReciclablesPage = () => {
 
                             {imageSrc && !Array.isArray(imageSrc) && (
                                 <div className="proyecto-section">
-                                    <h3>📸 Prototipo Terminada</h3>
+                                    <h3>📸 Prototipo Terminado</h3>
                                     <div className="img-container" style={{ borderRadius: '30px', border: '1px solid #555', overflow: 'hidden', background: '#000' }}>
                                         <img src={getImagePath(imageSrc)} alt={title} style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'contain' }} />
                                     </div>
@@ -122,7 +122,7 @@ const ProyectosReciclablesPage = () => {
                             </div>
 
                             <div className="proyecto-section">
-                                <h3>⚙️ Protocolo de Manufactura Técnica</h3>
+                                <h3>⚙️ Instrucciones de Armado</h3>
                                 <ol className="instructions-list" style={{ fontSize: '1.15rem', lineHeight: '2' }}>
                                     {instructions.map((ins, i) => <li key={i} style={{ marginBottom: '18px' }}>{ins}</li>)}
                                 </ol>
@@ -177,7 +177,7 @@ const ProyectosReciclablesPage = () => {
                 {/* 1. ROBOT EXPLORADOR */}
                 <ProjectCard 
                     num="1" title="Robot Explorador Terrestre (Eco-Bot)" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" 
-                    description="Construí tu primer robot móvil usando una botella reciclada. Aprendé cómo los motores de corriente continua (CC) nos permiten explorar el entorno."
+                    description="Construí tu primer robot móvil usando una botella reciclada. Aprendé cómo los motores de corriente continua nos permiten explorar el entorno."
                     functioning={`🔬 CLASE MAGISTRAL DE MOVIMIENTO:
                     • El Motor y la Ley de Lorentz: Cuando hacés pasar corriente por los bobinados del motor, se genera un campo magnético que interactúa con los imanes permanentes. Esta fuerza produce el par motor necesario para que el eje gire. 
                     • Inercia y Rozamiento: El chasis (la botella PET) se resiste al cambio de velocidad por culpa de la Inercia. Para que el robot logre avanzar, las ruedas necesitan 'agarrarse' al suelo.
@@ -246,7 +246,7 @@ const ProyectosReciclablesPage = () => {
                 {/* 4. ENJAMBRE VIBROBOT */}
                 <ProjectCard 
                     num="4" title="Enjambre de Micro-Robots Vibratorios" imageSrc="/proj_arana.png" videoId="pGisAks_2sU" 
-                    description="Mini-robots capables de desplazarse mediante impulsos vibratorios rítmicos. Estudio de la cinemática experimental."
+                    description="Mini-robots capaces de desplazarse mediante impulsos vibratorios rítmicos. Estudio de la cinemática experimental."
                     functioning={`🕷️ FÍSICA DE OSCILACIÓN:
                     • Masa Excéntrica: Generamos una fuerza centrífuga cíclica mediante un desbalance en el eje.
                     • Elasticidad: Las patas actúan como resortes que convierten el temblor en avance direccional.
