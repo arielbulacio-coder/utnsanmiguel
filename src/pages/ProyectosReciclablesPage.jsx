@@ -74,14 +74,14 @@ const ProyectosReciclablesPage = () => {
                     </h2>
                     
                     <div className="proyecto-section technical-header">
-                        <h3>🇦🇷 Proyecto Tecnológico Escolar</h3>
+                        <h3>🤖 Robótica Educativa: El Desafío</h3>
                         <p style={{ fontSize: '1.25rem', lineHeight: '1.75', color: '#eee' }}>{description}</p>
                     </div>
 
                     <div className="proyecto-info-grid">
                         <div className="info-left">
                             <div className="proyecto-section theory-section">
-                                <h3>📚 Manual de Ingeniería y Teoría Científica</h3>
+                                <h3>📚 Manual del Pequeño Ingeniero</h3>
                                 <div className="theory-block" style={{ fontSize: '1rem', whiteSpace: 'pre-line', background: 'rgba(0,25,50,0.85)', padding: '35px', borderRadius: '30px', borderLeft: '8px solid var(--primary-color)', marginBottom: '2rem', lineHeight: '1.9', textAlign: 'justify', border: '1px solid rgba(0,242,255,0.2)', color: '#fff', boxShadow: 'inset 0 0 50px rgba(0,0,0,0.7)' }}>
                                     {functioning}
                                 </div>
@@ -89,7 +89,7 @@ const ProyectosReciclablesPage = () => {
 
                             {imageSrc && !Array.isArray(imageSrc) && (
                                 <div className="proyecto-section">
-                                    <h3>📸 Prototipo Final en Laboratorio</h3>
+                                    <h3>📸 Prototipo Terminada</h3>
                                     <div className="img-container" style={{ borderRadius: '30px', border: '1px solid #555', overflow: 'hidden', background: '#000' }}>
                                         <img src={getImagePath(imageSrc)} alt={title} style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'contain' }} />
                                     </div>
@@ -98,7 +98,7 @@ const ProyectosReciclablesPage = () => {
 
                             {Array.isArray(imageSrc) && (
                                 <div className="proyecto-section">
-                                    <h3>📑 Glosario Visual de Componentes</h3>
+                                    <h3>📑 Glosario Visual de Robótica</h3>
                                     <div className="gallery-grid">
                                         {imageSrc.map((src, i) => (
                                             <div key={i} style={{ background: '#050505', borderRadius: '25px', border: '1px solid #444', overflow: 'hidden' }}>
@@ -113,7 +113,7 @@ const ProyectosReciclablesPage = () => {
 
                         <div className="info-right">
                             <div className="proyecto-section">
-                                <h3>🛠️ Los Materiales (Listado BOM)</h3>
+                                <h3>🛠️ Materiales Necesarios (BOM)</h3>
                                 <div className="materials-list">
                                     <ul style={{ padding: 0, listStyle: 'none' }}>
                                         {materials.map((mat, i) => <li key={i} style={{ padding: '14px 0', borderBottom: '1px solid rgba(255,255,255,0.08)', fontSize: '1.1rem' }}>✅ {mat}</li>)}
@@ -134,7 +134,7 @@ const ProyectosReciclablesPage = () => {
                                 </div>
                                 <div className="sim-controls" style={{ zIndex: 10, position: 'relative', width: '100%' }}>
                                     <button className="btn-toggle-sim" style={{ padding: '1.5rem', fontSize: '1.2rem', fontWeight: 'bold' }} onClick={() => setSimOn(!simOn)}>
-                                        {simOn ? '🛑 Finalizar Pruebas' : '▶️ Ejecutar Simulación'}
+                                        {simOn ? '🛑 Frenar el Laboratorio' : '▶️ ¡Dale vida al Robot!'}
                                     </button>
                                     <div className={`sim-status ${simOn ? 'status-on' : 'status-off'}`} style={{ fontSize: '1.4rem', marginTop: '20px', fontWeight: '900' }}>
                                         {simOn ? '>>> SISTEMA EN OPERACIÓN <<<' : '>>> SISTEMA EN STANDBY <<<'}
@@ -168,54 +168,51 @@ const ProyectosReciclablesPage = () => {
     return (
         <div className="proyectos-container fade-in">
             <header className="proyectos-header" style={{ borderBottom: '6px solid var(--primary-color)', paddingBottom: '3.5rem', marginBottom: '5rem', background: 'linear-gradient(180deg, rgba(0,20,40,0.8) 0%, transparent 100%)' }}>
-                <h1 style={{ fontWeight: '900', letterSpacing: '5px' }}>🇦🇷 SIMUTEC: ROBÓTICA Y CIENCIA</h1>
+                <h1 style={{ fontWeight: '900', letterSpacing: '5px' }}>🚀 ROBÓTICA EDUCATIVA: PROYECTOS CON RECICLADOS</h1>
                 <p style={{ fontSize: '1.7rem', fontWeight: '300', opacity: 0.9 }}>Laboratorio Nacional de Ingeniería, Diseño Sustentable y Biotecnología.</p>
             </header>
 
             <div className="proyecto-grid">
                 
-                {/* 1. ECO ROVER */}
+                {/* 1. ROBOT EXPLORADOR */}
                 <ProjectCard 
-                    num="1" title="Unidad de Tracción Diferencial (Eco-Rover)" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" 
-                    description="Construí un vehículo capaz de desplazarse mediante la conversión de energía electroquímica. Estudio de Motores DC y Rozamiento Estático."
+                    num="1" title="Robot Explorador Terrestre (Eco-Bot)" imageSrc="/proj_robot.png" videoId="9-yLdInA_6c" 
+                    description="Construí tu primer robot móvil usando una botella reciclada. Aprendé cómo los motores de corriente continua (CC) nos permiten explorar el entorno."
                     functioning={`🔬 CLASE MAGISTRAL DE MOVIMIENTO:
                     • El Motor y la Ley de Lorentz: Cuando hacés pasar corriente por los bobinados del motor, se genera un campo magnético que interactúa con los imanes permanentes. Esta fuerza produce el par motor necesario para que el eje gire. 
                     • Inercia y Rozamiento: El chasis (la botella PET) se resiste al cambio de velocidad por culpa de la Inercia. Para que el robot logre avanzar, las ruedas necesitan 'agarrarse' al suelo.
                     • Fuerza Contraelectromotriz (Back EMF): Cuando los motores giran re-rápido, ellos mismos crean un voltaje que se opone al de la pila, limitando la velocidad máxima.`}
-                    materials={["Chasis de Botella PET", "2 Motores DC", "Pilas AA", "4 Tapitas de Gaseosa"]} 
-                    instructions={["Paso 1: Montá los motores alineados.", "Paso 2: Realizá la conexión eléctrica en paralelo.", "Paso 3: Verificá la polaridad.", "Paso 4: ¡Probá tu Eco-Rover!"]} 
+                    materials={["Chasis PET", "2 Motores CC de 3V", "Pilas AA", "Ruedas de Tapita"]} 
+                    instructions={["Paso 1: Pegá los motores a la base de la botella.", "Paso 2: Conectalos en paralelo a las pilas.", "Paso 3: Verificá que la polaridad sea correcta.", "Paso 4: ¡Dejá que tu explorador recorra la mesa!"]} 
                     simOn={robotMoving} setSimOn={setRobotMoving} 
-                    simStatus={{info: "Tracción Diferencial: Motores en Paralelo"}}
+                    simStatus={{info: "Tracción Diferencial Activa"}}
                     simContent={
                         <div style={{ position: 'relative', width: '300px', height: '220px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                             <div style={{ position: 'absolute', width: '130px', height: '60px', background: 'rgba(0,242,255,0.05)', borderRadius: '30px', border: '2px solid rgba(0,242,255,0.2)' }}></div>
                             <div style={{ position: 'absolute', left: '40px', top: '50px' }}>
-                                <Comp label="ACTUADOR IZQ" color="#222">🔘</Comp>
+                                <Comp label="MOTOR A" color="#222">🔘</Comp>
                                 <div style={{ position: 'absolute', left: '-35px', top: '10px', fontSize: '2.5rem', ... (robotMoving ? {animation: 'spin 0.3s linear infinite'} : {}) }}>☸️</div>
                             </div>
                             <div style={{ position: 'absolute', right: '40px', top: '50px' }}>
-                                <Comp label="ACTUADOR DER" color="#222">🔘</Comp>
+                                <Comp label="MOTOR B" color="#222">🔘</Comp>
                                 <div style={{ position: 'absolute', right: '-35px', top: '10px', fontSize: '2.5rem', ... (robotMoving ? {animation: 'spin 0.3s linear infinite'} : {}) }}>☸️</div>
-                            </div>
-                            <div style={{ position: 'absolute', bottom: '20px' }}>
-                                <Comp label="CELDAS 3V" color="#222">🔋</Comp>
                             </div>
                         </div>
                     } 
                 />
 
-                {/* 2. VELADOR LED */}
+                {/* 2. LUMINARIA ELECTRÓNICA */}
                 <ProjectCard 
-                    num="2" title="Velador LED (Carcasa Reflectora)" imageSrc="/proj_velador.png" videoId="P7K-MiwXo6g" 
-                    description="Diseño de una luminaria eficiente basada en el salto cuántico de electrones. Estudio de la Ley de Ohm."
+                    num="2" title="Luminaria Electrónica Sustentable" imageSrc="/proj_velador.png" videoId="P7K-MiwXo6g" 
+                    description="Diseño de un sistema de iluminación inteligente usando semiconductores y materiales de desecho metálico."
                     functioning={`🔌 CIENCIA DE LOS SEMICONDUCTORES:
                     • Salto Cuántico: El LED emite fotones gracias a que los electrones saltan entre cristales semiconductores.
                     • Regulador por Resistencia: Limitamos el flujo de corriente para evitar la ruptura térmica mediante una resistencia de 220 Ω.
                     • Geometría Reflectora: Usamos una lata cilíndrica para rebotar los fotones hacia un solo eje.`}
-                    materials={["Diodo LED", "Resistencia de 220 Ω", "Cable USB", "Lata de arvejas", "CD"]} 
-                    instructions={["Paso 1: Soldá la resistencia al LED.", "Paso 2: Conectá los 5V USB.", "Paso 3: Montá dentro de la lata.", "Paso 4: ¡Usá el CD de base!"]} 
+                    materials={["LED Brillante", "Resistencia Limitadora", "Cable USB", "Lata de Conserva", "CD"]} 
+                    instructions={["Paso 1: Soldá la resistencia al LED.", "Paso 2: Conectá los 5V USB.", "Paso 3: Montá el reflector.", "Paso 4: ¡Iluminá tu espacio de estudio!"]} 
                     simOn={veladorOn} setSimOn={setVeladorOn} 
-                    simStatus={{info: "Fotónica: Emisión por Semiconductores"}}
+                    simStatus={{info: "Fotónica Aplicada"}}
                     simContent={
                         <div style={{ position: 'relative', width: '300px', height: '240px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                             <div style={{ position: 'absolute', bottom: '30px', width: '120px', height: '10px', background: 'silver', borderRadius: '50%', opacity: 0.5 }}></div>
@@ -226,67 +223,67 @@ const ProyectosReciclablesPage = () => {
                     } 
                 />
 
-                {/* 3. VENTILADOR CD */}
+                {/* 3. TURBO VENTILADOR */}
                 <ProjectCard 
-                    num="3" title="Ventilador CD (Turbina Axial)" imageSrc="/proj_ventilador.png" videoId="0XfR0fGq7e8" 
-                    description="Desarrollo de una hélice de alto flujo mediante polímeros reciclados. Estudio del Efecto Bernoulli."
+                    num="3" title="Turbo-Ventilador Experimental" imageSrc="/proj_ventilador.png" videoId="0XfR0fGq7e8" 
+                    description="Desarrollo de una turbina de flujo axial optimizada mediante materiales poliméricos deformados térmicamente."
                     functioning={`🌀 DINÁMICA DE FLUIDOS:
                     • Efecto Bernoulli: La diferencia de presión generada por las aspas tracciona el aire hacia adelante.
                     • Par Motor: Los motores DC giran a miles de RPM convirtiendo la energía eléctrica en cinética de aire.
                     • Balance Dinámico: Evitamos la vibración centrando el eje de rotación.`}
-                    materials={["Motor DC", "CD Reciclado", "Base de Madera", "Cable USB"]} 
-                    instructions={["Paso 1: Cortá y doblá el CD.", "Paso 2: Fijá el motor a la base.", "Paso 3: Conectá al USB.", "Paso 4: ¡Probá tu turbina!"]} 
-                    simOn={ventiladorOn} setSimOn={setVentiladorOn} 
-                    simStatus={{info: "Mecánica: Flujo de Aire Turbulento"}}
+                    materials={["Motor DC Rápido", "CD Reciclado", "Hélice Térmica", "Soporte Estable"]} 
+                    instructions={["Paso 1: Deformá el CD con calor.", "Paso 2: Acoplá el motor.", "Paso 3: Conectá la potencia.", "Paso 4: ¡Sentí la fuerza del aire!"]} 
+                    simOn={ventiladorOn} setSimOn={setVeladorOn} 
+                    simStatus={{info: "Flotabilidad y Flujo de Aire"}}
                     simContent={
                         <div style={{ position: 'relative', width: '300px', height: '240px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <Comp label="MOTOR DC" color="#222">🔘</Comp>
+                            <Comp label="CORE MOTOR" color="#222">🔘</Comp>
                             <div style={{ position: 'absolute', top: '10px', fontSize: '7rem', opacity: 0.9, ... (ventiladorOn ? {animation: 'spin 0.15s linear infinite'} : {}) }}>💿</div>
                         </div>
                     } 
                 />
 
-                {/* 4. VIBROBOT */}
+                {/* 4. ENJAMBRE VIBROBOT */}
                 <ProjectCard 
-                    num="4" title="Micro-Robot Araña (Vibrobot)" imageSrc="/proj_arana.png" videoId="pGisAks_2sU" 
-                    description="Experimento de locomoción por vibración. Estudio sobre inercia rotacional y fuerzas centrífugas."
+                    num="4" title="Enjambre de Micro-Robots Vibratorios" imageSrc="/proj_arana.png" videoId="pGisAks_2sU" 
+                    description="Mini-robots capaces de desplazarse mediante impulsos vibratorios rítmicos. Estudio de la cinemática experimental."
                     functioning={`🕷️ FÍSICA DE OSCILACIÓN:
                     • Masa Excéntrica: Generamos una fuerza centrífuga cíclica mediante un desbalance en el eje.
                     • Elasticidad: Las patas actúan como resortes que convierten el temblor en avance direccional.
                     • Fricción Estática: La vibración vence la inercia del sistema permitiendo el desplazamiento.`}
-                    materials={["Micro-motor DC", "Masa excéntrica", "Pila botón 3V", "Alambres"]} 
-                    instructions={["Paso 1: Diseñá las 6 patas.", "Paso 2: Integrá el contrapeso.", "Paso 3: Conectá la batería.", "Paso 4: ¡Mirá cómo corre!"]} 
+                    materials={["Micro-motor DC", "Masa Desbalanceada", "Pila Botón", "Patas de Alambre"]} 
+                    instructions={["Paso 1: Armá la estructura elástica.", "Paso 2: Acoplá la masa excéntrica.", "Paso 3: Cerrá el circuito.", "Paso 4: ¡Mirá el comportamiento del enjambre!"]} 
                     simOn={aranaMoving} setSimOn={setAranaMoving} 
-                    simStatus={{info: "Cinética: Locomoción por Vibración"}}
+                    simStatus={{info: "Cinética de Vibración"}}
                     simContent={
                         <div style={{ position: 'relative', width: '300px', height: '220px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                             <div className={aranaMoving ? 'arana-moving' : ''} style={{ position: 'relative', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '15px' }}>
-                                <Comp label="CORE MOTOR" color="#111">⚙️</Comp>
+                                <Comp label="CORE ACTUADOR" color="#111">⚙️</Comp>
                                 <div style={{ position: 'absolute', top: '5px', right: '5px', fontSize: '1rem', animation: aranaMoving ? 'jitter 0.1s infinite' : 'none' }}>⚖️</div>
                             </div>
                         </div>
                     } 
                 />
 
-                {/* 5. AMPLIFICADOR */}
-                <ProjectCard num="5" title="Amplificador Hi-Fi TDA 2005" imageSrc="/proj_amp.png" videoId="cEoyOaW9a9k" description="Procesamiento analógico de potencia sonora." functioning="🔊 Ganancia: Amplificamos milivoltios a vatios realies. Disipación: El aluminio evacúa calor." materials={["TDA 2005", "Batería 12V"]} instructions={["Montar disipador.", "Soldar capacitores.", "Test de audio."]} simOn={ampActive} setSimOn={setAmpActive} simStatus={{info: "Audio de Alta Fidelidad"}} simContent={<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'25px'}}><Comp label="CHIP TDA">🔳</Comp><Comp label="DB">🔊</Comp></div>} />
+                {/* 5. AUDIO HI-FI */}
+                <ProjectCard num="5" title="Sistema de Audio Hi-Fi DIY" imageSrc="/proj_amp.png" videoId="cEoyOaW9a9k" description="Procesamiento analógico de potencia sonora para reproductores digitales." functioning="🔊 Ganancia: Amplificamos señales débiles. Disipación: El aluminio evacúa calor eficiente." materials={["Chip TDA 2005", "Disipador Térmico"]} instructions={["Montar chip.", "Soldar filtros.", "Calibrar entrada."]} simOn={ampActive} setSimOn={setAmpActive} simStatus={{info: "Procesamiento de Audio"}} simContent={<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'25px'}}><Comp label="AMPLIFICADOR">🔳</Comp><Comp label="SALIDA">🔊</Comp></div>} />
 
-                {/* 6. EVITA OBSTACULOS */}
-                <ProjectCard num="6" title="Robot Evita-Obstáculos Autónomo" imageSrc="/proj_evita.png" videoId="f-a4Kz2p2vY" description="Navegación inteligente asistida por sonar." functioning="🛰️ Ultrasonido: Enviamos pulsos a 40kHz y medimos el eco. Lógica: Decisiones autonómas por código." materials={["Arduino", "Sensor HC-SR04"]} instructions={["Calibrar sonar.", "Cargar código.", "Ruta libre."]} simOn={evitaActive} setSimOn={setEvitaActive} simStatus={{info: "Cibernética: Sonar Activo"}} simContent={<div style={{display:'flex',gap:'30px'}}><Comp label="ARDUINO">🟦</Comp><Comp label="SENS">👀</Comp></div>} />
+                {/* 6. ROBOT EVASOR */}
+                <ProjectCard num="6" title="Robot Inteligente Autónomo (Evasor)" imageSrc="/proj_evita.png" videoId="f-a4Kz2p2vY" description="Entidad robótica capaz de tomar decisiones espaciales mediante sonar por eco-localización." functioning="🛰️ Ultrasonido: Pulsos de 40kHz para mapear el entorno. Lógica: Algoritmos de evasión por software." materials={["Arduino", "Sensor Ultrasónico"]} instructions={["Configurar sonar.", "Cargar lógica.", "Ruta libre."]} simOn={evitaActive} setSimOn={setEvitaActive} simStatus={{info: "Navegación Cibernética"}} simContent={<div style={{display:'flex',gap:'30px'}}><Comp label="ARDUINO">🟦</Comp><Comp label="OJOS SONAR">👀</Comp></div>} />
 
-                {/* 7. SOLDADURA */}
-                <ProjectCard num="7" title="Taller de Soldadura Técnica" videoId="v=J5Sb21qbpEQ" description="Metalurgia electrónica y uniones intermetálicas." functioning="🩹 Eutéctico: El estaño se mezcla con el cobre atómicamente. Flux: Limpieza química del pad." materials={["Soldador", "Estaño", "Pasta"]} instructions={["Calentar placa.", "Aportar estaño.", "Punto espejo."]} simOn={solderActive} setSimOn={setSolderActive} simStatus={{info: "Manufactura Técnica"}} simContent={<div style={{display:'flex',gap:'40px'}}><Comp label="PUNTA">🖍️</Comp><Comp label="PAD">📍</Comp></div>} />
+                {/* 7. PRACTICA SOLDADURA */}
+                <ProjectCard num="7" title="Práctica de Soldadura Profesional" videoId="v=J5Sb21qbpEQ" description="Dominio de uniones intermetálicas definitivas. Un arte esencial para todo técnico." functioning="🩹 Eutéctico: Aleación Sn/Pb para uniones de baja resistencia. Flux: Limpieza química para mojado de pads." materials={["Soldador", "Estaño", "Flux"]} instructions={["Calentar placa.", "Aportar metal.", "Enfriamiento."]} simOn={solderActive} setSimOn={setSolderActive} simStatus={{info: "Manufactura PCB"}} simContent={<div style={{display:'flex',gap:'40px'}}><Comp label="PUNTA TÉRMICA">🖍️</Comp><Comp label="PAD PCB">📍</Comp></div>} />
 
-                {/* 8. HUERTA SOLAR SMART */}
+                {/* 8. HUERTA TECNIFICADA */}
                 <ProjectCard 
-                    num="8" title="Eco-Huerta Solar con Iluminación PAR" imageSrc="/proj_huerta.png" videoId="zFfP1vS8Z4c" 
-                    description="Ingeniería sustentable y biotecnología aplicada."
+                    num="8" title="Sistema de Huerta Tecnificada Solar" imageSrc="/proj_huerta.png" videoId="zFfP1vS8Z4c" 
+                    description="Automatización de cultivos mediante energía fotovoltaica y optimización lumínica PAR."
                     functioning={`🌿 ECO-TECNOLOGÍA:
                     • Fotovoltaica: Los fotones excitan al Silicio para generar electricidad.
                     • PAR: Luz Azul (450nm) y Roja (660nm) para fotosíntesis forzada.
                     • Gestión: El regulador protege la batería inteligentemente.`}
-                    materials={["Panel Solar", "Regulador", "LEDs Grow"]} 
-                    instructions={["Paso 1: Panel al Norte.", "Paso 2: Conectar regulador.", "Paso 3: Luces PAR.", "Paso 4: ¡Crecer!"]} 
+                    materials={["Panel Fotovoltaico", "Regulador Inteligente", "Luminaria Grow"]} 
+                    instructions={["Paso 1: Orientar al Norte.", "Paso 2: Conectar batería.", "Paso 3: Configurar luces.", "Paso 4: ¡Cultivar ciencia!"]} 
                     imageSrc={[
                         { url: '/proj_huerta_schem.png', label: '📑 Ingeniería' },
                         { url: '/proj_huerta_wire.png', label: '🔌 Conexiones' },
@@ -296,31 +293,31 @@ const ProyectosReciclablesPage = () => {
                         { url: '/proj_huerta.png', label: '🌿 Planta Lab' }
                     ]} 
                     simOn={huertaActive} setSimOn={setHuertaActive} 
-                    simStatus={{info: "Gestión Inteligente"}}
+                    simStatus={{info: "Gestión Bio-Solar"}}
                     simContent={
                         <div style={{ position: 'relative', width: '310px', height: '300px', background: isDay ? '#151515' : '#050520', borderRadius: '35px', padding: '25px', border: '2px solid #333' }}>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                                 <Comp label="SOLAR" color="#003">{isDay ? '☀️' : '🌙'}</Comp>
-                                <Comp label="CPU" color="#111">📟</Comp>
-                                <Comp label="BATT" color="#222">🔋</Comp>
-                                <div style={{ color: !isDay && huertaActive ? '#f0f' : '#333' }}><Comp label="GROW" color="transparent">🟣🟣</Comp></div>
+                                <Comp label="CONTROLLER" color="#111">📟</Comp>
+                                <Comp label="BATTERY" color="#222">🔋</Comp>
+                                <div style={{ color: !isDay && huertaActive ? '#f0f' : '#333' }}><Comp label="GROW LIGHT" color="transparent">🟣🟣</Comp></div>
                             </div>
                             <div style={{ position: 'absolute', bottom: '25px', right: '40px', fontSize: '4.5rem' }}>🌱</div>
                         </div>
                     } 
                 />
 
-                {/* 9. ROBOT SUMO */}
-                <ProjectCard num="9" title="Robot Sumo de Competición" imageSrc="/proj_sumo.png" videoId="a_A5uC6_QpY" description="Equilibrio técnico y estrategia autónoma." functioning="🚜 Geometría: CoG bajo para estabilidad. Infrarrojo: Detección de perímetro TCRT5000." materials={["Arduino", "Motores Torque"]} instructions={["Armar chasis.", "Testear IR.", "Entrar al ring."]} simOn={sumoActive} setSimOn={setSumoActive} simStatus={{info: "Búsqueda Infrarroja"}} simContent={<div style={{border:'5px solid #eee',borderRadius:'50%',padding:'35px'}}><Comp label="SUMO BOT">🚜</Comp></div>} />
+                {/* 9. DESAFIO SUMO */}
+                <ProjectCard num="9" title="Robot de Competición: Desafío de Sumo" imageSrc="/proj_sumo.png" videoId="a_A5uC6_QpY" description="Máquina de combate autónoma diseñada para el control espacial y el empuje de alta potencia." functioning="🚜 Geometría: Centro de gravedad bajo. Percepción: Sensores infrarrojos para detección de bordes y enemigos." materials={["Arduino", "Motores High Torque"]} instructions={["Armar chasis pesado.", "Lógica de ataque.", "Duelo en el ring."]} simOn={sumoActive} setSimOn={setSumoActive} simStatus={{info: "Algoritmo de Combate"}} simContent={<div style={{border:'5px solid #eee',borderRadius:'50%',padding:'35px'}}><Comp label="RETA SUMO">🚜</Comp></div>} />
 
-                {/* 10. ROBOT FUTBOL */}
-                <ProjectCard num="10" title="Robot Futbolista Controlado" imageSrc="/proj_futbol.png" videoId="pIkTWh2V0Yw" description="Telemetría inalámbrica y servomécanica deportiva." functioning="⚽ Bluetooth UART: Control vía radiofrecuencia. Serovmecanismo: Actuador de tiro de precisión." materials={["Arduino", "Bluetooth", "Servo"]} instructions={["Vincular BT.", "Calibrar servo.", "Arranque 2v2."]} simOn={futbolActive} setSimOn={setFutbolActive} simStatus={{info: "Conectividad Bluetooth"}} simContent={<div style={{background:'#1b5e20',padding:'35px',borderRadius:'30px',border:'3px solid #fff'}}><Comp label="GOAT 10">🚜</Comp><div style={{marginTop:'18px'}}>⚽</div></div>} />
+                {/* 10. TORNEO FUTBOL */}
+                <ProjectCard num="10" title="Robot de Competición: Torneo de Fútbol" imageSrc="/proj_futbol.png" videoId="pIkTWh2V0Yw" description="Sistema de telemetría y actuación mecánica de alta velocidad para deportes robóticos." functioning="⚽ Bluetooth: Comunicación inalámbrica a 2.4GHz. Actuador: Servomecanismo de posición para disparo de precisión." materials={["Arduino + BT", "Servo de Tiro"]} instructions={["Sincronizar móvil.", "Probar patada.", "¡Ganar el torneo!"]} simOn={futbolActive} setSimOn={setFutbolActive} simStatus={{info: "Telemetría Estable"}} simContent={<div style={{background:'#1b5e20',padding:'35px',borderRadius:'30px',border:'3px solid #fff'}}><Comp label="CRAK 10">🚜</Comp><div style={{marginTop:'18px'}}>⚽</div></div>} />
 
             </div>
 
             <footer style={{ marginTop: '12rem', textAlign: 'center', opacity: 0.8, padding: '10rem', borderTop: '4px solid rgba(0,242,255,0.5)' }}>
-                <p style={{ fontSize: '1.6rem', fontWeight: '900', color: 'var(--primary-color)', letterSpacing: '5px' }}>SIMUTEC 2026</p>
-                <p style={{ fontSize: '1.2rem', marginTop: '18px' }}>© SimonTec.com.ar - Laboratorio Tecnológico Escolar.</p>
+                <p style={{ fontSize: '1.6rem', fontWeight: '900', color: 'var(--primary-color)', letterSpacing: '5px' }}>ROBÓTICA EDUCATIVA - SIMUTEC 2026</p>
+                <p style={{ fontSize: '1.2rem', marginTop: '18px' }}>© SimonTec.com.ar - Formando a los próximos Inventores Argentinos.</p>
             </footer>
         </div>
     );
