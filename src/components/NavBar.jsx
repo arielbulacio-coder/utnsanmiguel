@@ -178,7 +178,8 @@ const NavBar = () => {
                     <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
                         <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Historia de la Computación</div>
                         <Link to="/generaciones-computadoras" style={linkStyle} onClick={closeAll}>🎮 Generaciones de Computadoras</Link>
-                        <Link to="/arquitectura-von-neumann" style={linkStyle} onClick={closeAll}>⚙️ Modelo de Von Neumann</Link>
+                        <Link to="/arquitectura-von-neumann" style={linkStyle} onClick={closeAll}>⚙️ Arquitectura Von Neumann</Link>
+                        <Link to="/arquitectura-harvard" style={linkStyle} onClick={closeAll}>🔬 Arquitectura Harvard</Link>
                     </div>
                 </div>
 
