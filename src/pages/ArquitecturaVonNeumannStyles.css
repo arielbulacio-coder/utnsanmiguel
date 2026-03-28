@@ -52,7 +52,7 @@
 .simulator-board {
     display: grid;
     grid-template-columns: 1fr 60px 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
     position: relative;
     min-height: 350px;
     align-items: center;
@@ -70,6 +70,7 @@
     gap: 0.5rem;
     z-index: 2;
     font-size: 0.8rem;
+    overflow: hidden; /* Evita que el contenido desborde */
 }
 
 .component-box h2 {
@@ -144,58 +145,65 @@
     font-size: 0.85rem;
 }
 
-/* RESPONSIVE FIXES */
+/* RESPONSIVE FIXES - PREVENIR SUPERPOSICION */
 @media (max-width: 768px) {
     .vn-simulation-wrapper {
-        padding: 1rem;
-        max-height: none;
+        padding: 0.75rem;
+        max-height: none; /* Permitir scroll vertical en móvil */
         overflow: visible;
     }
 
     .simulator-board {
         grid-template-columns: 1fr;
-        grid-template-rows: auto 40px auto;
-        gap: 0.5rem;
+        grid-template-rows: auto auto auto auto; /* Mas filas separadas */
+        gap: 1.5rem; /* Aumentar gap para no solapar */
+        min-height: auto;
     }
     
     .bus-system {
         grid-column: 1;
         flex-direction: row;
-        height: 30px;
-        gap: 1rem;
+        height: 50px; /* Mas alto para que no se pegue */
+        gap: 0.5rem;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .bus-trunk {
+        flex: 1;
+        height: 8px;
     }
 
     .component-box {
         padding: 0.75rem;
+        width: 100%;
+        position: relative !important; /* Forzar posicionamiento limpio */
+    }
+
+    .io-box {
+        grid-column: 1;
     }
 
     .vn-sidebar {
         grid-template-columns: 1fr;
+        margin-top: 2rem;
     }
 
     .log-panel {
-        max-height: 60px;
+        max-height: 100px;
     }
 }
 
-/* Quiz Card - Maintain standard padding but clear widths */
+/* Quiz Card */
 .quiz-card {
     background: var(--glass);
-    border-radius: 24px;
+    border-radius: 20px;
     padding: 1.5rem;
     margin: 2rem 0;
-    max-width: 100%;
-    overflow-x: hidden;
 }
 
 .options-grid {
     grid-template-columns: 1fr !important;
-    gap: 0.8rem !important;
-}
-
-.option-btn {
-    padding: 1rem !important;
-    font-size: 0.95rem !important;
 }
 
 @keyframes slideIn { from { opacity: 0; transform: translateX(-50%); } to { opacity: 1; transform: translateX(0); } }
