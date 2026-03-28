@@ -2,349 +2,366 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './ArquitecturaVonNeumannStyles.css';
 
-const ArquitecturaVonNeumannPage = () => {
-    const [phase, setPhase] = useState('IDLE'); // IDLE, FETCH, DECODE, EXECUTE, STORE
-    const [dataFlow, setDataFlow] = useState({ active: false, type: '', from: '', to: '' });
-    const [bottleneckActive, setBottleneckActive] = useState(false);
-    const [instruction, setInstruction] = useState({ op: 'LOAD', addr: '0x1A', val: '42' });
-    const [logs, setLogs] = useState(['Sistema iniciado. Esperando instrucción...']);
-    const [cycleCount, setCycleCount] = useState(0);
+const questions = [
+    {
+        q: '¿Quién propuso la arquitectura que utiliza una única memoria para datos e instrucciones?',
+        options: ['Alan Turing', 'John von Neumann', 'Blaise Pascal', 'Ada Lovelace'],
+        correct: 1,
+        explanation: 'John von Neumann detalló este diseño en 1945, permitiendo que programas y datos compartan el mismo espacio.'
+    },
+    {
+        q: '¿Cuál es la función principal de la ALU?',
+        options: ['Almacenar archivos', 'Realizar cálculos matemáticos y lógicos', 'Controlar el mouse', 'Enfriar el procesador'],
+        correct: 1,
+        explanation: 'La Arithmetic Logic Unit es el motor de cálculo de la CPU.'
+    },
+    {
+        q: '¿Qué componente coordina el flujo de datos dentro de la CPU?',
+        options: ['Memoria RAM', 'Unidad de Control', 'Disco Rígido', 'Bus de Datos'],
+        correct: 1,
+        explanation: 'La Unidad de Control (UC) actúa como el director de orquesta del sistema.'
+    },
+    {
+        q: '¿Cómo se llama el problema de velocidad causado por el canal compartido entre CPU y Memoria?',
+        options: ['Cuello de botella de Von Neumann', 'Saturación de RAM', 'Fuga de memoria', 'Lag de bus'],
+        correct: 0,
+        explanation: 'Ocurre porque la CPU debe esperar a que los datos viajen por el bus compartido, limitando el rendimiento.'
+    },
+    {
+        q: '¿Qué bus es unidireccional y sale de la CPU hacia la memoria?',
+        options: ['Bus de Datos', 'Bus de Control', 'Bus de Direcciones', 'Bus de Poder'],
+        correct: 2,
+        explanation: 'El bus de direcciones solo lleva la ubicación de memoria que la CPU desea acceder.'
+    },
+    {
+        q: '¿Qué registro almacena la dirección de la próxima instrucción a ejecutar?',
+        options: ['Acumulador', 'Program Counter (PC)', 'Instruction Register (IR)', 'Stack Pointer'],
+        correct: 1,
+        explanation: 'El Contador de Programa (PC) siempre apunta a la siguiente instrucción en la lista.'
+    },
+    {
+        q: '¿Qué registro contiene la instrucción que se está ejecutando actualmente?',
+        options: ['Instruction Register (IR)', 'PC', 'MAR', 'MDR'],
+        correct: 0,
+        explanation: 'El Registro de Instrucción (IR) guarda el código de operación mientras es decodificado.'
+    },
+    {
+        q: '¿Cuál es la primera fase del ciclo de instrucción?',
+        options: ['Decode', 'Execute', 'Fetch (Búsqueda)', 'Store'],
+        correct: 2,
+        explanation: 'Fetch es el proceso de traer la instrucción desde la memoria RAM a la CPU.'
+    },
+    {
+        q: '¿Qué bus transporta las señales de "Lectura" o "Escritura"?',
+        options: ['Bus de Datos', 'Bus de Direcciones', 'Bus de Control', 'Bus Serial'],
+        correct: 2,
+        explanation: 'El bus de control sincroniza las acciones de los componentes.'
+    },
+    {
+        q: 'En el modelo de Von Neumann, ¿dónde residen los programas antes de ejecutarse?',
+        options: ['En el monitor', 'En la Memoria Principal (RAM)', 'Solo en el registro PC', 'En la ALU'],
+        correct: 1,
+        explanation: 'Tanto instrucciones como datos deben cargarse en la RAM para ser procesados.'
+    },
+    {
+        q: '¿Qué arquitectura separa físicamente la memoria de datos de la de instrucciones?',
+        options: ['Von Neumann', 'Arquitectura Harvard', 'X86', 'RISC'],
+        correct: 1,
+        explanation: 'Harvard usa buses independientes, evitando el "cuello de botella" tradicional.'
+    },
+    {
+        q: '¿Qué componente de la CPU determina qué operación debe realizar la ALU?',
+        options: ['Reloj del sistema', 'Unidad de Control', 'Registro de Estado', 'Caché'],
+        correct: 1,
+        explanation: 'La UC decodifica la instrucción y envía las señales de habilitación a la ALU.'
+    },
+    {
+        q: '¿Qué sucede en la fase de "Write back" o Almacenamiento?',
+        options: ['Se apaga la PC', 'Se borra la RAM', 'El resultado se guarda en memoria o registros', 'Se pide una nueva dirección'],
+        correct: 2,
+        explanation: 'Es el paso final donde el resultado del cálculo se hace persistente en el destino.'
+    },
+    {
+        q: '¿Los buses de datos son bidireccionales?',
+        options: ['No, solo van hacia la CPU', 'Sí, permiten lectura y escritura', 'Solo en PCs antiguas', 'Depende del sistema operativo'],
+        correct: 1,
+        explanation: 'Los buses de datos deben permitir que la información entre y salga de la CPU.'
+    },
+    {
+        q: '¿Qué registro de la CPU guarda temporalmente los resultados de la ALU?',
+        options: ['Program Counter', 'Acumulador', 'RAM', 'BIOS'],
+        correct: 1,
+        explanation: 'El acumulador es un registro de alta velocidad que guarda el resultado inmediato de una operación.'
+    },
+    {
+        q: '¿Qué tipo de memoria es la RAM en este modelo?',
+        options: ['Permanente', 'Volátil', 'De solo lectura', 'Mecánica'],
+        correct: 1,
+        explanation: 'Volátil significa que los datos se pierden al apagar el suministro eléctrico.'
+    },
+    {
+        q: '¿El cuello de botella de Von Neumann se resuelve aumentando solo la velocidad de la CPU?',
+        options: ['Sí, siempre', 'No, se requiere mayor ancho de banda en el bus', 'Depende de la placa de video', 'Sí, si es un procesador i7'],
+        correct: 1,
+        explanation: 'De nada sirve una CPU ultra rápida si el bus de datos es estrecho y lento.'
+    },
+    {
+        q: '¿Qué bus determina la cantidad máxima de memoria direccionable?',
+        options: ['Bus de Direcciones', 'Bus de Datos', 'Bus de Control', 'Bus USB'],
+        correct: 0,
+        explanation: 'El ancho del bus de direcciones (ej: 32 o 64 bits) determina cuántas posiciones puede "señalar" la CPU.'
+    },
+    {
+        q: '¿Qué parte del sistema permite la comunicación con el exterior (pantalla, teclado)?',
+        options: ['Unidad de Control', 'Unidad de Entrada/Salida', 'Caché L1', 'Buses internos'],
+        correct: 1,
+        explanation: 'Los periféricos se conectan a través de los puertos de E/S.'
+    },
+    {
+        q: '¿Cuál es la unidad mínima de información que viaja por los buses?',
+        options: ['Byte', 'Paquete', 'Bit', 'Kilobyte'],
+        correct: 2,
+        explanation: 'Un bit (0 o 1) es la unidad básica de toda transferencia electrónica digital.'
+    }
+];
 
-    // Quiz State
+const ArquitecturaVonNeumannPage = () => {
+    // Simulator states
+    const [phase, setPhase] = useState('IDLE'); // IDLE -> FETCH -> DECODE -> EXECUTE -> STORE
+    const [packetPos, setPacketPos] = useState({ x: 0, y: 0, visible: false, color: 'var(--bus-data)' });
+    const [logs, setLogs] = useState([{ id: 0, text: '💡 Sistema listo. Presiona un botón para ver el ciclo.', active: true }]);
+    const [cpuState, setCpuState] = useState({ pc: '0x00', ir: '---', acc: '0' });
+    const [memState, setMemState] = useState(['LOAD 15', 'ADD 25', 'STORE 40', 'SUB 10', '0', '0', '0', '0']);
+
+    // Quiz states
     const [quizStarted, setQuizStarted] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
-    const [showResult, setShowResult] = useState(false);
-    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [showResults, setShowResults] = useState(false);
+    const [selectedOpt, setSelectedOpt] = useState(null);
     const [feedback, setFeedback] = useState(null);
 
-    const questions = [
-        {
-            topic: 'Componentes Críticos',
-            q: '¿Qué componente es responsable de realizar operaciones aritméticas y lógicas?',
-            options: ['Memoria RAM', 'Unidad de Control', 'ALU (Unidad Aritmético Lógica)', 'Bus de Datos'],
-            correct: 2,
-            explanation: 'La ALU (Arithmetic Logic Unit) es la celda de la CPU que realiza los cálculos matemáticos y comparaciones lógicas.'
-        },
-        {
-            topic: 'Componentes Críticos',
-            q: '¿Cuál es la función principal de la Memoria Principal (RAM) en este modelo?',
-            options: ['Guardar archivos permanentemente', 'Almacenar temporalmente instrucciones y datos', 'Controlar los periféricos de entrada', 'Enfriar el procesador'],
-            correct: 1,
-            explanation: 'La memoria RAM actúa como un espacio de trabajo rápido donde residen el programa en ejecución y los datos que la CPU necesita.'
-        },
-        {
-            topic: 'Buses',
-            q: '¿Qué bus se utiliza para indicar en qué posición de memoria se quiere leer o escribir?',
-            options: ['Bus de Datos', 'Bus de Direcciones', 'Bus de Control', 'Bus de Identidad'],
-            correct: 1,
-            explanation: 'El bus de direcciones es unidireccional (sale de la CPU) y apunta a la dirección de memoria específica a la cual acceder.'
-        },
-        {
-            topic: 'Buses',
-            q: 'Si la CPU quiere realizar una operación de ESCRITURA en memoria, ¿qué bus envía la señal de sincronización?',
-            options: ['Bus de Control', 'Bus de Datos', 'Bus de Direcciones', 'Bus de Poder'],
-            correct: 0,
-            explanation: 'El bus de control transporta señales como Read/Write, Clock y Reset para coordinar el tiempo de las operaciones.'
-        },
-        {
-            topic: 'Cuello de Botella',
-            q: '¿A qué se refiere el "Cuello de Botella" de Von Neumann?',
-            options: ['A que la CPU genera demasiado calor', 'A la limitación de velocidad por compartir el bus entre instrucciones y datos', 'A que el teclado es más lento que el mouse', 'A la falta de memoria externa'],
-            correct: 1,
-            explanation: 'Ocurre porque el bus de comunicación no puede igualar la velocidad de procesamiento de la CPU, obligándola a esperar por los datos.'
-        },
-        {
-            topic: 'General',
-            q: '¿Qué diferencia principal tiene el Modelo de Von Neumann con el de Harvard?',
-            options: ['Usa electricidad', 'Tiene CPU', 'Usa una sola memoria para datos e instrucciones', 'Es más rápido'],
-            correct: 2,
-            explanation: 'En Von Neumann, datos e instrucciones viajan por el mismo bus desde una memoria única. En Harvard, están separados.'
-        }
-    ];
-
-    const handleAnswer = (index) => {
-        if (selectedAnswer !== null) return;
-        setSelectedAnswer(index);
-        if (index === questions[currentQuestion].correct) {
-            setScore(prev => prev + 1);
-            setFeedback({ type: 'correct', text: '¡Correcto! ' + questions[currentQuestion].explanation });
-        } else {
-            setFeedback({ type: 'error', text: 'Incorrecto. ' + questions[currentQuestion].explanation });
-        }
+    const addLog = (text) => {
+        setLogs(prev => {
+            const newLogs = prev.map(l => ({ ...l, active: false }));
+            return [{ id: Date.now(), text, active: true }, ...newLogs].slice(0, 5);
+        });
     };
 
-    const nextQuestion = () => {
-        setSelectedAnswer(null);
-        setFeedback(null);
-        if (currentQuestion + 1 < questions.length) {
-            setCurrentQuestion(prev => prev + 1);
-        } else {
-            setShowResult(true);
-        }
+    const triggerAnimation = (type) => {
+        const colors = {
+            'ADDRESS': 'var(--bus-address)',
+            'DATA': 'var(--bus-data)',
+            'CONTROL': 'var(--bus-control)'
+        };
+        setPacketPos({ visible: true, color: colors[type] || '#fff' });
+        setTimeout(() => setPacketPos(prev => ({ ...prev, visible: false })), 1000);
     };
 
-    const resetQuiz = () => {
-        setCurrentQuestion(0);
-        setScore(0);
-        setShowResult(false);
-        setQuizStarted(false);
-        setSelectedAnswer(null);
-        setFeedback(null);
-    };
-
-    const addLog = (msg) => {
-        setLogs(prev => [msg, ...prev].slice(0, 5));
-    };
-
-    const runStep = () => {
+    const nextStep = () => {
         if (phase === 'IDLE') {
             setPhase('FETCH');
-            setDataFlow({ active: true, type: 'ADDRESS', from: 'CPU', to: 'MEMORY' });
-            addLog("⚡ [FETCH] CPU envía dirección " + instruction.addr + " por BUS DE DIRECCIONES");
+            triggerAnimation('ADDRESS');
+            addLog("⚡ FETCH: El PC envía la dirección a la Memoria por el BUS DE DIRECCIONES.");
         } else if (phase === 'FETCH') {
             setPhase('DECODE');
-            setDataFlow({ active: true, type: 'DATA', from: 'MEMORY', to: 'CPU' });
-            addLog("📥 [FETCH] Memoria responde con dato " + instruction.op + " por BUS DE DATOS");
+            triggerAnimation('DATA');
+            setCpuState(prev => ({ ...prev, ir: memState[parseInt(cpuState.pc, 16)] }));
+            addLog("📥 DECODE: La instrucción viaja desde la Memoria a la CPU por el BUS DE DATOS.");
         } else if (phase === 'DECODE') {
             setPhase('EXECUTE');
-            setDataFlow({ active: true, type: 'CONTROL', from: 'CPU', to: 'ALU' });
-            addLog("🧠 [DECODE] Unidad de Control interpreta operación: " + instruction.op);
+            triggerAnimation('CONTROL');
+            addLog(`🧠 EXECUTE: La Unidad de Control interpreta ${cpuState.ir}. La ALU realiza el cálculo.`);
         } else if (phase === 'EXECUTE') {
             setPhase('STORE');
-            setDataFlow({ active: true, type: 'DATA', from: 'ALU', to: 'REGISTER' });
-            addLog("🚀 [EXECUTE] Procesando dato: " + instruction.val);
-        } else if (phase === 'STORE') {
+            triggerAnimation('DATA');
+            const result = Math.floor(Math.random() * 100);
+            setCpuState(prev => ({ ...prev, acc: result }));
+            addLog(`🚀 STORE: El resultado (${result}) se guarda en el Acumulador.`);
+        } else {
             setPhase('IDLE');
-            setDataFlow({ active: false, type: '', from: '', to: '' });
-            setCycleCount(prev => prev + 1);
-            addLog("✅ [STORE] Resultado guardado. Ciclo de instrucción completado.");
-            // Generate next random instruction
-            const ops = ['ADD', 'SUB', 'LOAD', 'STORE', 'MUL'];
-            setInstruction({
-                op: ops[Math.floor(Math.random() * ops.length)],
-                addr: '0x' + Math.floor(Math.random() * 256).toString(16).toUpperCase(),
-                val: Math.floor(Math.random() * 100).toString()
-            });
+            setCpuState(prev => ({ ...prev, pc: '0x' + (parseInt(prev.pc, 16) + 1).toString(16).padStart(2, '0').toUpperCase() }));
+            addLog("✅ Ciclo completado. PC incremental para la próxima instrucción.");
         }
     };
 
-    const toggleBottleneck = () => {
-        setBottleneckActive(prev => !prev);
-        if (!bottleneckActive) {
-            addLog("⚠️ CUELLO DE BOTELLA ACTIVADO: La CPU debe esperar a la Memoria...");
+    const handleAnswer = (idx) => {
+        if (selectedOpt !== null) return;
+        setSelectedOpt(idx);
+        if (idx === questions[currentQuestion].correct) {
+            setScore(s => s + 1);
+            setFeedback({ type: 'correct', text: `¡Correcto! ${questions[currentQuestion].explanation}` });
         } else {
-            addLog("⚡ CUELLO DE BOTELLA DESACTIVADO: Sistema equilibrado.");
+            setFeedback({ type: 'wrong', text: `Incorrecto. ${questions[currentQuestion].explanation}` });
+        }
+    };
+
+    const nextQuizStep = () => {
+        if (currentQuestion + 1 < questions.length) {
+            setCurrentQuestion(c => c + 1);
+            setSelectedOpt(null);
+            setFeedback(null);
+        } else {
+            setShowResults(true);
         }
     };
 
     return (
-        <div className="vn-container app-container">
-            <Link to="/" className="btn-vn btn-secondary-vn" style={{ position: 'absolute', top: '2rem', left: '2rem', textDecoration: 'none' }}>
-                ← Volver al Inicio
+        <div className="vn-container">
+            <Link to="/" className="btn-vn btn-secondary-vn" style={{ position: 'sticky', top: '1rem', zIndex: 100 }}>
+                ← Volver
             </Link>
 
-            <section className="vn-hero">
-                <h1>Modelo de Von Neumann</h1>
-                <p style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.2rem', opacity: 0.8 }}>
-                    Descubre cómo funciona el corazón de casi todas las computadoras modernas. 
-                    Aprende sobre la interconexión entre componentes, los buses y los límites de la arquitectura funcional.
+            <header className="vn-hero">
+                <h1>Simulador de Von Neumann</h1>
+                <p style={{ maxWidth: '700px', margin: '0 auto', opacity: 0.7, fontSize: '1.2rem' }}>
+                    Entiende el funcionamiento interno de la computadora a través de esta experiencia interactiva.
                 </p>
-                <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
-                    <span className="bus-pill pill-data">Bus de Datos</span>
-                    <span className="bus-pill pill-address">Bus de Direcciones</span>
-                    <span className="bus-pill pill-control">Bus de Control</span>
-                </div>
-            </section>
+            </header>
 
-            <div className={`simulator-board ${bottleneckActive ? 'bottleneck-active' : ''}`}>
-                <div className="bottleneck-overlay">
-                    <h2>⚠️ TRÁFICO SATURADO: Von Neumann Bottleneck</h2>
-                </div>
+            <main className="vn-simulation-wrapper">
+                <div className="simulator-board">
+                    {/* CPU Component */}
+                    <div className={`component-box cpu-box ${phase === 'EXECUTE' ? 'pulse' : ''}`}>
+                        <h2 style={{ color: 'var(--cpu-color)', margin: 0 }}>CPU</h2>
+                        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                            <div className="glass-card" style={{ padding: '0.5rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <span>Contador (PC)</span>
+                                <code>{cpuState.pc}</code>
+                            </div>
+                            <div className="glass-card" style={{ padding: '0.5rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <span>Instrucción (IR)</span>
+                                <code>{cpuState.ir}</code>
+                            </div>
+                            <div className="glass-card" style={{ padding: '0.5rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <span>Acumulador</span>
+                                <code>{cpuState.acc}</code>
+                            </div>
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--cpu-color)', fontWeight: 'bold' }}>UNIDAD DE CONTROL / ALU</div>
+                    </div>
 
-                {/* CPU */}
-                <div className="component-box cpu-box" style={{ 
-                    transform: phase === 'EXECUTE' ? 'scale(1.05)' : 'scale(1)',
-                    boxShadow: phase === 'EXECUTE' ? '0 0 30px var(--cpu-color)' : 'none'
-                }}>
-                    <h3 style={{ color: 'var(--cpu-color)' }}>CPU</h3>
-                    <div style={{ fontSize: '0.8rem', textAlign: 'left', width: '100%' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', opacity: phase === 'IDLE' ? 1 : 0.5 }}>
-                            <span>PC:</span> <span>{instruction.addr}</span>
+                    {/* Central Bus System */}
+                    <div className="bus-system">
+                        <div className="bus-trunk" style={{ background: phase === 'FETCH' ? 'var(--bus-address)' : 'rgba(255,255,255,0.1)' }}>
+                            <span className="bus-label">Direcciones</span>
+                            {packetPos.visible && packetPos.color === 'var(--bus-address)' && <div className="data-packet" style={{ backgroundColor: packetPos.color, left: '0%', animation: 'moveRight 1s linear forwards' }} />}
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', opacity: phase === 'FETCH' ? 1 : 0.8 }}>
-                            <span>IR:</span> <span>{phase === 'FETCH' || phase === 'IDLE' ? '???' : instruction.op}</span>
+                        <div className="bus-trunk" style={{ background: phase === 'DECODE' || phase === 'STORE' ? 'var(--bus-data)' : 'rgba(255,255,255,0.1)' }}>
+                            <span className="bus-label">Datos</span>
+                            {packetPos.visible && packetPos.color === 'var(--bus-data)' && <div className="data-packet" style={{ backgroundColor: packetPos.color, right: '0%', animation: 'moveLeft 1s linear forwards' }} />}
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', opacity: phase === 'EXECUTE' || phase === 'STORE' ? 1 : 0.5 }}>
-                            <span>ACC:</span> <span>{phase === 'STORE' ? instruction.val : '0'}</span>
+                        <div className="bus-trunk" style={{ background: phase === 'EXECUTE' ? 'var(--bus-control)' : 'rgba(255,255,255,0.1)' }}>
+                            <span className="bus-label">Control</span>
+                            {packetPos.visible && packetPos.color === 'var(--bus-control)' && <div className="data-packet" style={{ backgroundColor: packetPos.color, left: '0%', animation: 'moveRight 1s linear forwards' }} />}
                         </div>
                     </div>
-                    <div style={{ marginTop: '1rem', padding: '0.5rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', width: '100%', fontSize: '0.7rem' }}>
-                        <strong>Estado:</strong> {phase}
+
+                    {/* RAM Component */}
+                    <div className={`component-box memory-box ${phase === 'FETCH' ? 'pulse' : ''}`}>
+                        <h2 style={{ color: 'var(--mem-color)', margin: 0 }}>Memoria RAM</h2>
+                        <div style={{ width: '100%', display: 'grid', gap: '4px' }}>
+                            {memState.map((val, i) => (
+                                <div key={i} className="glass-card" style={{ padding: '4px 8px', fontSize: '0.8rem', display: 'flex', justifyContent: 'space-between', borderLeft: parseInt(cpuState.pc, 16) === i ? '3px solid #fff' : 'none' }}>
+                                    <span style={{ opacity: 0.5 }}>0x{i.toString(16).padStart(2, '0').toUpperCase()}</span>
+                                    <code>{val}</code>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* I/O Component */}
+                    <div className="io-box glass-card">
+                        <div style={{ textAlign: 'center' }}>
+                            <span style={{ color: 'var(--io-color)', display: 'block', fontSize: '0.7rem' }}>INPUT</span>
+                            <span style={{ fontSize: '1.5rem' }}>⌨️ 🖱️</span>
+                        </div>
+                        <div style={{ background: 'var(--io-color)', width: '2px', height: '100%' }}></div>
+                        <div style={{ textAlign: 'center' }}>
+                            <span style={{ color: 'var(--io-color)', display: 'block', fontSize: '0.7rem' }}>OUTPUT</span>
+                            <span style={{ fontSize: '1.5rem' }}>🖥️ 🔊</span>
+                        </div>
                     </div>
                 </div>
 
-                {/* BUSES INTERNOS (Lines) */}
-                <div className={`bus-line bus-data ${dataFlow.type === 'DATA' ? 'active-bus' : ''}`} 
-                     style={{ color: 'var(--bus-data)' }}></div>
-                <div className={`bus-line bus-address ${dataFlow.type === 'ADDRESS' ? 'active-bus' : ''}`} 
-                     style={{ color: 'var(--bus-address)' }}></div>
-                <div className={`bus-line bus-control ${dataFlow.type === 'CONTROL' ? 'active-bus' : ''}`} 
-                     style={{ color: 'var(--bus-control)' }}></div>
-
-                {/* Memory */}
-                <div className="component-box memory-box" style={{
-                    transform: phase === 'FETCH' || phase === 'STORE' ? 'scale(1.05)' : 'scale(1)',
-                    boxShadow: phase === 'FETCH' ? '0 0 30px var(--mem-color)' : 'none'
-                }}>
-                    <h3 style={{ color: 'var(--mem-color)' }}>Memoria RAM</h3>
-                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        {[0,1,2,3].map(i => (
-                            <div key={i} style={{ 
-                                display: 'flex', 
-                                justifyContent: 'space-between', 
-                                fontSize: '0.7rem', 
-                                background: 'rgba(0,0,0,0.3)', 
-                                padding: '4px',
-                                borderLeft: instruction.addr === `0x1${i}` ? '2px solid #fff' : 'none'
-                            }}>
-                                <span>0x1{i}</span>
-                                <span>{instruction.addr === `0x1${i}` ? instruction.val : '00'}</span>
+                <div className="vn-sidebar">
+                    <div className="log-panel">
+                        {logs.map(log => (
+                            <div key={log.id} className={`log-entry ${log.active ? 'active' : ''}`}>
+                                {log.text}
                             </div>
                         ))}
                     </div>
-                </div>
-
-                {/* Input/Output */}
-                <div className="component-box io-box">
-                    <div style={{ textAlign: 'center' }}>
-                        <strong style={{ color: 'var(--io-color)' }}>ENTRADA</strong>
-                        <div style={{ fontSize: '1.5rem' }}>⌨️ 🖱️</div>
-                    </div>
-                    <div style={{ height: '30px', width: '2px', background: 'rgba(255,255,255,0.2)' }}></div>
-                    <div style={{ textAlign: 'center' }}>
-                        <strong style={{ color: 'var(--io-color)' }}>SALIDAS</strong>
-                        <div style={{ fontSize: '1.5rem' }}>🖥️ 🖨️</div>
+                    <div className="control-panel">
+                        <button className="btn-vn btn-primary-vn" onClick={nextStep} style={{ padding: '1.5rem' }}>
+                            {phase === 'IDLE' ? '▶️ INICIAR CICLO' : '⏭️ SIGUIENTE PASO'}
+                        </button>
+                        <div style={{ textAlign: 'center', fontSize: '0.8rem', opacity: 0.6 }}>Estado: {phase}</div>
                     </div>
                 </div>
-            </div>
+            </main>
 
-            <div className="controls">
-                <button className="btn-vn btn-primary-vn" onClick={runStep}>
-                    {phase === 'IDLE' ? '🚀 Iniciar Ciclo' : '⏭️ Siguiente Paso'}
-                </button>
-                <button className={`btn-vn ${bottleneckActive ? 'btn-primary-vn' : 'btn-secondary-vn'}`} onClick={toggleBottleneck}>
-                    {bottleneckActive ? '✅ Resolver Cuello Botella' : '⚠️ Activar Cuello Botella'}
-                </button>
-            </div>
-
-            <div className="step-indicator">
-                <strong>Ciclos completados: {cycleCount}</strong> | 
-                <span style={{ marginLeft: '1rem', color: 'var(--primary-color)' }}>{logs[0]}</span>
-            </div>
-
-            <div className="vn-info-grid">
-                <div className="info-card">
-                    <h3 style={{ borderBottom: '2px solid var(--cpu-color)', paddingBottom: '0.5rem' }}>Componentes Críticos</h3>
-                    <p>La arquitectura funcional se divide en tres bloques principales:</p>
-                    <ul>
-                        <li><strong>CPU (Unidad Central):</strong> Cerebro que procesa datos (contiene la ALU para cálculos y la UC para control).</li>
-                        <li><strong>Memoria Principal:</strong> Espacio temporal donde residen instrucciones y datos.</li>
-                        <li><strong>E/S (Entrada/Salida):</strong> Interfaces para interactuar con el mundo exterior.</li>
-                    </ul>
-                </div>
-
-                <div className="info-card">
-                    <h3 style={{ borderBottom: '2px solid var(--bus-data)', paddingBottom: '0.5rem' }}>Buses de Comunicación</h3>
-                    <p>El sistema circulatorio que conecta todo:</p>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        <div><span className="bus-pill pill-data">Datos</span> Instrucciones y operandos.</div>
-                        <div><span className="bus-pill pill-address">Direcciones</span> Ubicaciones en la RAM.</div>
-                        <div><span className="bus-pill pill-control">Control</span> Sincronización (Lectura/Escritura).</div>
-                    </div>
-                </div>
-
-                <div className="info-card">
-                    <h3 style={{ borderBottom: '2px solid #ef4444', paddingBottom: '0.5rem' }}>Cuello de Botella</h3>
-                    <p>El <strong>Von Neumann Bottleneck</strong> ocurre porque la CPU es miles de veces más rápida que la transferencia de datos desde la Memoria.</p>
-                    <p style={{ opacity: 0.8, fontSize: '0.9rem' }}>
-                        Como comparten el mismo bus para instrucciones y datos, se genera un tiempo de espera que limita la velocidad total del sistema.
-                    </p>
-                </div>
-            </div>
-
-            {/* QUIZ SECTION */}
-            <div className="glass-card" style={{ marginTop: '4rem', padding: '3rem' }}>
+            <section className="quiz-card">
                 {!quizStarted ? (
-                    <div style={{ textAlign: 'center' }}>
-                        <h2 style={{ color: 'var(--primary-color)' }}>🏆 Autoevaluación</h2>
-                        <p>¿Qué tanto has aprendido sobre la arquitectura de Von Neumann? Pon a prueba tus conocimientos.</p>
-                        <button className="btn-vn btn-primary-vn" onClick={() => setQuizStarted(true)}>Comenzar Test</button>
+                    <div style={{ textAlign: 'center', padding: '2rem' }}>
+                        <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🎓 El Desafío de Von Neumann</h2>
+                        <p style={{ marginBottom: '2rem', opacity: 0.8 }}>Completa el test de 20 preguntas para obtener tu certificado de experto en arquitecturas.</p>
+                        <button className="btn-vn btn-primary-vn" onClick={() => setQuizStarted(true)} style={{ fontSize: '1.2rem', padding: '1rem 3rem' }}>
+                            Comenzar Evaluación
+                        </button>
                     </div>
-                ) : showResult ? (
-                    <div style={{ textAlign: 'center' }}>
-                        <h2>Resultado: {score} / {questions.length}</h2>
-                        <div style={{ fontSize: '4rem', margin: '1rem 0' }}>
-                            {score === questions.length ? '🥇' : score > questions.length / 2 ? '🥈' : '🥉'}
+                ) : showResults ? (
+                    <div style={{ textAlign: 'center', padding: '2rem' }}>
+                        <h2 style={{ fontSize: '3rem' }}>¡Test Finalizado!</h2>
+                        <div style={{ fontSize: '5rem', margin: '2rem' }}>
+                            {score >= 18 ? '🏆' : score >= 12 ? '🥈' : '🥉'}
                         </div>
-                        <p>{score === questions.length ? '¡Excelente! Eres un experto en computación.' : 'Sigue practicando para mejorar tu puntaje.'}</p>
-                        <button className="btn-vn btn-primary-vn" onClick={resetQuiz}>Reintentar</button>
+                        <h3>Puntaje: {score} / {questions.length}</h3>
+                        <p>{score >= 15 ? '¡Excelente nivel teórico!' : 'Sigue repasando los conceptos fundamentales.'}</p>
+                        <button className="btn-vn btn-primary-vn" onClick={() => window.location.reload()} style={{ marginTop: '2rem' }}>Reintentar</button>
                     </div>
                 ) : (
                     <div className="quiz-container">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                            <span className="bus-pill pill-control">{questions[currentQuestion].topic}</span>
-                            <span>Pregunta {currentQuestion + 1} de {questions.length}</span>
-                        </div>
-                        <h3 style={{ marginBottom: '2rem' }}>{questions[currentQuestion].q}</h3>
-                        <div style={{ display: 'grid', gap: '1rem' }}>
+                        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                            <span style={{ fontWeight: 800, color: 'var(--primary-color)' }}>PREGUNTA {currentQuestion + 1} de 20</span>
+                            <div style={{ width: '200px', height: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px' }}>
+                                <div style={{ width: `${((currentQuestion + 1) / 20) * 100}%`, height: '100%', background: 'var(--primary-color)', borderRadius: '4px', transition: 'width 0.3s' }}></div>
+                            </div>
+                        </header>
+
+                        <h2 style={{ fontSize: '1.8rem', marginBottom: '2.5rem', lineHeight: '1.4' }}>{questions[currentQuestion].q}</h2>
+
+                        <div className="options-grid">
                             {questions[currentQuestion].options.map((opt, i) => (
-                                <button 
-                                    key={i} 
-                                    className="btn-vn"
+                                <button
+                                    key={i}
+                                    className={`option-btn ${selectedOpt === i ? (i === questions[currentQuestion].correct ? 'correct' : 'wrong') : ''}`}
                                     onClick={() => handleAnswer(i)}
-                                    style={{
-                                        textAlign: 'left',
-                                        background: selectedAnswer === i 
-                                            ? (i === questions[currentQuestion].correct ? '#4caf50' : '#ef4444')
-                                            : 'rgba(255,255,255,0.05)',
-                                        color: selectedAnswer === i ? '#fff' : '#fff',
-                                        border: selectedAnswer !== i && i === questions[currentQuestion].correct && selectedAnswer !== null
-                                            ? '2px solid #4caf50'
-                                            : '2px solid transparent'
-                                    }}
-                                    disabled={selectedAnswer !== null}
+                                    disabled={selectedOpt !== null}
                                 >
-                                    {String.fromCharCode(65 + i)}) {opt}
+                                    <span style={{ opacity: 0.5, fontWeight: 900 }}>{String.fromCharCode(65 + i)}</span>
+                                    {opt}
                                 </button>
                             ))}
                         </div>
+
                         {feedback && (
-                            <div style={{ 
-                                marginTop: '2rem', 
-                                padding: '1rem', 
-                                borderRadius: '12px',
-                                background: feedback.type === 'correct' ? 'rgba(76, 175, 80, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-                                border: feedback.type === 'correct' ? '1px solid #4caf50' : '1px solid #ef4444'
-                            }}>
-                                {feedback.text}
+                            <div style={{ marginTop: '2rem', padding: '1.5rem', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', borderLeft: '5px solid' + (feedback.type === 'correct' ? '#4caf50' : '#ef4444'), animation: 'slideIn 0.3s ease-out' }}>
+                                <p style={{ margin: 0, fontWeight: 700 }}>{feedback.text}</p>
+                                <button className="btn-vn btn-primary-vn" onClick={nextQuizStep} style={{ marginTop: '1.5rem', width: '100%' }}>
+                                    {currentQuestion + 1 < questions.length ? 'Siguiente Pregunta' : 'Ver Resultados'}
+                                </button>
                             </div>
-                        )}
-                        {selectedAnswer !== null && (
-                            <button className="btn-vn btn-primary-vn" style={{ marginTop: '2rem', width: '100%' }} onClick={nextQuestion}>
-                                {currentQuestion + 1 < questions.length ? 'Siguiente Pregunta' : 'Ver Resultados'}
-                            </button>
                         )}
                     </div>
                 )}
-            </div>
+            </section>
 
-            <div className="glass-card" style={{ marginTop: '4rem', padding: '3rem', textAlign: 'left' }}>
-                <h2 style={{ color: 'var(--primary-color)' }}>¿Sabías qué?</h2>
-                <p>
-                    A diferencia de otras arquitecturas (como Harvard), el modelo de Von Neumann utiliza <strong>una única memoria</strong> para almacenar tanto el programa (instrucciones) como los datos. Esto simplificó enormemente el diseño de las primeras computadoras, pero creó el desafío de velocidad que enfrentamos hoy en día.
-                </p>
-            </div>
+            <style>{`
+                @keyframes moveRight { from { left: 0%; } to { left: 100%; } }
+                @keyframes moveLeft { from { right: 0%; } to { right: 100%; } }
+                .glass-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
+            `}</style>
         </div>
     );
 };
