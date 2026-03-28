@@ -388,19 +388,32 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {/* 🖥️ HISTORIA DE LA COMPUTACIÓN */}
+                    {/* 🖥️ INFORMÁTICA Y SISTEMAS */}
                     <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
-                        <h3 style={{ textAlign: 'left', color: '#a55eea', marginBottom: '1rem', paddingLeft: '1rem' }}>🖥️ Historia de la Computación</h3>
+                        <h3 style={{ textAlign: 'left', color: '#a55eea', marginBottom: '1rem', paddingLeft: '1rem' }}>🖥️ Informática y Sistemas</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
                             <Link to="/generaciones-computadoras" style={{ textDecoration: 'none' }}>
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(165,94,234,0.4)', boxShadow: '0 0 20px rgba(165,94,234,0.15)' }}>
-                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Generaciones de Computadoras</h3>
-                                    <p>Válvulas → Transistores → Chips → IA → Cuántica</p>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Generaciones</h3>
+                                    <p>Historia de la Computación</p>
                                     <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
                                         <span>💡</span><span>🔬</span><span>🔧</span><span>🧠</span><span>⚛️</span>
                                     </div>
                                     <div style={{ marginTop: '0.75rem', padding: '0.3rem 0.9rem', background: 'rgba(165,94,234,0.2)', border: '1px solid #a55eea', borderRadius: '20px', fontSize: '0.78rem', color: '#a55eea', fontWeight: '700' }}>
                                         🎮 Juego Interactivo
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/arquitectura-von-neumann" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.4)', boxShadow: '0 0 20px rgba(0, 242, 255, 0.15)' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Arquitectura Funcional</h3>
+                                    <p>Modelo de Von Neumann y Buses</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🧠</span><span>🚌</span><span>💾</span><span>🔗</span>
+                                    </div>
+                                    <div style={{ marginTop: '0.75rem', padding: '0.3rem 0.9rem', background: 'rgba(0, 242, 255, 0.2)', border: '1px solid #00f2ff', borderRadius: '20px', fontSize: '0.78rem', color: '#00f2ff', fontWeight: '700' }}>
+                                        ⚙️ Simulador Técnico
                                     </div>
                                 </div>
                             </Link>

@@ -45,6 +45,7 @@ import SerialPage from './pages/SerialPage';
 import ScratchPage from './pages/ScratchPage';
 import RobotEvitaObstaculosPage from './pages/RobotEvitaObstaculosPage';
 import GeneracionesComputadorasPage from './pages/GeneracionesComputadorasPage';
+import ArquitecturaVonNeumannPage from './pages/ArquitecturaVonNeumannPage';
 import ProyectosReciclablesPage from './pages/ProyectosReciclablesPage';
 
 // Gestión Académica
@@ -123,6 +124,7 @@ function App() {
             <Route path="/scratch" element={<ScratchPage />} />
             <Route path="/robot-evita-obstaculos" element={<RobotEvitaObstaculosPage />} />
             <Route path="/generaciones-computadoras" element={<GeneracionesComputadorasPage />} />
+            <Route path="/arquitectura-von-neumann" element={<ArquitecturaVonNeumannPage />} />
             <Route path="/proyectos-reciclables" element={<ProyectosReciclablesPage />} />
 
             {/* Rutas Protegidas - Gestión Académica */}
