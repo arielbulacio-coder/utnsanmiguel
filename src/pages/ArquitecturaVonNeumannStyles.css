@@ -11,237 +11,192 @@
 }
 
 .vn-container {
-    padding: 1rem;
+    padding: 0.5rem;
     color: var(--text-main);
     max-width: 1400px;
     margin: 0 auto;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
 }
 
 .vn-hero {
     text-align: center;
-    margin: 3rem 0;
-    padding: 0 1rem;
+    margin: 1.5rem 0;
 }
 
 .vn-hero h1 {
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
     background: linear-gradient(135deg, #00f2ff 0%, #7000ff 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.2));
 }
 
-/* Simulation Area */
+/* Simulation Area - COMPACTED */
 .vn-simulation-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     background: var(--bg-dark);
-    border-radius: 32px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 1.5rem;
     border: 1px solid var(--glass-border);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     position: relative;
+    max-height: 90vh; /* Contain vertically on PC */
     overflow: hidden;
 }
 
 .simulator-board {
     display: grid;
-    grid-template-columns: 1fr 100px 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 1rem;
     position: relative;
-    min-height: 500px;
+    min-height: 350px;
     align-items: center;
 }
 
 .component-box {
-    padding: 2rem;
-    border-radius: 24px;
+    padding: 1rem;
+    border-radius: 16px;
     background: var(--glass);
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(10px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
     z-index: 2;
+    font-size: 0.8rem;
 }
 
-.cpu-box {
-    border-color: var(--cpu-color);
-    box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.05);
+.component-box h2 {
+    font-size: 1.1rem !important;
 }
 
-.memory-box {
-    border-color: var(--mem-color);
-    box-shadow: inset 0 0 20px rgba(165, 94, 234, 0.05);
-}
+.cpu-box { border-color: var(--cpu-color); }
+.memory-box { border-color: var(--mem-color); }
 
 .io-box {
     grid-column: 1 / 4;
     display: flex;
     justify-content: space-around;
-    padding: 1.5rem;
+    padding: 0.75rem;
     border-color: var(--io-color);
 }
 
-/* Central Bus Structure */
+/* Central Bus Structure - SLIMMER */
 .bus-system {
     grid-column: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 3rem;
+    gap: 1.5rem;
     height: 100%;
-    position: relative;
 }
 
 .bus-trunk {
-    height: 10px;
+    height: 6px;
     background: rgba(255,255,255,0.05);
-    border-radius: 5px;
+    border-radius: 3px;
     position: relative;
 }
 
 .bus-label {
     position: absolute;
-    top: -20px;
+    top: -14px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: 800;
-    text-transform: uppercase;
-    white-space: nowrap;
-    letter-spacing: 1px;
 }
 
-/* Animated Data Packets */
-.data-packet {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    filter: blur(4px);
-    z-index: 5;
-    transition: all 0.8s ease-in-out;
-}
-
-/* Logs and Controls */
+/* Logs and Controls - COMPACTED */
 .vn-sidebar {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: 1fr 150px;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .log-panel {
     background: rgba(0,0,0,0.5);
-    border-radius: 16px;
-    padding: 1.5rem;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.85rem;
-    border-left: 4px solid var(--primary-color);
-    min-height: 120px;
+    border-radius: 12px;
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    border-left: 3px solid var(--primary-color);
+    max-height: 80px;
     overflow-y: auto;
-}
-
-.log-entry {
-    margin-bottom: 0.5rem;
-    opacity: 0.8;
-    animation: slideIn 0.3s ease-out;
-}
-
-.log-entry.active {
-    opacity: 1;
-    color: var(--primary-color);
-    font-weight: bold;
 }
 
 .control-panel {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
-/* Responsive Grid Adjustments */
-@media (max-width: 992px) {
+.btn-vn {
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+}
+
+/* RESPONSIVE FIXES */
+@media (max-width: 768px) {
+    .vn-simulation-wrapper {
+        padding: 1rem;
+        max-height: none;
+        overflow: visible;
+    }
+
     .simulator-board {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
+        grid-template-rows: auto 40px auto;
+        gap: 0.5rem;
     }
     
     .bus-system {
         grid-column: 1;
         flex-direction: row;
-        height: 60px;
-        gap: 2rem;
-        width: 100%;
+        height: 30px;
+        gap: 1rem;
+    }
+
+    .component-box {
+        padding: 0.75rem;
+    }
+
+    .vn-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .log-panel {
+        max-height: 60px;
     }
 }
 
-/* Quiz Styling */
+/* Quiz Card - Maintain standard padding but clear widths */
 .quiz-card {
-    background: linear-gradient(165deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-    border: 1px solid var(--glass-border);
-    border-radius: 32px;
-    padding: clamp(1.5rem, 5vw, 3rem);
-    margin: 4rem 0;
+    background: var(--glass);
+    border-radius: 24px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .options-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
 }
 
 .option-btn {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--glass-border);
-    padding: 1.5rem;
-    border-radius: 20px;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: left;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    padding: 1rem !important;
+    font-size: 0.95rem !important;
 }
 
-.option-btn:hover:not(:disabled) {
-    background: rgba(255,255,255,0.08);
-    transform: translateY(-3px);
-    border-color: var(--primary-color);
-}
-
-.option-btn.correct {
-    background: rgba(76, 175, 80, 0.2) !important;
-    border-color: #4caf50 !important;
-}
-
-.option-btn.wrong {
-    background: rgba(239, 68, 68, 0.2) !important;
-    border-color: #ef4444 !important;
-}
-
-@keyframes slideIn {
-    from { opacity: 0; transform: translateX(-10px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-.pulse {
-    animation: pulseGlow 2s infinite;
-}
-
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(0, 242, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
-}
+@keyframes slideIn { from { opacity: 0; transform: translateX(-50%); } to { opacity: 1; transform: translateX(0); } }
+.data-packet { width: 12px; height: 12px; }
