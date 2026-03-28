@@ -150,9 +150,8 @@ const Home = () => {
                 </p>
             </div>
 
-            {isAuthenticated && (
-                <>
-                    <h2 style={{ marginBottom: '2rem' }}>Módulos Educativos</h2>
+
+            <h2 style={{ marginBottom: '2rem' }}>Módulos Educativos</h2>
 
                     {/* ⚡ ELECTRICIDAD */}
                     <div style={{ maxWidth: '1200px', margin: '0 auto 3rem auto' }}>
@@ -419,8 +418,6 @@ const Home = () => {
                             </Link>
                         </div>
                     </div>
-                </>
-            )}
         </div>
     );
 };
