@@ -340,7 +340,7 @@ const ArquitecturaVonNeumannPage = () => {
             </div>
 
             <div className="glass-card" style={{ marginTop: '4rem', padding: '3rem', textAlign: 'left' }}>
-                <h2 style={{ color: var(--primary-color) }}>¿Sabías qué?</h2>
+                <h2 style={{ color: 'var(--primary-color)' }}>¿Sabías qué?</h2>
                 <p>
                     A diferencia de otras arquitecturas (como Harvard), el modelo de Von Neumann utiliza <strong>una única memoria</strong> para almacenar tanto el programa (instrucciones) como los datos. Esto simplificó enormemente el diseño de las primeras computadoras, pero creó el desafío de velocidad que enfrentamos hoy en día.
                 </p>
