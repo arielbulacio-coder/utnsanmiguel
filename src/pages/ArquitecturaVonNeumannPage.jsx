@@ -183,6 +183,9 @@ export default function ArquitecturaVonNeumannPage() {
           <Link to="/arquitectura-harvard" style={{ padding:'0.4rem 1rem', background:'rgba(249,115,22,0.08)', border:'1px solid rgba(249,115,22,0.3)', borderRadius:8, color:'#f97316', textDecoration:'none', fontSize:'0.85rem' }}>
             🔬 Ver Harvard →
           </Link>
+          <Link to="/cpu-simulator" style={{ padding:'0.4rem 1rem', background:'rgba(0,242,255,0.08)', border:'1px solid rgba(0,242,255,0.3)', borderRadius:8, color:'#00f2ff', textDecoration:'none', fontSize:'0.85rem' }}>
+            🧠 Simulador CPU →
+          </Link>
         </div>
 
         <h1 className="vn-h1">Arquitectura Von Neumann</h1>

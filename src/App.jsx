@@ -47,6 +47,7 @@ import RobotEvitaObstaculosPage from './pages/RobotEvitaObstaculosPage';
 import GeneracionesComputadorasPage from './pages/GeneracionesComputadorasPage';
 import ArquitecturaVonNeumannPage from './pages/ArquitecturaVonNeumannPage';
 import ArquitecturaHarvardPage from './pages/ArquitecturaHarvardPage';
+import CPUSimulatorPage from './pages/CPUSimulatorPage';
 import ProyectosReciclablesPage from './pages/ProyectosReciclablesPage';
 
 // Gestión Académica
@@ -127,6 +128,7 @@ function App() {
             <Route path="/generaciones-computadoras" element={<GeneracionesComputadorasPage />} />
             <Route path="/arquitectura-von-neumann" element={<ArquitecturaVonNeumannPage />} />
             <Route path="/arquitectura-harvard" element={<ArquitecturaHarvardPage />} />
+            <Route path="/cpu-simulator" element={<CPUSimulatorPage />} />
             <Route path="/proyectos-reciclables" element={<ProyectosReciclablesPage />} />
 
             {/* Rutas Protegidas - Gestión Académica */}
