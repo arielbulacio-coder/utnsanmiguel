@@ -191,6 +191,7 @@ const NavBar = () => {
                     </div>
                     <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
                         <Link to="/proyectos-reciclables" style={linkStyle} onClick={closeAll}>Robótica Reciclable</Link>
+                        <Link to="/proyectos-integradores" style={linkStyle} onClick={closeAll}>Integradores 6° Año</Link>
                     </div>
                 </div>
 

@@ -49,6 +49,7 @@ import ArquitecturaVonNeumannPage from './pages/ArquitecturaVonNeumannPage';
 import ArquitecturaHarvardPage from './pages/ArquitecturaHarvardPage';
 import CPUSimulatorPage from './pages/CPUSimulatorPage';
 import ProyectosReciclablesPage from './pages/ProyectosReciclablesPage';
+import ProyectosIntegradoresPage from './pages/ProyectosIntegradoresPage';
 
 // Gestión Académica
 import AcademicOverviewPage from './pages/AcademicOverviewPage';
@@ -130,6 +131,7 @@ function App() {
             <Route path="/arquitectura-harvard" element={<ArquitecturaHarvardPage />} />
             <Route path="/cpu-simulator" element={<CPUSimulatorPage />} />
             <Route path="/proyectos-reciclables" element={<ProyectosReciclablesPage />} />
+            <Route path="/proyectos-integradores" element={<ProyectosIntegradoresPage />} />
 
             {/* Rutas Protegidas - Gestión Académica */}
             <Route element={<ProtectedRoute />}>

@@ -387,6 +387,25 @@ const Home = () => {
                         </div>
                     </div>
 
+                    {/* 🎓 PROYECTOS INTEGRADORES 6° AÑO */}
+                    <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
+                        <h3 style={{ textAlign: 'left', color: '#f59e0b', marginBottom: '1rem', paddingLeft: '1rem' }}>🎓 Proyectos Integradores - 6° Año</h3>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                            <Link to="/proyectos-integradores" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(245,158,11,0.4)', boxShadow: '0 0 20px rgba(245,158,11,0.15)' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Arduino + IoT + Solar</h3>
+                                    <p>6 Proyectos Interdisciplinarios con Simuladores</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🌦️</span><span>💧</span><span>🅿️</span><span>🔒</span><span>🌿</span><span>☀️</span>
+                                    </div>
+                                    <div style={{ marginTop: '0.75rem', padding: '0.3rem 0.9rem', background: 'rgba(245,158,11,0.2)', border: '1px solid #f59e0b', borderRadius: '20px', fontSize: '0.78rem', color: '#f59e0b', fontWeight: '700' }}>
+                                        6 Simuladores Interactivos
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+
                     {/* 🖥️ INFORMÁTICA Y SISTEMAS */}
                     <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
                         <h3 style={{ textAlign: 'left', color: '#a55eea', marginBottom: '1rem', paddingLeft: '1rem' }}>🖥️ Informática y Sistemas</h3>

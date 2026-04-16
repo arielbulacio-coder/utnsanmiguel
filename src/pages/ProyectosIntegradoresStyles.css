@@ -1,0 +1,798 @@
+/* ─── Proyectos Integradores Page ─────────────────────────────────────── */
+
+.proyectos-integradores-page {
+  padding: 0 1rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero Section */
+.pi-hero {
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(16,185,129,0.1));
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pi-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(59,130,246,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 50%, rgba(16,185,129,0.08) 0%, transparent 50%);
+  animation: pi-hero-glow 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pi-hero-glow {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+}
+
+.pi-hero-badge {
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.4);
+  border-radius: 20px;
+  color: #f59e0b;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.pi-hero-title {
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #3b82f6, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.pi-hero-subtitle {
+  font-size: 1.3rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.pi-hero-desc {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  position: relative;
+  z-index: 1;
+}
+
+.pi-hero-tags {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.pi-tag {
+  padding: 0.35rem 0.9rem;
+  background: rgba(0,242,255,0.1);
+  border: 1px solid rgba(0,242,255,0.3);
+  border-radius: 20px;
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Project Cards Grid */
+.pi-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.pi-card-wrapper {
+  width: 100%;
+}
+
+.pi-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 0.5rem 1.5rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--project-color);
+  border-radius: 4px 0 0 4px;
+}
+
+.pi-card:hover {
+  border-color: var(--project-color);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+}
+
+.pi-card.expanded {
+  border-color: var(--project-color);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.pi-card-num {
+  grid-row: 1 / 3;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+.pi-card-icon {
+  font-size: 2.5rem;
+  grid-row: 1 / 3;
+}
+
+.pi-card-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  grid-column: 3;
+}
+
+.pi-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin: 0;
+  grid-column: 3;
+  line-height: 1.5;
+}
+
+.pi-card-expand {
+  grid-row: 1 / 3;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Expanded Project Content */
+.pi-expanded {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: pi-slideDown 0.3s ease;
+}
+
+@keyframes pi-slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pi-section {
+  background: rgba(0,0,0,0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.pi-section-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.pi-objectives {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pi-objectives li {
+  padding: 0.6rem 1rem;
+  background: rgba(0,242,255,0.05);
+  border-left: 3px solid var(--primary-color);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+/* Components Grid */
+.pi-components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.6rem;
+}
+
+.pi-component {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.pi-component-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Circuit Description */
+.pi-circuit-desc {
+  padding: 1.5rem;
+  background: rgba(0,25,50,0.5);
+  border-left: 4px solid var(--primary-color);
+  border-radius: 0 12px 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-main);
+}
+
+/* ─── Simulator Styles ───────────────────────────────────────────────── */
+
+.sim-container {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,242,255,0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.sim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sim-header h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--primary-color);
+  font-weight: 800;
+}
+
+.sim-btn {
+  padding: 0.5rem 1.5rem;
+  background: rgba(0,242,255,0.1);
+  border: 1px solid rgba(0,242,255,0.3);
+  border-radius: 10px;
+  color: var(--primary-color);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.sim-btn:hover {
+  background: rgba(0,242,255,0.2);
+}
+
+.sim-btn.active {
+  background: rgba(239,68,68,0.15);
+  border-color: rgba(239,68,68,0.4);
+  color: #ef4444;
+}
+
+.sim-dashboard {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.sim-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gauge-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Serial Monitor */
+.sim-serial {
+  background: #0a0a0a;
+  border: 1px solid #222;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.serial-header {
+  background: #111;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  border-bottom: 1px solid #222;
+  font-family: monospace;
+}
+
+.serial-output {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* Irrigation Specific */
+.moisture-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.moisture-bar-bg {
+  width: 50px;
+  height: 150px;
+  background: #1e293b;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  border: 2px solid #334155;
+}
+
+.moisture-bar-fill {
+  width: 100%;
+  transition: height 0.5s ease, background 0.5s ease;
+  border-radius: 8px 8px 0 0;
+}
+
+.moisture-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.pump-indicator.active svg circle {
+  animation: pump-pulse 1s ease infinite;
+}
+
+@keyframes pump-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.threshold-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.threshold-control label {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.threshold-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary-color);
+  height: 6px;
+}
+
+/* Parking Specific */
+.parking-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.parking-spot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px dashed #333;
+  transition: all 0.3s ease;
+}
+
+.parking-spot.occupied {
+  background: rgba(239,68,68,0.1);
+  border-color: rgba(239,68,68,0.4);
+}
+
+.parking-spot.free {
+  background: rgba(16,185,129,0.1);
+  border-color: rgba(16,185,129,0.4);
+}
+
+.spot-icon {
+  font-size: 1.5rem;
+}
+
+.spot-label {
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+.spot-distance {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  font-family: monospace;
+}
+
+.parking-info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 1rem 1.5rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.big-number {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+/* Security Specific */
+.security-btn {
+  padding: 0.75rem 2rem;
+  border: 2px solid #333;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.3);
+  color: var(--text-main);
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.security-btn.armed {
+  border-color: #ef4444;
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+}
+
+.security-btn.alarm {
+  border-color: #f59e0b;
+  background: rgba(245,158,11,0.15);
+  color: #f59e0b;
+  animation: alarm-blink 0.5s ease infinite;
+}
+
+@keyframes alarm-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.sensor-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.sensor-indicator.alert {
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #ef4444;
+}
+
+.sensor-indicator.alarm-flash {
+  animation: alarm-blink 0.5s ease infinite;
+  background: rgba(245,158,11,0.2);
+  border: 1px solid rgba(245,158,11,0.4);
+}
+
+/* Greenhouse Specific */
+.greenhouse-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.greenhouse-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+/* Solar Specific */
+.solar-reading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: 16px;
+  min-width: 100px;
+}
+
+.solar-value {
+  font-size: 2.2rem;
+  font-weight: 900;
+}
+
+.solar-unit {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.solar-chart {
+  text-align: center;
+}
+
+.chart-label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* Code Block */
+.code-block {
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+  font-size: 0.8rem;
+  color: #8b949e;
+  font-weight: 600;
+}
+
+.copy-btn {
+  padding: 0.3rem 0.8rem;
+  background: rgba(0,242,255,0.1);
+  border: 1px solid rgba(0,242,255,0.2);
+  border-radius: 6px;
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.copy-btn:hover {
+  background: rgba(0,242,255,0.2);
+}
+
+.code-block pre {
+  padding: 1.5rem;
+  margin: 0;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.code-block code {
+  color: #c9d1d9;
+  font-family: 'Courier New', 'Consolas', monospace;
+  white-space: pre;
+}
+
+/* Resources Section */
+.pi-resources {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.pi-resources-title {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  color: var(--text-main);
+}
+
+.pi-resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.pi-resource-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.pi-resource-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.pi-resource-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.pi-resource-card h4 {
+  color: var(--text-main);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pi-resource-card p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .pi-hero-title {
+    font-size: 2rem;
+  }
+
+  .pi-hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .pi-card {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 0.5rem 1rem;
+    padding: 1.5rem;
+  }
+
+  .pi-card-num {
+    grid-row: 1;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .pi-card-icon {
+    grid-row: 1;
+    font-size: 2rem;
+    justify-self: end;
+  }
+
+  .pi-card-title {
+    grid-column: 1 / -1;
+    font-size: 1.15rem;
+  }
+
+  .pi-card-desc {
+    grid-column: 1 / -1;
+    font-size: 0.85rem;
+  }
+
+  .pi-card-expand {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    text-align: center;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .pi-expanded {
+    padding: 1.5rem;
+  }
+
+  .parking-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .solar-value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .proyectos-integradores-page {
+    padding: 0 0.5rem 3rem;
+  }
+
+  .pi-hero {
+    padding: 2rem 1rem;
+  }
+
+  .pi-hero-title {
+    font-size: 1.6rem;
+  }
+
+  .sim-dashboard {
+    gap: 1rem;
+  }
+
+  .parking-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+}
