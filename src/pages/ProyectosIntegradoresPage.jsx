@@ -422,6 +422,342 @@ const SolarMonitorSim = () => {
   );
 };
 
+// ─── SVG Circuit Diagrams ─────────────────────────────────────────────────
+
+const SvgPin = ({ x, y, label, color = '#10b981' }) => (
+  <g>
+    <circle cx={x} cy={y} r="4" fill={color} />
+    <text x={x} y={y - 8} textAnchor="middle" fill="#aaa" fontSize="7" fontWeight="700">{label}</text>
+  </g>
+);
+
+const SvgWire = ({ x1, y1, x2, y2, color = '#555' }) => (
+  <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={color} strokeWidth="2" />
+);
+
+const SvgComponent = ({ x, y, w, h, label, sublabel, fill = '#1a2744', stroke = '#3b82f6' }) => (
+  <g>
+    <rect x={x} y={y} width={w} height={h} rx="6" fill={fill} stroke={stroke} strokeWidth="1.5" />
+    <text x={x + w / 2} y={y + h / 2 - (sublabel ? 4 : 0)} textAnchor="middle" fill="#fff" fontSize="8" fontWeight="800">{label}</text>
+    {sublabel && <text x={x + w / 2} y={y + h / 2 + 8} textAnchor="middle" fill="#888" fontSize="6">{sublabel}</text>}
+  </g>
+);
+
+const WeatherCircuitSVG = () => (
+  <svg viewBox="0 0 520 300" className="circuit-svg">
+    {/* Arduino */}
+    <rect x="200" y="80" width="120" height="160" rx="8" fill="#1a2332" stroke="#3b82f6" strokeWidth="2" />
+    <text x="260" y="105" textAnchor="middle" fill="#3b82f6" fontSize="11" fontWeight="900">ARDUINO UNO</text>
+    <text x="260" y="120" textAnchor="middle" fill="#555" fontSize="7">ATmega328P</text>
+    {/* USB */}
+    <rect x="245" y="70" width="30" height="15" rx="3" fill="#333" stroke="#555" strokeWidth="1" />
+    <text x="260" y="81" textAnchor="middle" fill="#888" fontSize="6">USB</text>
+    {/* Arduino pins left */}
+    <SvgPin x={200} y={140} label="D2" color="#10b981" />
+    <SvgPin x={200} y={165} label="A4" color="#f59e0b" />
+    <SvgPin x={200} y={185} label="A5" color="#f59e0b" />
+    {/* Arduino pins right */}
+    <SvgPin x={320} y={140} label="5V" color="#ef4444" />
+    <SvgPin x={320} y={165} label="GND" color="#666" />
+    <SvgPin x={320} y={185} label="3.3V" color="#f97316" />
+    {/* DHT22 */}
+    <SvgComponent x={30} y={105} w={100} h={55} label="DHT22" sublabel="Temp + Humedad" fill="#0f2a1a" stroke="#10b981" />
+    <SvgWire x1={130} y1={132} x2={200} y2={140} color="#10b981" />
+    {/* Pull-up resistor */}
+    <rect x="155" y="115" width="25" height="10" rx="3" fill="#333" stroke="#f59e0b" strokeWidth="1" />
+    <text x="168" y="122" textAnchor="middle" fill="#f59e0b" fontSize="6">10K</text>
+    <SvgWire x1={168} y1={115} x2={168} y2={105} color="#ef4444" />
+    <text x="168" y="102" textAnchor="middle" fill="#ef4444" fontSize="6">5V</text>
+    {/* BMP280 */}
+    <SvgComponent x={30} y={175} w={100} h={55} label="BMP280" sublabel="Presion Atm." fill="#1a1a2e" stroke="#a855f7" />
+    <SvgWire x1={130} y1={195} x2={200} y2={165} color="#f59e0b" />
+    <text x="165" y="177" fill="#f59e0b" fontSize="6">SDA</text>
+    <SvgWire x1={130} y1={210} x2={200} y2={185} color="#f59e0b" />
+    <text x="165" y="200" fill="#f59e0b" fontSize="6">SCL</text>
+    {/* LCD I2C */}
+    <SvgComponent x={390} y={105} w={100} h={55} label="LCD 16x2" sublabel="I2C 0x27" fill="#1a2332" stroke="#06b6d4" />
+    <SvgWire x1={320} y1={140} x2={390} y2={125} color="#ef4444" />
+    <SvgWire x1={320} y1={165} x2={390} y2={145} color="#666" />
+    {/* I2C bus label */}
+    <rect x="155" y="243" width="210" height="22" rx="5" fill="rgba(249,115,22,0.1)" stroke="#f59e0b" strokeWidth="1" strokeDasharray="4" />
+    <text x="260" y="258" textAnchor="middle" fill="#f59e0b" fontSize="8" fontWeight="700">Bus I2C (SDA + SCL)</text>
+    {/* ESP8266 WiFi */}
+    <SvgComponent x={390} y={185} w={100} h={45} label="ESP8266" sublabel="WiFi IoT" fill="#1a2332" stroke="#8b5cf6" />
+    <SvgWire x1={320} y1={185} x2={390} y2={200} color="#f97316" />
+    {/* WiFi waves */}
+    <path d="M 505 200 Q 515 190 525 200" fill="none" stroke="#8b5cf6" strokeWidth="1.5" />
+    <path d="M 500 195 Q 515 180 530 195" fill="none" stroke="#8b5cf6" strokeWidth="1" opacity="0.6" />
+    {/* Legend */}
+    <rect x="15" y="260" width="130" height="30" rx="5" fill="rgba(0,0,0,0.3)" />
+    <circle cx="30" cy="275" r="4" fill="#ef4444" /><text x="38" y="278" fill="#aaa" fontSize="7">5V / 3.3V</text>
+    <circle cx="90" cy="275" r="4" fill="#666" /><text x="98" y="278" fill="#aaa" fontSize="7">GND</text>
+  </svg>
+);
+
+const IrrigationCircuitSVG = () => (
+  <svg viewBox="0 0 520 280" className="circuit-svg">
+    {/* Arduino */}
+    <rect x="200" y="60" width="120" height="160" rx="8" fill="#1a2332" stroke="#10b981" strokeWidth="2" />
+    <text x="260" y="85" textAnchor="middle" fill="#10b981" fontSize="11" fontWeight="900">ARDUINO UNO</text>
+    <SvgPin x={200} y={120} label="A0" color="#f59e0b" />
+    <SvgPin x={200} y={150} label="D7" color="#10b981" />
+    <SvgPin x={200} y={180} label="D13" color="#ef4444" />
+    <SvgPin x={320} y={120} label="5V" color="#ef4444" />
+    <SvgPin x={320} y={150} label="GND" color="#666" />
+    {/* Soil Sensor */}
+    <SvgComponent x={30} y={90} w={110} h={55} label="Sensor Humedad" sublabel="Capacitivo (A0)" fill="#1a2a1a" stroke="#10b981" />
+    <SvgWire x1={140} y1={117} x2={200} y2={120} color="#f59e0b" />
+    {/* Relay */}
+    <SvgComponent x={30} y={165} w={110} h={50} label="Modulo Rele" sublabel="5V - 1 Canal" fill="#2a1a1a" stroke="#ef4444" />
+    <SvgWire x1={140} y1={190} x2={200} y2={150} color="#10b981" />
+    {/* Pump */}
+    <SvgComponent x={30} y={235} w={110} h={40} label="Bomba 5V" sublabel="Sumergible" fill="#1a1a2e" stroke="#06b6d4" />
+    <SvgWire x1={85} y1={235} x2={85} y2={215} color="#ef4444" />
+    <text x="95" y="228" fill="#ef4444" fontSize="6">NO/COM</text>
+    {/* LED */}
+    <SvgComponent x={380} y={155} w={70} h={35} label="LED" sublabel="D13" fill="#2a2a1a" stroke="#f59e0b" />
+    <SvgWire x1={320} y1={180} x2={380} y2={172} color="#f59e0b" />
+    {/* Resistor for LED */}
+    <rect x="355" y="163" width="20" height="8" rx="2" fill="#333" stroke="#f59e0b" strokeWidth="1" />
+    <text x="365" y="169" textAnchor="middle" fill="#f59e0b" fontSize="5">220</text>
+    {/* Power supply */}
+    <SvgComponent x={380} y={90} w={100} h={45} label="Fuente 5V" sublabel="2A Externa" fill="#1a2332" stroke="#ef4444" />
+    <SvgWire x1={320} y1={120} x2={380} y2={110} color="#ef4444" />
+    {/* Flow diagram */}
+    <rect x="180" y="240" width="300" height="30" rx="8" fill="rgba(16,185,129,0.1)" stroke="#10b981" strokeWidth="1" strokeDasharray="4" />
+    <text x="330" y="259" textAnchor="middle" fill="#10b981" fontSize="8" fontWeight="700">Sensor lee humedad → Arduino decide → Rele activa bomba</text>
+  </svg>
+);
+
+const ParkingCircuitSVG = () => (
+  <svg viewBox="0 0 540 300" className="circuit-svg">
+    {/* Arduino MEGA */}
+    <rect x="200" y="50" width="140" height="180" rx="8" fill="#1a2332" stroke="#8b5cf6" strokeWidth="2" />
+    <text x="270" y="75" textAnchor="middle" fill="#8b5cf6" fontSize="11" fontWeight="900">ARDUINO MEGA</text>
+    <text x="270" y="90" textAnchor="middle" fill="#555" fontSize="7">ATmega2560</text>
+    {/* Ultrasonic sensors */}
+    {[0, 1, 2].map(i => (
+      <g key={i}>
+        <rect x={20} y={55 + i * 55} width={90} height={40} rx="5" fill="#1a2332" stroke="#06b6d4" strokeWidth="1.5" />
+        <text x={65} y={73 + i * 55} textAnchor="middle" fill="#06b6d4" fontSize="8" fontWeight="700">HC-SR04</text>
+        <text x={65} y={85 + i * 55} textAnchor="middle" fill="#666" fontSize="6">Plaza P{i + 1}</text>
+        <SvgWire x1={110} y1={70 + i * 55} x2={200} y2={110 + i * 25} color="#06b6d4" />
+        {/* Sonar waves */}
+        <path d={`M 15 ${70 + i * 55} Q 5 ${65 + i * 55} 15 ${60 + i * 55}`} fill="none" stroke="#06b6d4" strokeWidth="1" opacity="0.5" />
+      </g>
+    ))}
+    {/* More sensors label */}
+    <text x="65" y="225" textAnchor="middle" fill="#666" fontSize="8">+ 3 sensores mas...</text>
+    {/* Servo barrier */}
+    <SvgComponent x={400} y={60} w={100} h={50} label="Servo SG90" sublabel="Barrera D9" fill="#2a2a1a" stroke="#f59e0b" />
+    <SvgWire x1={340} y1={110} x2={400} y2={85} color="#f59e0b" />
+    {/* LEDs */}
+    <rect x="400" y="130" width="100" height="45" rx="5" fill="#0a1a0a" stroke="#10b981" strokeWidth="1.5" />
+    <text x="450" y="148" textAnchor="middle" fill="#10b981" fontSize="8" fontWeight="700">LEDs x12</text>
+    <text x="450" y="162" textAnchor="middle" fill="#666" fontSize="6">6 Verde + 6 Rojo</text>
+    <SvgWire x1={340} y1={140} x2={400} y2={152} color="#10b981" />
+    {/* Buzzer */}
+    <SvgComponent x={400} y={195} w={100} h={40} label="Buzzer" sublabel="Piezo D10" fill="#2a1a1a" stroke="#ef4444" />
+    <SvgWire x1={340} y1={170} x2={400} y2={215} color="#ef4444" />
+    {/* Display */}
+    <SvgComponent x={160} y={250} w={220} h={35} label="Display 7 Segmentos — Espacios Libres" fill="#1a1a2e" stroke="#a855f7" />
+  </svg>
+);
+
+const SecurityCircuitSVG = () => (
+  <svg viewBox="0 0 520 300" className="circuit-svg">
+    {/* Arduino */}
+    <rect x="200" y="60" width="120" height="180" rx="8" fill="#1a2332" stroke="#ef4444" strokeWidth="2" />
+    <text x="260" y="85" textAnchor="middle" fill="#ef4444" fontSize="11" fontWeight="900">ARDUINO UNO</text>
+    <SvgPin x={200} y={120} label="D2" color="#f59e0b" />
+    <SvgPin x={200} y={150} label="D3" color="#06b6d4" />
+    <SvgPin x={200} y={180} label="D12" color="#ef4444" />
+    <SvgPin x={200} y={210} label="D13" color="#ef4444" />
+    <SvgPin x={320} y={120} label="A0" color="#10b981" />
+    <SvgPin x={320} y={150} label="5V" color="#ef4444" />
+    <SvgPin x={320} y={180} label="GND" color="#666" />
+    {/* PIR Sensor */}
+    <SvgComponent x={30} y={95} w={110} h={50} label="PIR HC-SR501" sublabel="Sensor Movimiento" fill="#2a2a1a" stroke="#f59e0b" />
+    <SvgWire x1={140} y1={120} x2={200} y2={120} color="#f59e0b" />
+    {/* Detection cone */}
+    <path d="M 30 110 L 5 90 L 5 130 Z" fill="rgba(249,115,22,0.15)" stroke="#f59e0b" strokeWidth="1" />
+    {/* Reed Switch */}
+    <SvgComponent x={30} y={160} w={110} h={45} label="Reed Switch" sublabel="Sensor Magnetico" fill="#1a2a2a" stroke="#06b6d4" />
+    <SvgWire x1={140} y1={182} x2={200} y2={150} color="#06b6d4" />
+    <text x="168" y="162" fill="#888" fontSize="6">PULLUP</text>
+    {/* Buzzer */}
+    <SvgComponent x={30} y={225} w={110} h={40} label="Buzzer Activo" sublabel="5V - Alarma" fill="#2a1a1a" stroke="#ef4444" />
+    <SvgWire x1={140} y1={245} x2={195} y2={210} color="#ef4444" />
+    <SvgWire x1={140} y1={245} x2={200} y2={180} color="#ef4444" />
+    {/* LEDs */}
+    <g>
+      <circle cx="380" cy="115" r="12" fill="rgba(239,68,68,0.3)" stroke="#ef4444" strokeWidth="1.5" />
+      <text x="380" y="119" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="900">R</text>
+      <text x="380" y="100" textAnchor="middle" fill="#888" fontSize="6">LED D13</text>
+    </g>
+    <SvgWire x1={320} y1={120} x2={368} y2={115} color="#10b981" />
+    <g>
+      <circle cx="380" cy="155" r="12" fill="rgba(16,185,129,0.3)" stroke="#10b981" strokeWidth="1.5" />
+      <text x="380" y="159" textAnchor="middle" fill="#10b981" fontSize="8" fontWeight="900">V</text>
+      <text x="380" y="140" textAnchor="middle" fill="#888" fontSize="6">LED A0</text>
+    </g>
+    {/* ESP8266 */}
+    <SvgComponent x={370} y={190} w={110} h={45} label="ESP8266" sublabel="Notif. WiFi" fill="#1a1a2e" stroke="#8b5cf6" />
+    <SvgWire x1={320} y1={180} x2={370} y2={212} color="#8b5cf6" />
+    {/* Keypad */}
+    <SvgComponent x={370} y={250} w={110} h={40} label="Teclado 4x4" sublabel="D4-D11" fill="#1a2332" stroke="#f59e0b" />
+    {/* State machine label */}
+    <rect x="150" y="265" width="180" height="25" rx="5" fill="rgba(239,68,68,0.1)" stroke="#ef4444" strokeWidth="1" strokeDasharray="4" />
+    <text x="240" y="281" textAnchor="middle" fill="#ef4444" fontSize="7" fontWeight="700">Maquina de Estados: DESARMADO → ARMADO → ALARMA</text>
+  </svg>
+);
+
+const GreenhouseCircuitSVG = () => (
+  <svg viewBox="0 0 540 310" className="circuit-svg">
+    {/* Arduino MEGA */}
+    <rect x="200" y="40" width="140" height="200" rx="8" fill="#1a2332" stroke="#22c55e" strokeWidth="2" />
+    <text x="270" y="65" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="900">ARDUINO MEGA</text>
+    <SvgPin x={200} y={100} label="D2" color="#10b981" />
+    <SvgPin x={200} y={130} label="A0" color="#f59e0b" />
+    <SvgPin x={200} y={160} label="D9" color="#06b6d4" />
+    <SvgPin x={200} y={190} label="D4" color="#ef4444" />
+    <SvgPin x={340} y={100} label="D5" color="#3b82f6" />
+    <SvgPin x={340} y={130} label="D6" color="#a855f7" />
+    <SvgPin x={340} y={160} label="5V" color="#ef4444" />
+    <SvgPin x={340} y={190} label="GND" color="#666" />
+    {/* DHT22 */}
+    <SvgComponent x={30} y={75} w={105} h={50} label="DHT22" sublabel="Temp + Humedad" fill="#0f2a1a" stroke="#10b981" />
+    <SvgWire x1={135} y1={100} x2={200} y2={100} color="#10b981" />
+    {/* Soil sensor */}
+    <SvgComponent x={30} y={140} w={105} h={45} label="Sensor Suelo" sublabel="Capacitivo A0" fill="#1a2a1a" stroke="#f59e0b" />
+    <SvgWire x1={135} y1={162} x2={200} y2={130} color="#f59e0b" />
+    {/* Servo */}
+    <SvgComponent x={30} y={200} w={105} h={40} label="Servo Ventana" sublabel="SG90 - D9" fill="#1a2332" stroke="#06b6d4" />
+    <SvgWire x1={135} y1={220} x2={200} y2={160} color="#06b6d4" />
+    {/* Relay module */}
+    <rect x="390" y="55" width="120" height="120" rx="8" fill="#1a1a1a" stroke="#ef4444" strokeWidth="1.5" />
+    <text x="450" y="75" textAnchor="middle" fill="#ef4444" fontSize="9" fontWeight="800">RELE 4 CH</text>
+    {/* Relay channels */}
+    <rect x="400" y="82" width="100" height="22" rx="4" fill="#2a1a1a" stroke="#ef4444" strokeWidth="1" />
+    <text x="450" y="96" textAnchor="middle" fill="#ef4444" fontSize="7">CH1: Ventilador</text>
+    <rect x="400" y="108" width="100" height="22" rx="4" fill="#1a1a2a" stroke="#3b82f6" strokeWidth="1" />
+    <text x="450" y="122" textAnchor="middle" fill="#3b82f6" fontSize="7">CH2: Bomba Agua</text>
+    <rect x="400" y="134" width="100" height="22" rx="4" fill="#2a1a2a" stroke="#a855f7" strokeWidth="1" />
+    <text x="450" y="148" textAnchor="middle" fill="#a855f7" fontSize="7">CH3: LED Grow</text>
+    <SvgWire x1={340} y1={100} x2={400} y2={108} color="#ef4444" />
+    <SvgWire x1={340} y1={100} x2={400} y2={119} color="#3b82f6" />
+    <SvgWire x1={340} y1={130} x2={400} y2={145} color="#a855f7" />
+    {/* Actuators */}
+    <SvgComponent x={400} y={195} w={110} h={35} label="Ventilador 12V" fill="#1a2332" stroke="#ef4444" />
+    <SvgComponent x={400} y={240} w={110} h={35} label="Bomba Agua 5V" fill="#1a2332" stroke="#3b82f6" />
+    <SvgComponent x={400} y={280} w={110} h={25} label="Tira LED Grow" fill="#2a1a2a" stroke="#a855f7" />
+    <SvgWire x1={450} y1={175} x2={450} y2={195} color="#ef4444" />
+    <SvgWire x1={455} y1={175} x2={455} y2={240} color="#3b82f6" />
+    <SvgWire x1={460} y1={175} x2={460} y2={280} color="#a855f7" />
+    {/* Power */}
+    <SvgComponent x={200} y={260} w={130} h={30} label="Fuente 12V / 5V" fill="#1a2332" stroke="#f59e0b" />
+  </svg>
+);
+
+const SolarCircuitSVG = () => (
+  <svg viewBox="0 0 540 300" className="circuit-svg">
+    {/* Arduino */}
+    <rect x="210" y="60" width="120" height="170" rx="8" fill="#1a2332" stroke="#f59e0b" strokeWidth="2" />
+    <text x="270" y="85" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="900">ARDUINO UNO</text>
+    <SvgPin x={210} y={120} label="A0" color="#06b6d4" />
+    <SvgPin x={210} y={150} label="A1" color="#f59e0b" />
+    <SvgPin x={210} y={180} label="A4" color="#10b981" />
+    <SvgPin x={210} y={200} label="A5" color="#10b981" />
+    <SvgPin x={330} y={120} label="5V" color="#ef4444" />
+    <SvgPin x={330} y={150} label="GND" color="#666" />
+    <SvgPin x={330} y={180} label="D10" color="#8b5cf6" />
+    {/* Solar panel */}
+    <rect x="20" y="55" width="120" height="80" rx="6" fill="#0a1a2e" stroke="#f59e0b" strokeWidth="2" />
+    <text x="80" y="80" textAnchor="middle" fill="#f59e0b" fontSize="10" fontWeight="900">PANEL SOLAR</text>
+    <text x="80" y="95" textAnchor="middle" fill="#888" fontSize="7">6V - 2W</text>
+    {/* Sun rays */}
+    {[0, 30, 60, 90, 120, 150].map(a => (
+      <line key={a} x1={80 + Math.cos(a * Math.PI / 180) * 48} y1={30 + Math.sin(a * Math.PI / 180) * 20}
+        x2={80 + Math.cos(a * Math.PI / 180) * 55} y2={30 + Math.sin(a * Math.PI / 180) * 23}
+        stroke="#f59e0b" strokeWidth="1.5" opacity="0.5" />
+    ))}
+    <circle cx="80" cy="30" r="10" fill="rgba(251,191,36,0.3)" stroke="#f59e0b" strokeWidth="1" />
+    <text x="80" y="34" textAnchor="middle" fill="#f59e0b" fontSize="10">☀</text>
+    {/* ACS712 current sensor */}
+    <SvgComponent x={20} y={155} w={120} h={50} label="ACS712 (5A)" sublabel="Sensor Corriente" fill="#1a2a2a" stroke="#06b6d4" />
+    <SvgWire x1={80} y1={135} x2={80} y2={155} color="#f59e0b" />
+    <SvgWire x1={140} y1={180} x2={210} y2={120} color="#06b6d4" />
+    {/* Voltage divider */}
+    <g>
+      <rect x="20" y="225" width="120" height="50" rx="6" fill="#1a1a1a" stroke="#f59e0b" strokeWidth="1.5" />
+      <text x="80" y="245" textAnchor="middle" fill="#f59e0b" fontSize="8" fontWeight="700">Divisor Tension</text>
+      <text x="80" y="258" textAnchor="middle" fill="#888" fontSize="6">R1=10K / R2=5K</text>
+      {/* Resistors */}
+      <rect x="40" y="263" width="20" height="6" rx="2" fill="#333" stroke="#f59e0b" strokeWidth="0.8" />
+      <text x="50" y="268" textAnchor="middle" fill="#f59e0b" fontSize="4">10K</text>
+      <rect x="80" y="263" width="20" height="6" rx="2" fill="#333" stroke="#f59e0b" strokeWidth="0.8" />
+      <text x="90" y="268" textAnchor="middle" fill="#f59e0b" fontSize="4">5K</text>
+    </g>
+    <SvgWire x1={140} y1={250} x2={210} y2={150} color="#f59e0b" />
+    {/* OLED */}
+    <SvgComponent x={390} y={65} w={110} h={55} label="OLED 0.96'" sublabel="I2C - 128x64" fill="#0a0a0a" stroke="#10b981" />
+    <SvgWire x1={330} y1={120} x2={390} y2={85} color="#ef4444" />
+    <text x="363" y="82" fill="#10b981" fontSize="6">I2C</text>
+    {/* MicroSD */}
+    <SvgComponent x={390} y={140} w={110} h={45} label="MicroSD" sublabel="Datalogger SPI" fill="#1a2332" stroke="#8b5cf6" />
+    <SvgWire x1={330} y1={180} x2={390} y2={162} color="#8b5cf6" />
+    {/* Battery + TP4056 */}
+    <SvgComponent x={390} y={210} w={110} h={50} label="Bateria 3.7V" sublabel="LiPo + TP4056" fill="#2a2a1a" stroke="#f59e0b" />
+    <SvgWire x1={140} y1={195} x2={140} y2={245} color="#ef4444" />
+    <SvgWire x1={140} y1={245} x2={390} y2={235} color="#ef4444" />
+    <text x="265" y="248" textAnchor="middle" fill="#888" fontSize="6">Carga solar → Bateria</text>
+    {/* Formula */}
+    <rect x="180" y="275" width="200" height="20" rx="5" fill="rgba(245,158,11,0.1)" stroke="#f59e0b" strokeWidth="1" strokeDasharray="4" />
+    <text x="280" y="289" textAnchor="middle" fill="#f59e0b" fontSize="8" fontWeight="700">P = V x I | E = P x t (Wh)</text>
+  </svg>
+);
+
+// ─── Block Diagrams ───────────────────────────────────────────────────────
+
+const BlockDiagram = ({ blocks, connections, width = 520, height = 120 }) => (
+  <svg viewBox={`0 0 ${width} ${height}`} className="block-diagram-svg">
+    {connections.map((c, i) => (
+      <g key={i}>
+        <line x1={c.x1} y1={c.y1} x2={c.x2} y2={c.y2} stroke={c.color || '#555'} strokeWidth="2" markerEnd="url(#arrowhead)" />
+      </g>
+    ))}
+    <defs>
+      <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#888" />
+      </marker>
+    </defs>
+    {blocks.map((b, i) => (
+      <g key={i}>
+        <rect x={b.x} y={b.y} width={b.w} height={b.h} rx="8" fill={b.fill || '#1a2332'} stroke={b.stroke || '#3b82f6'} strokeWidth="1.5" />
+        <text x={b.x + b.w / 2} y={b.y + b.h / 2 - 4} textAnchor="middle" fill="#fff" fontSize="9" fontWeight="800">{b.label}</text>
+        {b.sub && <text x={b.x + b.w / 2} y={b.y + b.h / 2 + 9} textAnchor="middle" fill="#888" fontSize="7">{b.sub}</text>}
+      </g>
+    ))}
+  </svg>
+);
+
+// ─── Theory Content Renderer ──────────────────────────────────────────────
+
+const TheorySection = ({ items }) => (
+  <div className="theory-items">
+    {items.map((item, i) => (
+      <div key={i} className="theory-item">
+        <div className="theory-item-icon">{item.icon}</div>
+        <div className="theory-item-content">
+          <h5 className="theory-item-title">{item.title}</h5>
+          <p className="theory-item-text">{item.text}</p>
+          {item.formula && <div className="theory-formula">{item.formula}</div>}
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
 // ─── Code Snippets ────────────────────────────────────────────────────────
 
 const CodeBlock = ({ title, code }) => {
@@ -513,6 +849,30 @@ void loop() {
   delay(2000);
 }`,
     Simulator: WeatherStationSim,
+    CircuitSVG: WeatherCircuitSVG,
+    blockDiagram: {
+      blocks: [
+        { x: 10, y: 30, w: 85, h: 50, label: 'DHT22', sub: 'Temp+Hum', fill: '#0f2a1a', stroke: '#10b981' },
+        { x: 110, y: 30, w: 85, h: 50, label: 'BMP280', sub: 'Presion', fill: '#1a1a2e', stroke: '#a855f7' },
+        { x: 215, y: 25, w: 100, h: 60, label: 'ARDUINO', sub: 'Procesa', fill: '#1a2332', stroke: '#3b82f6' },
+        { x: 335, y: 10, w: 80, h: 40, label: 'LCD', sub: 'Muestra', fill: '#1a2332', stroke: '#06b6d4' },
+        { x: 335, y: 60, w: 80, h: 40, label: 'ESP8266', sub: 'WiFi', fill: '#1a1a2e', stroke: '#8b5cf6' },
+        { x: 435, y: 60, w: 75, h: 40, label: 'Servidor', sub: 'Dashboard', fill: '#1a2332', stroke: '#10b981' },
+      ],
+      connections: [
+        { x1: 95, y1: 55, x2: 215, y2: 55, color: '#10b981' },
+        { x1: 195, y1: 55, x2: 215, y2: 55, color: '#a855f7' },
+        { x1: 315, y1: 40, x2: 335, y2: 30, color: '#06b6d4' },
+        { x1: 315, y1: 65, x2: 335, y2: 80, color: '#8b5cf6' },
+        { x1: 415, y1: 80, x2: 435, y2: 80, color: '#10b981' },
+      ],
+    },
+    theory: [
+      { icon: '🌡️', title: 'Sensor DHT22 — Temperatura y Humedad', text: 'El DHT22 es un sensor digital capacitivo que mide temperatura (-40°C a 80°C, precision ±0.5°C) y humedad relativa (0-100%, precision ±2%). Utiliza un protocolo de comunicacion propietario de un solo hilo (1-Wire). La resistencia pull-up de 10K es esencial para mantener la linea de datos en estado alto cuando no se transmite.', formula: 'HR = (Presion parcial vapor / Presion saturacion) x 100%' },
+      { icon: '🔵', title: 'Sensor BMP280 — Presion Barometrica', text: 'El BMP280 mide presion atmosferica (300-1100 hPa) con precision de ±1 hPa. Se comunica por I2C (direccion 0x76 o 0x77). La presion atmosferica a nivel del mar es ~1013.25 hPa; variaciones indican cambios climaticos. Tambien permite estimar altitud mediante la formula barometrica.', formula: 'Altitud = 44330 x (1 - (P/P0)^0.1903)' },
+      { icon: '📡', title: 'Protocolo I2C (Inter-Integrated Circuit)', text: 'I2C es un bus de comunicacion serie que usa solo dos lineas: SDA (datos) y SCL (reloj). Permite conectar multiples dispositivos esclavos a un unico maestro (Arduino). Cada dispositivo tiene una direccion unica de 7 bits. Es ideal para sensores y displays de baja velocidad. Las lineas requieren resistencias pull-up a VCC.' },
+      { icon: '📶', title: 'IoT — Internet de las Cosas', text: 'IoT permite que dispositivos fisicos se conecten a Internet para enviar y recibir datos. El ESP8266 es un microcontrolador WiFi de bajo costo que puede actuar como estacion (se conecta a un router) o punto de acceso. Los datos meteorologicos se envian a un servidor mediante protocolo HTTP o MQTT para visualizacion remota en un dashboard web.' },
+    ],
   },
   {
     id: 'irrigation',
@@ -578,6 +938,28 @@ void loop() {
   delay(5000); // Leer cada 5 segundos
 }`,
     Simulator: SmartIrrigationSim,
+    CircuitSVG: IrrigationCircuitSVG,
+    blockDiagram: {
+      blocks: [
+        { x: 10, y: 30, w: 95, h: 50, label: 'Sensor Suelo', sub: 'Capacitivo', fill: '#1a2a1a', stroke: '#10b981' },
+        { x: 125, y: 30, w: 100, h: 50, label: 'ARDUINO', sub: 'Compara umbral', fill: '#1a2332', stroke: '#10b981' },
+        { x: 245, y: 30, w: 80, h: 50, label: 'Rele 5V', sub: 'Conmuta', fill: '#2a1a1a', stroke: '#ef4444' },
+        { x: 345, y: 30, w: 85, h: 50, label: 'Bomba', sub: 'Riega', fill: '#1a1a2e', stroke: '#06b6d4' },
+        { x: 345, y: 90, w: 85, h: 30, label: 'LED Estado', fill: '#2a2a1a', stroke: '#f59e0b' },
+      ],
+      connections: [
+        { x1: 105, y1: 55, x2: 125, y2: 55, color: '#10b981' },
+        { x1: 225, y1: 55, x2: 245, y2: 55, color: '#ef4444' },
+        { x1: 325, y1: 55, x2: 345, y2: 55, color: '#06b6d4' },
+        { x1: 225, y1: 70, x2: 345, y2: 100, color: '#f59e0b' },
+      ],
+    },
+    theory: [
+      { icon: '🌱', title: 'Sensor de Humedad Capacitivo', text: 'A diferencia de los sensores resistivos (que se corroen), los capacitivos miden la constante dielectrica del suelo. El agua tiene una constante dielectrica alta (~80), mientras que el suelo seco es baja (~4). El sensor genera una senal analogica proporcional: mayor humedad = menor valor analogico. Se conecta a un pin ADC del Arduino que convierte 0-5V a valores 0-1023.' },
+      { icon: '⚡', title: 'Modulo Rele — Control de Potencia', text: 'El rele es un interruptor electromagnetico que permite controlar cargas de alta potencia (bomba 5V/12V) con una senal digital de baja potencia del Arduino. Tiene 3 terminales de salida: COM (comun), NO (normalmente abierto) y NC (normalmente cerrado). Los reles de Arduino son "activos bajos": se activan con LOW. El diodo flyback protege al Arduino de picos de tension al desconectar la bobina.' },
+      { icon: '📊', title: 'Conversion ADC y Funcion map()', text: 'El ADC (Conversor Analogico-Digital) del Arduino tiene resolucion de 10 bits (0-1023). La funcion map(valor, minOrigen, maxOrigen, minDestino, maxDestino) realiza una interpolacion lineal para convertir el valor crudo a porcentaje. constrain() limita el resultado al rango valido 0-100%.', formula: 'humedad% = map(raw, 1023, 300, 0, 100)' },
+      { icon: '💧', title: 'Logica de Control con Umbral (Histeresis)', text: 'El sistema usa un umbral configurable: si la humedad baja del umbral, activa la bomba; si sube, la detiene. En sistemas avanzados se agrega histeresis (banda muerta) para evitar que la bomba oscile rapidamente. Por ejemplo: encender cuando humedad < 30%, apagar cuando humedad > 45%. Esto protege la bomba y ahorra energia.' },
+    ],
   },
   {
     id: 'parking',
@@ -676,6 +1058,30 @@ void loop() {
   delay(2000);
 }`,
     Simulator: SmartParkingSim,
+    CircuitSVG: ParkingCircuitSVG,
+    blockDiagram: {
+      blocks: [
+        { x: 5, y: 25, w: 85, h: 50, label: 'HC-SR04', sub: 'x6 sensores', fill: '#1a2332', stroke: '#06b6d4' },
+        { x: 110, y: 25, w: 100, h: 50, label: 'ARDUINO', sub: 'MEGA', fill: '#1a2332', stroke: '#8b5cf6' },
+        { x: 230, y: 10, w: 75, h: 35, label: 'LEDs', sub: '12 (R+V)', fill: '#0a1a0a', stroke: '#10b981' },
+        { x: 230, y: 55, w: 75, h: 35, label: 'Servo', sub: 'Barrera', fill: '#2a2a1a', stroke: '#f59e0b' },
+        { x: 325, y: 10, w: 75, h: 35, label: 'Display', sub: 'Libres', fill: '#1a1a2e', stroke: '#a855f7' },
+        { x: 325, y: 55, w: 75, h: 35, label: 'Buzzer', sub: 'Lleno', fill: '#2a1a1a', stroke: '#ef4444' },
+      ],
+      connections: [
+        { x1: 90, y1: 50, x2: 110, y2: 50, color: '#06b6d4' },
+        { x1: 210, y1: 35, x2: 230, y2: 27, color: '#10b981' },
+        { x1: 210, y1: 60, x2: 230, y2: 72, color: '#f59e0b' },
+        { x1: 305, y1: 27, x2: 325, y2: 27, color: '#a855f7' },
+        { x1: 305, y1: 72, x2: 325, y2: 72, color: '#ef4444' },
+      ],
+    },
+    theory: [
+      { icon: '📏', title: 'Sensor Ultrasonico HC-SR04', text: 'El HC-SR04 mide distancias de 2cm a 400cm emitiendo un pulso ultrasonico de 40kHz y midiendo el tiempo que tarda en rebotar. El pin TRIGGER envia un pulso de 10us; el pin ECHO devuelve un pulso cuya duracion es proporcional a la distancia. La velocidad del sonido en aire es ~343 m/s a 20°C.', formula: 'Distancia (cm) = Tiempo (us) x 0.034 / 2' },
+      { icon: '⚙️', title: 'Servomotor SG90 — Control Angular', text: 'El servo SG90 permite posicionar su eje en un angulo de 0° a 180° mediante una senal PWM. El periodo de la senal es 20ms (50Hz) y el ancho del pulso determina el angulo: 1ms = 0°, 1.5ms = 90°, 2ms = 180°. La libreria Servo de Arduino simplifica esto con servo.write(angulo). Se usa para la barrera: 0° = cerrada, 90° = abierta.' },
+      { icon: '💡', title: 'Indicadores LED con Resistencia Limitadora', text: 'Los LEDs requieren una resistencia en serie para limitar la corriente y evitar que se quemen. Un LED tipico opera a ~20mA con caida de tension de ~2V (rojo) o ~3V (azul/verde). Con Arduino a 5V y LED rojo: R = (5V - 2V) / 0.02A = 150 ohm. Se usa 220 ohm por seguridad. Cada plaza tiene un LED verde (libre) y rojo (ocupado).', formula: 'R = (Vcc - Vled) / I_led' },
+      { icon: '🔊', title: 'Buzzer Piezoelectrico y Funcion tone()', text: 'El buzzer piezoelectrico convierte senales electricas en sonido mediante vibracion de un cristal. Arduino genera la senal con tone(pin, frecuencia, duracion). Frecuencias tipicas: 500Hz (grave), 1000Hz (medio), 2000Hz (agudo). Se usa para alertar cuando el estacionamiento esta lleno. noTone(pin) detiene el sonido.' },
+    ],
   },
   {
     id: 'security',
@@ -772,6 +1178,32 @@ void loop() {
   delay(100);
 }`,
     Simulator: SecuritySystemSim,
+    CircuitSVG: SecurityCircuitSVG,
+    blockDiagram: {
+      blocks: [
+        { x: 5, y: 15, w: 80, h: 40, label: 'PIR', sub: 'Movimiento', fill: '#2a2a1a', stroke: '#f59e0b' },
+        { x: 5, y: 65, w: 80, h: 40, label: 'Reed SW', sub: 'Puerta', fill: '#1a2a2a', stroke: '#06b6d4' },
+        { x: 110, y: 30, w: 100, h: 55, label: 'ARDUINO', sub: 'Maq. Estados', fill: '#1a2332', stroke: '#ef4444' },
+        { x: 235, y: 10, w: 70, h: 35, label: 'Buzzer', sub: 'Alarma', fill: '#2a1a1a', stroke: '#ef4444' },
+        { x: 235, y: 55, w: 70, h: 35, label: 'LEDs', sub: 'R + V', fill: '#1a2332', stroke: '#10b981' },
+        { x: 330, y: 10, w: 80, h: 35, label: 'ESP8266', sub: 'Notifica', fill: '#1a1a2e', stroke: '#8b5cf6' },
+        { x: 330, y: 55, w: 80, h: 35, label: 'Teclado', sub: '4x4', fill: '#1a2332', stroke: '#f59e0b' },
+      ],
+      connections: [
+        { x1: 85, y1: 35, x2: 110, y2: 45, color: '#f59e0b' },
+        { x1: 85, y1: 85, x2: 110, y2: 70, color: '#06b6d4' },
+        { x1: 210, y1: 40, x2: 235, y2: 27, color: '#ef4444' },
+        { x1: 210, y1: 65, x2: 235, y2: 72, color: '#10b981' },
+        { x1: 305, y1: 27, x2: 330, y2: 27, color: '#8b5cf6' },
+        { x1: 330, y1: 72, x2: 210, y2: 72, color: '#f59e0b' },
+      ],
+    },
+    theory: [
+      { icon: '👁️', title: 'Sensor PIR HC-SR501 — Deteccion de Movimiento', text: 'PIR (Passive Infrared) detecta variaciones de radiacion infrarroja emitida por cuerpos calientes. Tiene un rango de ~7 metros y angulo de 120°. Contiene un sensor piroelectrico y una lente de Fresnel que concentra la radiacion. La salida es digital: HIGH cuando detecta movimiento, LOW en reposo. Tiene dos potenciometros para ajustar sensibilidad y tiempo de retardo.' },
+      { icon: '🧲', title: 'Sensor Magnetico Reed Switch', text: 'El reed switch es un interruptor hermetico que se cierra en presencia de un campo magnetico. Se coloca en el marco de la puerta con un iman en la hoja. Cuando la puerta esta cerrada, el iman mantiene el contacto cerrado (circuito cerrado = LOW con pull-up). Al abrir la puerta, el circuito se abre (HIGH). Se usa con INPUT_PULLUP para evitar resistencias externas.' },
+      { icon: '🔄', title: 'Maquina de Estados Finitos (FSM)', text: 'El sistema opera como una FSM con tres estados: DESARMADO (verde encendido, ignora sensores), ARMADO (rojo encendido, monitorea sensores) y ALARMA (buzzer activo, LED parpadea). Las transiciones ocurren por eventos: codigo correcto arma/desarma, deteccion de movimiento o puerta abierta activan la alarma. Este patron de diseno es fundamental en sistemas embebidos.' },
+      { icon: '🔐', title: 'Teclado Matricial 4x4', text: 'El teclado matricial 4x4 tiene 16 teclas organizadas en 4 filas y 4 columnas, usando solo 8 pines del Arduino. Funciona por escaneo: el Arduino activa una fila a la vez y lee las columnas para detectar que tecla se presiono. La libreria Keypad simplifica la lectura. Se usa para ingresar el codigo secreto de 4 digitos que arma/desarma el sistema.' },
+    ],
   },
   {
     id: 'greenhouse',
@@ -877,6 +1309,33 @@ void loop() {
   delay(5000);
 }`,
     Simulator: GreenhouseSim,
+    CircuitSVG: GreenhouseCircuitSVG,
+    blockDiagram: {
+      blocks: [
+        { x: 5, y: 10, w: 80, h: 35, label: 'DHT22', sub: 'Temp+Hum', fill: '#0f2a1a', stroke: '#10b981' },
+        { x: 5, y: 55, w: 80, h: 35, label: 'Sensor Suelo', sub: 'Humedad', fill: '#1a2a1a', stroke: '#f59e0b' },
+        { x: 110, y: 25, w: 100, h: 60, label: 'ARDUINO', sub: 'MEGA', fill: '#1a2332', stroke: '#22c55e' },
+        { x: 235, y: 5, w: 85, h: 30, label: 'Servo', sub: 'Ventana', fill: '#1a2332', stroke: '#06b6d4' },
+        { x: 235, y: 40, w: 85, h: 30, label: 'Ventilador', sub: '12V', fill: '#2a1a1a', stroke: '#ef4444' },
+        { x: 235, y: 75, w: 85, h: 30, label: 'Bomba', sub: 'Riego', fill: '#1a1a2e', stroke: '#3b82f6' },
+        { x: 345, y: 40, w: 80, h: 30, label: 'LED Grow', sub: 'Luz', fill: '#2a1a2a', stroke: '#a855f7' },
+        { x: 345, y: 75, w: 80, h: 30, label: 'Rele 4CH', sub: 'Conmuta', fill: '#1a1a1a', stroke: '#ef4444' },
+      ],
+      connections: [
+        { x1: 85, y1: 27, x2: 110, y2: 40, color: '#10b981' },
+        { x1: 85, y1: 72, x2: 110, y2: 65, color: '#f59e0b' },
+        { x1: 210, y1: 35, x2: 235, y2: 20, color: '#06b6d4' },
+        { x1: 210, y1: 50, x2: 235, y2: 55, color: '#ef4444' },
+        { x1: 210, y1: 65, x2: 235, y2: 90, color: '#3b82f6' },
+        { x1: 320, y1: 55, x2: 345, y2: 55, color: '#a855f7' },
+      ],
+    },
+    theory: [
+      { icon: '🌡️', title: 'Control Climatico en Invernaderos', text: 'Un invernadero atrapa el calor solar mediante el efecto invernadero: la luz visible penetra el vidrio/policarbonato, se convierte en calor infrarrojo que no puede escapar. La temperatura optima para la mayoria de cultivos esta entre 18°C y 28°C. El control automatizado mantiene estas condiciones abriendo ventilaciones cuando la temperatura supera el umbral y activando riego cuando la humedad del suelo baja.' },
+      { icon: '💨', title: 'Ventilacion Automatica con Servo', text: 'El servomotor controla la compuerta/ventana del invernadero. A 0° la ventana esta cerrada (conserva calor); a 90° esta completamente abierta (ventilacion maxima). Se puede implementar control proporcional: abrir parcialmente segun la diferencia entre la temperatura actual y la deseada. Esto es mas eficiente que el control todo/nada (on/off).' },
+      { icon: '🔴', title: 'Iluminacion Grow LED (PAR)', text: 'Las plantas realizan fotosintesis principalmente con luz roja (620-750nm) y azul (450-495nm). Las tiras LED grow combinan estos colores para maximizar la eficiencia fotosintetica. Se miden en PAR (Radiacion Fotosinteticamente Activa) expresada en umol/m²/s. La mayoria de cultivos necesitan 12-16 horas de luz diaria. Un modulo RTC (reloj en tiempo real) permite programar el encendido/apagado automatico.', formula: 'PAR optimo = 200-400 umol/m²/s (hortalizas)' },
+      { icon: '🔌', title: 'Modulo Rele Multicanal', text: 'El modulo rele de 4 canales permite controlar 4 dispositivos de alta potencia independientemente. Cada canal soporta hasta 10A a 250VAC o 30VDC. Son "activos bajos" (se activan con LOW). Los optoacopladores internos aislan electricamente el Arduino de las cargas. Es fundamental usar fuente externa para las cargas (ventilador 12V, bomba) y NO alimentarlas desde el Arduino.' },
+    ],
   },
   {
     id: 'solar',
@@ -989,6 +1448,33 @@ void loop() {
   delay(2000);
 }`,
     Simulator: SolarMonitorSim,
+    CircuitSVG: SolarCircuitSVG,
+    blockDiagram: {
+      blocks: [
+        { x: 5, y: 25, w: 85, h: 50, label: 'Panel Solar', sub: '6V 2W', fill: '#0a1a2e', stroke: '#f59e0b' },
+        { x: 110, y: 10, w: 80, h: 35, label: 'ACS712', sub: 'Corriente', fill: '#1a2a2a', stroke: '#06b6d4' },
+        { x: 110, y: 55, w: 80, h: 35, label: 'Div. Tension', sub: 'Voltaje', fill: '#1a1a1a', stroke: '#f59e0b' },
+        { x: 215, y: 25, w: 100, h: 50, label: 'ARDUINO', sub: 'Calcula P=VxI', fill: '#1a2332', stroke: '#f59e0b' },
+        { x: 340, y: 10, w: 80, h: 35, label: 'OLED', sub: 'Display', fill: '#0a0a0a', stroke: '#10b981' },
+        { x: 340, y: 55, w: 80, h: 35, label: 'MicroSD', sub: 'Datalog', fill: '#1a2332', stroke: '#8b5cf6' },
+        { x: 440, y: 30, w: 70, h: 40, label: 'Bateria', sub: 'TP4056', fill: '#2a2a1a', stroke: '#f59e0b' },
+      ],
+      connections: [
+        { x1: 90, y1: 40, x2: 110, y2: 27, color: '#06b6d4' },
+        { x1: 90, y1: 55, x2: 110, y2: 72, color: '#f59e0b' },
+        { x1: 190, y1: 27, x2: 215, y2: 40, color: '#06b6d4' },
+        { x1: 190, y1: 72, x2: 215, y2: 55, color: '#f59e0b' },
+        { x1: 315, y1: 40, x2: 340, y2: 27, color: '#10b981' },
+        { x1: 315, y1: 60, x2: 340, y2: 72, color: '#8b5cf6' },
+        { x1: 420, y1: 50, x2: 440, y2: 50, color: '#f59e0b' },
+      ],
+    },
+    theory: [
+      { icon: '☀️', title: 'Efecto Fotovoltaico y Paneles Solares', text: 'Un panel solar convierte luz en electricidad mediante el efecto fotovoltaico: los fotones de luz excitan electrones en el semiconductor (silicio), generando una corriente electrica. Un panel de 6V/2W produce hasta 333mA en condiciones ideales (1000 W/m² de irradiancia). La eficiencia tipica de paneles de silicio policristalino es 15-20%. La potencia real depende de la irradiancia, angulo de incidencia, temperatura y sombreado.', formula: 'P_max = V_oc x I_sc x FF (Factor de Forma ~0.7)' },
+      { icon: '⚡', title: 'Sensor de Corriente ACS712', text: 'El ACS712 mide corriente DC/AC de forma no invasiva usando el efecto Hall. El modelo de 5A tiene sensibilidad de 185mV/A con offset de 2.5V (0A = 2.5V). Para medir: I = (Vout - 2.5) / 0.185. Se conecta en serie con la carga. El Arduino lee la tension de salida con su ADC y calcula la corriente. Se recomienda promediar multiples lecturas para reducir ruido.', formula: 'I (A) = (V_sensor - 2.5V) / 0.185 V/A' },
+      { icon: '🔋', title: 'Divisor de Tension Resistivo', text: 'Como el panel puede generar hasta 6-7V y el ADC del Arduino solo soporta 0-5V, se usa un divisor resistivo para reducir la tension. Con R1=10K y R2=5K, la tension de salida es: Vout = Vin x R2/(R1+R2) = Vin x 5/15 = Vin/3. Asi, 6V del panel se leen como 2V en el ADC. En el codigo se multiplica la lectura por 3 (factorVoltaje) para obtener el valor real.', formula: 'V_out = V_in x R2 / (R1 + R2)' },
+      { icon: '📈', title: 'Calculo de Potencia y Energia', text: 'La potencia instantanea se calcula como P = V x I (Watts). La energia acumulada es la integral de la potencia en el tiempo: E = P x t (Watt-hora). El Arduino acumula la energia multiplicando la potencia por el intervalo de tiempo entre mediciones. El modulo MicroSD permite registrar datos en formato CSV para analisis posterior en una hoja de calculo (graficar curvas de generacion diaria, calcular rendimiento mensual).', formula: 'E (Wh) = Σ P_i x Δt_i' },
+    ],
   },
 ];
 
@@ -1062,11 +1548,42 @@ const ProyectosIntegradoresPage = () => {
                   </ul>
                 </div>
 
+                {/* Theory */}
+                {project.theory && (
+                  <div className="pi-section">
+                    <h3 className="pi-section-title" style={{ color: project.color }}>Teoria y Fundamentos</h3>
+                    <TheorySection items={project.theory} />
+                  </div>
+                )}
+
+                {/* Block Diagram */}
+                {project.blockDiagram && (
+                  <div className="pi-section">
+                    <h3 className="pi-section-title" style={{ color: project.color }}>Diagrama de Bloques</h3>
+                    <div className="pi-diagram-container">
+                      <BlockDiagram {...project.blockDiagram} />
+                    </div>
+                  </div>
+                )}
+
                 {/* Simulator */}
                 <div className="pi-section">
                   <h3 className="pi-section-title" style={{ color: project.color }}>Simulador Interactivo</h3>
                   <project.Simulator />
                 </div>
+
+                {/* Circuit SVG */}
+                {project.CircuitSVG && (
+                  <div className="pi-section">
+                    <h3 className="pi-section-title" style={{ color: project.color }}>Esquema de Circuito</h3>
+                    <div className="pi-diagram-container">
+                      <project.CircuitSVG />
+                    </div>
+                    <div className="pi-circuit-desc" style={{ marginTop: '1rem' }}>
+                      {project.circuitDescription}
+                    </div>
+                  </div>
+                )}
 
                 {/* Components */}
                 <div className="pi-section">
@@ -1078,14 +1595,6 @@ const ProyectosIntegradoresPage = () => {
                         {comp}
                       </div>
                     ))}
-                  </div>
-                </div>
-
-                {/* Circuit */}
-                <div className="pi-section">
-                  <h3 className="pi-section-title" style={{ color: project.color }}>Esquema de Conexion</h3>
-                  <div className="pi-circuit-desc">
-                    {project.circuitDescription}
                   </div>
                 </div>
 
