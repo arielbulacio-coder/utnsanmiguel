@@ -51,6 +51,18 @@ import CPUSimulatorPage from './pages/CPUSimulatorPage';
 import ProyectosReciclablesPage from './pages/ProyectosReciclablesPage';
 import ProyectosIntegradoresPage from './pages/ProyectosIntegradoresPage';
 
+// Fundamentos de Computación (SimuUnpilar)
+import MemoriaPage from './pages/MemoriaPage';
+import ArranquePage from './pages/ArranquePage';
+import SociedadSoftwarePage from './pages/SociedadSoftwarePage';
+import CulturaDigitalPage from './pages/CulturaDigitalPage';
+import RepresentacionDatosPage from './pages/RepresentacionDatosPage';
+import LogicaDigitalPage from './pages/LogicaDigitalPage';
+import SistemaOperativoPage from './pages/SistemaOperativoPage';
+import SeguridadInformaticaPage from './pages/SeguridadInformaticaPage';
+import ArquitecturaARPage from './pages/ArquitecturaARPage';
+import AREnsamblajePage from './pages/AREnsamblajePage';
+
 // Gestión Académica
 import AcademicOverviewPage from './pages/AcademicOverviewPage';
 import StudentsPage from './pages/StudentsPage';
@@ -132,6 +144,18 @@ function App() {
             <Route path="/cpu-simulator" element={<CPUSimulatorPage />} />
             <Route path="/proyectos-reciclables" element={<ProyectosReciclablesPage />} />
             <Route path="/proyectos-integradores" element={<ProyectosIntegradoresPage />} />
+
+            {/* Fundamentos de Computación */}
+            <Route path="/memoria" element={<MemoriaPage />} />
+            <Route path="/arranque" element={<ArranquePage />} />
+            <Route path="/sociedad-software" element={<SociedadSoftwarePage />} />
+            <Route path="/cultura-digital" element={<CulturaDigitalPage />} />
+            <Route path="/representacion-datos" element={<RepresentacionDatosPage />} />
+            <Route path="/logica-digital" element={<LogicaDigitalPage />} />
+            <Route path="/sistema-operativo" element={<SistemaOperativoPage />} />
+            <Route path="/seguridad-informatica" element={<SeguridadInformaticaPage />} />
+            <Route path="/ar-arquitectura" element={<ArquitecturaARPage />} />
+            <Route path="/ar-ensamblaje" element={<AREnsamblajePage />} />
 
             {/* Rutas Protegidas - Gestión Académica */}
             <Route element={<ProtectedRoute />}>

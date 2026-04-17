@@ -406,14 +406,14 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {/* 🖥️ INFORMÁTICA Y SISTEMAS */}
+                    {/* 🖥️ INFORMÁTICA — FUNDAMENTOS DE COMPUTACIÓN */}
                     <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
-                        <h3 style={{ textAlign: 'left', color: '#a55eea', marginBottom: '1rem', paddingLeft: '1rem' }}>🖥️ Informática y Sistemas</h3>
+                        <h3 style={{ textAlign: 'left', color: '#a55eea', marginBottom: '1rem', paddingLeft: '1rem' }}>🖥️ Fundamentos de Computacion</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
                             <Link to="/generaciones-computadoras" style={{ textDecoration: 'none' }}>
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(165,94,234,0.4)', boxShadow: '0 0 20px rgba(165,94,234,0.15)' }}>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Generaciones</h3>
-                                    <p>Historia de la Computación</p>
+                                    <p>Historia de la Computacion</p>
                                     <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
                                         <span>💡</span><span>🔬</span><span>🔧</span><span>🧠</span><span>⚛️</span>
                                     </div>
@@ -425,13 +425,96 @@ const Home = () => {
 
                             <Link to="/arquitectura-von-neumann" style={{ textDecoration: 'none' }}>
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.4)', boxShadow: '0 0 20px rgba(0, 242, 255, 0.15)' }}>
-                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Arquitectura Funcional</h3>
-                                    <p>Modelo de Von Neumann y Buses</p>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Arquitectura</h3>
+                                    <p>Von Neumann / Harvard / CPU</p>
                                     <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
                                         <span>🧠</span><span>🚌</span><span>💾</span><span>🔗</span>
                                     </div>
                                     <div style={{ marginTop: '0.75rem', padding: '0.3rem 0.9rem', background: 'rgba(0, 242, 255, 0.2)', border: '1px solid #00f2ff', borderRadius: '20px', fontSize: '0.78rem', color: '#00f2ff', fontWeight: '700' }}>
-                                        ⚙️ Simulador Técnico
+                                        ⚙️ Simulador Tecnico
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/memoria" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(168,85,247,0.4)', boxShadow: '0 0 20px rgba(168,85,247,0.15)' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Memoria</h3>
+                                    <p>Jerarquia, RAM, Cache, Virtual</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>💾</span><span>⚡</span><span>📊</span>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/arranque" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Hardware y Boot</h3>
+                                    <p>BIOS, POST, Arranque del PC</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🔌</span><span>⚡</span><span>🖥️</span>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/sociedad-software" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Sociedad y SW</h3>
+                                    <p>Informacion, Software, Licencias</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🌐</span><span>📋</span><span>🔓</span>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/representacion-datos" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Repr. de Datos</h3>
+                                    <p>Binario, ASCII, Conversiones</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🔢</span><span>0️⃣</span><span>1️⃣</span>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/logica-digital" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Logica Digital</h3>
+                                    <p>Compuertas, Algebra de Boole</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🔲</span><span>⚡</span><span>🔀</span>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/sistema-operativo" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Sistema Operativo</h3>
+                                    <p>Kernel, Procesos, Memoria</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🖥️</span><span>⚙️</span><span>📂</span>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/seguridad-informatica" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Seguridad</h3>
+                                    <p>Ciberseguridad y Etica</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🔒</span><span>🛡️</span><span>⚖️</span>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link to="/ar-arquitectura" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(59,130,246,0.4)', boxShadow: '0 0 20px rgba(59,130,246,0.15)' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Simuladores 3D</h3>
+                                    <p>Arquitectura y Ensamblaje RA</p>
+                                    <div style={{ marginTop: '1rem', fontSize: '2.5rem', display: 'flex', gap: '0.3rem' }}>
+                                        <span>🧊</span><span>📷</span><span>🔧</span>
+                                    </div>
+                                    <div style={{ marginTop: '0.75rem', padding: '0.3rem 0.9rem', background: 'rgba(59,130,246,0.2)', border: '1px solid #3b82f6', borderRadius: '20px', fontSize: '0.78rem', color: '#3b82f6', fontWeight: '700' }}>
+                                        🧊 3D + Realidad Aumentada
                                     </div>
                                 </div>
                             </Link>

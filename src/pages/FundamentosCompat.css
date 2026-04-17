@@ -1,0 +1,72 @@
+/* ─── Compatibility layer for Fundamentos de Computación pages ──────── */
+/* Maps the simuunpilar CSS variables to utnsanmiguel theme equivalents */
+
+.fundamentos-page {
+  --primary: var(--primary-color);
+  --primary-light: var(--primary-color);
+  --accent: var(--glass-bg);
+  --bg: var(--bg-color);
+  --text: var(--text-main);
+  --text-light: var(--text-dim);
+  --border: var(--glass-border);
+  color: var(--text-main);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Override hardcoded light-theme colors */
+.fundamentos-page h1,
+.fundamentos-page h2,
+.fundamentos-page h3 {
+  color: var(--text-main);
+}
+
+.fundamentos-page p,
+.fundamentos-page li,
+.fundamentos-page span {
+  color: var(--text-dim);
+}
+
+/* Card-like sections */
+.fundamentos-page [style*="background: #fff"],
+.fundamentos-page [style*="background: white"],
+.fundamentos-page [style*="background:#fff"] {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+/* Fix inline hardcoded colors for dark theme */
+.fundamentos-page [style*="color: #2c3e50"],
+.fundamentos-page [style*="color:#2c3e50"] {
+  color: var(--text-main) !important;
+}
+
+.fundamentos-page [style*="color: #5a6c7d"],
+.fundamentos-page [style*="color:#5a6c7d"] {
+  color: var(--text-dim) !important;
+}
+
+.fundamentos-page [style*="color: #004a99"],
+.fundamentos-page [style*="color:#004a99"] {
+  color: var(--primary-color) !important;
+}
+
+/* General box backgrounds */
+.fundamentos-page [style*="background: #f8f9fa"],
+.fundamentos-page [style*="background:#f8f9fa"],
+.fundamentos-page [style*="background: #f0f4f8"],
+.fundamentos-page [style*="background:#f0f4f8"],
+.fundamentos-page [style*="background: #e6f0ff"],
+.fundamentos-page [style*="background:#e6f0ff"],
+.fundamentos-page [style*="background: #f5f5f5"],
+.fundamentos-page [style*="background: #fafafa"] {
+  background: var(--glass-bg) !important;
+}
+
+/* Borders */
+.fundamentos-page [style*="border: 1px solid #e2e8f0"],
+.fundamentos-page [style*="border:1px solid #e2e8f0"],
+.fundamentos-page [style*="borderColor: '#e2e8f0'"] {
+  border-color: var(--glass-border) !important;
+}

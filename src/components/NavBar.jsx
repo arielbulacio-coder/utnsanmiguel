@@ -175,12 +175,28 @@ const NavBar = () => {
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('informatica')}>
                         🖥️ Informática <span className="arrow">▼</span>
                     </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Historia de la Computación</div>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Historia y Arquitectura</div>
                         <Link to="/generaciones-computadoras" style={linkStyle} onClick={closeAll}>🎮 Generaciones de Computadoras</Link>
                         <Link to="/arquitectura-von-neumann" style={linkStyle} onClick={closeAll}>⚙️ Arquitectura Von Neumann</Link>
                         <Link to="/arquitectura-harvard" style={linkStyle} onClick={closeAll}>🔬 Arquitectura Harvard</Link>
-                        <Link to="/cpu-simulator" style={linkStyle} onClick={closeAll}>🧠 La CPU: Motor de Ejecución</Link>
+                        <Link to="/cpu-simulator" style={linkStyle} onClick={closeAll}>🧠 La CPU: Motor de Ejecucion</Link>
+                        <Link to="/memoria" style={linkStyle} onClick={closeAll}>💾 Jerarquia de Memoria</Link>
+                        <Link to="/arranque" style={linkStyle} onClick={closeAll}>🔌 Hardware y Boot</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Sociedad y Datos</div>
+                        <Link to="/sociedad-software" style={linkStyle} onClick={closeAll}>🌐 Sociedad y Software</Link>
+                        <Link to="/cultura-digital" style={linkStyle} onClick={closeAll}>📱 Cultura Digital</Link>
+                        <Link to="/representacion-datos" style={linkStyle} onClick={closeAll}>🔢 Representacion de Datos</Link>
+                        <Link to="/logica-digital" style={linkStyle} onClick={closeAll}>🔲 Logica Digital</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Sistemas y Seguridad</div>
+                        <Link to="/sistema-operativo" style={linkStyle} onClick={closeAll}>🖥️ Sistema Operativo</Link>
+                        <Link to="/seguridad-informatica" style={linkStyle} onClick={closeAll}>🔒 Seguridad Informatica</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Simuladores 3D y RA</div>
+                        <Link to="/ar-arquitectura" style={linkStyle} onClick={closeAll}>🧊 Arquitectura 3D</Link>
+                        <Link to="/ar-ensamblaje" style={linkStyle} onClick={closeAll}>📷 Ensamblaje PC (RA)</Link>
                     </div>
                 </div>
 
