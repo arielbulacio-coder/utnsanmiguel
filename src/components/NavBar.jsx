@@ -200,6 +200,24 @@ const NavBar = () => {
                     </div>
                 </div>
 
+                {/* ELECTRÓNICA DIGITAL */}
+                <div className={`dropdown ${openSubmenu === 'edigital' ? 'active' : ''}`}>
+                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('edigital')}>
+                        🔲 Electrónica Digital <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <Link to="/electronica-digital/numeracion" style={linkStyle} onClick={closeAll}>1. Sistemas de Numeración</Link>
+                        <Link to="/electronica-digital/codigos-algebra" style={linkStyle} onClick={closeAll}>2. Códigos y Álgebra Boole</Link>
+                        <Link to="/electronica-digital/compuertas" style={linkStyle} onClick={closeAll}>3. Compuertas Lógicas</Link>
+                        <Link to="/electronica-digital/formas-canonicas" style={linkStyle} onClick={closeAll}>4. Formas Canónicas</Link>
+                        <Link to="/electronica-digital/karnaugh" style={linkStyle} onClick={closeAll}>5. Mapas de Karnaugh</Link>
+                        <Link to="/electronica-digital/bloques-funcionales" style={linkStyle} onClick={closeAll}>6. MUX, DEMUX, Cod/Decod</Link>
+                        <Link to="/electronica-digital/bloques-aritmeticos" style={linkStyle} onClick={closeAll}>7. Sumadores y Comparadores</Link>
+                        <Link to="/electronica-digital/secuenciales" style={linkStyle} onClick={closeAll}>8. Secuenciales y Tecnología</Link>
+                        <Link to="/electronica-digital/proyecto-integrador" style={linkStyle} onClick={closeAll}>9. Proyecto Integrador</Link>
+                    </div>
+                </div>
+
                 {/* PROYECTOS */}
                 <div className={`dropdown ${openSubmenu === 'proyectos' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('proyectos')}>

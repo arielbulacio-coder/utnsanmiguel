@@ -406,6 +406,37 @@ const Home = () => {
                         </div>
                     </div>
 
+                    {/* 🔲 ELECTRÓNICA DIGITAL */}
+                    <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
+                        <h3 style={{ textAlign: 'left', color: '#7c3aed', marginBottom: '1rem', paddingLeft: '1rem' }}>🔲 Electrónica Digital</h3>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                            {[
+                                { to: '/electronica-digital/numeracion', title: 'U1 — Numeración', desc: 'Binario, Octal, Hexadecimal', icon: '🔢', badge: 'Conversor interactivo' },
+                                { to: '/electronica-digital/codigos-algebra', title: 'U2 — Códigos y Boole', desc: 'BCD, Gray, De Morgan', icon: '🧮', badge: null },
+                                { to: '/electronica-digital/compuertas', title: 'U3 — Compuertas', desc: 'AND, OR, NOT, NAND, NOR, XOR', icon: '⚡', badge: 'Simulador de compuertas' },
+                                { to: '/electronica-digital/formas-canonicas', title: 'U4 — Formas Canónicas', desc: 'SOP, POS, Mintérminos', icon: 'Σ', badge: null },
+                                { to: '/electronica-digital/karnaugh', title: 'U5 — Karnaugh', desc: 'Mapas de 2, 3 y 4 variables', icon: '🗺️', badge: 'K-Map interactivo' },
+                                { to: '/electronica-digital/bloques-funcionales', title: 'U6 — MUX / DEMUX', desc: 'Codificadores y Decodificadores', icon: '🔀', badge: null },
+                                { to: '/electronica-digital/bloques-aritmeticos', title: 'U7 — Aritméticos', desc: 'Sumadores, Restadores, Comparadores', icon: '➕', badge: 'Simulador de suma binaria' },
+                                { to: '/electronica-digital/secuenciales', title: 'U8 — Secuenciales', desc: 'Latch SR, Flip-Flop D, TTL/CMOS', icon: '🔁', badge: null },
+                                { to: '/electronica-digital/proyecto-integrador', title: 'U9 — Proyecto Final', desc: 'Diseño completo + Display 7 seg', icon: '🎯', badge: 'Mesa de diseño' },
+                            ].map(item => (
+                                <Link key={item.to} to={item.to} style={{ textDecoration: 'none' }}>
+                                    <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(124,58,237,0.3)', boxShadow: '0 0 15px rgba(124,58,237,0.1)' }}>
+                                        <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
+                                        <h3 style={{ margin: 0, fontSize: '1.4rem' }}>{item.title}</h3>
+                                        <p>{item.desc}</p>
+                                        {item.badge && (
+                                            <div style={{ marginTop: '0.5rem', padding: '0.25rem 0.8rem', background: 'rgba(124,58,237,0.2)', border: '1px solid #7c3aed', borderRadius: '20px', fontSize: '0.75rem', color: '#7c3aed', fontWeight: '700' }}>
+                                                {item.badge}
+                                            </div>
+                                        )}
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+
                     {/* 🖥️ INFORMÁTICA — FUNDAMENTOS DE COMPUTACIÓN */}
                     <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
                         <h3 style={{ textAlign: 'left', color: '#a55eea', marginBottom: '1rem', paddingLeft: '1rem' }}>🖥️ Fundamentos de Computacion</h3>

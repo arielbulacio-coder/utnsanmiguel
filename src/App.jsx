@@ -36,6 +36,17 @@ import ProjectionsPage from './pages/drawing/ProjectionsPage';
 import AxonometricPage from './pages/drawing/AxonometricPage';
 import GeometricalConstructionsPage from './pages/drawing/GeometricalConstructionsPage';
 
+// Electrónica Digital
+import NumeracionDigitalPage from './pages/digital/NumeracionDigitalPage';
+import CodigosAlgebraPage from './pages/digital/CodigosAlgebraPage';
+import CompuertasLogicasPage from './pages/digital/CompuertasLogicasPage';
+import FormasCanonicasPage from './pages/digital/FormasCanonicasPage';
+import KarnaughPage from './pages/digital/KarnaughPage';
+import BloquesFuncionalesPage from './pages/digital/BloquesFuncionalesPage';
+import BloquesAritmeticosPage from './pages/digital/BloquesAritmeticosPage';
+import SecuencialesPage from './pages/digital/SecuencialesPage';
+import ProyectoDigitalPage from './pages/digital/ProyectoDigitalPage';
+
 // Arduino y Programación
 import ArduinoIntroPage from './pages/ArduinoIntroPage';
 import CppBasicsPage from './pages/CppBasicsPage';
@@ -156,6 +167,17 @@ function App() {
             <Route path="/seguridad-informatica" element={<SeguridadInformaticaPage />} />
             <Route path="/ar-arquitectura" element={<ArquitecturaARPage />} />
             <Route path="/ar-ensamblaje" element={<AREnsamblajePage />} />
+
+            {/* Electrónica Digital */}
+            <Route path="/electronica-digital/numeracion" element={<NumeracionDigitalPage />} />
+            <Route path="/electronica-digital/codigos-algebra" element={<CodigosAlgebraPage />} />
+            <Route path="/electronica-digital/compuertas" element={<CompuertasLogicasPage />} />
+            <Route path="/electronica-digital/formas-canonicas" element={<FormasCanonicasPage />} />
+            <Route path="/electronica-digital/karnaugh" element={<KarnaughPage />} />
+            <Route path="/electronica-digital/bloques-funcionales" element={<BloquesFuncionalesPage />} />
+            <Route path="/electronica-digital/bloques-aritmeticos" element={<BloquesAritmeticosPage />} />
+            <Route path="/electronica-digital/secuenciales" element={<SecuencialesPage />} />
+            <Route path="/electronica-digital/proyecto-integrador" element={<ProyectoDigitalPage />} />
 
             {/* Rutas Protegidas - Gestión Académica */}
             <Route element={<ProtectedRoute />}>
