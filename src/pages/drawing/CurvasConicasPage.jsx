@@ -254,19 +254,19 @@ const CurvasConicasPage = () => {
           <h2 style={{ color: 'var(--primary-color)' }}>
             Trazado paso a paso — {curve === 'elipse' ? 'Elipse (método de circunferencias auxiliares)' : 'Parábola (a partir de foco y directriz)'}
           </h2>
-          <div className="step-by-step-module">
+          <div className="step-by-step-module" style={{ flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
               {activeSteps.map((s, i) => (
-                <button key={i} className={`sel-btn ${step === i ? 'active' : ''}`} onClick={() => setStep(i)} style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}>
+                <button key={i} className={`sel-btn ${step === i ? 'active' : ''}`} onClick={() => setStep(i)} style={{ fontSize: '0.85rem', padding: '0.4rem 0.8rem' }}>
                   {i + 1}. {s.label}
                 </button>
               ))}
             </div>
-            <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem' }}>
+            <p style={{ textAlign: 'center', fontSize: '1.05rem', marginBottom: '1rem' }}>
               <strong>Paso {step + 1}:</strong> {activeSteps[step].desc}
             </p>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <svg viewBox="0 0 400 280" style={{ width: '100%', maxWidth: 750, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+              <svg viewBox="0 0 400 280" style={{ width: '100%', maxWidth: 850, minHeight: 420, background: 'rgba(0,0,0,0.3)', borderRadius: 12, padding: 16 }}>
                 {curve === 'elipse' && (() => {
                   const ox = 200, oy = 140, sa = 130, sb = 80;
                   const sc = Math.sqrt(sa * sa - sb * sb);

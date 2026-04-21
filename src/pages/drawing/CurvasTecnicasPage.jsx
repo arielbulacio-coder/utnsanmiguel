@@ -84,19 +84,19 @@ const CurvasTecnicasPage = () => {
           {/* Step-by-step ovoide */}
           <div className="drawing-card full-width">
             <h2 style={{ color: 'var(--primary-color)' }}>Construcción paso a paso</h2>
-            <div className="step-by-step-module">
+            <div className="step-by-step-module" style={{ flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
                 {ovoideSteps.map((s, i) => (
-                  <button key={i} className={`sel-btn ${step === i ? 'active' : ''}`} onClick={() => setStep(i)} style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}>
+                  <button key={i} className={`sel-btn ${step === i ? 'active' : ''}`} onClick={() => setStep(i)} style={{ fontSize: '0.85rem', padding: '0.4rem 0.8rem' }}>
                     {i + 1}. {s.label}
                   </button>
                 ))}
               </div>
-              <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem' }}>
+              <p style={{ textAlign: 'center', fontSize: '1.05rem', marginBottom: '1rem' }}>
                 <strong>Paso {step + 1}:</strong> {ovoideSteps[step].desc}
               </p>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <svg viewBox="0 0 300 350" style={{ width: '100%', maxWidth: 650, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <svg viewBox="0 0 300 350" style={{ width: '100%', maxWidth: 800, minHeight: 450, background: 'rgba(0,0,0,0.3)', borderRadius: 12, padding: 16 }}>
                   {/* Step 1+: axis AB */}
                   {step >= 0 && (
                     <>
@@ -258,19 +258,19 @@ const CurvasTecnicasPage = () => {
           {/* Cycloid step-by-step */}
           <div className="drawing-card full-width">
             <h2 style={{ color: 'var(--primary-color)' }}>Trazado paso a paso — Cicloide normal</h2>
-            <div className="step-by-step-module">
+            <div className="step-by-step-module" style={{ flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
                 {cycloidSteps.map((s, i) => (
-                  <button key={i} className={`sel-btn ${step === i ? 'active' : ''}`} onClick={() => setStep(i)} style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}>
+                  <button key={i} className={`sel-btn ${step === i ? 'active' : ''}`} onClick={() => setStep(i)} style={{ fontSize: '0.85rem', padding: '0.4rem 0.8rem' }}>
                     {i + 1}. {s.label}
                   </button>
                 ))}
               </div>
-              <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem' }}>
+              <p style={{ textAlign: 'center', fontSize: '1.05rem', marginBottom: '1rem' }}>
                 <strong>Paso {step + 1}:</strong> {cycloidSteps[step].desc}
               </p>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <svg viewBox="0 0 450 200" style={{ width: '100%', maxWidth: 750, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <svg viewBox="0 0 450 200" style={{ width: '100%', maxWidth: 850, minHeight: 350, background: 'rgba(0,0,0,0.3)', borderRadius: 12, padding: 16 }}>
                   {(() => {
                     const R = 25, baseY = 160, sx = 40;
                     const circ = 2 * Math.PI * R;

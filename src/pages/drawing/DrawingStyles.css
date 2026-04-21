@@ -115,9 +115,10 @@
     gap: 2rem;
     align-items: center;
     justify-content: space-around;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 2rem;
-    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
 }
 
 .exercise-list {

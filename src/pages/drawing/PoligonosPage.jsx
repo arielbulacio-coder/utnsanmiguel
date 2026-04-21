@@ -179,15 +179,17 @@ const PoligonosPage = () => {
         </div>
 
         <div className="step-by-step-module" style={{ flexDirection: 'column' }}>
-          <svg viewBox="0 0 300 300" style={{ width: '100%', maxWidth: 650, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
-            {poly.steps[step].viz}
-          </svg>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <svg viewBox="0 0 300 300" style={{ width: '100%', maxWidth: 800, minHeight: 400, background: 'rgba(0,0,0,0.3)', borderRadius: 12, padding: 16 }}>
+              {poly.steps[step].viz}
+            </svg>
+          </div>
 
-          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-            <p style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '1rem' }}>
+          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <p style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '1.15rem' }}>
               Paso {step + 1} de {maxStep + 1}
             </p>
-            <p style={{ color: 'var(--text-dim)', maxWidth: 500, margin: '0.5rem auto' }}>
+            <p style={{ color: 'var(--text-dim)', maxWidth: 600, margin: '0.5rem auto', fontSize: '1.05rem' }}>
               {poly.steps[step].text}
             </p>
             <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', marginTop: '1rem' }}>
