@@ -155,6 +155,21 @@ const NavBar = () => {
                     </div>
                 </div>
 
+                {/* DIBUJO TÉCNICO 2° AÑO */}
+                <div className={`dropdown ${openSubmenu === 'dibujo2' ? 'active' : ''}`}>
+                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('dibujo2')}>
+                        ✏️ Dibujo Técnico <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <Link to="/dibujo-2do/normalizacion" style={linkStyle} onClick={closeAll}>1. Normalización</Link>
+                        <Link to="/dibujo-2do/poligonos" style={linkStyle} onClick={closeAll}>2. Polígonos Regulares</Link>
+                        <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>3. Circunferencia y Tangencias</Link>
+                        <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>4. Transformaciones en el Plano</Link>
+                        <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>5. Curvas Cónicas</Link>
+                        <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>6. Curvas Técnicas</Link>
+                    </div>
+                </div>
+
                 {/* TALLER */}
                 <div className={`dropdown ${openSubmenu === 'taller' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('taller')}>

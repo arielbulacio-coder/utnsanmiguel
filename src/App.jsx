@@ -36,6 +36,14 @@ import ProjectionsPage from './pages/drawing/ProjectionsPage';
 import AxonometricPage from './pages/drawing/AxonometricPage';
 import GeometricalConstructionsPage from './pages/drawing/GeometricalConstructionsPage';
 
+// Dibujo Técnico 2° Año
+import NormalizacionDibujoPage from './pages/drawing/NormalizacionDibujoPage';
+import PoligonosPage from './pages/drawing/PoligonosPage';
+import TangenciasPage from './pages/drawing/TangenciasPage';
+import TransformacionesPlanoPage from './pages/drawing/TransformacionesPlanoPage';
+import CurvasConicasPage from './pages/drawing/CurvasConicasPage';
+import CurvasTecnicasPage from './pages/drawing/CurvasTecnicasPage';
+
 // Electrónica Digital
 import NumeracionDigitalPage from './pages/digital/NumeracionDigitalPage';
 import CodigosAlgebraPage from './pages/digital/CodigosAlgebraPage';
@@ -141,6 +149,14 @@ function App() {
             <Route path="/dibujo-tecnico/proyecciones" element={<ProjectionsPage />} />
             <Route path="/dibujo-tecnico/axonometrica" element={<AxonometricPage />} />
             <Route path="/dibujo-tecnico/construcciones-geometricas" element={<GeometricalConstructionsPage />} />
+
+            {/* Dibujo Técnico 2° Año */}
+            <Route path="/dibujo-2do/normalizacion" element={<NormalizacionDibujoPage />} />
+            <Route path="/dibujo-2do/poligonos" element={<PoligonosPage />} />
+            <Route path="/dibujo-2do/tangencias" element={<TangenciasPage />} />
+            <Route path="/dibujo-2do/transformaciones" element={<TransformacionesPlanoPage />} />
+            <Route path="/dibujo-2do/curvas-conicas" element={<CurvasConicasPage />} />
+            <Route path="/dibujo-2do/curvas-tecnicas" element={<CurvasTecnicasPage />} />
 
             <Route path="/arduino-intro" element={<ArduinoIntroPage />} />
             <Route path="/cpp-basico" element={<CppBasicsPage />} />
