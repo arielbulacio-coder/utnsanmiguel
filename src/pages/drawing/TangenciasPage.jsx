@@ -74,7 +74,7 @@ const TangenciasPage = () => {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <svg viewBox="0 0 400 300" style={{ width: '100%', maxWidth: 450, background: 'rgba(0,0,0,0.3)', borderRadius: 12, padding: 10 }}>
+          <svg viewBox="0 0 400 300" style={{ width: '100%', maxWidth: 750, background: 'rgba(0,0,0,0.3)', borderRadius: 12, padding: 10 }}>
             {demo === 'recta-circ' && (
               <>
                 <text x="200" y="20" textAnchor="middle" fill="#a78bfa" fontSize="11" fontWeight="700">Recta tangente desde un punto exterior P</text>
@@ -165,7 +165,7 @@ const TangenciasPage = () => {
       <div className="drawing-card full-width">
         <h2 style={{ color: 'var(--primary-color)' }}>Arcos de Enlace</h2>
         <p>Un <strong>arco de enlace</strong> conecta suavemente dos elementos (rectas o curvas) manteniendo la tangencia. Es fundamental en el diseño de piezas mecánicas.</p>
-        <svg viewBox="0 0 300 150" style={{ width: '100%', maxWidth: 350, display: 'block', margin: '1rem auto' }}>
+        <svg viewBox="0 0 300 150" style={{ width: '100%', maxWidth: 650, display: 'block', margin: '1rem auto' }}>
           {/* Two perpendicular lines connected by arc */}
           <line x1="20" y1="120" x2="140" y2="120" stroke="var(--primary-color)" strokeWidth="2" />
           <line x1="200" y1="120" x2="200" y2="20" stroke="var(--primary-color)" strokeWidth="2" />

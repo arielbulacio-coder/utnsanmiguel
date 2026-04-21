@@ -179,7 +179,7 @@ const PoligonosPage = () => {
         </div>
 
         <div className="step-by-step-module" style={{ flexDirection: 'column' }}>
-          <svg viewBox="0 0 300 300" style={{ width: '100%', maxWidth: 300, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+          <svg viewBox="0 0 300 300" style={{ width: '100%', maxWidth: 650, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
             {poly.steps[step].viz}
           </svg>
 

@@ -77,7 +77,7 @@ const TransformacionesPlanoPage = () => {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <svg viewBox="0 0 400 280" style={{ width: '100%', maxWidth: 450, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+          <svg viewBox="0 0 400 280" style={{ width: '100%', maxWidth: 750, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
             {/* Grid */}
             {Array.from({ length: 21 }, (_, i) => (
               <line key={`v${i}`} x1={i * 20} y1="0" x2={i * 20} y2="280" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />

@@ -45,7 +45,7 @@ const NormalizacionDibujoPage = () => {
 
         <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', margin: '1.5rem 0' }}>
           {/* Visual de formatos anidados */}
-          <svg viewBox="0 0 320 230" style={{ width: '100%', maxWidth: 320 }}>
+          <svg viewBox="0 0 320 230" style={{ width: '100%', maxWidth: 550 }}>
             <rect x="10" y="10" width="300" height="210" fill="none" stroke="#555" strokeWidth="1" />
             <text x="160" y="120" textAnchor="middle" fill="#555" fontSize="12">A0</text>
             <rect x="10" y="10" width="150" height="210" fill="none" stroke="#666" strokeWidth="1" />
@@ -81,7 +81,7 @@ const NormalizacionDibujoPage = () => {
         <h2 style={{ color: 'var(--primary-color)' }}>Recuadro y Rótulo</h2>
         <p>Todo plano técnico lleva un <strong>recuadro</strong> (margen) y un <strong>rótulo</strong> (cajetín) en la esquina inferior derecha.</p>
 
-        <svg viewBox="0 0 420 300" style={{ width: '100%', maxWidth: 500, display: 'block', margin: '1rem auto' }}>
+        <svg viewBox="0 0 420 300" style={{ width: '100%', maxWidth: 750, display: 'block', margin: '1rem auto' }}>
           {/* Hoja */}
           <rect x="5" y="5" width="410" height="290" fill="rgba(255,255,255,0.03)" stroke="#555" strokeWidth="1" />
           {/* Margen */}
@@ -151,7 +151,7 @@ const NormalizacionDibujoPage = () => {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <svg viewBox="0 0 300 200" style={{ width: '100%', maxWidth: 350 }}>
+          <svg viewBox="0 0 300 200" style={{ width: '100%', maxWidth: 650 }}>
             {acotSample === 'lineal' && (
               <>
                 <rect x="50" y="80" width="200" height="60" fill="rgba(124,58,237,0.08)" stroke="var(--primary-color)" strokeWidth="2" />
@@ -244,7 +244,7 @@ const NormalizacionDibujoPage = () => {
         <h2 style={{ color: 'var(--primary-color)' }}>Plegado de Planos</h2>
         <p>Los planos se pliegan al tamaño <strong>A4</strong> (210 × 297 mm) para su archivo. El rótulo debe quedar siempre visible en la cara frontal.</p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', margin: '1rem 0' }}>
-          <svg viewBox="0 0 200 140" style={{ width: 200 }}>
+          <svg viewBox="0 0 200 140" style={{ width: '100%', maxWidth: 450 }}>
             <rect x="5" y="5" width="190" height="130" fill="rgba(124,58,237,0.05)" stroke="#a78bfa" strokeWidth="1" />
             <line x1="100" y1="5" x2="100" y2="135" stroke="#a78bfa" strokeWidth="0.5" strokeDasharray="4,2" />
             <text x="52" y="75" textAnchor="middle" fill="#888" fontSize="8">Doblez 1</text>
@@ -263,7 +263,7 @@ const NormalizacionDibujoPage = () => {
       <div className="drawing-card full-width">
         <h2 style={{ color: 'var(--primary-color)' }}>Caligrafía Normalizada</h2>
         <p>Las letras y números en un plano técnico deben seguir la norma IRAM 4503. Se usa trazo vertical o inclinado a 75°.</p>
-        <svg viewBox="0 0 500 80" style={{ width: '100%', maxWidth: 500, display: 'block', margin: '1rem auto' }}>
+        <svg viewBox="0 0 500 80" style={{ width: '100%', maxWidth: 750, display: 'block', margin: '1rem auto' }}>
           <text x="10" y="35" fill="var(--primary-color)" fontSize="24" fontFamily="Arial, sans-serif" fontWeight="400" letterSpacing="4">
             ABCDEFGHIJ
           </text>

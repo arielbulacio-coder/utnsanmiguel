@@ -68,7 +68,7 @@ const CurvasTecnicasPage = () => {
             <h2 style={{ color: '#22c55e' }}>Ovoide — Definición</h2>
             <p>El <strong>ovoide</strong> es una curva cerrada simétrica respecto a un eje, formada por arcos de circunferencia enlazados. Se utiliza en diseño de piezas, arcos arquitectónicos y huevos de pascua geométricos.</p>
             <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
-              <svg viewBox="0 0 200 280" style={{ width: 180, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+              <svg viewBox="0 0 200 280" style={{ width: '100%', maxWidth: 400, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
                 {/* Simple ovoide preview */}
                 <ellipse cx="100" cy="155" rx="70" ry="90" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" />
                 {/* Bottom semicircle */}
@@ -96,7 +96,7 @@ const CurvasTecnicasPage = () => {
                 <strong>Paso {step + 1}:</strong> {ovoideSteps[step].desc}
               </p>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <svg viewBox="0 0 300 350" style={{ width: '100%', maxWidth: 350, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+                <svg viewBox="0 0 300 350" style={{ width: '100%', maxWidth: 650, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
                   {/* Step 1+: axis AB */}
                   {step >= 0 && (
                     <>
@@ -179,7 +179,7 @@ const CurvasTecnicasPage = () => {
               </label>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <svg viewBox="0 0 500 220" style={{ width: '100%', maxWidth: 550, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+              <svg viewBox="0 0 500 220" style={{ width: '100%', maxWidth: 800, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
                 {(() => {
                   const R = 30;
                   const baseY = 170;
@@ -270,7 +270,7 @@ const CurvasTecnicasPage = () => {
                 <strong>Paso {step + 1}:</strong> {cycloidSteps[step].desc}
               </p>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <svg viewBox="0 0 450 200" style={{ width: '100%', maxWidth: 500, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+                <svg viewBox="0 0 450 200" style={{ width: '100%', maxWidth: 750, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
                   {(() => {
                     const R = 25, baseY = 160, sx = 40;
                     const circ = 2 * Math.PI * R;
@@ -363,7 +363,7 @@ const CurvasTecnicasPage = () => {
               ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', margin: '1.5rem 0' }}>
-              <svg viewBox="0 0 300 300" style={{ width: '100%', maxWidth: 350, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+              <svg viewBox="0 0 300 300" style={{ width: '100%', maxWidth: 650, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
                 {(() => {
                   const ox = 150, oy = 150;
                   const pts = [];

@@ -110,7 +110,7 @@ const CurvasConicasPage = () => {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <svg viewBox="0 0 400 300" style={{ width: '100%', maxWidth: 500, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+          <svg viewBox="0 0 400 300" style={{ width: '100%', maxWidth: 750, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
             {/* Grid */}
             {Array.from({ length: 21 }, (_, i) => (
               <line key={`v${i}`} x1={i * 20} y1="0" x2={i * 20} y2="300" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
@@ -266,7 +266,7 @@ const CurvasConicasPage = () => {
               <strong>Paso {step + 1}:</strong> {activeSteps[step].desc}
             </p>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <svg viewBox="0 0 400 280" style={{ width: '100%', maxWidth: 450, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
+              <svg viewBox="0 0 400 280" style={{ width: '100%', maxWidth: 750, background: 'rgba(0,0,0,0.3)', borderRadius: 12 }}>
                 {curve === 'elipse' && (() => {
                   const ox = 200, oy = 140, sa = 130, sb = 80;
                   const sc = Math.sqrt(sa * sa - sb * sb);
