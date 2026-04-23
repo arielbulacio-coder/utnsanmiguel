@@ -510,6 +510,15 @@ const DomesticCircuitsPage = () => {
                             </div>
                             <p><strong>Uso:</strong> Cajas de derivación (octogonales, rectangulares). Se somete a poca tracción mecánica y se encinta "hacia arriba" para no perforar la cinta.</p>
                             <p><strong>Cómo se hace:</strong> Se pelan las puntas (aprox 5 cm), se cruzan formando una X y se trenzan firmemente utilizando una pinza universal. Finalmente se corta la punta excedente dejando una terminación roma.</p>
+                            <div className="empalme-video">
+                                <iframe
+                                    src="https://www.youtube.com/embed/8BiigOXA8Jo"
+                                    title="Video: Cola de Ratón"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            </div>
                         </div>
 
                         <div className="empalme-card">
@@ -519,6 +528,15 @@ const DomesticCircuitsPage = () => {
                             </div>
                             <p><strong>Uso:</strong> Especial para sacar una línea secundaria desde un cable principal (línea pasante o troncal) sin tener que cortarlo.</p>
                             <p><strong>Cómo se hace:</strong> Se quita la aislación del cable principal en un sector intermedio. El cable derivado se pela en su extremo y se enrolla dando vueltas apretadas sobre el cobre descubierto del cable troncal.</p>
+                            <div className="empalme-video">
+                                <iframe
+                                    src="https://www.youtube.com/embed/mYrSyi68PPI"
+                                    title="Video: Empalme en T"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            </div>
                         </div>
 
                         <div className="empalme-card">
@@ -528,6 +546,15 @@ const DomesticCircuitsPage = () => {
                             </div>
                             <p><strong>Uso:</strong> Ideal para extender cables conductores que van a estar sujetos a esfuerzos mecánicos o estiramientos severos, ya que esta unión es sumamente fuerte.</p>
                             <p><strong>Cómo se hace:</strong> Se pelan unos 8 cm de cada punta, se cruzan en el medio y luego cada cable se enrolla apretadamente en espiral sobre el cobre recto del otro cable en direcciones opuestas.</p>
+                            <div className="empalme-video">
+                                <iframe
+                                    src="https://www.youtube.com/embed/p-p02NWxTPU"
+                                    title="Video: Western Union"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            </div>
                         </div>
                     </div>
                 </section>
