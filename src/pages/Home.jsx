@@ -276,6 +276,37 @@ const Home = () => {
                         </div>
                     </div>
 
+                    {/* ✏️ DIBUJO TÉCNICO (1° AÑO / GENERAL) */}
+                    <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
+                        <h3 style={{ textAlign: 'left', color: 'var(--primary-color)', marginBottom: '1rem', paddingLeft: '1rem' }}>✏️ Dibujo Técnico</h3>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                            <Link to="/dibujo-tecnico/proyecciones" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.4)', boxShadow: '0 0 15px rgba(0, 242, 255, 0.15)' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Proyecciones</h3>
+                                    <p>Método Monge e ISO E/A</p>
+                                    <div style={{ marginTop: '1rem', color: 'var(--primary-color)', fontSize: '2.5rem' }}>🧊</div>
+                                    <div style={{ marginTop: '0.75rem', padding: '0.2rem 0.8rem', background: 'rgba(0, 242, 255, 0.2)', border: '1px solid var(--primary-color)', borderRadius: '20px', fontSize: '0.75rem', color: 'var(--primary-color)', fontWeight: '700' }}>
+                                        Simulador 3D Interactivo
+                                    </div>
+                                </div>
+                            </Link>
+                            <Link to="/dibujo-tecnico/axonometrica" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Axonometrías</h3>
+                                    <p>Isométrica, Caballera y Dimétrica</p>
+                                    <div style={{ marginTop: '1rem', color: 'var(--secondary-color)', fontSize: '2.5rem' }}>📐</div>
+                                </div>
+                            </Link>
+                            <Link to="/dibujo-tecnico/normas-iram" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Normas IRAM</h3>
+                                    <p>Lineas, Letras y Formatos</p>
+                                    <div style={{ marginTop: '1rem', color: 'var(--primary-color)', fontSize: '2.5rem' }}>📋</div>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+
                     {/* 📐 MATEMÁTICA Y FÍSICA */}
                     <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
                         <h3 style={{ textAlign: 'left', color: 'var(--text-main)', marginBottom: '1rem', paddingLeft: '1rem' }}>📐 Ciencias Básicas</h3>

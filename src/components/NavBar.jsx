@@ -210,6 +210,7 @@ const NavBar = () => {
                         <Link to="/seguridad-informatica" style={linkStyle} onClick={closeAll}>🔒 Seguridad Informatica</Link>
 
                         <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Simuladores 3D y RA</div>
+                        <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>🧊 Proyecciones Ortogonales</Link>
                         <Link to="/ar-arquitectura" style={linkStyle} onClick={closeAll}>🧊 Arquitectura 3D</Link>
                         <Link to="/ar-ensamblaje" style={linkStyle} onClick={closeAll}>📷 Ensamblaje PC (RA)</Link>
                     </div>
