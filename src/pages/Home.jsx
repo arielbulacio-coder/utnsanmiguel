@@ -276,9 +276,9 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {/* ✏️ DIBUJO TÉCNICO (1° AÑO / GENERAL) */}
+                    {/* ✏️ DIBUJO TÉCNICO UNIFICADO */}
                     <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
-                        <h3 style={{ textAlign: 'left', color: 'var(--primary-color)', marginBottom: '1rem', paddingLeft: '1rem' }}>✏️ Dibujo Técnico</h3>
+                        <h3 style={{ textAlign: 'left', color: '#22c55e', marginBottom: '1rem', paddingLeft: '1rem' }}>✏️ Dibujo Técnico</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
                             <Link to="/dibujo-tecnico/proyecciones" style={{ textDecoration: 'none' }}>
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.4)', boxShadow: '0 0 15px rgba(0, 242, 255, 0.15)' }}>
@@ -297,11 +297,53 @@ const Home = () => {
                                     <div style={{ marginTop: '1rem', color: 'var(--secondary-color)', fontSize: '2.5rem' }}>📐</div>
                                 </div>
                             </Link>
+                            <Link to="/dibujo-2do/normalizacion" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Normalización</h3>
+                                    <p>Formatos, líneas y escalas</p>
+                                    <div style={{ marginTop: '1rem', color: '#22c55e', fontSize: '2.5rem' }}>📏</div>
+                                </div>
+                            </Link>
+                            <Link to="/dibujo-2do/poligonos" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Polígonos</h3>
+                                    <p>Construcciones Regulares</p>
+                                    <div style={{ marginTop: '1rem', color: '#22c55e', fontSize: '2.5rem' }}>⬡</div>
+                                </div>
+                            </Link>
+                            <Link to="/dibujo-2do/tangencias" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Tangencias</h3>
+                                    <p>Circunferencias y Arcos</p>
+                                    <div style={{ marginTop: '1rem', color: '#22c55e', fontSize: '2.5rem' }}>⊙</div>
+                                </div>
+                            </Link>
+                            <Link to="/dibujo-2do/transformaciones" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Transformaciones</h3>
+                                    <p>Traslación, Giro y Simetría</p>
+                                    <div style={{ marginTop: '1rem', color: '#22c55e', fontSize: '2.5rem' }}>🔄</div>
+                                </div>
+                            </Link>
+                            <Link to="/dibujo-2do/curvas-conicas" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Curvas Cónicas</h3>
+                                    <p>Elipse, Parábola e Hipérbola</p>
+                                    <div style={{ marginTop: '1rem', color: '#22c55e', fontSize: '2.5rem' }}>◠</div>
+                                </div>
+                            </Link>
+                            <Link to="/dibujo-2do/curvas-tecnicas" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Curvas Técnicas</h3>
+                                    <p>Ovoides y Espirales</p>
+                                    <div style={{ marginTop: '1rem', color: '#22c55e', fontSize: '2.5rem' }}>🌀</div>
+                                </div>
+                            </Link>
                             <Link to="/dibujo-tecnico/normas-iram" style={{ textDecoration: 'none' }}>
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Normas IRAM</h3>
-                                    <p>Lineas, Letras y Formatos</p>
-                                    <div style={{ marginTop: '1rem', color: 'var(--primary-color)', fontSize: '2.5rem' }}>📋</div>
+                                    <p>Criterios de Estandarización</p>
+                                    <div style={{ marginTop: '1rem', color: '#22c55e', fontSize: '2.5rem' }}>📋</div>
                                 </div>
                             </Link>
                         </div>
@@ -459,34 +501,6 @@ const Home = () => {
                                         <p>{item.desc}</p>
                                         {item.badge && (
                                             <div style={{ marginTop: '0.5rem', padding: '0.25rem 0.8rem', background: 'rgba(124,58,237,0.2)', border: '1px solid #7c3aed', borderRadius: '20px', fontSize: '0.75rem', color: '#7c3aed', fontWeight: '700' }}>
-                                                {item.badge}
-                                            </div>
-                                        )}
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* ✏️ DIBUJO TÉCNICO 2° AÑO */}
-                    <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
-                        <h3 style={{ textAlign: 'left', color: '#22c55e', marginBottom: '1rem', paddingLeft: '1rem' }}>✏️ Dibujo Técnico — 2° Año</h3>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                            {[
-                                { to: '/dibujo-2do/normalizacion', title: 'U1 — Normalización', desc: 'Formatos, líneas, acotado, escalas', icon: '📏', badge: 'IRAM interactivo' },
-                                { to: '/dibujo-2do/poligonos', title: 'U2 — Polígonos', desc: 'Construcción de polígonos regulares', icon: '⬡', badge: 'Tutorial paso a paso' },
-                                { to: '/dibujo-2do/tangencias', title: 'U3 — Tangencias', desc: 'Circunferencia, tangentes, arcos', icon: '⊙', badge: null },
-                                { to: '/dibujo-2do/transformaciones', title: 'U4 — Transformaciones', desc: 'Traslación, giro, simetría, homotecia', icon: '🔄', badge: 'Simulador interactivo' },
-                                { to: '/dibujo-2do/curvas-conicas', title: 'U5 — Curvas Cónicas', desc: 'Elipse, parábola, hipérbola', icon: '◠', badge: 'Simulador interactivo' },
-                                { to: '/dibujo-2do/curvas-tecnicas', title: 'U6 — Curvas Técnicas', desc: 'Ovoides, cicloides, espirales', icon: '🌀', badge: 'Simulador de cicloide' },
-                            ].map(item => (
-                                <Link key={item.to} to={item.to} style={{ textDecoration: 'none' }}>
-                                    <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(34,197,94,0.3)', boxShadow: '0 0 15px rgba(34,197,94,0.1)' }}>
-                                        <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
-                                        <h3 style={{ margin: 0, fontSize: '1.4rem' }}>{item.title}</h3>
-                                        <p>{item.desc}</p>
-                                        {item.badge && (
-                                            <div style={{ marginTop: '0.5rem', padding: '0.25rem 0.8rem', background: 'rgba(34,197,94,0.2)', border: '1px solid #22c55e', borderRadius: '20px', fontSize: '0.75rem', color: '#22c55e', fontWeight: '700' }}>
                                                 {item.badge}
                                             </div>
                                         )}

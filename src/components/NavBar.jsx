@@ -155,19 +155,16 @@ const NavBar = () => {
                         ✏️ Dibujo Técnico <span className="arrow">▼</span>
                     </div>
                     <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '280px' }}>
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>1° Año / Fundamentos</div>
-                        <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
                         <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>Proyecciones Ortogonales</Link>
+                        <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
                         <Link to="/dibujo-tecnico/axonometrica" style={linkStyle} onClick={closeAll}>Axonometrías (ISO)</Link>
                         <Link to="/dibujo-tecnico/construcciones-geometricas" style={linkStyle} onClick={closeAll}>Construcciones Geom.</Link>
-                        
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>2° Año / Avanzado</div>
-                        <Link to="/dibujo-2do/normalizacion" style={linkStyle} onClick={closeAll}>1. Normalización</Link>
-                        <Link to="/dibujo-2do/poligonos" style={linkStyle} onClick={closeAll}>2. Polígonos Regulares</Link>
-                        <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>3. Circunferencia y Tangencias</Link>
-                        <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>4. Transformaciones Planta</Link>
-                        <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>5. Curvas Cónicas</Link>
-                        <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>6. Curvas Técnicas</Link>
+                        <Link to="/dibujo-2do/normalizacion" style={linkStyle} onClick={closeAll}>Normalización</Link>
+                        <Link to="/dibujo-2do/poligonos" style={linkStyle} onClick={closeAll}>Polígonos Regulares</Link>
+                        <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>Circunferencia y Tangencias</Link>
+                        <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>Transformaciones Planta</Link>
+                        <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>Curvas Cónicas</Link>
+                        <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>Curvas Técnicas</Link>
                     </div>
                 </div>
 
