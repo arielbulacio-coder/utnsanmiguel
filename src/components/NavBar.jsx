@@ -135,7 +135,7 @@ const NavBar = () => {
                     </div>
                 </div>
 
-                {/* CIENCIAS Y DIBUJO */}
+                {/* CIENCIAS BÁSICAS */}
                 <div className={`dropdown ${openSubmenu === 'ciencias' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('ciencias')}>
                         📐 Básicas <span className="arrow">▼</span>
@@ -146,25 +146,26 @@ const NavBar = () => {
                         <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Teorema Pitágoras</Link>
                         <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
                         <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática (MRU/MRUV)</Link>
-
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Dibujo Técnico</div>
-                        <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
-                        <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>Método Monge</Link>
-                        <Link to="/dibujo-tecnico/axonometrica" style={linkStyle} onClick={closeAll}>Axonometrías</Link>
-                        <Link to="/dibujo-tecnico/construcciones-geometricas" style={linkStyle} onClick={closeAll}>Construcciones</Link>
                     </div>
                 </div>
 
-                {/* DIBUJO TÉCNICO 2° AÑO */}
+                {/* DIBUJO TÉCNICO UNIFICADO */}
                 <div className={`dropdown ${openSubmenu === 'dibujo2' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('dibujo2')}>
                         ✏️ Dibujo Técnico <span className="arrow">▼</span>
                     </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '280px' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>1° Año / Fundamentos</div>
+                        <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
+                        <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>Proyecciones Ortogonales</Link>
+                        <Link to="/dibujo-tecnico/axonometrica" style={linkStyle} onClick={closeAll}>Axonometrías (ISO)</Link>
+                        <Link to="/dibujo-tecnico/construcciones-geometricas" style={linkStyle} onClick={closeAll}>Construcciones Geom.</Link>
+                        
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>2° Año / Avanzado</div>
                         <Link to="/dibujo-2do/normalizacion" style={linkStyle} onClick={closeAll}>1. Normalización</Link>
                         <Link to="/dibujo-2do/poligonos" style={linkStyle} onClick={closeAll}>2. Polígonos Regulares</Link>
                         <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>3. Circunferencia y Tangencias</Link>
-                        <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>4. Transformaciones en el Plano</Link>
+                        <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>4. Transformaciones Planta</Link>
                         <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>5. Curvas Cónicas</Link>
                         <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>6. Curvas Técnicas</Link>
                     </div>
