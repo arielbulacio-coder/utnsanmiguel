@@ -376,6 +376,70 @@ const ProjectionsPage = () => {
                     </div>
                 </section>
 
+                {/* 📝 LÁMINAS PROPUESTAS CON IMÁGENES IA */}
+                <section className="drawing-card full-width">
+                    <h2 style={{ color: 'var(--primary-color)' }}>📝 Láminas de Práctica Legislada</h2>
+                    <p style={{ marginBottom: '2rem' }}>
+                        A continuación se presentan las láminas propuestas para el ciclo lectivo. Utiliza el simulador superior para visualizar las piezas en 3D antes de comenzar el trazado técnico en papel.
+                    </p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                        {[
+                            {
+                                title: 'Lámina N°1: El Escalón',
+                                desc: 'Estudio de vistas fundamentales en sistema ISO E. Enfoque en líneas visibles y ocultas.',
+                                img: '/img/drawing/lamina_escalon.png'
+                            },
+                            {
+                                title: 'Lámina N°2: Pieza en L',
+                                desc: 'Proyecciones ortogonales con acotamiento básico. Relación entre vista frontal y lateral.',
+                                img: '/img/drawing/lamina_l.png'
+                            },
+                            {
+                                title: 'Lámina N°3: La Cuña (Plano Inclinado)',
+                                desc: 'Representación de superficies inclinadas y su verdadera magnitud en proyecciones.',
+                                img: '/img/drawing/lamina_cuna.png'
+                            }
+                        ].map((plate, index) => (
+                            <div key={index} className="glass-card" style={{ margin: 0, padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', border: '1px solid var(--glass-border)' }}>
+                                <h3 style={{ fontSize: '1.2rem', margin: 0 }}>{plate.title}</h3>
+                                <div style={{ 
+                                    borderRadius: '8px', 
+                                    overflow: 'hidden', 
+                                    border: '1px solid var(--glass-border)',
+                                    background: '#fff',
+                                    height: '200px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <img 
+                                        src={`${import.meta.env.BASE_URL || '/'}${plate.img}`.replace('//', '/')} 
+                                        alt={plate.title}
+                                        style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                                    />
+                                </div>
+                                <p style={{ fontSize: '0.85rem', margin: 0, opacity: 0.8 }}>{plate.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div style={{ 
+                        marginTop: '2rem', 
+                        padding: '1.5rem', 
+                        background: 'rgba(0, 242, 255, 0.05)', 
+                        borderRadius: '12px',
+                        border: '1px solid rgba(0, 242, 255, 0.2)' 
+                    }}>
+                        <h3 style={{ color: 'var(--primary-color)', marginBottom: '0.8rem', fontSize: '1.1rem' }}>💡 Consejos para tus Láminas</h3>
+                        <ul style={{ paddingLeft: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
+                            <li><strong>Balance de Hoja:</strong> Calcula el espacio total de las tres vistas para centrarlas.</li>
+                            <li><strong>Líneas Ocultas:</strong> Usa línea de trazos (Tipo E) para las aristas que no ves de frente.</li>
+                            <li><strong>Escala:</strong> Asegúrate de usar la misma escala (1:1 o 2:1) en las tres proyecciones.</li>
+                        </ul>
+                    </div>
+                </section>
+
                 <section className="drawing-card full-width">
                     <h2>Alineación y Correspondencia (Método del Ingurtido)</h2>
                     <div className="vistas-graph">
