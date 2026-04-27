@@ -281,7 +281,8 @@ const Home = () => {
                         <h3 style={{ textAlign: 'left', color: '#22c55e', marginBottom: '1rem', paddingLeft: '1rem' }}>✏️ Dibujo Técnico</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
                             <Link to="/dibujo-tecnico/proyecciones" style={{ textDecoration: 'none' }}>
-                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.4)', boxShadow: '0 0 15px rgba(0, 242, 255, 0.15)' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.4)', boxShadow: '0 0 15px rgba(0, 242, 255, 0.15)', position: 'relative' }}>
+                                    <div style={{ position: 'absolute', top: '10px', right: '10px', background: '#ff0000', color: '#fff', fontSize: '0.65rem', padding: '3px 8px', borderRadius: '4px', fontWeight: 'bold', zIndex: 10 }}>NUEVO</div>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Proyecciones</h3>
                                     <p>Método Monge e ISO E/A</p>
                                     <div style={{ marginTop: '1rem', color: 'var(--primary-color)', fontSize: '2.5rem' }}>🧊</div>
@@ -291,7 +292,8 @@ const Home = () => {
                                 </div>
                             </Link>
                             <Link to="/dibujo-tecnico/axonometrica" style={{ textDecoration: 'none' }}>
-                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(167, 139, 250, 0.4)', position: 'relative' }}>
+                                    <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'var(--secondary-color)', color: '#000', fontSize: '0.65rem', padding: '3px 8px', borderRadius: '4px', fontWeight: 'bold', zIndex: 10 }}>MEJORADO</div>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Axonometrías</h3>
                                     <p>Isométrica, Caballera y Dimétrica</p>
                                     <div style={{ marginTop: '1rem', color: 'var(--secondary-color)', fontSize: '2.5rem' }}>📐</div>
