@@ -93,6 +93,17 @@ const NavBar = () => {
                     Inicio
                 </Link>
 
+                <a
+                    href="https://drive.google.com/drive/folders/1B2vp3KrPw-nD7JQKJL1gETrOt_ZWNmqp?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={linkStyle}
+                    onClick={closeAll}
+                    title="Carpeta de Google Drive UTN San Miguel"
+                >
+                    📁 UTN San Miguel
+                </a>
+
                 {/* ELECTRICIDAD */}
                 <div className={`dropdown ${openSubmenu === 'electricidad' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('electricidad')}>
