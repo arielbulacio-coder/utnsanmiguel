@@ -134,6 +134,8 @@ const NavBar = () => {
                         <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
                         <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
                         <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Herramientas</Link>
+                        <Link to="/soldadura" style={linkStyle} onClick={closeAll}>🔥 Soldadura y Desoldado</Link>
+                        <Link to="/circuitos-impresos" style={linkStyle} onClick={closeAll}>🔌 Circuitos Impresos (PCB)</Link>
 
                         <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Arduino</div>
                         <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>

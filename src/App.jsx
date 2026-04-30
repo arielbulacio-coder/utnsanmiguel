@@ -29,6 +29,8 @@ import DomesticCircuitsPage from './pages/DomesticCircuitsPage';
 import ElectricityBasicsPage from './pages/ElectricityBasicsPage';
 import ElectronicComponentsPage from './pages/ElectronicComponentsPage';
 import RenewableEnergyPage from './pages/RenewableEnergyPage';
+import SoldaduraPage from './pages/SoldaduraPage';
+import PCBTutorialPage from './pages/PCBTutorialPage';
 
 // Dibujo Técnico
 import NormasIRAMPage from './pages/drawing/NormasIRAMPage';
@@ -143,6 +145,8 @@ function App() {
             <Route path="/multimetro" element={<MultimeterPage />} />
             <Route path="/circuitos-domiciliarios" element={<DomesticCircuitsPage />} />
             <Route path="/electricidad-basica" element={<ElectricityBasicsPage />} />
+            <Route path="/soldadura" element={<SoldaduraPage />} />
+            <Route path="/circuitos-impresos" element={<PCBTutorialPage />} />
 
             {/* Dibujo Técnico */}
             <Route path="/dibujo-tecnico/normas-iram" element={<NormasIRAMPage />} />
