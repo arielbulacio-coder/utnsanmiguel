@@ -172,6 +172,10 @@ const PCBTutorialPage = () => {
                             <h2>¿Qué es un PCB?</h2>
                             <p>Un <strong>PCB</strong> (<em>Printed Circuit Board</em>) o <strong>placa de circuito impreso</strong> es un soporte aislante (típicamente fibra de vidrio FR4 o pertinax) cubierto en una o ambas caras por una capa de cobre. Las "pistas" se obtienen <strong>removiendo el cobre que no forma parte del circuito</strong>, dejando solo las conexiones eléctricas necesarias.</p>
 
+                            <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
+                                <img src={`${import.meta.env.BASE_URL || '/'}proj_pcb_main.png`.replace('//', '/')} alt="Fabricación artesanal de PCB" style={{ width: '100%', maxWidth: '600px', borderRadius: '12px', background: 'rgba(0,0,0,0.25)', padding: '0.5rem' }} />
+                            </div>
+
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', margin: '1rem 0' }}>
                                 <div style={{ textAlign: 'center' }}>
                                     <PCBStackSVG />

@@ -304,6 +304,10 @@ const SoldaduraPage = () => {
                             <p>El <strong>soldador (cautín) tipo lápiz</strong> es la herramienta básica para soldar componentes electrónicos. Su nombre viene de su forma alargada y delgada, similar a un lápiz, que permite gran precisión.</p>
 
                             <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
+                                <img src={`${import.meta.env.BASE_URL || '/'}proj_soldadura_main.png`.replace('//', '/')} alt="Proceso de soldadura" style={{ width: '100%', maxWidth: '600px', borderRadius: '12px', background: 'rgba(0,0,0,0.25)', padding: '0.5rem' }} />
+                            </div>
+
+                            <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
                                 <CautinAnatomySVG />
                             </div>
                             <p style={{ textAlign: 'center', color: '#aaa', fontSize: '0.85rem' }}>📐 Anatomía del cautín tipo lápiz: cable, mango aislante, tubo metálico, resistencia interna y punta.</p>
