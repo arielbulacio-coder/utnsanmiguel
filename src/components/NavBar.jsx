@@ -176,6 +176,18 @@ const NavBar = () => {
                         <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>Transformaciones Planta</Link>
                         <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>Curvas Cónicas</Link>
                         <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>Curvas Técnicas</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Tutoriales de Dibujo Técnico</div>
+                        <a
+                            href="https://notebooklm.google.com/notebook/8d04d621-ac7b-43b2-8d62-3a0b5f88c961/artifact/1eed6dc1-0b38-4295-8d4d-0b87bead32d9?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_2&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_2_"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={linkStyle}
+                            onClick={closeAll}
+                            title="Tutorial NotebookLM"
+                        >
+                            📘 Tutorial 1 (NotebookLM)
+                        </a>
                     </div>
                 </div>
 
