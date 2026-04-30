@@ -104,6 +104,25 @@ const NavBar = () => {
                     📁 UTN San Miguel
                 </a>
 
+                {/* ESCUELA TÉCNICA 1 MALVINAS ARGENTINAS */}
+                <div className={`dropdown ${openSubmenu === 'et1malvinas' ? 'active' : ''}`}>
+                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('et1malvinas')}>
+                        🏫 Esc. Técnica 1 Malvinas Arg. <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <a
+                            href="https://docs.google.com/spreadsheets/d/1OjScpndyRb-eljHQCWzH7S9P9JgMg8BofPhRYcBXGl4/edit?usp=sharing"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={linkStyle}
+                            onClick={closeAll}
+                            title="Planilla institucional"
+                        >
+                            📊 Planilla institucional
+                        </a>
+                    </div>
+                </div>
+
                 {/* ELECTRICIDAD */}
                 <div className={`dropdown ${openSubmenu === 'electricidad' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('electricidad')}>
