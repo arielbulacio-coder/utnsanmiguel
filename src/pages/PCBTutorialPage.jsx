@@ -1,6 +1,150 @@
 import React, { useState } from 'react';
 import './ElectricityBasicsStyles.css';
 
+const PCBStackSVG = () => (
+    <svg viewBox="0 0 380 180" style={{ width: '100%', maxWidth: '480px', height: 'auto', background: 'rgba(0,0,0,0.25)', borderRadius: '12px', padding: '0.5rem' }}>
+        {/* substrate */}
+        <rect x="60" y="80" width="280" height="40" fill="#2e7d32" stroke="#1b5e20" strokeWidth="1" />
+        {/* upper copper */}
+        <rect x="60" y="68" width="280" height="12" fill="#cd7f32" />
+        <rect x="60" y="68" width="280" height="12" fill="url(#copperGrad)" opacity="0.6" />
+        {/* lower copper */}
+        <rect x="60" y="120" width="280" height="12" fill="#cd7f32" />
+        {/* drilled holes */}
+        <ellipse cx="120" cy="100" rx="6" ry="6" fill="#000" />
+        <ellipse cx="200" cy="100" rx="6" ry="6" fill="#000" />
+        <ellipse cx="280" cy="100" rx="6" ry="6" fill="#000" />
+
+        <defs>
+            <linearGradient id="copperGrad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#fff" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#000" stopOpacity="0" />
+            </linearGradient>
+        </defs>
+
+        {/* labels */}
+        <line x1="50" y1="74" x2="20" y2="40" stroke="#ff9800" strokeWidth="1" />
+        <text x="2" y="35" fill="#ff9800" fontSize="11" fontWeight="bold">Cobre superior (35 µm)</text>
+
+        <line x1="50" y1="100" x2="20" y2="160" stroke="#4caf50" strokeWidth="1" />
+        <text x="2" y="172" fill="#4caf50" fontSize="11" fontWeight="bold">Sustrato (FR4 / Pertinax)</text>
+
+        <line x1="350" y1="126" x2="375" y2="160" stroke="#ff9800" strokeWidth="1" />
+        <text x="280" y="172" fill="#ff9800" fontSize="11" fontWeight="bold">Cobre inferior</text>
+
+        <line x1="280" y1="100" x2="350" y2="40" stroke="#9e9e9e" strokeWidth="1" />
+        <text x="300" y="35" fill="#9e9e9e" fontSize="11" fontWeight="bold">Agujeros (drill)</text>
+    </svg>
+);
+
+const PCBTopViewSVG = () => (
+    <svg viewBox="0 0 360 200" style={{ width: '100%', maxWidth: '420px', height: 'auto', background: 'rgba(0,0,0,0.25)', borderRadius: '12px', padding: '0.5rem' }}>
+        {/* board */}
+        <rect x="10" y="10" width="340" height="180" fill="#2e7d32" rx="6" />
+        {/* tracks */}
+        <path d="M40 50 L100 50 L100 110 L 200 110 L 200 60 L 320 60" stroke="#cd7f32" strokeWidth="6" fill="none" strokeLinecap="round" />
+        <path d="M40 130 L 80 130 L 80 170 L 320 170" stroke="#cd7f32" strokeWidth="6" fill="none" strokeLinecap="round" />
+        <path d="M250 90 L 320 90" stroke="#cd7f32" strokeWidth="6" fill="none" strokeLinecap="round" />
+        {/* pads */}
+        {[
+            [40, 50], [100, 110], [200, 60], [320, 60], [40, 130], [320, 170], [250, 90], [320, 90]
+        ].map(([x, y], i) => (
+            <g key={i}>
+                <circle cx={x} cy={y} r="9" fill="#cd7f32" />
+                <circle cx={x} cy={y} r="3" fill="#000" />
+            </g>
+        ))}
+        <text x="180" y="195" textAnchor="middle" fill="#aaa" fontSize="11">Vista superior: pistas y pads sobre cobre</text>
+    </svg>
+);
+
+const FibraMethodSVG = () => (
+    <svg viewBox="0 0 360 130" style={{ width: '100%', maxWidth: '420px', background: 'rgba(0,0,0,0.25)', borderRadius: '12px', padding: '0.5rem' }}>
+        {/* Marker */}
+        <rect x="20" y="40" width="80" height="14" fill="#212121" rx="3" />
+        <polygon points="100,40 120,47 100,54" fill="#000" />
+        <text x="60" y="51" fill="#fff" fontSize="9" textAnchor="middle">SHARPIE</text>
+        {/* Board with hand-drawn tracks */}
+        <rect x="150" y="20" width="190" height="90" fill="#cd7f32" rx="3" />
+        <path d="M170 40 Q 200 35 230 50 L 280 50 L 280 80" stroke="#1a1a1a" strokeWidth="3" fill="none" />
+        <path d="M170 70 L 220 70 L 220 95" stroke="#1a1a1a" strokeWidth="3" fill="none" />
+        <circle cx="170" cy="40" r="4" fill="#1a1a1a" />
+        <circle cx="280" cy="80" r="4" fill="#1a1a1a" />
+        <circle cx="170" cy="70" r="4" fill="#1a1a1a" />
+        <circle cx="220" cy="95" r="4" fill="#1a1a1a" />
+        <text x="245" y="125" textAnchor="middle" fill="#aaa" fontSize="10">Pistas dibujadas a mano sobre cobre</text>
+    </svg>
+);
+
+const PlanchaMethodSVG = () => (
+    <svg viewBox="0 0 380 160" style={{ width: '100%', maxWidth: '460px', background: 'rgba(0,0,0,0.25)', borderRadius: '12px', padding: '0.5rem' }}>
+        {/* Plancha */}
+        <path d="M20 40 L 130 40 L 140 70 L 10 70 Z" fill="#90a4ae" stroke="#37474f" strokeWidth="1" />
+        <rect x="40" y="20" width="60" height="22" fill="#37474f" rx="4" />
+        <rect x="55" y="8" width="30" height="14" fill="#263238" rx="3" />
+        {/* Calor */}
+        <path d="M40 78 Q 45 88 50 78" stroke="#ff5722" strokeWidth="2" fill="none" />
+        <path d="M70 78 Q 75 90 80 78" stroke="#ff5722" strokeWidth="2" fill="none" />
+        <path d="M100 78 Q 105 90 110 78" stroke="#ff5722" strokeWidth="2" fill="none" />
+        <text x="125" y="55" fontSize="14" fill="#fff">♨</text>
+        {/* Papel */}
+        <rect x="160" y="80" width="200" height="14" fill="#fafafa" rx="2" />
+        <rect x="160" y="80" width="200" height="14" fill="url(#tonerLines)" opacity="0.85" />
+        {/* PCB */}
+        <rect x="160" y="94" width="200" height="35" fill="#cd7f32" />
+        <text x="260" y="155" textAnchor="middle" fill="#aaa" fontSize="10">Papel glossy (toner) → PCB cobre + plancha caliente</text>
+        <defs>
+            <pattern id="tonerLines" width="20" height="14" patternUnits="userSpaceOnUse">
+                <rect width="14" height="3" fill="#1a1a1a" y="3" />
+                <rect width="8" height="3" fill="#1a1a1a" y="9" />
+            </pattern>
+        </defs>
+    </svg>
+);
+
+const EtchingProcessSVG = () => (
+    <svg viewBox="0 0 480 200" style={{ width: '100%', maxWidth: '600px', background: 'rgba(0,0,0,0.25)', borderRadius: '12px', padding: '0.5rem' }}>
+        {/* Etapa 1 */}
+        <text x="80" y="20" textAnchor="middle" fill="#4facfe" fontSize="12" fontWeight="bold">1. Antes</text>
+        <rect x="20" y="30" width="120" height="50" fill="#cd7f32" />
+        <path d="M40 45 L 100 45 L 100 65 L 120 65" stroke="#1a1a1a" strokeWidth="4" fill="none" />
+        <text x="80" y="100" textAnchor="middle" fill="#aaa" fontSize="9">cobre + tinta</text>
+
+        <path d="M150 55 L180 55" stroke="#ffeb3b" strokeWidth="2" markerEnd="url(#arr2)" />
+
+        {/* Etapa 2 */}
+        <text x="240" y="20" textAnchor="middle" fill="#ff9800" fontSize="12" fontWeight="bold">2. En FeCl₃</text>
+        <rect x="180" y="30" width="120" height="50" fill="#bf360c" opacity="0.6" />
+        <path d="M200 45 L 260 45 L 260 65 L 280 65" stroke="#1a1a1a" strokeWidth="4" fill="none" />
+        <circle cx="220" cy="38" r="3" fill="#fff" opacity="0.6" />
+        <circle cx="240" cy="42" r="2" fill="#fff" opacity="0.6" />
+        <circle cx="270" cy="36" r="3" fill="#fff" opacity="0.6" />
+        <text x="240" y="100" textAnchor="middle" fill="#aaa" fontSize="9">cobre disolviéndose</text>
+
+        <path d="M310 55 L340 55" stroke="#ffeb3b" strokeWidth="2" markerEnd="url(#arr2)" />
+
+        {/* Etapa 3 */}
+        <text x="400" y="20" textAnchor="middle" fill="#4caf50" fontSize="12" fontWeight="bold">3. Después</text>
+        <rect x="340" y="30" width="120" height="50" fill="#2e7d32" />
+        <rect x="360" y="42" width="60" height="6" fill="#cd7f32" />
+        <rect x="360" y="60" width="20" height="6" fill="#cd7f32" />
+        <rect x="420" y="60" width="20" height="6" fill="#cd7f32" />
+        <text x="400" y="100" textAnchor="middle" fill="#aaa" fontSize="9">solo quedan las pistas</text>
+
+        {/* Etapa 4: limpieza */}
+        <text x="240" y="135" textAnchor="middle" fill="#a855f7" fontSize="12" fontWeight="bold">4. Limpieza con thinner/acetona</text>
+        <rect x="160" y="145" width="160" height="40" fill="#2e7d32" />
+        <rect x="180" y="158" width="120" height="6" fill="#cd7f32" />
+        <text x="240" y="180" textAnchor="middle" fill="#fff" fontSize="9">cobre brillante listo para soldar</text>
+
+        <defs>
+            <marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <polygon points="0 0, 6 3, 0 6" fill="#ffeb3b" />
+            </marker>
+        </defs>
+    </svg>
+);
+
 const PCBTutorialPage = () => {
     const [method, setMethod] = useState('intro');
 
@@ -27,6 +171,17 @@ const PCBTutorialPage = () => {
                         <section className="elec-card full-width">
                             <h2>¿Qué es un PCB?</h2>
                             <p>Un <strong>PCB</strong> (<em>Printed Circuit Board</em>) o <strong>placa de circuito impreso</strong> es un soporte aislante (típicamente fibra de vidrio FR4 o pertinax) cubierto en una o ambas caras por una capa de cobre. Las "pistas" se obtienen <strong>removiendo el cobre que no forma parte del circuito</strong>, dejando solo las conexiones eléctricas necesarias.</p>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', margin: '1rem 0' }}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <PCBStackSVG />
+                                    <p style={{ color: '#aaa', fontSize: '0.85rem' }}>📐 Corte transversal: cobre + sustrato + cobre + agujeros</p>
+                                </div>
+                                <div style={{ textAlign: 'center' }}>
+                                    <PCBTopViewSVG />
+                                    <p style={{ color: '#aaa', fontSize: '0.85rem' }}>🔍 Vista superior con pistas y pads</p>
+                                </div>
+                            </div>
 
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginTop: '1rem' }}>
                                 <div className="elec-card" style={{ padding: '1rem' }}>
@@ -101,6 +256,10 @@ const PCBTutorialPage = () => {
                             <h2>✏️ Método de la Fibra (Marcador permanente)</h2>
                             <p>El método más simple y barato: dibujar las pistas <strong>directamente</strong> sobre el cobre con un marcador permanente. La tinta protege el cobre del ácido.</p>
 
+                            <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
+                                <FibraMethodSVG />
+                            </div>
+
                             <h3 style={{ color: '#4facfe', marginTop: '1.5rem' }}>🛒 Materiales</h3>
                             <ul style={{ lineHeight: '1.8' }}>
                                 <li>Placa virgen de pertinax o fibra de vidrio.</li>
@@ -142,6 +301,10 @@ const PCBTutorialPage = () => {
                         <section className="elec-card full-width">
                             <h2>♨️ Método Plancha + Toner sobre papel impreso</h2>
                             <p>También llamado <strong>"Toner Transfer Method"</strong> (TTM). Se imprime el circuito con impresora <strong>láser</strong> sobre papel especial, y luego con una plancha caliente se transfiere el toner (plástico) al cobre. El toner actúa como protector durante el ataque químico.</p>
+
+                            <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
+                                <PlanchaMethodSVG />
+                            </div>
 
                             <h3 style={{ color: '#4facfe', marginTop: '1.5rem' }}>🛒 Materiales</h3>
                             <ul style={{ lineHeight: '1.8' }}>
@@ -200,6 +363,11 @@ const PCBTutorialPage = () => {
                         <section className="elec-card full-width">
                             <h2>🧪 Atacado químico (Etching)</h2>
                             <p>El paso clave: <strong>disolver el cobre que NO está protegido</strong> por marcador o toner. La sustancia más común en electrónica casera es el <strong>cloruro férrico (FeCl₃)</strong>.</p>
+
+                            <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
+                                <EtchingProcessSVG />
+                            </div>
+                            <p style={{ textAlign: 'center', color: '#aaa', fontSize: '0.85rem' }}>🧪 Proceso de etching: el ácido come el cobre desnudo y deja solo las pistas protegidas.</p>
 
                             <h3 style={{ color: '#4facfe', marginTop: '1.5rem' }}>🛒 Sustancias usadas</h3>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
