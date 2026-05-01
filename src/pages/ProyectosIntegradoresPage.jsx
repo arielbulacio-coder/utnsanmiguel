@@ -60,14 +60,16 @@ const WeatherStationSim = () => {
         </div>
       </div>
       <div className="sim-serial">
-        <div className="serial-header">Monitor Serie (9600 baud)</div>
+        <div className="serial-header">Monitor Serie (9600 baud) - Procesando Protocolos</div>
         <div className="serial-output">
           {running ? (
             <>
-              <span style={{ color: '#10b981' }}>Temp: {temp}°C | Hum: {humidity}% | Pres: {pressure} hPa</span>
-              <span style={{ color: '#666' }}>Enviando datos via WiFi...</span>
+              <span style={{ color: '#10b981' }}>[OK] Lectura Sensores: DHT22 (D2) + BMP280 (I2C)</span>
+              <span style={{ color: '#00d2ff' }}>Temp: {temp}°C | Hum: {humidity}% | Pres: {pressure} hPa</span>
+              <span style={{ color: '#666' }}>[MQTT] Conectando a broker.cloudiot.unlp...</span>
+              <span style={{ color: '#fbbf24' }}>[WIFI] Paquete de datos enviado via ESP8266</span>
             </>
-          ) : <span style={{ color: '#666' }}>Sistema detenido. Presione Iniciar.</span>}
+          ) : <span style={{ color: '#666' }}>Sistema detenido. Verifique alimentacion y conexion USB.</span>}
         </div>
       </div>
     </div>
@@ -208,6 +210,21 @@ const SmartParkingSim = () => {
             <span className="big-number" style={{ color: barrierOpen ? '#10b981' : '#ef4444' }}>{barrierOpen ? '🔓' : '🔒'}</span>
             <span>Barrera {barrierOpen ? 'ABIERTA' : 'CERRADA'}</span>
           </div>
+        </div>
+      </div>
+      <div className="sim-serial">
+        <div className="serial-header">Monitor Serie (9600 baud) - Gestion Vehicular</div>
+        <div className="serial-output">
+          {running ? (
+            <>
+              <span style={{ color: '#8b5cf6' }}>[SCAN] Escaneando {6} plazas ultrasonicas...</span>
+              <span style={{ color: freeSpaces > 0 ? '#10b981' : '#ef4444' }}>
+                Disponibilidad: {freeSpaces} LIBRES | {6 - freeSpaces} OCUPADOS
+              </span>
+              <span style={{ color: '#666' }}>[SERVO] Angulo Barrera: {barrierOpen ? '90° (OPEN)' : '0° (CLOSED)'}</span>
+              {!barrierOpen && <span style={{ color: '#f59e0b' }}>[BUZZER] Alertando: Estacionamiento LLENO</span>}
+            </>
+          ) : <span style={{ color: '#666' }}>Sistema fuera de linea. Esperando vehiculos.</span>}
         </div>
       </div>
     </div>
@@ -351,6 +368,19 @@ const GreenhouseSim = () => {
             <label>Temp. maxima: <strong>{maxTemp}°C</strong></label>
             <input type="range" min="20" max="40" value={maxTemp} onChange={e => setMaxTemp(+e.target.value)} />
           </div>
+        </div>
+      </div>
+      <div className="sim-serial">
+        <div className="serial-header">Monitor Serie - Control Bioclimatico v2.4</div>
+        <div className="serial-output">
+          {running ? (
+            <>
+              <span style={{ color: '#10b981' }}>[SENSOR] T: {temp}°C | H_Aire: {humidity}%</span>
+              <span style={{ color: '#3b82f6' }}>[ACTUADOR] Ventana: {ventOpen ? 'ABIERTA (Cooling)' : 'CERRADA'}</span>
+              <span style={{ color: '#fbbf24' }}>[LIGHT] Espectro PAR: {lightOn ? 'FULL SPECTRUM ON' : 'OFF'}</span>
+              <span style={{ color: '#ef4444' }}>[CPU] Cargo Carga: {ventOpen ? 'Alta (Ventilador 12V ON)' : 'Baja'}</span>
+            </>
+          ) : <span style={{ color: '#666' }}>Invernadero en modo manual. Inicie el controlador.</span>}
         </div>
       </div>
     </div>
@@ -787,6 +817,7 @@ const PROJECTS = [
     title: 'Estacion Meteorologica IoT',
     icon: '🌦️',
     color: '#3b82f6',
+    image: 'proj_weather_main.png',
     description: 'Sistema de monitoreo ambiental en tiempo real con sensores de temperatura, humedad y presion atmosferica. Los datos se transmiten via WiFi a un servidor web para consulta remota.',
     objectives: [
       'Implementar lectura de sensores analogicos y digitales',
@@ -868,10 +899,10 @@ void loop() {
       ],
     },
     theory: [
-      { icon: '🌡️', title: 'Sensor DHT22 — Temperatura y Humedad', text: 'El DHT22 es un sensor digital capacitivo que mide temperatura (-40°C a 80°C, precision ±0.5°C) y humedad relativa (0-100%, precision ±2%). Utiliza un protocolo de comunicacion propietario de un solo hilo (1-Wire). La resistencia pull-up de 10K es esencial para mantener la linea de datos en estado alto cuando no se transmite.', formula: 'HR = (Presion parcial vapor / Presion saturacion) x 100%' },
-      { icon: '🔵', title: 'Sensor BMP280 — Presion Barometrica', text: 'El BMP280 mide presion atmosferica (300-1100 hPa) con precision de ±1 hPa. Se comunica por I2C (direccion 0x76 o 0x77). La presion atmosferica a nivel del mar es ~1013.25 hPa; variaciones indican cambios climaticos. Tambien permite estimar altitud mediante la formula barometrica.', formula: 'Altitud = 44330 x (1 - (P/P0)^0.1903)' },
-      { icon: '📡', title: 'Protocolo I2C (Inter-Integrated Circuit)', text: 'I2C es un bus de comunicacion serie que usa solo dos lineas: SDA (datos) y SCL (reloj). Permite conectar multiples dispositivos esclavos a un unico maestro (Arduino). Cada dispositivo tiene una direccion unica de 7 bits. Es ideal para sensores y displays de baja velocidad. Las lineas requieren resistencias pull-up a VCC.' },
-      { icon: '📶', title: 'IoT — Internet de las Cosas', text: 'IoT permite que dispositivos fisicos se conecten a Internet para enviar y recibir datos. El ESP8266 es un microcontrolador WiFi de bajo costo que puede actuar como estacion (se conecta a un router) o punto de acceso. Los datos meteorologicos se envian a un servidor mediante protocolo HTTP o MQTT para visualizacion remota en un dashboard web.' },
+      { icon: '🌡️', title: 'Sensor DHT22 — Termo-higrometro Digital', text: 'El DHT22 es un sensor serie de alta precision que utiliza un protocolo de comunicacion propietaria mediante un solo cable (Single-Wire). Integra un sensor de humedad capacitivo y un termistor NTC calibrado. A diferencia del DHT11, su resolucion es de 0.1 y su rango es mucho mas amplio, permitiendo medir hasta -40°C. La linea de DATOS requiere una resistencia "Pull-Up" para evitar ruidos electromagneticos.', formula: 'Humedad Absoluta (g/m³) = (6.112 x e^((17.67 x T)/(T+243.5)) x HR x 2.1674) / (273.15 + T)' },
+      { icon: '🔵', title: 'BMP280 — Presion y Altitud', text: 'Este sensor MEMS (Micro-Electro-Mechanical Systems) de Bosch es capaz de medir cambios en la presion atmosferica equivalentes a 1 metro de altitud. Utiliza el bus I2C para transmitir datos. La presion barometrica es una variable critica para predecir el clima: caidas rapidas de presion suelen indicar la llegada de frentes de tormenta. Es fundamental configurar los registros de sobre-muestreo (oversampling) para reducir el ruido en las lecturas.', formula: 'Altitud = 44330.0 * (1.0 - pow(P / 1013.25, 0.1903))' },
+      { icon: '📡', title: 'Bus I2C y Arbol de Dispositivos', text: 'El Standard I2C permite ahorrar pines del microcontrolador al conectar hasta 127 dispositivos en solo dos hilos (SDA y SCL). Cada periferico tiene una direccion hexadecimal unica (ej: 0x27 para el LCD, 0x76 para el sensor). Es un bus multi-maestro síncrono donde el Arduino genera el reloj (pulso de sincronia). Las bibliotecas como Wire.h abstraen la complejidad de los protocolos de inicio, parada y reconocimiento (ACK/NACK).' },
+      { icon: '📶', title: 'Arquitectura IoT y Cloud Computing', text: 'En la arquitectura IoT, el Arduino/ESP8266 actua como "Edge Device". Los datos no solo se muestran localmente, sino que se encapsulan en paquetes TCP/IP y se envian via comandos AT (o bibliotecas WiFi) a plataformas en la nube (ThingSpeak, Adafruit IO, Azure). Esto permite el analisis de grandes volumenes de datos (Big Data) y el monitoreo historico desde aplicaciones moviles desde cualquier parte del mundo.' },
     ],
   },
   {
@@ -955,10 +986,10 @@ void loop() {
       ],
     },
     theory: [
-      { icon: '🌱', title: 'Sensor de Humedad Capacitivo', text: 'A diferencia de los sensores resistivos (que se corroen), los capacitivos miden la constante dielectrica del suelo. El agua tiene una constante dielectrica alta (~80), mientras que el suelo seco es baja (~4). El sensor genera una senal analogica proporcional: mayor humedad = menor valor analogico. Se conecta a un pin ADC del Arduino que convierte 0-5V a valores 0-1023.' },
-      { icon: '⚡', title: 'Modulo Rele — Control de Potencia', text: 'El rele es un interruptor electromagnetico que permite controlar cargas de alta potencia (bomba 5V/12V) con una senal digital de baja potencia del Arduino. Tiene 3 terminales de salida: COM (comun), NO (normalmente abierto) y NC (normalmente cerrado). Los reles de Arduino son "activos bajos": se activan con LOW. El diodo flyback protege al Arduino de picos de tension al desconectar la bobina.' },
-      { icon: '📊', title: 'Conversion ADC y Funcion map()', text: 'El ADC (Conversor Analogico-Digital) del Arduino tiene resolucion de 10 bits (0-1023). La funcion map(valor, minOrigen, maxOrigen, minDestino, maxDestino) realiza una interpolacion lineal para convertir el valor crudo a porcentaje. constrain() limita el resultado al rango valido 0-100%.', formula: 'humedad% = map(raw, 1023, 300, 0, 100)' },
-      { icon: '💧', title: 'Logica de Control con Umbral (Histeresis)', text: 'El sistema usa un umbral configurable: si la humedad baja del umbral, activa la bomba; si sube, la detiene. En sistemas avanzados se agrega histeresis (banda muerta) para evitar que la bomba oscile rapidamente. Por ejemplo: encender cuando humedad < 30%, apagar cuando humedad > 45%. Esto protege la bomba y ahorra energia.' },
+      { icon: '🌱', title: 'Sensores de Humedad Capacitivos vs Resistivos', text: 'Los sensores resistivos sufren de electrolisis y oxidacion rapida en contacto con la tierra humeda. Los sensores capacitivos (v2.0) estan aislados por una capa de resina epoxi y no tocan el agua directamente. Utilizan un oscilador integrado 555 o similar para medir cambios en la capacitancia del suelo, que varia segun el contenido de agua. El resultado es una tension analogica mas estable y duradera para aplicaciones de largo plazo.' },
+      { icon: '⚡', title: 'Conmutacion de Cargas con Rele Optoacoplado', text: 'Para aislar el ruido electrico de la bomba (motor DC) del microcontrolador, se utilizan modulos de rele con optoacoplamiento. Un LED interno pulsa frente a un fototransistor, permitiendo la transferencia de senales sin contacto fisico. Esto evita que la "fuerza contra-electromotriz" generada por el motor al apagarse reinicie o queme el Arduino UNO.', formula: 'Induccion Motor: V = -L * (di/dt)' },
+      { icon: '📊', title: 'Procesamiento de Senales Analogicas (ADC)', text: 'El ADC del Arduino convierte tensiones de 0 a 5V en una escala de 0 a 1023 niveles. En el programa, usamos la escala inversa porque el sensor suele entregar valores bajos cuando hay mucha agua. La calibracion es vital: se miden los valores en "aire" (0%) y sumergido en "vaso de agua" (100%) para establecer los limites reales de la funcion map().', formula: 'humedad% = map(raw, VALOR_AIRE, VALOR_AGUA, 0, 100)' },
+      { icon: '💧', title: 'Control por Umbral y Retroalimentacion', text: 'Este es un sistema de control de "lazo cerrado" (Closed Loop) basico. El sensor retroalimenta al controlador para que este actue sobre la bomba. Para evitar arranques y paradas innecesarias si la lectura oscila (ruido), se recomienda un retardo de software o una banda de histeresis (encender al 30%, apagar al 60%). Esto garantiza una hidratacion optima de las raices sin saturar el sustrato.' },
     ],
   },
   {
@@ -1077,10 +1108,10 @@ void loop() {
       ],
     },
     theory: [
-      { icon: '📏', title: 'Sensor Ultrasonico HC-SR04', text: 'El HC-SR04 mide distancias de 2cm a 400cm emitiendo un pulso ultrasonico de 40kHz y midiendo el tiempo que tarda en rebotar. El pin TRIGGER envia un pulso de 10us; el pin ECHO devuelve un pulso cuya duracion es proporcional a la distancia. La velocidad del sonido en aire es ~343 m/s a 20°C.', formula: 'Distancia (cm) = Tiempo (us) x 0.034 / 2' },
-      { icon: '⚙️', title: 'Servomotor SG90 — Control Angular', text: 'El servo SG90 permite posicionar su eje en un angulo de 0° a 180° mediante una senal PWM. El periodo de la senal es 20ms (50Hz) y el ancho del pulso determina el angulo: 1ms = 0°, 1.5ms = 90°, 2ms = 180°. La libreria Servo de Arduino simplifica esto con servo.write(angulo). Se usa para la barrera: 0° = cerrada, 90° = abierta.' },
-      { icon: '💡', title: 'Indicadores LED con Resistencia Limitadora', text: 'Los LEDs requieren una resistencia en serie para limitar la corriente y evitar que se quemen. Un LED tipico opera a ~20mA con caida de tension de ~2V (rojo) o ~3V (azul/verde). Con Arduino a 5V y LED rojo: R = (5V - 2V) / 0.02A = 150 ohm. Se usa 220 ohm por seguridad. Cada plaza tiene un LED verde (libre) y rojo (ocupado).', formula: 'R = (Vcc - Vled) / I_led' },
-      { icon: '🔊', title: 'Buzzer Piezoelectrico y Funcion tone()', text: 'El buzzer piezoelectrico convierte senales electricas en sonido mediante vibracion de un cristal. Arduino genera la senal con tone(pin, frecuencia, duracion). Frecuencias tipicas: 500Hz (grave), 1000Hz (medio), 2000Hz (agudo). Se usa para alertar cuando el estacionamiento esta lleno. noTone(pin) detiene el sonido.' },
+      { icon: '📏', title: 'Propagacion de Ondas Ultrasonicas (HC-SR04)', text: 'El sensor HC-SR04 basa su funcionamiento en el rebote de ondas sonoras de alta frecuencia (40kHz), inaudibles para el humano. Al emitir el pulso "Trigger", el sensor espera el "Echo". Sabiendo que el sonido viaja a 340m/s aproximadamente (dependiendo de la temperatura ambiente), podemos calcular la distancia basandonos en el tiempo de ida y vuelta. En un estacionamiento, es vital filtrar "falsos positivos" causados por rebotes en superficies angulares.', formula: 'Distancia (cm) = (Microsegundos / 58) | Compensacion Temp: v = 331.3 + 0.606 * T' },
+      { icon: '⚙️', title: 'Control por Ancho de Pulso (PWM) en Servos', text: 'Un servomotor no es un motor comun; posee un circuito de control interno y un potenciometro de retroalimentacion. Se controla mediante una senal PWM donde la "duracion del pulso" (y no el ciclo de trabajo promedio) indica la posicion deseada. La libreria Servo de Arduino genera estos pulsos de forma precisa en segundo plano, permitiendo que la barrera se mueva suavemente entre 0° y 90° evitando impactos mecanicos.' },
+      { icon: '💡', title: 'Multiplexacion y Ley de Ohm en Indicadores', text: 'Controlar 12 LEDs requiere una gestion eficiente de la corriente total. Segun la Ley de Ohm, la resistencia limitadora asegura que cada LED consuma exactamente lo necesario (~20mA). Si encendemos muchos LEDs simultaneamente, la suma de las corrientes no debe superar el limite del microcontrolador (~200mA total en el puerto). Por ello, se agrupan y se calculan las resistencias con precision para maximizar la vida util del hardware.', formula: 'Resistencia (Ω) = (V_fuente - V_led) / I_target' },
+      { icon: '🔊', title: 'Interfaces de Usuario Acusticas (Buzzer)', text: 'El buzzer actua como una interfaz no visual ("Feedback auditivo"). Mediante la funcion tone(), generamos frecuencias que el cerebro asocia con estados: un tono corto y agudo para "Acceso Permitido", y un tono largo o intermitente para "Estacionamiento Lleno". Los buzzers pasivos permiten crear melodias complejas variando el ancho de pulso, mientras que los activos solo requieren tension para sonar a una frecuencia fija.' },
     ],
   },
   {
@@ -1199,10 +1230,10 @@ void loop() {
       ],
     },
     theory: [
-      { icon: '👁️', title: 'Sensor PIR HC-SR501 — Deteccion de Movimiento', text: 'PIR (Passive Infrared) detecta variaciones de radiacion infrarroja emitida por cuerpos calientes. Tiene un rango de ~7 metros y angulo de 120°. Contiene un sensor piroelectrico y una lente de Fresnel que concentra la radiacion. La salida es digital: HIGH cuando detecta movimiento, LOW en reposo. Tiene dos potenciometros para ajustar sensibilidad y tiempo de retardo.' },
-      { icon: '🧲', title: 'Sensor Magnetico Reed Switch', text: 'El reed switch es un interruptor hermetico que se cierra en presencia de un campo magnetico. Se coloca en el marco de la puerta con un iman en la hoja. Cuando la puerta esta cerrada, el iman mantiene el contacto cerrado (circuito cerrado = LOW con pull-up). Al abrir la puerta, el circuito se abre (HIGH). Se usa con INPUT_PULLUP para evitar resistencias externas.' },
-      { icon: '🔄', title: 'Maquina de Estados Finitos (FSM)', text: 'El sistema opera como una FSM con tres estados: DESARMADO (verde encendido, ignora sensores), ARMADO (rojo encendido, monitorea sensores) y ALARMA (buzzer activo, LED parpadea). Las transiciones ocurren por eventos: codigo correcto arma/desarma, deteccion de movimiento o puerta abierta activan la alarma. Este patron de diseno es fundamental en sistemas embebidos.' },
-      { icon: '🔐', title: 'Teclado Matricial 4x4', text: 'El teclado matricial 4x4 tiene 16 teclas organizadas en 4 filas y 4 columnas, usando solo 8 pines del Arduino. Funciona por escaneo: el Arduino activa una fila a la vez y lee las columnas para detectar que tecla se presiono. La libreria Keypad simplifica la lectura. Se usa para ingresar el codigo secreto de 4 digitos que arma/desarma el sistema.' },
+      { icon: '👁️', title: 'Sensores Infrarrojos Pasivos (PIR)', text: 'El sensor PIR no emite energia, sino que "observa" los niveles de calor (radiacion infrarroja) de los objetos en su campo de vision. La lente de Fresnel divide el area en sectores. Cuando un cuerpo caliente se mueve de un sector a otro, el sensor detecta el diferencial y activa la salida. Es la base de los sistemas de intrusion modernos por su bajisimo consumo y efectividad en ambientes oscuros.' },
+      { icon: '🧲', title: 'Sensores de Contacto Magnetico (Reed)', text: 'Utilizan dos laminas metalicas dentro de una ampolla de vidrio al vacio. El magnetismo de un iman cercano atrae las laminas, cerrando el circuito. En seguridad, se conectan como "Normalmente Cerrados" (en serie) para que, si un intruso corta el cable, el sistema detecte la apertura del circuito inmediatamente (Tamper Protection). Es una tecnologia simple pero extremadamente confiable para puertas y ventanas.' },
+      { icon: '🔄', title: 'Arquitectura de Maquina de Estados (FSM)', text: 'Una FSM organiza el software en estados logicos finitos. Esto evita comportamientos impredecibles: por ejemplo, que la alarma suene si el sistema no esta armado. Cada estado tiene condiciones de entrada y salida claras. En este proyecto, el estado "ALARMA" se mantiene bloqueado hasta que se ingrese un codigo valido, incluso si los sensores dejan de detectar movimiento.', formula: 'Estado_Siguiente = f(Estado_Actual, Input_Sensores)' },
+      { icon: '🔐', title: 'Matrices de Teclado y Escaneo de Columnas', text: 'Para no usar 16 pines, el teclado matricial usa una tecnica de "escaneo por barrido". El Arduino pone una fila en LOW y lee todas las columnas; si detecta un LOW en una columna, identifica la interseccion. Este proceso ocurre miles de veces por segundo. El software debe gestionar el "Debounce" para evitar que una sola pulsacion fisica se interprete como multiples entradas debido al rebote mecanico de los contactos.' },
     ],
   },
   {
@@ -1331,10 +1362,10 @@ void loop() {
       ],
     },
     theory: [
-      { icon: '🌡️', title: 'Control Climatico en Invernaderos', text: 'Un invernadero atrapa el calor solar mediante el efecto invernadero: la luz visible penetra el vidrio/policarbonato, se convierte en calor infrarrojo que no puede escapar. La temperatura optima para la mayoria de cultivos esta entre 18°C y 28°C. El control automatizado mantiene estas condiciones abriendo ventilaciones cuando la temperatura supera el umbral y activando riego cuando la humedad del suelo baja.' },
-      { icon: '💨', title: 'Ventilacion Automatica con Servo', text: 'El servomotor controla la compuerta/ventana del invernadero. A 0° la ventana esta cerrada (conserva calor); a 90° esta completamente abierta (ventilacion maxima). Se puede implementar control proporcional: abrir parcialmente segun la diferencia entre la temperatura actual y la deseada. Esto es mas eficiente que el control todo/nada (on/off).' },
-      { icon: '🔴', title: 'Iluminacion Grow LED (PAR)', text: 'Las plantas realizan fotosintesis principalmente con luz roja (620-750nm) y azul (450-495nm). Las tiras LED grow combinan estos colores para maximizar la eficiencia fotosintetica. Se miden en PAR (Radiacion Fotosinteticamente Activa) expresada en umol/m²/s. La mayoria de cultivos necesitan 12-16 horas de luz diaria. Un modulo RTC (reloj en tiempo real) permite programar el encendido/apagado automatico.', formula: 'PAR optimo = 200-400 umol/m²/s (hortalizas)' },
-      { icon: '🔌', title: 'Modulo Rele Multicanal', text: 'El modulo rele de 4 canales permite controlar 4 dispositivos de alta potencia independientemente. Cada canal soporta hasta 10A a 250VAC o 30VDC. Son "activos bajos" (se activan con LOW). Los optoacopladores internos aislan electricamente el Arduino de las cargas. Es fundamental usar fuente externa para las cargas (ventilador 12V, bomba) y NO alimentarlas desde el Arduino.' },
+      { icon: '🌡️', title: 'El Ecosistema Controlado (Bioclimatica)', text: 'La automatizacion de invernaderos busca optimizar el VPD (Diferencial de Presion de Vapor), una relacion entre temperatura y humedad que determina que tan bien transpira la planta y absorbe nutrientes. Al abrir la ventana con el servo, no solo enfriamos, sino que renovamos el CO2 necesario para la fotosintesis. Un sistema inteligente ajusta estas variantes de forma integral para maximizar el crecimiento en menos tiempo.' },
+      { icon: '💨', title: 'Dinámica de Fluidos y Ventilacion Forzada', text: 'En dias calurosos, la conveccion natural no es suficiente. El ventilador de 12V (controlado por rele) genera un flujo laminar que reduce la temperatura de las hojas. Es vital posicionar los ventiladores para evitar "puntos calientes". El software decide si abrir la ventana (pasivo) o encender el ventilador (activo) basandose en la eficiencia energetica y la diferencia termica interior/exterior.' },
+      { icon: '🔴', title: 'Espectro de Luz Fotosinteticamente Activa (PAR)', text: 'Las plantas no ven la luz como nosotros. Ellas absorben principalmente los fotones en los rangos de 400nm a 700nm. Los LEDs Grow especiales emiten picos de azul (crecimiento vegetativo) y rojo (floracion). La automatizacion permite simular el fotoperiodo natural, garantizando que las plantas reciban su "racion" de luz diaria incluso en dias nublados o inviernos cortos.', formula: 'DLI (Daily Light Integral) = PAR x Segundos de luz / 1,000,000' },
+      { icon: '🔌', title: 'Gestion de Actuadores en Sistemas Complejos', text: 'Cuando manejamos bombas de agua, luces y ventiladores simultaneamente, el cableado y la seguridad electrica son criticos. El uso de modulos de reles permite separar la etapa de control (5V DC) de la etapa de potencia (12V DC o 220V AC). Es mandatorio el uso de diodos de proteccion y fusibles para evitar que una falla en un actuador propague un cortocircuito hacia el cerebro del sistema (Arduino MEGA).' },
     ],
   },
   {
@@ -1470,10 +1501,10 @@ void loop() {
       ],
     },
     theory: [
-      { icon: '☀️', title: 'Efecto Fotovoltaico y Paneles Solares', text: 'Un panel solar convierte luz en electricidad mediante el efecto fotovoltaico: los fotones de luz excitan electrones en el semiconductor (silicio), generando una corriente electrica. Un panel de 6V/2W produce hasta 333mA en condiciones ideales (1000 W/m² de irradiancia). La eficiencia tipica de paneles de silicio policristalino es 15-20%. La potencia real depende de la irradiancia, angulo de incidencia, temperatura y sombreado.', formula: 'P_max = V_oc x I_sc x FF (Factor de Forma ~0.7)' },
-      { icon: '⚡', title: 'Sensor de Corriente ACS712', text: 'El ACS712 mide corriente DC/AC de forma no invasiva usando el efecto Hall. El modelo de 5A tiene sensibilidad de 185mV/A con offset de 2.5V (0A = 2.5V). Para medir: I = (Vout - 2.5) / 0.185. Se conecta en serie con la carga. El Arduino lee la tension de salida con su ADC y calcula la corriente. Se recomienda promediar multiples lecturas para reducir ruido.', formula: 'I (A) = (V_sensor - 2.5V) / 0.185 V/A' },
-      { icon: '🔋', title: 'Divisor de Tension Resistivo', text: 'Como el panel puede generar hasta 6-7V y el ADC del Arduino solo soporta 0-5V, se usa un divisor resistivo para reducir la tension. Con R1=10K y R2=5K, la tension de salida es: Vout = Vin x R2/(R1+R2) = Vin x 5/15 = Vin/3. Asi, 6V del panel se leen como 2V en el ADC. En el codigo se multiplica la lectura por 3 (factorVoltaje) para obtener el valor real.', formula: 'V_out = V_in x R2 / (R1 + R2)' },
-      { icon: '📈', title: 'Calculo de Potencia y Energia', text: 'La potencia instantanea se calcula como P = V x I (Watts). La energia acumulada es la integral de la potencia en el tiempo: E = P x t (Watt-hora). El Arduino acumula la energia multiplicando la potencia por el intervalo de tiempo entre mediciones. El modulo MicroSD permite registrar datos en formato CSV para analisis posterior en una hoja de calculo (graficar curvas de generacion diaria, calcular rendimiento mensual).', formula: 'E (Wh) = Σ P_i x Δt_i' },
+      { icon: '☀️', title: 'Fisica de Células Fotovoltaicas (PN Junction)', text: 'Un panel solar funciona gracias a la union de dos capas de silicio dopado (tipo P y tipo N). Cuando los fotones golpean la union PN, liberan electrones creando un flujo de corriente DC. La eficiencia de conversion depende de la irradiancia (W/m²) y del espectro de luz. Es fundamental entender la curva I-V (Corriente vs Tension) para encontrar el Punto de Maxima Potencia (MPP), donde el panel rinde su maximo teorico.', formula: 'P_max = V_oc x I_sc x FF (Factor de Forma ~0.7)' },
+      { icon: '⚡', title: 'Efecto Hall e Induccion de Corriente (ACS712)', text: 'El ACS712 utiliza un sensor de efecto Hall integrado. Al pasar la corriente por una pista interna, genera un campo magnetico que el sensor traduce en una tension analogica proporcional. Como la salida esta aislada galvanicamente, es seguro para el Arduino. Sin embargo, al ser extremadamente sensible, es afectado por campos magnetico externos (motores cercanos), por lo que requiere un blindaje o filtrado por software mediante promedios moviles.', formula: 'I (A) = (V_sensor - V_offset) / Sensibilidad (V/A)' },
+      { icon: '🔋', title: 'Divisores Resistivos y Proteccion de Entradas', text: 'El CAD (Conversor Analógico Digital) del Arduino es el componente mas fragil. El divisor resistivo no solo reduce la tension para que sea medible, sino que actua como una primera linea de defensa. Al elegir resistencias de alto valor (10K/5K), limitamos la corriente que entra al pin del microcontrolador. En sistemas reales, se agregan zener o diodos de proteccion para evitar transitorios que superen los 5V durante picos de generacion solar.', formula: 'V_out = V_in x [R2 / (R1 + R2)]' },
+      { icon: '📈', title: 'Datalogging e Inteligencia Energetica', text: 'El monitoreo no termina en ver los Watts actuales. El verdadero valor esta en el registro historico: guardar los datos en una MicroSD en formato CSV permite calcular el ROI (Retorno de Inversion) del sistema solar y detectar degradacion en los paneles. Integrando un algoritmo de integracion temporal, transformamos la potencia instantanea en Energia (Watt-hora), permitiendo dimensionar correctamente el banco de baterias necesario para una autonomia real.', formula: 'Energia (kWh) = (Σ P_inst x Δt) / 1000' },
     ],
   },
 ];
@@ -1538,6 +1569,17 @@ const ProyectosIntegradoresPage = () => {
             {/* Expanded Content */}
             {activeProject === project.id && (
               <div className="pi-expanded">
+                {/* Project Image */}
+                {project.image && (
+                  <div className="pi-section" style={{ textAlign: 'center' }}>
+                    <img
+                      src={`${import.meta.env.BASE_URL || '/'}${project.image}`.replace('//', '/')}
+                      alt={`Ilustracion conceptual del proyecto: ${project.title}`}
+                      style={{ width: '100%', maxWidth: '600px', borderRadius: '12px', background: 'rgba(0,0,0,0.2)' }}
+                    />
+                  </div>
+                )}
+
                 {/* Objectives */}
                 <div className="pi-section">
                   <h3 className="pi-section-title" style={{ color: project.color }}>Objetivos del Proyecto</h3>

@@ -459,6 +459,27 @@ const Home = () => {
                                     <div style={{ marginTop: '1rem', color: '#00ccff', fontSize: '3rem' }}>📡</div>
                                 </div>
                             </Link>
+                            <Link to="/arduino/esp32-sim" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(16, 185, 129, 0.4)' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Simulador ESP32</h3>
+                                    <p>Interpretador C++ y GPIO</p>
+                                    <div style={{ marginTop: '1rem', color: '#10b981', fontSize: '3rem' }}>🤖</div>
+                                </div>
+                            </Link>
+                            <Link to="/arduino/web-designer" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.4)' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Web Designer</h3>
+                                    <p>Frontend para Arduino</p>
+                                    <div style={{ marginTop: '1rem', color: '#00f2ff', fontSize: '3rem' }}>🌐</div>
+                                </div>
+                            </Link>
+                            <Link to="/arduino/iot-dashboards" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(245, 158, 11, 0.4)' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Dashboards IoT</h3>
+                                    <p>Monitoreo en Tiempo Real</p>
+                                    <div style={{ marginTop: '1rem', color: '#f59e0b', fontSize: '3rem' }}>📊</div>
+                                </div>
+                            </Link>
                         </div>
                     </div>
 
