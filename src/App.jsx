@@ -74,6 +74,7 @@ import ProyectosIntegradoresPage from './pages/ProyectosIntegradoresPage';
 import IoTDashboardsPage from './pages/IoTDashboardsPage';
 import ArduinoWebDesignerPage from './pages/ArduinoWebDesignerPage';
 import ESP32SimuladorPage from './pages/ESP32SimuladorPage';
+import CircuitSimulatorPage from './pages/CircuitSimulatorPage';
 
 // Fundamentos de Computación (SimuUnpilar)
 import MemoriaPage from './pages/MemoriaPage';
@@ -181,6 +182,7 @@ function App() {
             <Route path="/arduino/web-designer" element={<ArduinoWebDesignerPage />} />
             <Route path="/arduino/iot-dashboards" element={<IoTDashboardsPage />} />
             <Route path="/arduino/esp32-sim" element={<ESP32SimuladorPage />} />
+            <Route path="/simulador-circuitos" element={<CircuitSimulatorPage />} />
 
             {/* Fundamentos de Computación */}
             <Route path="/memoria" element={<MemoriaPage />} />

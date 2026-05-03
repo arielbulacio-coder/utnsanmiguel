@@ -155,15 +155,31 @@ const NavBar = () => {
                         <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Herramientas</Link>
                         <Link to="/soldadura" style={linkStyle} onClick={closeAll}>🔥 Soldadura y Desoldado</Link>
                         <Link to="/circuitos-impresos" style={linkStyle} onClick={closeAll}>🔌 Circuitos Impresos (PCB)</Link>
+                        <Link to="/simulador-circuitos" style={linkStyle} onClick={closeAll}>🧪 Simulador de Circuitos</Link>
+                    </div>
+                </div>
 
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Arduino</div>
+                {/* PROGRAMACIÓN / ARDUINO / ESP32 / IoT */}
+                <div className={`dropdown ${openSubmenu === 'programacion' ? 'active' : ''}`}>
+                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('programacion')}>
+                        🤖 Programación <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Arduino — Teoría</div>
                         <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>
                         <Link to="/cpp-basico" style={linkStyle} onClick={closeAll}>C/C++ Básico</Link>
                         <Link to="/pwm" style={linkStyle} onClick={closeAll}>Señales PWM</Link>
                         <Link to="/sensores" style={linkStyle} onClick={closeAll}>Sensores</Link>
                         <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Configuración Serial</Link>
                         <Link to="/scratch" style={linkStyle} onClick={closeAll}>Programación Scratch 😺</Link>
-                        <Link to="/robot-evita-obstaculos" style={linkStyle} onClick={closeAll}>Proyecto: Robot Evasor</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>ESP32 / IoT</div>
+                        <Link to="/arduino/esp32-sim" style={linkStyle} onClick={closeAll}>🤖 Simulador ESP32</Link>
+                        <Link to="/arduino/iot-dashboards" style={linkStyle} onClick={closeAll}>📊 Dashboards IoT</Link>
+                        <Link to="/arduino/web-designer" style={linkStyle} onClick={closeAll}>🌐 Web Designer</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Proyectos</div>
+                        <Link to="/robot-evita-obstaculos" style={linkStyle} onClick={closeAll}>Robot Evasor</Link>
                     </div>
                 </div>
 
