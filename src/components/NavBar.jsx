@@ -14,6 +14,8 @@ const NavBar = () => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '0.5rem',
         padding: '0.5rem 1rem',
         background: 'var(--nav-bg)',
         backdropFilter: 'blur(10px)',
@@ -21,7 +23,9 @@ const NavBar = () => {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        transition: 'background-color 0.3s ease'
+        transition: 'background-color 0.3s ease',
+        maxWidth: '100vw',
+        boxSizing: 'border-box'
     };
 
     const linkStyle = {
@@ -29,12 +33,13 @@ const NavBar = () => {
         textDecoration: 'none',
         fontWeight: '500',
         transition: 'all 0.3s ease',
-        padding: '0.75rem 1rem',
+        padding: '0.6rem 0.75rem',
         borderRadius: '8px',
         display: 'flex',
         alignItems: 'center',
         minHeight: '44px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        whiteSpace: 'nowrap'
     };
 
     const activeStyle = {
@@ -44,7 +49,7 @@ const NavBar = () => {
     };
 
     const toggleSubmenu = (name) => {
-        if (window.innerWidth < 768) {
+        if (window.innerWidth < 992) {
             setOpenSubmenu(openSubmenu === name ? null : name);
         }
     };
@@ -93,23 +98,25 @@ const NavBar = () => {
                     Inicio
                 </Link>
 
-                <a
-                    href="https://drive.google.com/drive/folders/1B2vp3KrPw-nD7JQKJL1gETrOt_ZWNmqp?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={linkStyle}
-                    onClick={closeAll}
-                    title="Carpeta de Google Drive UTN San Miguel"
-                >
-                    📁 UTN San Miguel
-                </a>
-
-                {/* ESCUELA TÉCNICA 1 MALVINAS ARGENTINAS */}
-                <div className={`dropdown ${openSubmenu === 'et1malvinas' ? 'active' : ''}`}>
-                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('et1malvinas')}>
-                        🏫 Esc. Técnica 1 Malvinas Arg. <span className="arrow">▼</span>
+                {/* INSTITUCIÓN */}
+                <div className={`dropdown ${openSubmenu === 'institucion' ? 'active' : ''}`}>
+                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('institucion')}>
+                        🏫 Institución <span className="arrow">▼</span>
                     </div>
                     <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>UTN San Miguel</div>
+                        <a
+                            href="https://drive.google.com/drive/folders/1B2vp3KrPw-nD7JQKJL1gETrOt_ZWNmqp?usp=sharing"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={linkStyle}
+                            onClick={closeAll}
+                            title="Carpeta de Google Drive UTN San Miguel"
+                        >
+                            📁 Carpeta Drive
+                        </a>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Esc. Técnica 1 Malvinas Arg.</div>
                         <a
                             href="https://docs.google.com/spreadsheets/d/1OjScpndyRb-eljHQCWzH7S9P9JgMg8BofPhRYcBXGl4/edit?usp=sharing"
                             target="_blank"
@@ -138,24 +145,38 @@ const NavBar = () => {
                     </div>
                 </div>
 
-                {/* ELECTRÓNICA */}
+                {/* ELECTRÓNICA (analógica + digital) */}
                 <div className={`dropdown ${openSubmenu === 'electronica' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('electronica')}>
                         🔌 Electrónica <span className="arrow">▼</span>
                     </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Analógica</div>
                         <Link to="/codigos-resistencias" style={linkStyle} onClick={closeAll}>Códigos de Resistencias</Link>
                         <Link to="/resistencias-serie-paralelo" style={linkStyle} onClick={closeAll}>Serie / Paralelo</Link>
                         <Link to="/teorema-thevenin" style={linkStyle} onClick={closeAll}>T. de Thévenin</Link>
                         <Link to="/teorema-norton" style={linkStyle} onClick={closeAll}>T. de Norton</Link>
                         <Link to="/componentes-electronica" style={linkStyle} onClick={closeAll}>Componentes y Lógica</Link>
                         <Link to="/energias-renovables" style={linkStyle} onClick={closeAll}>Energías Renovables</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Instrumentos y Lab</div>
                         <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
                         <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
                         <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Herramientas</Link>
                         <Link to="/soldadura" style={linkStyle} onClick={closeAll}>🔥 Soldadura y Desoldado</Link>
-                        <Link to="/circuitos-impresos" style={linkStyle} onClick={closeAll}>🔌 Circuitos Impresos (PCB)</Link>
+                        <Link to="/circuitos-impresos" style={linkStyle} onClick={closeAll}>🔌 PCB</Link>
                         <Link to="/simulador-circuitos" style={linkStyle} onClick={closeAll}>🧪 Simulador de Circuitos</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Digital</div>
+                        <Link to="/electronica-digital/numeracion" style={linkStyle} onClick={closeAll}>1. Sistemas de Numeración</Link>
+                        <Link to="/electronica-digital/codigos-algebra" style={linkStyle} onClick={closeAll}>2. Códigos y Álgebra Boole</Link>
+                        <Link to="/electronica-digital/compuertas" style={linkStyle} onClick={closeAll}>3. Compuertas Lógicas</Link>
+                        <Link to="/electronica-digital/formas-canonicas" style={linkStyle} onClick={closeAll}>4. Formas Canónicas</Link>
+                        <Link to="/electronica-digital/karnaugh" style={linkStyle} onClick={closeAll}>5. Mapas de Karnaugh</Link>
+                        <Link to="/electronica-digital/bloques-funcionales" style={linkStyle} onClick={closeAll}>6. MUX, DEMUX</Link>
+                        <Link to="/electronica-digital/bloques-aritmeticos" style={linkStyle} onClick={closeAll}>7. Sumadores</Link>
+                        <Link to="/electronica-digital/secuenciales" style={linkStyle} onClick={closeAll}>8. Secuenciales</Link>
+                        <Link to="/electronica-digital/proyecto-integrador" style={linkStyle} onClick={closeAll}>9. Proyecto Integrador</Link>
                     </div>
                 </div>
 
@@ -183,38 +204,23 @@ const NavBar = () => {
                     </div>
                 </div>
 
-                {/* CIENCIAS BÁSICAS */}
-                <div className={`dropdown ${openSubmenu === 'ciencias' ? 'active' : ''}`}>
-                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('ciencias')}>
-                        📐 Básicas <span className="arrow">▼</span>
-                    </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Matemática y Física</div>
-                        <Link to="/conversion-unidades" style={linkStyle} onClick={closeAll}>Conversión Unidades</Link>
-                        <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Teorema Pitágoras</Link>
-                        <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
-                        <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática (MRU/MRUV)</Link>
-                    </div>
-                </div>
-
-                {/* DIBUJO TÉCNICO UNIFICADO */}
+                {/* DIBUJO Y CIENCIAS */}
                 <div className={`dropdown ${openSubmenu === 'dibujo2' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('dibujo2')}>
-                        ✏️ Dibujo Técnico <span className="arrow">▼</span>
+                        📐 Dibujo y Ciencias <span className="arrow">▼</span>
                     </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '280px' }}>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Dibujo Técnico</div>
                         <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>Proyecciones Ortogonales</Link>
                         <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
                         <Link to="/dibujo-tecnico/axonometrica" style={linkStyle} onClick={closeAll}>Axonometrías (ISO)</Link>
                         <Link to="/dibujo-tecnico/construcciones-geometricas" style={linkStyle} onClick={closeAll}>Construcciones Geom.</Link>
                         <Link to="/dibujo-2do/normalizacion" style={linkStyle} onClick={closeAll}>Normalización</Link>
                         <Link to="/dibujo-2do/poligonos" style={linkStyle} onClick={closeAll}>Polígonos Regulares</Link>
-                        <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>Circunferencia y Tangencias</Link>
-                        <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>Transformaciones Planta</Link>
+                        <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>Tangencias</Link>
+                        <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>Transformaciones</Link>
                         <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>Curvas Cónicas</Link>
                         <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>Curvas Técnicas</Link>
-
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Tutoriales de Dibujo Técnico</div>
                         <a
                             href="https://notebooklm.google.com/notebook/8d04d621-ac7b-43b2-8d62-3a0b5f88c961/artifact/1eed6dc1-0b38-4295-8d4d-0b87bead32d9?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_2&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_2_"
                             target="_blank"
@@ -223,23 +229,34 @@ const NavBar = () => {
                             onClick={closeAll}
                             title="Tutorial NotebookLM"
                         >
-                            📘 Tutorial 1 (NotebookLM)
+                            📘 Tutorial NotebookLM
                         </a>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Matemática y Física</div>
+                        <Link to="/conversion-unidades" style={linkStyle} onClick={closeAll}>Conversión Unidades</Link>
+                        <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Teorema Pitágoras</Link>
+                        <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
+                        <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática (MRU/MRUV)</Link>
                     </div>
                 </div>
 
-                {/* TALLER */}
+                {/* TALLER Y PROYECTOS */}
                 <div className={`dropdown ${openSubmenu === 'taller' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('taller')}>
-                        🛠️ Taller <span className="arrow">▼</span>
+                        🛠️ Taller y Proyectos <span className="arrow">▼</span>
                     </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '240px' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Mediciones y Herramientas</div>
                         <Link to="/seguridad-epp" style={linkStyle} onClick={closeAll}>Seguridad y EPP</Link>
                         <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
                         <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre Pie de Rey</Link>
                         <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro de Carpintero</Link>
                         <Link to="/herramientas-carpinteria" style={linkStyle} onClick={closeAll}>Carpintería</Link>
                         <Link to="/metal-mecanica" style={linkStyle} onClick={closeAll}>Metal-Mecánica</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Proyectos</div>
+                        <Link to="/proyectos-reciclables" style={linkStyle} onClick={closeAll}>Robótica Reciclable</Link>
+                        <Link to="/proyectos-integradores" style={linkStyle} onClick={closeAll}>Integradores 6° Año</Link>
                     </div>
                 </div>
 
@@ -273,37 +290,6 @@ const NavBar = () => {
                         <Link to="/ar-ensamblaje" style={linkStyle} onClick={closeAll}>📷 Ensamblaje PC (RA)</Link>
                     </div>
                 </div>
-
-                {/* ELECTRÓNICA DIGITAL */}
-                <div className={`dropdown ${openSubmenu === 'edigital' ? 'active' : ''}`}>
-                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('edigital')}>
-                        🔲 Electrónica Digital <span className="arrow">▼</span>
-                    </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
-                        <Link to="/electronica-digital/numeracion" style={linkStyle} onClick={closeAll}>1. Sistemas de Numeración</Link>
-                        <Link to="/electronica-digital/codigos-algebra" style={linkStyle} onClick={closeAll}>2. Códigos y Álgebra Boole</Link>
-                        <Link to="/electronica-digital/compuertas" style={linkStyle} onClick={closeAll}>3. Compuertas Lógicas</Link>
-                        <Link to="/electronica-digital/formas-canonicas" style={linkStyle} onClick={closeAll}>4. Formas Canónicas</Link>
-                        <Link to="/electronica-digital/karnaugh" style={linkStyle} onClick={closeAll}>5. Mapas de Karnaugh</Link>
-                        <Link to="/electronica-digital/bloques-funcionales" style={linkStyle} onClick={closeAll}>6. MUX, DEMUX, Cod/Decod</Link>
-                        <Link to="/electronica-digital/bloques-aritmeticos" style={linkStyle} onClick={closeAll}>7. Sumadores y Comparadores</Link>
-                        <Link to="/electronica-digital/secuenciales" style={linkStyle} onClick={closeAll}>8. Secuenciales y Tecnología</Link>
-                        <Link to="/electronica-digital/proyecto-integrador" style={linkStyle} onClick={closeAll}>9. Proyecto Integrador</Link>
-                    </div>
-                </div>
-
-                {/* PROYECTOS */}
-                <div className={`dropdown ${openSubmenu === 'proyectos' ? 'active' : ''}`}>
-                    <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('proyectos')}>
-                        🚀 Proyectos <span className="arrow">▼</span>
-                    </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
-                        <Link to="/proyectos-reciclables" style={linkStyle} onClick={closeAll}>Robótica Reciclable</Link>
-                        <Link to="/proyectos-integradores" style={linkStyle} onClick={closeAll}>Integradores 6° Año</Link>
-                    </div>
-                </div>
-
-
 
                 {/* Submenu Gestión Académica - Solo si está autenticado */}
                 {isAuthenticated && (
@@ -421,7 +407,12 @@ const NavBar = () => {
 
                 .nav-links {
                     display: flex;
-                    gap: 0.5rem;
+                    flex-wrap: wrap;
+                    gap: 0.25rem;
+                    align-items: center;
+                    justify-content: flex-end;
+                    flex: 1 1 auto;
+                    min-width: 0;
                 }
 
                 .dropdown {
@@ -438,17 +429,22 @@ const NavBar = () => {
                     display: none;
                     position: absolute;
                     top: 100%;
-                    left: 0;
+                    right: 0;
                     background: var(--nav-bg);
                     backdrop-filter: blur(15px);
                     border: 1px solid var(--glass-border);
                     border-radius: 12px;
                     min-width: 200px;
+                    max-width: calc(100vw - 2rem);
                     padding: 0.5rem;
                     box-shadow: 0 8px 32px rgba(0,0,0,0.2);
                 }
 
-                @media (min-width: 768px) {
+                @media (min-width: 1100px) {
+                    .dropdown-menu { left: 0; right: auto; }
+                }
+
+                @media (min-width: 992px) {
                     .dropdown:hover .dropdown-menu {
                         display: block;
                     }
@@ -457,7 +453,13 @@ const NavBar = () => {
                     }
                 }
 
-                @media (max-width: 767px) {
+                /* Tablet / desktop angosto: el menú puede no ser hover-friendly,
+                   confiamos en el click */
+                @media (min-width: 992px) and (max-width: 1099px) {
+                    .nav-links { font-size: 0.92rem; }
+                }
+
+                @media (max-width: 991px) {
                     .brand-text {
                         display: none;
                     }
@@ -467,6 +469,7 @@ const NavBar = () => {
                     .nav-links {
                         display: none;
                         flex-direction: column;
+                        flex-wrap: nowrap;
                         width: 100%;
                         margin-top: 1rem;
                         background: var(--nav-bg);
@@ -477,6 +480,8 @@ const NavBar = () => {
                         top: 60px;
                         left: 0;
                         right: 0;
+                        max-height: calc(100vh - 80px);
+                        overflow-y: auto;
                     }
                     .nav-links.open {
                         display: flex;
@@ -485,6 +490,7 @@ const NavBar = () => {
                         position: static;
                         display: none;
                         width: 100%;
+                        max-width: 100%;
                         background: rgba(0,0,0,0.1);
                         box-shadow: none;
                         border: none;
