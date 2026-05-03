@@ -276,7 +276,8 @@ const ProyectosReciclablesPage = () => {
 
                 {/* 8. HUERTA TECNIFICADA */}
                 <ProjectCard 
-                    num="8" title="Sistema de Huerta Tecnificada Solar" imageSrc="/proj_huerta.png" videoId="zFfP1vS8Z4c" 
+                    num="8" title="Sistema de Huerta Tecnificada Solar" 
+                    videoId="zFfP1vS8Z4c" 
                     description="Automatización de cultivos mediante energía fotovoltaica y optimización lumínica PAR."
                     functioning={`🌿 ECO-TECNOLOGÍA:
                     • Fotovoltaica: Los fotones excitan al Silicio para generar electricidad.
