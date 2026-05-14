@@ -227,7 +227,8 @@ const ESP32SimuladorPage = () => {
             // El puerto suele fallar al abrir si ya está en uso (Arduino IDE, otra pestaña, otra app)
             if (err && /Failed to open|Access denied|in use/i.test(err.message)) {
                 log("[Error] El puerto está siendo usado por otra aplicación.");
-                log("        Cerrá Arduino IDE / Serial Monitor / otra pestaña y volvé a intentar.");
+                log("        Probá el botón '🔧 Liberar puertos' (a veces quedan handles zombi).");
+                log("        Si sigue fallando, cerrá Arduino IDE / Serial Monitor / otra pestaña.");
             } else {
                 log("[Error] Falló la apertura del puerto: " + err.message);
             }
@@ -259,6 +260,44 @@ const ESP32SimuladorPage = () => {
             log("[Hardware] Desconectado ❌");
         }
     };
+
+    // Cierra TODOS los puertos previamente autorizados por esta página.
+    // Útil cuando algo quedó zombi (pestaña previa cerrada sin desconectar,
+    // hot-reload del bundler, etc.) y bloquea nuevas conexiones.
+    const releasePorts = async () => {
+        if (!("serial" in navigator)) {
+            alert("Tu navegador no soporta Web Serial API.");
+            return;
+        }
+        try {
+            const ports = await navigator.serial.getPorts();
+            if (ports.length === 0) {
+                log("[Hardware] No hay puertos previamente autorizados.");
+                log("           Si seguís sin poder conectar, cerrá Arduino IDE / otra pestaña / otra app.");
+                return;
+            }
+            log(`[Hardware] Liberando ${ports.length} puerto(s) autorizado(s)...`);
+            for (const p of ports) {
+                try { await p.close(); } catch (e) { /* ya estaba cerrado */ }
+            }
+            setPort(null);
+            setIsSerialConnected(false);
+            log("[Hardware] Puertos liberados ✅. Probá conectar de nuevo.");
+        } catch (err) {
+            log("[Error] No se pudieron liberar los puertos: " + (err?.message || err));
+        }
+    };
+
+    // Cleanup al desmontar: si quedaba un puerto abierto, cerrarlo para que
+    // no quede zombi en próximas navegaciones.
+    useEffect(() => {
+        return () => {
+            if (port) {
+                try { port.close(); } catch (e) { /* ignore */ }
+            }
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [port]);
 
     // Sandbox: provee API tipo Arduino
     const buildSandbox = useCallback(() => {
@@ -430,7 +469,10 @@ const ESP32SimuladorPage = () => {
                             <span>{EXAMPLES[activeExample]?.name}</span>
                             <div style={{ display: 'flex', gap: '10px' }}>
                                 {!isSerialConnected ? (
-                                    <button className="copy-btn" onClick={connectSerial}>🔌 Conectar Placa</button>
+                                    <>
+                                        <button className="copy-btn" onClick={connectSerial}>🔌 Conectar Placa</button>
+                                        <button className="copy-btn" style={{ background: '#f59e0b' }} onClick={releasePorts} title="Cierra puertos zombi (handles que quedaron abiertos de sesiones anteriores)">🔧 Liberar puertos</button>
+                                    </>
                                 ) : (
                                     <button className="copy-btn" style={{ background: '#ef4444' }} onClick={disconnectSerial}>🔌 Desconectar</button>
                                 )}
