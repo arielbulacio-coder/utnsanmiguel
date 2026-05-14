@@ -204,17 +204,41 @@ const ESP32SimuladorPage = () => {
     // Función para conectar a puerto serie real
     const connectSerial = async () => {
         if (!("serial" in navigator)) {
-            alert("Tu navegador no soporta Web Serial API. Usa Chrome o Edge.");
+            alert("Tu navegador no soporta Web Serial API.\n\nUsá Chrome, Edge u Opera en desktop (no Firefox, no Safari, no móvil).");
             return;
         }
+        let selectedPort = null;
+        // Paso 1: pedir puerto (puede cancelarse)
         try {
-            const selectedPort = await navigator.serial.requestPort();
+            selectedPort = await navigator.serial.requestPort();
+        } catch (err) {
+            // Usuario cerró el diálogo sin elegir — no es un error real, no spameamos el log
+            if (err && (err.name === 'NotFoundError' || /No port selected/i.test(err.message))) {
+                log("[Hardware] Selección de puerto cancelada.");
+                return;
+            }
+            log("[Error] No se pudo abrir el selector: " + (err?.message || err));
+            return;
+        }
+        // Paso 2: abrir el puerto
+        try {
             await selectedPort.open({ baudRate: 115200 });
-            setPort(selectedPort);
-            setIsSerialConnected(true);
-            log("[Hardware] Conectado físicamente vía USB ✅");
-            
-            // Lector continuo del monitor serie real
+        } catch (err) {
+            // El puerto suele fallar al abrir si ya está en uso (Arduino IDE, otra pestaña, otra app)
+            if (err && /Failed to open|Access denied|in use/i.test(err.message)) {
+                log("[Error] El puerto está siendo usado por otra aplicación.");
+                log("        Cerrá Arduino IDE / Serial Monitor / otra pestaña y volvé a intentar.");
+            } else {
+                log("[Error] Falló la apertura del puerto: " + err.message);
+            }
+            return;
+        }
+        setPort(selectedPort);
+        setIsSerialConnected(true);
+        log("[Hardware] Conectado físicamente vía USB ✅");
+
+        // Paso 3: leer del puerto en loop
+        try {
             const reader = selectedPort.readable.getReader();
             while (true) {
                 const { value, done } = await reader.read();
@@ -223,14 +247,13 @@ const ESP32SimuladorPage = () => {
                 log(`[RX] ${text}`);
             }
         } catch (err) {
-            console.error(err);
-            log("[Error] Falló la conexión serie: " + err.message);
+            log("[Error] Lectura interrumpida: " + (err?.message || err));
         }
     };
 
     const disconnectSerial = async () => {
         if (port) {
-            await port.close();
+            try { await port.close(); } catch (e) { /* puerto ya cerrado */ }
             setPort(null);
             setIsSerialConnected(false);
             log("[Hardware] Desconectado ❌");
@@ -339,6 +362,8 @@ const ESP32SimuladorPage = () => {
     };
 
     const stopCode = () => {
+        // Si ya estaba detenido, no logueamos de nuevo (evita dupes al re-click)
+        if (stopFlagRef.current && !runningRef.current) return;
         stopFlagRef.current = true;
         runningRef.current = false;
         setRunning(false);
