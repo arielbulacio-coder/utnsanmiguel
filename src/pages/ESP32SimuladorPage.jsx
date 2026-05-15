@@ -189,6 +189,7 @@ const ESP32SimuladorPage = () => {
     const [buttonStates, setButtonStates] = useState({});
     const [port, setPort] = useState(null);
     const [isSerialConnected, setIsSerialConnected] = useState(false);
+    const [flashing, setFlashing] = useState(false);
 
     const runningRef = useRef(false);
     const stopFlagRef = useRef(false);
@@ -298,6 +299,135 @@ const ESP32SimuladorPage = () => {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [port]);
+
+    // ── Descargar el sketch actual como archivo .ino ─────────────────
+    // Útil para abrirlo en Arduino IDE y compilarlo.
+    const downloadIno = () => {
+        const exampleName = EXAMPLES[activeExample]?.name || 'sketch';
+        // sacar emojis para nombre de archivo válido
+        const cleanName = exampleName.replace(/[^a-zA-Z0-9_-]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+        const fname = `simutec_${cleanName || 'sketch'}.ino`;
+        const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fname;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        log(`[Descarga] ${fname} listo. Abrilo en Arduino IDE para compilar.`);
+    };
+
+    // ── Flashear un .bin precompilado al ESP32 vía esptool-js ────────
+    // El usuario debe compilar primero el sketch en Arduino IDE (Sketch →
+    // Exportar binario compilado) o usar arduino-cli, y subir el .bin acá.
+    const flashBin = async () => {
+        if (!("serial" in navigator)) {
+            alert("Tu navegador no soporta Web Serial API.\nUsá Chrome / Edge / Opera en desktop.");
+            return;
+        }
+        if (flashing) return;
+
+        // Si hay un puerto ya abierto, hay que cerrarlo: esptool-js abre su propio Transport
+        if (port) {
+            log("[Flash] Cerrando conexión serial actual antes de flashear...");
+            try { await port.close(); } catch (e) { /* ignore */ }
+            setPort(null);
+            setIsSerialConnected(false);
+        }
+
+        // Pedir el .bin con file picker
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.bin';
+        fileInput.style.display = 'none';
+        document.body.appendChild(fileInput);
+
+        const file = await new Promise((resolve) => {
+            fileInput.onchange = (e) => resolve(e.target.files?.[0] || null);
+            fileInput.oncancel = () => resolve(null);
+            fileInput.click();
+        });
+        document.body.removeChild(fileInput);
+        if (!file) {
+            log("[Flash] Cancelado: no se seleccionó archivo.");
+            return;
+        }
+
+        log(`[Flash] Archivo seleccionado: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`);
+        log("[Flash] Pedí permiso para el puerto USB del ESP32 cuando aparezca el diálogo.");
+
+        let selectedPort;
+        try {
+            selectedPort = await navigator.serial.requestPort();
+        } catch (err) {
+            if (err && (err.name === 'NotFoundError' || /No port selected/i.test(err.message))) {
+                log("[Flash] Cancelado: no se eligió puerto.");
+            } else {
+                log("[Flash] Error al pedir puerto: " + err.message);
+            }
+            return;
+        }
+
+        setFlashing(true);
+        log("[Flash] Cargando esptool-js (primera vez tarda unos segundos)...");
+
+        try {
+            // Carga dinámica desde CDN ESM — evita agregar la lib al bundle
+            const mod = await import(/* @vite-ignore */ 'https://esm.sh/esptool-js@0.5.4');
+            const ESPLoader = mod.ESPLoader || mod.default?.ESPLoader;
+            const Transport = mod.Transport || mod.default?.Transport;
+            if (!ESPLoader || !Transport) throw new Error("esptool-js no expuso ESPLoader/Transport");
+
+            const transport = new Transport(selectedPort, true);
+            const loader = new ESPLoader({
+                transport,
+                baudrate: 921600,
+                terminal: {
+                    clean: () => {},
+                    writeLine: (s) => log(`[esptool] ${s}`),
+                    write: (s) => log(`[esptool] ${s}`)
+                }
+            });
+
+            log("[Flash] Conectando con el bootloader del ESP32...");
+            const chip = await loader.main();
+            log(`[Flash] Chip detectado: ${chip}`);
+
+            const data = await file.arrayBuffer();
+            const binStr = new Uint8Array(data).reduce((acc, b) => acc + String.fromCharCode(b), '');
+
+            log("[Flash] Escribiendo binario en 0x0 (offset por defecto de Arduino IDE)...");
+            await loader.writeFlash({
+                fileArray: [{ data: binStr, address: 0x0 }],
+                flashSize: 'keep',
+                flashMode: 'keep',
+                flashFreq: 'keep',
+                eraseAll: false,
+                compress: true,
+                reportProgress: (_idx, written, total) => {
+                    if (total > 0 && (written % 32768 === 0 || written === total)) {
+                        log(`[Flash] ${Math.round((written / total) * 100)}% (${written}/${total} bytes)`);
+                    }
+                }
+            });
+
+            await loader.after();
+            log("[Flash] ✅ Listo. Programa transferido a la placa.");
+            log("[Flash]    El ESP32 va a reiniciarse y empezar a ejecutar el nuevo firmware.");
+
+            // Cerrar el Transport del esptool
+            try { await transport.disconnect(); } catch (e) { /* ignore */ }
+        } catch (err) {
+            console.error('[Flash error]', err);
+            log("[Flash] ❌ Error: " + (err?.message || err));
+            log("[Flash]    Posibles causas: cable USB sin datos, falta de driver CP210x/CH340,");
+            log("[Flash]    o el .bin no es compatible con ESP32 (chequeá que sea de tu placa).");
+        } finally {
+            setFlashing(false);
+        }
+    };
 
     // Sandbox: provee API tipo Arduino
     const buildSandbox = useCallback(() => {
@@ -467,17 +597,21 @@ const ESP32SimuladorPage = () => {
                     <div className="code-block" style={{ margin: 0 }}>
                         <div className="code-header">
                             <span>{EXAMPLES[activeExample]?.name}</span>
-                            <div style={{ display: 'flex', gap: '10px' }}>
+                            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                                 {!isSerialConnected ? (
                                     <>
-                                        <button className="copy-btn" onClick={connectSerial}>🔌 Conectar Placa</button>
-                                        <button className="copy-btn" style={{ background: '#f59e0b' }} onClick={releasePorts} title="Cierra puertos zombi (handles que quedaron abiertos de sesiones anteriores)">🔧 Liberar puertos</button>
+                                        <button className="copy-btn" onClick={connectSerial} disabled={flashing}>🔌 Conectar</button>
+                                        <button className="copy-btn" style={{ background: '#f59e0b' }} onClick={releasePorts} disabled={flashing} title="Cierra puertos zombi (handles que quedaron abiertos de sesiones anteriores)">🔧 Liberar puertos</button>
                                     </>
                                 ) : (
-                                    <button className="copy-btn" style={{ background: '#ef4444' }} onClick={disconnectSerial}>🔌 Desconectar</button>
+                                    <button className="copy-btn" style={{ background: '#ef4444' }} onClick={disconnectSerial} disabled={flashing}>🔌 Desconectar</button>
                                 )}
-                                <button className="copy-btn active" onClick={running ? stopCode : runCode}>
-                                    {running ? '⏹ Detener' : '▶ Ejecutar Simulación'}
+                                <button className="copy-btn" style={{ background: '#0ea5e9' }} onClick={downloadIno} disabled={flashing} title="Descarga el sketch como .ino para abrirlo en Arduino IDE">📥 Descargar .ino</button>
+                                <button className="copy-btn" style={{ background: flashing ? '#6b7280' : '#8b5cf6' }} onClick={flashBin} disabled={flashing} title="Flashea un .bin precompilado al ESP32 (requiere binario exportado desde Arduino IDE)">
+                                    {flashing ? '⏳ Flasheando...' : '⚡ Transferir .bin'}
+                                </button>
+                                <button className="copy-btn active" onClick={running ? stopCode : runCode} disabled={flashing}>
+                                    {running ? '⏹ Detener' : '▶ Simular'}
                                 </button>
                             </div>
                         </div>
