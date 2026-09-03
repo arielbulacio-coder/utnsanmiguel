@@ -31,6 +31,7 @@ import ElectronicComponentsPage from './pages/ElectronicComponentsPage';
 import RenewableEnergyPage from './pages/RenewableEnergyPage';
 import SoldaduraPage from './pages/SoldaduraPage';
 import PCBTutorialPage from './pages/PCBTutorialPage';
+import ElectricalSymbolsPage from './pages/ElectricalSymbolsPage';
 
 // Dibujo Técnico
 import NormasIRAMPage from './pages/drawing/NormasIRAMPage';
@@ -143,6 +144,7 @@ function App() {
             <Route path="/metal-mecanica" element={<MetalMecanicaPage />} />
             <Route path="/herramientas-electricidad" element={<ElectricalToolsPage />} />
             <Route path="/herramientas-electronica" element={<ElectronicsToolsPage />} />
+            <Route path="/simbologia-electronica" element={<ElectricalSymbolsPage />} />
             <Route path="/componentes-electronica" element={<ElectronicComponentsPage />} />
             <Route path="/energias-renovables" element={<RenewableEnergyPage />} />
             <Route path="/osciloscopio" element={<OscilloscopePage />} />

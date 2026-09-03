@@ -206,6 +206,14 @@ const Home = () => {
                     <div style={{ maxWidth: '1200px', margin: '3rem auto 0 auto' }}>
                         <h3 style={{ textAlign: 'left', color: 'var(--secondary-color)', marginBottom: '1rem', paddingLeft: '1rem' }}>🔌 Electrónica</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                            <Link to="/simbologia-electronica" style={{ textDecoration: 'none' }}>
+                                <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.4)', position: 'relative' }}>
+                                    <div style={{ position: 'absolute', top: '10px', right: '10px', background: '#ff0000', color: '#fff', fontSize: '0.65rem', padding: '3px 8px', borderRadius: '4px', fontWeight: 'bold', zIndex: 10 }}>NUEVO</div>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Simbología</h3>
+                                    <p>Símbolos y Aspecto Físico</p>
+                                    <div style={{ marginTop: '1rem', color: '#00f2ff', fontSize: '2rem' }}>🔌</div>
+                                </div>
+                            </Link>
                             <Link to="/codigos-resistencias" style={{ textDecoration: 'none' }}>
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Códigos de Color</h3>
