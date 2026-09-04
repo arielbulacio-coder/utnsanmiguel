@@ -157,6 +157,26 @@ const Home = () => {
                     <div style={{ maxWidth: '1200px', margin: '0 auto 3rem auto' }}>
                         <h3 style={{ textAlign: 'left', color: 'var(--primary-color)', marginBottom: '1rem', paddingLeft: '1rem' }}>⚡ Electricidad</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                            <Link to="/electricidad-1ro" style={{ textDecoration: 'none', gridColumn: '1 / -1' }}>
+                                <div className="glass-card" style={{ margin: 0, padding: '1.8rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(0, 242, 255, 0.45)', boxShadow: '0 0 25px rgba(0, 242, 255, 0.2)', position: 'relative', background: 'linear-gradient(135deg, rgba(0,242,255,0.08) 0%, rgba(15,23,42,0.85) 100%)' }}>
+                                    <div style={{ position: 'absolute', top: '12px', right: '12px', background: '#00f2ff', color: '#000', fontSize: '0.7rem', padding: '3px 10px', borderRadius: '20px', fontWeight: '900', letterSpacing: '0.5px' }}>CURSO COMPLETO 2026</div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                                        <span style={{ fontSize: '2.5rem' }}>⚡</span>
+                                        <div style={{ textAlign: 'left' }}>
+                                            <h3 style={{ margin: 0, fontSize: '1.8rem', color: '#fff' }}>Electricidad 1° Año — Taller General</h3>
+                                            <p style={{ margin: '0.3rem 0 0 0', color: 'var(--text-dim)', fontSize: '0.95rem' }}>
+                                                Planificación Oficial EST UTN San Miguel (12 Semanas) · Prof. Ariel Bulacio
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '1rem', justifyContent: 'center' }}>
+                                        <span style={{ background: 'rgba(0,242,255,0.15)', border: '1px solid rgba(0,242,255,0.4)', borderRadius: '20px', padding: '3px 10px', fontSize: '0.78rem', color: '#00f2ff', fontWeight: 'bold' }}>🤖 Ecobots Reciclables</span>
+                                        <span style={{ background: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.4)', borderRadius: '20px', padding: '3px 10px', fontSize: '0.78rem', color: '#f59e0b', fontWeight: 'bold' }}>🔌 Empalmes y Circuitos</span>
+                                        <span style={{ background: 'rgba(168,85,247,0.15)', border: '1px solid rgba(168,85,247,0.4)', borderRadius: '20px', padding: '3px 10px', fontSize: '0.78rem', color: '#c084fc', fontWeight: 'bold' }}>🧪 Soldadura en Placa de Islas</span>
+                                        <span style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.4)', borderRadius: '20px', padding: '3px 10px', fontSize: '0.78rem', color: '#10b981', fontWeight: 'bold' }}>📝 TP Integrador Teórico</span>
+                                    </div>
+                                </div>
+                            </Link>
                             <Link to="/ley-ohm" style={{ textDecoration: 'none' }}>
                                 <div className="glass-card" style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                                     <h3 style={{ margin: 0, fontSize: '1.8rem' }}>Ley de Ohm</h3>

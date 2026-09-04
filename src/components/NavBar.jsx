@@ -136,6 +136,9 @@ const NavBar = () => {
                         ⚡ Electricidad <span className="arrow">▼</span>
                     </div>
                     <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+                        <Link to="/electricidad-1ro" style={{ ...linkStyle, color: 'var(--primary-color)', fontWeight: 'bold', borderBottom: '1px solid rgba(0, 242, 255, 0.2)' }} onClick={closeAll}>
+                            ⚡ Curso Electricidad 1° (12 Semanas)
+                        </Link>
                         <Link to="/ley-ohm" style={linkStyle} onClick={closeAll}>Ley de Ohm</Link>
                         <Link to="/kirchhoff" style={linkStyle} onClick={closeAll}>Leyes de Kirchhoff</Link>
                         <Link to="/potencia" style={linkStyle} onClick={closeAll}>Potencia Eléctrica</Link>

@@ -1,0 +1,610 @@
+/* Electricidad 1° Año - EST UTN San Miguel */
+.elec-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem 1rem;
+  color: var(--text-main);
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Institutional Hero Banner */
+.elec-hero {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(2, 132, 199, 0.05) 50%, rgba(0, 242, 255, 0.1) 100%);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  border-radius: 24px;
+  padding: 2.2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.elec-hero::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 242, 255, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.elec-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.elec-badge-group {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.elec-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.elec-tag-utn {
+  background: rgba(0, 242, 255, 0.15);
+  color: var(--primary-color);
+  border: 1px solid rgba(0, 242, 255, 0.5);
+}
+
+.elec-tag-year {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.elec-tag-prof {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.elec-title {
+  font-size: 2.3rem;
+  font-weight: 900;
+  margin: 0.3rem 0;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #00f2ff, #38bdf8, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.elec-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 900px;
+  margin-top: 0.4rem;
+  line-height: 1.6;
+}
+
+.elec-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.elec-info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.elec-info-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.elec-info-val {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 0.2rem;
+}
+
+/* Nav Tabs */
+.elec-tabs-nav {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.8rem;
+  margin-bottom: 2rem;
+  scrollbar-width: thin;
+}
+
+.elec-tab-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-dim);
+  padding: 0.75rem 1.25rem;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.elec-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(0, 242, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.elec-tab-btn.active {
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.2), rgba(14, 165, 233, 0.3));
+  border-color: var(--primary-color);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 242, 255, 0.25);
+}
+
+/* Weeks Selector */
+.elec-weeks-strip {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0.2rem 1.2rem 0.2rem;
+  margin-bottom: 1.5rem;
+  scrollbar-width: thin;
+}
+
+.elec-week-chip {
+  flex: 0 0 auto;
+  min-width: 95px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.6rem 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.elec-week-chip:hover {
+  border-color: var(--primary-color);
+  background: rgba(30, 41, 59, 0.9);
+  transform: translateY(-2px);
+}
+
+.elec-week-chip.active {
+  background: linear-gradient(180deg, rgba(0, 242, 255, 0.25) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+.elec-chip-num {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.elec-chip-name {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-top: 0.2rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
+}
+
+/* Week Detail Card */
+.elec-week-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(10px);
+}
+
+.elec-week-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.elec-unit-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 20px;
+}
+
+.elec-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tempo and Class Schedule Breakdown */
+.elec-tempo-container {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.elec-tempo-bar {
+  display: flex;
+  height: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0.6rem 0 0.8rem 0;
+}
+
+.elec-tempo-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.elec-class-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 1.6rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.elec-class-card:hover {
+  border-color: rgba(0, 242, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.elec-class-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.8rem;
+}
+
+.elec-class-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  background: rgba(0, 242, 255, 0.15);
+  color: var(--primary-color);
+  border: 1px solid rgba(0, 242, 255, 0.4);
+}
+
+.elec-activity-box {
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.06) 0%, rgba(14, 165, 233, 0.03) 100%);
+  border: 1px solid rgba(0, 242, 255, 0.25);
+  border-radius: 14px;
+  padding: 1.2rem;
+  margin-top: 1rem;
+}
+
+.elec-activity-box h5 {
+  margin: 0 0 0.6rem 0;
+  color: var(--primary-color);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.elec-activity-item {
+  margin-bottom: 0.6rem;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.elec-activity-item strong {
+  color: #ffffff;
+}
+
+.elec-subcard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.4rem;
+}
+
+.elec-subcard h4 {
+  margin: 0 0 0.8rem 0;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.elec-subcard ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.elec-subcard li {
+  margin-bottom: 0.4rem;
+}
+
+/* Practice Simulator Section */
+.elec-practice-container {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(0, 242, 255, 0.25);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.elec-practice-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.elec-practice-desc {
+  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Interactive Workbench for Solder & Splices & Ecobots */
+.elec-workbench {
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.elec-controls-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.elec-btn-action {
+  background: linear-gradient(135deg, #0284c7, #00f2ff);
+  color: #04121d;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.elec-btn-action:hover {
+  filter: brightness(1.15);
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+}
+
+.elec-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 0.7rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.elec-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Question & Quiz styles */
+.elec-quiz-container {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.elec-quiz-qcard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.elec-quiz-qcard.correct {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.elec-quiz-qcard.incorrect {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.elec-quiz-opt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-dim);
+  padding: 0.85rem 1.1rem;
+  border-radius: 10px;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.elec-quiz-opt:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(0, 242, 255, 0.3);
+}
+
+.elec-quiz-opt.selected {
+  background: rgba(0, 242, 255, 0.15);
+  border-color: var(--primary-color);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.elec-quiz-opt.correct-answer {
+  background: rgba(16, 185, 129, 0.2) !important;
+  border-color: #10b981 !important;
+  color: #10b981 !important;
+  font-weight: 700;
+}
+
+.elec-quiz-opt.wrong-answer {
+  background: rgba(239, 68, 68, 0.2) !important;
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+}
+
+/* Certificate Modal / View */
+.elec-cert-box {
+  background: radial-gradient(circle at center, #0f2744 0%, #06111f 100%);
+  border: 3px double #f59e0b;
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.25);
+  margin-top: 2rem;
+  position: relative;
+}
+
+.elec-cert-seal {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+  font-size: 2.5rem;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5);
+}
+
+/* SVG Circuit / Robot Animations */
+@keyframes wireGlow {
+  0% { stroke-dashoffset: 20; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.wire-active {
+  stroke-dasharray: 6 3;
+  animation: wireGlow 0.8s linear infinite;
+}
+
+@keyframes spinFan {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-fan {
+  transform-origin: center;
+  animation: spinFan 0.18s linear infinite;
+}
+
+@keyframes botJitter {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(2px, -2px) rotate(1deg); }
+  50% { transform: translate(-2px, 1px) rotate(-1deg); }
+  75% { transform: translate(1px, 2px) rotate(0.5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.bot-vibrating {
+  animation: botJitter 0.08s infinite ease-in-out;
+}
+
+@keyframes solderMelt {
+  0% { r: 4; fill: #9ca3af; }
+  50% { r: 11; fill: #e5e7eb; filter: drop-shadow(0 0 6px #00f2ff); }
+  100% { r: 12; fill: #f3f4f6; }
+}
+
+.solder-flowing {
+  animation: solderMelt 1.8s forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .elec-hero {
+    padding: 1.5rem;
+  }
+  .elec-title {
+    font-size: 1.7rem;
+  }
+  .elec-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .elec-cert-box {
+    padding: 1.5rem;
+  }
+}

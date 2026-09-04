@@ -32,6 +32,7 @@ import RenewableEnergyPage from './pages/RenewableEnergyPage';
 import SoldaduraPage from './pages/SoldaduraPage';
 import PCBTutorialPage from './pages/PCBTutorialPage';
 import ElectricalSymbolsPage from './pages/ElectricalSymbolsPage';
+import Electricidad1roPage from './pages/Electricidad1roPage';
 
 // Dibujo Técnico
 import NormasIRAMPage from './pages/drawing/NormasIRAMPage';
@@ -153,6 +154,7 @@ function App() {
             <Route path="/electricidad-basica" element={<ElectricityBasicsPage />} />
             <Route path="/soldadura" element={<SoldaduraPage />} />
             <Route path="/circuitos-impresos" element={<PCBTutorialPage />} />
+            <Route path="/electricidad-1ro" element={<Electricidad1roPage />} />
 
             {/* Dibujo Técnico */}
             <Route path="/dibujo-tecnico/normas-iram" element={<NormasIRAMPage />} />
