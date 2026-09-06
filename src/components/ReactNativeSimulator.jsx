@@ -1034,7 +1034,7 @@ const styles = StyleSheet.create({
                         <button 
                             onClick={() => {
                                 if(!query.trim()) return;
-                                log(\`[IA] Procesando query: "\${query}"\`);
+                                log(`[IA] Procesando query: "${query}"`);
                                 setResponse('En React Native, puedes usar KeyboardAvoidingView para evitar que el teclado oculte los inputs. Por ejemplo:\\n\\n<KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>\\n ... \\n</KeyboardAvoidingView>');
                                 setQuery('');
                             }}
