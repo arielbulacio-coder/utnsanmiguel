@@ -91,6 +91,10 @@ import SeguridadInformaticaPage from './pages/SeguridadInformaticaPage';
 import ArquitecturaARPage from './pages/ArquitecturaARPage';
 import AREnsamblajePage from './pages/AREnsamblajePage';
 
+// React Native (Extraído de Fundamentos)
+import AplicacionesMoviles from './pages/AplicacionesMoviles';
+import SimuladorReactNative from './pages/SimuladorReactNative';
+
 // Gestión Académica
 import AcademicOverviewPage from './pages/AcademicOverviewPage';
 import StudentsPage from './pages/StudentsPage';
@@ -189,6 +193,10 @@ function App() {
             <Route path="/arduino/iot-dashboards" element={<IoTDashboardsPage />} />
             <Route path="/arduino/esp32-sim" element={<ESP32SimuladorPage />} />
             <Route path="/simulador-circuitos" element={<CircuitSimulatorPage />} />
+            
+            {/* React Native */}
+            <Route path="/aplicaciones-moviles" element={<AplicacionesMoviles />} />
+            <Route path="/simulador-react-native" element={<SimuladorReactNative />} />
 
             {/* Fundamentos de Computación */}
             <Route path="/memoria" element={<MemoriaPage />} />

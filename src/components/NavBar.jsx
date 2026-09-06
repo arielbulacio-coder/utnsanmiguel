@@ -215,6 +215,10 @@ const NavBar = () => {
                         <Link to="/taller-robotica" style={linkStyle} onClick={closeAll}>Taller de Robótica</Link>
                         <Link to="/robot-evita-obstaculos" style={linkStyle} onClick={closeAll}>Robot Evasor</Link>
                         <Link to="/scratch" style={linkStyle} onClick={closeAll}>Programación Scratch 😺</Link>
+
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem' }}>Desarrollo Móvil</div>
+                        <Link to="/aplicaciones-moviles" style={linkStyle} onClick={closeAll}>📱 Curso React Native</Link>
+                        <Link to="/simulador-react-native" style={linkStyle} onClick={closeAll}>⚛️ Simulador RN</Link>
                     </div>
                 </div>
 

@@ -178,6 +178,19 @@ const Home = () => {
                     <Link to="/arduino/esp32-sim" style={{ textDecoration: 'none' }}><div className="glass-card"><h3 style={{ margin: 0, fontSize: '1.5rem' }}>Simulador ESP32</h3><p>Interpretador C++ y GPIO</p><div style={{ marginTop: '1rem', color: '#10b981', fontSize: '2rem' }}>🌐</div></div></Link>
                     <Link to="/arduino/iot-dashboards" style={{ textDecoration: 'none' }}><div className="glass-card"><h3 style={{ margin: 0, fontSize: '1.5rem' }}>Dashboards IoT</h3><p>Monitoreo en Tiempo Real</p><div style={{ marginTop: '1rem', color: '#f59e0b', fontSize: '2rem' }}>📊</div></div></Link>
                     <Link to="/scratch" style={{ textDecoration: 'none' }}><div className="glass-card"><h3 style={{ margin: 0, fontSize: '1.5rem' }}>Programación Scratch</h3><p>Bloques Lógicos</p><div style={{ marginTop: '1rem', color: '#ffcc00', fontSize: '2rem' }}>😺</div></div></Link>
+                    <Link to="/aplicaciones-moviles" style={{ textDecoration: 'none', gridColumn: '1 / -1' }}>
+                        <div className="glass-card" style={{ margin: 0, padding: '1.8rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid rgba(2, 132, 199, 0.45)', boxShadow: '0 0 25px rgba(2, 132, 199, 0.2)', position: 'relative', background: 'linear-gradient(135deg, rgba(2,132,199,0.08) 0%, rgba(15,23,42,0.85) 100%)' }}>
+                            <div style={{ position: 'absolute', top: '12px', right: '12px', background: '#0284c7', color: '#fff', fontSize: '0.7rem', padding: '3px 10px', borderRadius: '20px', fontWeight: '900' }}>NUEVO</div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                                <span style={{ fontSize: '2.5rem' }}>📱</span>
+                                <div style={{ textAlign: 'left' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.8rem', color: '#fff' }}>Curso de React Native</h3>
+                                    <p style={{ margin: '0.3rem 0 0 0', color: 'var(--text-dim)', fontSize: '0.95rem' }}>Desarrollo de Aplicaciones Móviles</p>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                    <Link to="/simulador-react-native" style={{ textDecoration: 'none' }}><div className="glass-card"><h3 style={{ margin: 0, fontSize: '1.5rem' }}>Simulador RN</h3><p>Prueba Código en Tiempo Real</p><div style={{ marginTop: '1rem', color: '#0ea5e9', fontSize: '2rem' }}>⚛️</div></div></Link>
                 </div>
             </div>
 
