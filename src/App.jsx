@@ -67,6 +67,7 @@ import SensorsPage from './pages/SensorsPage';
 import SerialPage from './pages/SerialPage';
 import ScratchPage from './pages/ScratchPage';
 import RobotEvitaObstaculosPage from './pages/RobotEvitaObstaculosPage';
+import RoboticaTallerPage from './pages/RoboticaTallerPage';
 import GeneracionesComputadorasPage from './pages/GeneracionesComputadorasPage';
 import ArquitecturaVonNeumannPage from './pages/ArquitecturaVonNeumannPage';
 import ArquitecturaHarvardPage from './pages/ArquitecturaHarvardPage';
@@ -177,6 +178,7 @@ function App() {
             <Route path="/comunicacion-serial" element={<SerialPage />} />
             <Route path="/scratch" element={<ScratchPage />} />
             <Route path="/robot-evita-obstaculos" element={<RobotEvitaObstaculosPage />} />
+            <Route path="/taller-robotica" element={<RoboticaTallerPage />} />
             <Route path="/generaciones-computadoras" element={<GeneracionesComputadorasPage />} />
             <Route path="/arquitectura-von-neumann" element={<ArquitecturaVonNeumannPage />} />
             <Route path="/arquitectura-harvard" element={<ArquitecturaHarvardPage />} />
