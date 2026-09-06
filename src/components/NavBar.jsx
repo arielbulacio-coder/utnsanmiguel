@@ -98,6 +98,24 @@ const NavBar = () => {
                     Inicio
                 </Link>
 
+                <Link
+                    to="/electricidad-1ro"
+                    style={{
+                        ...linkStyle,
+                        color: 'var(--primary-color)',
+                        fontWeight: '800',
+                        background: 'rgba(0, 242, 255, 0.12)',
+                        border: '1px solid rgba(0, 242, 255, 0.4)',
+                        borderRadius: '10px',
+                        padding: '0.45rem 0.9rem',
+                        boxShadow: '0 0 10px rgba(0, 242, 255, 0.2)',
+                        ...(location.pathname === '/electricidad-1ro' ? activeStyle : {})
+                    }}
+                    onClick={closeAll}
+                >
+                    ⚡ Electricidad 1°
+                </Link>
+
                 {/* INSTITUCIÓN */}
                 <div className={`dropdown ${openSubmenu === 'institucion' ? 'active' : ''}`}>
                     <div className="dropdown-trigger" style={linkStyle} onClick={() => toggleSubmenu('institucion')}>

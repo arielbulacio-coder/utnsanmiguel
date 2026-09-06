@@ -148,6 +148,49 @@ const Home = () => {
                 <p>
                     Soporte didáctico interactivo para la formación técnica y científica.
                 </p>
+
+                <div style={{ marginTop: '1.8rem' }}>
+                    <Link to="/electricidad-1ro" style={{ textDecoration: 'none' }}>
+                        <div style={{
+                            background: 'linear-gradient(135deg, rgba(0,242,255,0.2) 0%, rgba(14,165,233,0.3) 100%)',
+                            border: '2px solid var(--primary-color)',
+                            borderRadius: '16px',
+                            padding: '1.2rem 1.6rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '1rem',
+                            boxShadow: '0 0 25px rgba(0,242,255,0.3)',
+                            cursor: 'pointer',
+                            color: '#ffffff',
+                            textAlign: 'left'
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <span style={{ fontSize: '2.4rem' }}>⚡</span>
+                                <div>
+                                    <div style={{ fontWeight: '900', fontSize: '1.25rem', color: '#00f2ff' }}>
+                                        NUEVO: Curso Electricidad 1° Año (12 Semanas · 24 Clases)
+                                    </div>
+                                    <div style={{ fontSize: '0.9rem', color: '#e2e8f0', marginTop: '0.2rem' }}>
+                                        EST UTN San Miguel · Prof. Ariel Bulacio · Ecobots, Empalmes, Soldadura y TP Integrador
+                                    </div>
+                                </div>
+                            </div>
+                            <span style={{
+                                background: 'var(--primary-color)',
+                                color: '#000',
+                                fontWeight: '800',
+                                padding: '0.6rem 1.2rem',
+                                borderRadius: '10px',
+                                fontSize: '0.95rem',
+                                whiteSpace: 'nowrap',
+                                boxShadow: '0 0 10px rgba(0,242,255,0.5)'
+                            }}>
+                                Ingresar al Curso ➔
+                            </span>
+                        </div>
+                    </Link>
+                </div>
             </div>
 
 
