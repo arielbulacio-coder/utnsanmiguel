@@ -88,8 +88,8 @@ const AplicacionesMoviles = () => {
                         'Custom hooks para desacoplar lógica de datos',
                         'Inicialización y tipado de firebase.ts'
                     ],
-                    preset: 'state',
-                    simulatorTag: 'Simular Hooks'
+                    preset: 'api',
+                    simulatorTag: 'Simular Fetch'
                 },
                 {
                     code: '2.3',
@@ -161,8 +161,8 @@ const AplicacionesMoviles = () => {
                         'CI/CD básico para testing con GitHub Actions',
                         'Preparación de metadatos, capturas e íconos de Stores'
                     ],
-                    preset: 'flexbox',
-                    simulatorTag: 'Ver Simulador'
+                    preset: 'eas',
+                    simulatorTag: 'Ver Build EAS'
                 },
                 {
                     code: '3.4',
@@ -174,8 +174,8 @@ const AplicacionesMoviles = () => {
                         'Debugging asistido de errores nativos en la consola Metro',
                         'Refactoring y buenas prácticas asistidas por IA'
                     ],
-                    preset: 'router',
-                    simulatorTag: 'Explorar'
+                    preset: 'ai',
+                    simulatorTag: 'Ver IA Assistant'
                 }
             ]
         }

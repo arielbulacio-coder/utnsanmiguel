@@ -836,6 +836,216 @@ export default function BounceBox() {
                 </div>
             );
         }
+    },
+    {
+        id: 'api',
+        unit: 'Unidad 2.2',
+        title: 'Consumo de APIs (Fetch)',
+        icon: <Database size={18} />,
+        summary: 'Peticiones de red asíncronas para obtener y mostrar datos remotos.',
+        code: `import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+
+export default function ApiExample() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then(json => {
+        setData(json);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <ActivityIndicator size="large" color="#0284c7" style={{marginTop: 50}}/>;
+
+  return (
+    <FlatList 
+      data={data}
+      keyExtractor={item => item.id.toString()}
+      renderItem={({item}) => (
+        <View style={styles.card}>
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.email}>{item.email}</Text>
+        </View>
+      )}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  card: { padding: 15, borderBottomWidth: 1, borderColor: '#eee' },
+  name: { fontSize: 16, fontWeight: 'bold' },
+  email: { color: 'gray' }
+});`,
+        renderSimulator: ({ log }) => {
+            const [users, setUsers] = useState([]);
+            const [loading, setLoading] = useState(false);
+
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#f8fafc', overflow: 'hidden' }}>
+                    <div style={{ padding: '16px', background: '#fff', borderBottom: '1px solid #e2e8f0' }}>
+                        <div style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a' }}>Usuarios Remotos</div>
+                        <button 
+                            onClick={() => {
+                                setLoading(true);
+                                log('[Fetch] Requesting GET https://jsonplaceholder.typicode.com/users...');
+                                setTimeout(() => {
+                                    setUsers([{id:1, name: 'Leanne Graham', email: 'Sincere@april.biz'}, {id:2, name: 'Ervin Howell', email: 'Shanna@melissa.tv'}, {id:3, name: 'Clementine Bauch', email: 'Nathan@yesenia.net'}]);
+                                    setLoading(false);
+                                    log('[Fetch] Status 200 OK - 3 users received');
+                                }, 1200);
+                            }}
+                            style={{ marginTop: '10px', padding: '8px 12px', background: '#0284c7', color: '#fff', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '12px', width: '100%' }}
+                        >
+                            {loading ? 'Cargando...' : 'Obtener Usuarios (fetch)'}
+                        </button>
+                    </div>
+                    <div style={{ flex: 1, overflowY: 'auto' }}>
+                        {loading && <div style={{ textAlign: 'center', padding: '20px', color: '#0284c7' }}>cargando...</div>}
+                        {!loading && users.map(u => (
+                            <div key={u.id} style={{ padding: '14px 16px', borderBottom: '1px solid #e2e8f0', background: '#fff' }}>
+                                <div style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '14px' }}>{u.name}</div>
+                                <div style={{ color: '#64748b', fontSize: '12px', marginTop: '4px' }}>{u.email}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )
+        }
+    },
+    {
+        id: 'eas',
+        unit: 'Unidad 3.3',
+        title: 'EAS Build & Deploy',
+        icon: <Zap size={18} />,
+        summary: 'Compilación en la nube de binarios para Android (APK/AAB) e iOS (IPA).',
+        code: `// eas.json - Configuración de Build
+{
+  "cli": {
+    "version": ">= 7.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "track": "production",
+        "releaseStatus": "completed"
+      }
+    }
+  }
+}`,
+        renderSimulator: ({ log }) => {
+            const [status, setStatus] = useState('idle');
+
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#000', color: '#10b981', fontFamily: 'monospace', padding: '16px', fontSize: '11px' }}>
+                    <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: '16px' }}>$ eas build -p android --profile preview</div>
+                    
+                    {status === 'idle' && (
+                        <button 
+                            onClick={() => {
+                                setStatus('building');
+                                log('[EAS] Iniciando Job de compilación en los servidores de Expo');
+                                setTimeout(() => { setStatus('done'); log('[EAS] Build exitoso. APK generado.'); }, 2000);
+                            }}
+                            style={{ padding: '8px', background: '#333', color: '#fff', border: '1px solid #555', borderRadius: '4px', cursor: 'pointer' }}
+                        >
+                            Ejecutar Build
+                        </button>
+                    )}
+                    {status === 'building' && (
+                        <div>
+                            <div>[✔] Project initialized</div>
+                            <div style={{ marginTop: '8px' }}>[✔] Uploading project files...</div>
+                            <div style={{ marginTop: '8px' }}>[⚙] Building Android app (Gradle)...</div>
+                            <div style={{ color: '#f59e0b', marginTop: '8px' }}><div className="spinner" style={{ display: 'inline-block', animation: 'spin 1s linear infinite' }}>⟳</div> Compilando en la nube (Queue: 1)</div>
+                        </div>
+                    )}
+                    {status === 'done' && (
+                        <div>
+                            <div style={{ color: '#10b981' }}>[✔] Build successful!</div>
+                            <div style={{ marginTop: '16px', background: '#111', padding: '10px', borderRadius: '6px', border: '1px solid #333' }}>
+                                <div style={{ color: '#fff' }}>🤖 Android APK</div>
+                                <div style={{ color: '#3b82f6', marginTop: '6px' }}>https://expo.dev/artifacts/eas/123456.apk</div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )
+        }
+    },
+    {
+        id: 'ai',
+        unit: 'Unidad 3.4',
+        title: 'Asistencia con IA',
+        icon: <Terminal size={18} />,
+        summary: 'Uso de LLMs para resolver bugs, refactorizar o generar boilerplate de RN.',
+        code: `// Prompt sugerido para refactorizar:
+/*
+  "Actúa como un experto en React Native.
+  Tengo este componente que está usando Prop Drilling.
+  Por favor, refactorízalo usando Zustand para el estado global.
+  
+  [Pegar código aquí]
+  
+  Devuélveme el código optimizado, manteniendo los estilos
+  y asegurándote de usar TypeScript."
+*/`,
+        renderSimulator: ({ log }) => {
+            const [query, setQuery] = useState('');
+            const [response, setResponse] = useState('');
+
+            return (
+                <div style={{ flex: 1, background: '#1e293b', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ padding: '12px', background: '#0f172a', borderBottom: '1px solid #334155', color: '#fff', fontWeight: 'bold' }}>
+                        ✨ Asistente IA (Mock)
+                    </div>
+                    <div style={{ flex: 1, padding: '16px', overflowY: 'auto' }}>
+                        {response && (
+                            <div style={{ background: '#334155', padding: '12px', borderRadius: '8px', color: '#f8fafc', fontSize: '13px', lineHeight: 1.5 }}>
+                                {response}
+                            </div>
+                        )}
+                    </div>
+                    <div style={{ padding: '12px', borderTop: '1px solid #334155', display: 'flex', gap: '8px' }}>
+                        <input 
+                            value={query}
+                            onChange={e => setQuery(e.target.value)}
+                            placeholder="Haz una pregunta de React Native..."
+                            style={{ flex: 1, padding: '8px 12px', borderRadius: '20px', border: 'none', background: '#0f172a', color: '#fff', fontSize: '12px', outline: 'none' }}
+                        />
+                        <button 
+                            onClick={() => {
+                                if(!query.trim()) return;
+                                log(\`[IA] Procesando query: "\${query}"\`);
+                                setResponse('En React Native, puedes usar KeyboardAvoidingView para evitar que el teclado oculte los inputs. Por ejemplo:\\n\\n<KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>\\n ... \\n</KeyboardAvoidingView>');
+                                setQuery('');
+                            }}
+                            style={{ background: '#38bdf8', border: 'none', borderRadius: '20px', padding: '0 16px', color: '#0f172a', fontWeight: 'bold', cursor: 'pointer' }}
+                        >
+                            ↗
+                        </button>
+                    </div>
+                </div>
+            )
+        }
     }
 ];
 
@@ -846,6 +1056,12 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
     const [logs, setLogs] = useState([]);
     const [currentTime, setCurrentTime] = useState('12:00');
     const [keyReload, setKeyReload] = useState(0);
+
+    useEffect(() => {
+        if (initialPreset) {
+            setSelectedPresetId(initialPreset);
+        }
+    }, [initialPreset]);
 
     const activePreset = SIMULATOR_PRESETS.find(p => p.id === selectedPresetId) || SIMULATOR_PRESETS[0];
 
