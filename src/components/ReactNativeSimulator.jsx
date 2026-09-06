@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import * as Babel from '@babel/standalone';
 import {
     Play, RotateCcw, Copy, Check, Smartphone, Terminal,
     Layers, List, Navigation, ShieldCheck, Database, Camera,
@@ -300,7 +301,34 @@ export default function App() {
       contentContainerStyle={{ padding: 16 }}
     />
   );
-}`,
+}
+
+const styles = StyleSheet.create({
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1e293b',
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#334155',
+    marginBottom: 8,
+  },
+  icon: {
+    fontSize: 24,
+    marginRight: 12,
+  },
+  title: {
+    color: '#f8fafc',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  tag: {
+    color: '#38bdf8',
+    fontSize: 11,
+    marginTop: 2,
+  }
+});`,
         renderSimulator: ({ log }) => {
             const [items] = useState([
                 { id: '1', nombre: 'React Native & Expo', tag: 'Semana 1', icon: '⚛️', color: '#38bdf8' },
@@ -486,7 +514,43 @@ export default function LoginForm() {
       alert('¡Validación exitosa con Zod!');
     }
   };
-}`,
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>🔐 Iniciar Sesión</Text>
+      {error && <Text style={styles.errorText}>⚠️ {error}</Text>}
+      <View style={styles.field}>
+        <Text style={styles.label}>Correo Electrónico:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="alumno@unpilar.edu.ar"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
+      <View style={styles.field}>
+        <Text style={styles.label}>Contraseña:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Mínimo 6 caracteres"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+      </View>
+      <Button title="Ingresar al Sistema" onPress={handleLogin} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 20, justifyContent: 'center' },
+  title: { fontSize: 20, fontWeight: 'bold', color: '#38bdf8', marginBottom: 16 },
+  field: { marginBottom: 14 },
+  label: { color: '#cbd5e1', fontSize: 12, marginBottom: 4 },
+  input: { backgroundColor: '#1e293b', padding: 10, borderRadius: 8, color: '#fff', fontSize: 13 },
+  errorText: { color: '#ef4444', backgroundColor: 'rgba(239,68,68,0.1)', padding: 8, borderRadius: 6, marginBottom: 12, fontSize: 12 }
+});`,
         renderSimulator: ({ log }) => {
             const [email, setEmail] = useState('');
             const [password, setPassword] = useState('');
@@ -573,25 +637,73 @@ export default function LoginForm() {
         title: 'Firebase Firestore en Tiempo Real',
         icon: <Database size={18} />,
         summary: 'CRUD con addDoc, deleteDoc y sincronización reactiva onSnapshot.',
-        code: `import { collection, onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firestore';
+        code: `import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { collection, onSnapshot, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
-// Escuchar cambios en tiempo real
-useEffect(() => {
-  const unsubscribe = onSnapshot(collection(db, 'tareas'), snapshot => {
-    const lista = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setTareas(lista);
-  });
-  return () => unsubscribe();
-}, []);
+export default function FirebaseTaskApp() {
+  const [tasks, setTasks] = useState([
+    { id: '1', titulo: 'Configurar Expo Router', done: true },
+    { id: '2', titulo: 'Crear store con Zustand', done: false },
+    { id: '3', titulo: 'Testear en Expo Go', done: false },
+  ]);
+  const [newTitle, setNewTitle] = useState('');
 
-// Agregar tarea
-const agregar = async (texto) => {
-  await addDoc(collection(db, 'tareas'), {
-    titulo: texto,
-    createdAt: new Date()
-  });
-};`,
+  const agregarTarea = () => {
+    if (!newTitle.trim()) return;
+    setTasks(prev => [...prev, { id: Date.now().toString(), titulo: newTitle.trim(), done: false }]);
+    setNewTitle('');
+  };
+
+  const toggleTask = (id) => {
+    setTasks(prev => prev.map(t => t.id === id ? { ...t, done: !t.done } : t));
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>🔥 Cloud Firestore</Text>
+      <Text style={styles.subtitle}>Sincronización reactiva /tareas</Text>
+
+      <View style={styles.inputRow}>
+        <TextInput
+          style={styles.input}
+          placeholder="Nueva tarea móvil..."
+          value={newTitle}
+          onChangeText={setNewTitle}
+        />
+        <TouchableOpacity style={styles.addBtn} onPress={agregarTarea}>
+          <Text style={styles.addBtnText}>+</Text>
+        </TouchableOpacity>
+      </View>
+
+      <FlatList
+        data={tasks}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.taskItem} onPress={() => toggleTask(item.id)}>
+            <Text style={styles.checkIcon}>{item.done ? '✅' : '⬜'}</Text>
+            <Text style={[styles.taskText, item.done && styles.taskDone]}>{item.titulo}</Text>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0a0f1d', padding: 16 },
+  title: { fontSize: 18, fontWeight: 'bold', color: '#f97316' },
+  subtitle: { fontSize: 11, color: '#94a3b8', marginBottom: 14 },
+  inputRow: { flexDirection: 'row', gap: 8, marginBottom: 12 },
+  input: { flex: 1, backgroundColor: '#1e293b', borderRadius: 8, padding: 8, color: '#fff', fontSize: 12 },
+  addBtn: { backgroundColor: '#f97316', paddingHorizontal: 14, borderRadius: 8, justifyContent: 'center' },
+  addBtnText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  taskItem: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1e293b', padding: 10, borderRadius: 8, marginBottom: 6 },
+  checkIcon: { marginRight: 8, fontSize: 12 },
+  taskText: { color: '#fff', fontSize: 12, flex: 1 },
+  taskDone: { textDecorationLine: 'line-through', color: '#64748b' }
+});`,
         renderSimulator: ({ log }) => {
             const [tasks, setTasks] = useState([
                 { id: '1', title: 'Configurar proyecto con Expo Router', done: true },
@@ -678,16 +790,65 @@ const agregar = async (texto) => {
         title: 'Hardware & Sensores (GPS/Cámara)',
         icon: <Camera size={18} />,
         summary: 'Permisos del sistema operativo y acceso a expo-camera y expo-location.',
-        code: `import * as Location from 'expo-location';
-import { CameraView, useCameraPermissions } from 'expo-camera';
+        code: `import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import * as Location from 'expo-location';
+import { CameraView } from 'expo-camera';
 
-// Pedir permisos de ubicación
-const { status } = await Location.requestForegroundPermissionsAsync();
-if (status === 'granted') {
-  const loc = await Location.getCurrentPositionAsync({});
-  console.log('Lat:', loc.coords.latitude);
-  console.log('Lng:', loc.coords.longitude);
-}`,
+export default function SensorCameraApp() {
+  const [coords, setCoords] = useState(null);
+  const [photoCount, setPhotoCount] = useState(0);
+
+  const requestGps = async () => {
+    setCoords({ lat: -34.4586, lng: -58.9142 });
+  };
+
+  const snapPhoto = () => {
+    setPhotoCount(c => c + 1);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>📸 Hardware & Sensores</Text>
+      <Text style={styles.subtitle}>Cámara y GPS con Expo</Text>
+
+      <CameraView style={styles.camera}>
+        <Text style={styles.cameraLabel}>
+          {photoCount > 0 ? \`Fotos tomadas: \${photoCount}\` : '📷 Visor de Cámara'}
+        </Text>
+      </CameraView>
+
+      <TouchableOpacity style={styles.camBtn} onPress={snapPhoto}>
+        <Text style={styles.btnText}>Tomar Foto</Text>
+      </TouchableOpacity>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>📍 Sensor GPS:</Text>
+        {coords ? (
+          <Text style={styles.gpsText}>Lat: {coords.lat}, Lng: {coords.lng}</Text>
+        ) : (
+          <TouchableOpacity style={styles.gpsBtn} onPress={requestGps}>
+            <Text style={styles.btnText}>Obtener Ubicación</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0a0f1d', padding: 16 },
+  title: { fontSize: 18, fontWeight: 'bold', color: '#34d399' },
+  subtitle: { fontSize: 11, color: '#94a3b8', marginBottom: 12 },
+  camera: { height: 130, backgroundColor: '#1e293b', borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginBottom: 8 },
+  cameraLabel: { color: '#94a3b8', fontSize: 12 },
+  camBtn: { backgroundColor: '#059669', padding: 10, borderRadius: 8, alignItems: 'center', marginBottom: 12 },
+  card: { backgroundColor: '#1e293b', padding: 12, borderRadius: 8 },
+  cardTitle: { color: '#fff', fontSize: 12, fontWeight: 'bold', marginBottom: 6 },
+  gpsBtn: { backgroundColor: '#0284c7', padding: 8, borderRadius: 6, alignItems: 'center' },
+  gpsText: { color: '#38bdf8', fontSize: 12 },
+  btnText: { color: '#fff', fontWeight: 'bold', fontSize: 12 }
+});`,
         renderSimulator: ({ log }) => {
             const [hasGps, setHasGps] = useState(false);
             const [coords, setCoords] = useState(null);
@@ -774,25 +935,39 @@ if (status === 'granted') {
         title: 'Animaciones con Reanimated 3',
         icon: <Sparkles size={18} />,
         summary: 'Microinteracciones fluidas a 60 FPS corriendo directamente en el UI Thread.',
-        code: `import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+        code: `import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 
 export default function BounceBox() {
-  const scale = useSharedValue(1);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
+  const [active, setActive] = useState(false);
 
   const onPress = () => {
-    scale.value = withSpring(scale.value === 1 ? 1.3 : 1);
+    setActive(a => !a);
   };
 
   return (
-    <Animated.View style={[styles.box, animatedStyle]}>
-      <Text>60 FPS</Text>
-    </Animated.View>
+    <View style={styles.container}>
+      <Text style={styles.badge}>UNIDAD 3.2 • REANIMATED</Text>
+      <TouchableOpacity
+        style={[styles.box, active && styles.boxActive]}
+        onPress={onPress}
+      >
+        <Text style={styles.boxText}>{active ? '🚀 60 FPS' : '✨ Tócame'}</Text>
+      </TouchableOpacity>
+      <Text style={styles.info}>Microinteracción fluida ejecutada en el hilo nativo.</Text>
+    </View>
   );
-}`,
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#090d16', alignItems: 'center', justifyContent: 'center', padding: 20 },
+  badge: { color: '#a855f7', fontSize: 11, fontWeight: 'bold', backgroundColor: 'rgba(168,85,247,0.1)', paddingVertical: 4, paddingHorizontal: 12, borderRadius: 999, marginBottom: 20 },
+  box: { width: 110, height: 110, backgroundColor: '#a855f7', borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
+  boxActive: { backgroundColor: '#ec4899', borderRadius: 30 },
+  boxText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
+  info: { color: '#94a3b8', fontSize: 11, textAlign: 'center', marginTop: 20 }
+});`,
         renderSimulator: ({ log }) => {
             const [active, setActive] = useState(false);
 
@@ -922,35 +1097,63 @@ const styles = StyleSheet.create({
         title: 'EAS Build & Deploy',
         icon: <Zap size={18} />,
         summary: 'Compilación en la nube de binarios para Android (APK/AAB) e iOS (IPA).',
-        code: `// eas.json - Configuración de Build
-{
-  "cli": {
-    "version": ">= 7.0.0"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "android": {
-        "buildType": "apk"
-      }
-    },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {
-      "autoIncrement": true
-    }
-  },
-  "submit": {
-    "production": {
-      "android": {
-        "track": "production",
-        "releaseStatus": "completed"
-      }
-    }
-  }
-}`,
+        code: `import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+export default function EasDashboard() {
+  const [status, setStatus] = useState('idle');
+
+  const buildApk = () => {
+    setStatus('building');
+    setTimeout(() => setStatus('done'), 2000);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>🚀 EAS Build Dashboard</Text>
+      <Text style={styles.subtitle}>Perfil de compilación: preview (APK)</Text>
+
+      {status === 'idle' && (
+        <TouchableOpacity style={styles.btn} onPress={buildApk}>
+          <Text style={styles.btnText}>Compilar APK en la Nube</Text>
+        </TouchableOpacity>
+      )}
+
+      {status === 'building' && (
+        <View style={styles.terminal}>
+          <Text style={styles.log}>[✔] Configuración eas.json cargada</Text>
+          <Text style={styles.log}>[✔] Subiendo archivos del proyecto...</Text>
+          <Text style={styles.logPending}>[⚙] Compilando con Gradle en la nube...</Text>
+        </View>
+      )}
+
+      {status === 'done' && (
+        <View style={styles.terminal}>
+          <Text style={styles.logSuccess}>[✔] Compilación exitosa!</Text>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>🤖 Android APK Generado</Text>
+            <Text style={styles.cardLink}>https://expo.dev/artifacts/eas/app.apk</Text>
+          </View>
+        </View>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#000', padding: 16 },
+  title: { fontSize: 18, fontWeight: 'bold', color: '#10b981' },
+  subtitle: { fontSize: 11, color: '#94a3b8', marginBottom: 16 },
+  btn: { backgroundColor: '#10b981', padding: 12, borderRadius: 8, alignItems: 'center' },
+  btnText: { color: '#000', fontWeight: 'bold', fontSize: 13 },
+  terminal: { backgroundColor: '#111827', padding: 12, borderRadius: 8, gap: 6 },
+  log: { color: '#10b981', fontSize: 11 },
+  logPending: { color: '#f59e0b', fontSize: 11 },
+  logSuccess: { color: '#10b981', fontWeight: 'bold', fontSize: 13 },
+  card: { backgroundColor: '#1f2937', padding: 10, borderRadius: 6, marginTop: 8 },
+  cardTitle: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
+  cardLink: { color: '#38bdf8', fontSize: 10, marginTop: 4 }
+});`,
         renderSimulator: ({ log }) => {
             const [status, setStatus] = useState('idle');
 
@@ -997,17 +1200,50 @@ const styles = StyleSheet.create({
         title: 'Asistencia con IA',
         icon: <Terminal size={18} />,
         summary: 'Uso de LLMs para resolver bugs, refactorizar o generar boilerplate de RN.',
-        code: `// Prompt sugerido para refactorizar:
-/*
-  "Actúa como un experto en React Native.
-  Tengo este componente que está usando Prop Drilling.
-  Por favor, refactorízalo usando Zustand para el estado global.
-  
-  [Pegar código aquí]
-  
-  Devuélveme el código optimizado, manteniendo los estilos
-  y asegurándote de usar TypeScript."
-*/`,
+        code: `import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+
+export default function AiAssistant() {
+  const [query, setQuery] = useState('');
+  const [response, setResponse] = useState('¡Hola! Soy tu tutor IA. Pregúntame sobre componentes, estado o navegación.');
+
+  const ask = () => {
+    if (!query.trim()) return;
+    setResponse(\`💡 Respuesta sobre "\${query}": En React Native todo contenedor usa Flexbox por defecto y los estilos se optimizan con StyleSheet.\`);
+    setQuery('');
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>✨ Asistente IA React Native</Text>
+      <View style={styles.chatCard}>
+        <Text style={styles.chatText}>{response}</Text>
+      </View>
+      <View style={styles.inputRow}>
+        <TextInput
+          style={styles.input}
+          placeholder="Pregunta sobre React Native..."
+          value={query}
+          onChangeText={setQuery}
+        />
+        <TouchableOpacity style={styles.btn} onPress={ask}>
+          <Text style={styles.btnText}>➤</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0a0f1d', padding: 16, justifyContent: 'space-between' },
+  title: { fontSize: 18, fontWeight: 'bold', color: '#38bdf8', marginBottom: 12 },
+  chatCard: { flex: 1, backgroundColor: '#1e293b', borderRadius: 10, padding: 14, marginBottom: 12 },
+  chatText: { color: '#f8fafc', fontSize: 12, lineHeight: 18 },
+  inputRow: { flexDirection: 'row', gap: 8 },
+  input: { flex: 1, backgroundColor: '#1e293b', borderRadius: 20, paddingHorizontal: 14, paddingVertical: 8, color: '#fff', fontSize: 12 },
+  btn: { backgroundColor: '#38bdf8', width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
+  btnText: { color: '#0f172a', fontWeight: 'bold', fontSize: 14 }
+});`,
         renderSimulator: ({ log }) => {
             const [query, setQuery] = useState('');
             const [response, setResponse] = useState('');
@@ -1049,106 +1285,399 @@ const styles = StyleSheet.create({
     }
 ];
 
-const LIVE_PREVIEW_HTML = `
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <style>
-        body { margin: 0; padding: 0; background: #fff; overflow: hidden; font-family: -apple-system, sans-serif; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; }
-    </style>
-</head>
-<body>
-    <div id="root" style="width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <div style="color: #94a3b8; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Compilando React Native Web...</div>
-    </div>
-    <script>
-        const { useState, useEffect, useRef, useMemo, useCallback } = React;
-        
-        // Mocks de React Native Web
-        const View = (props) => React.createElement('div', {style:{display:'flex', flexDirection:'column', position:'relative', ...props.style}, ...props}, props.children);
-        const Text = (props) => React.createElement('span', {style:{fontSize:'14px', ...props.style}, ...props}, props.children);
-        const ScrollView = (props) => React.createElement('div', {style:{display:'flex', flexDirection:'column', overflowY:'auto', flex:1, ...props.style}, ...props}, props.children);
-        const TouchableOpacity = (props) => React.createElement('div', {onClick: props.onPress, style:{cursor:'pointer', opacity:1, transition:'opacity 0.2s', ...props.style}, onMouseDown: e=>e.currentTarget.style.opacity=0.5, onMouseUp: e=>e.currentTarget.style.opacity=1, ...props}, props.children);
-        const TextInput = (props) => React.createElement('input', {type: props.secureTextEntry?'password':'text', placeholder: props.placeholder, value: props.value, onChange: e => props.onChangeText && props.onChangeText(e.target.value), style:{fontSize:'14px', padding:'8px', border:'1px solid #ccc', borderRadius:'4px', ...props.style}, ...props});
-        const FlatList = (props) => React.createElement('div', {style:{display:'flex', flexDirection:'column', flex:1, overflowY:'auto', ...props.style}}, props.data && props.data.map((item, index) => React.createElement(React.Fragment, {key: props.keyExtractor ? props.keyExtractor(item) : index}, props.renderItem({item, index}))));
-        const Image = (props) => React.createElement('img', {src: typeof props.source === 'string' ? props.source : (props.source ? props.source.uri : ''), style:{objectFit:'cover', ...props.style}, ...props});
-        const ActivityIndicator = (props) => React.createElement('div', {style:{color: props.color || '#0284c7', padding:'20px', textAlign:'center', ...props.style}}, 'Cargando...');
-        const KeyboardAvoidingView = (props) => React.createElement(View, props, props.children);
-        const SafeAreaView = (props) => React.createElement(View, {style:{paddingTop:'40px', ...props.style}, ...props}, props.children);
-        const StyleSheet = { create: (obj) => obj };
+const flattenStyle = (s) => {
+    if (!s) return {};
+    let res = {};
+    if (Array.isArray(s)) {
+        s.forEach(item => {
+            if (item) Object.assign(res, flattenStyle(item));
+        });
+    } else if (typeof s === 'object') {
+        res = { ...s };
+    }
+    if (res.paddingVertical !== undefined) {
+        res.paddingTop = res.paddingVertical;
+        res.paddingBottom = res.paddingVertical;
+        delete res.paddingVertical;
+    }
+    if (res.paddingHorizontal !== undefined) {
+        res.paddingLeft = res.paddingHorizontal;
+        res.paddingRight = res.paddingHorizontal;
+        delete res.paddingHorizontal;
+    }
+    if (res.marginVertical !== undefined) {
+        res.marginTop = res.marginVertical;
+        res.marginBottom = res.marginVertical;
+        delete res.marginVertical;
+    }
+    if (res.marginHorizontal !== undefined) {
+        res.marginLeft = res.marginHorizontal;
+        res.marginRight = res.marginHorizontal;
+        delete res.marginHorizontal;
+    }
+    if (res.borderWidth !== undefined && !res.borderStyle) {
+        res.borderStyle = 'solid';
+    }
+    if (res.elevation !== undefined && !res.boxShadow) {
+        res.boxShadow = `0 ${Math.min(res.elevation, 8)}px ${res.elevation * 2}px rgba(0,0,0,0.35)`;
+        delete res.elevation;
+    }
+    return res;
+};
 
-        // Mocks de librerías
-        const Ionicons = (props) => React.createElement('span', {style:{color: props.color, fontSize: props.size}}, '★ ' + props.name);
-        const z = { object:()=>z, string:()=>z, min:()=>z, infer:()=>{} };
-        const useForm = () => ({ control: {}, handleSubmit: (fn) => (e) => { e && e.preventDefault(); fn({}); }, formState: { errors: {} } });
-        const Controller = (props) => props.render({ field: { onChange: ()=>{}, onBlur: ()=>{}, value: '' } });
+const RN_MOCKS = {
+    View: ({ style, children, ...rest }) => (
+        <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', boxSizing: 'border-box', ...flattenStyle(style) }} {...rest}>
+            {children}
+        </div>
+    ),
+    Text: ({ style, children, ...rest }) => (
+        <span style={{ fontSize: '14px', boxSizing: 'border-box', color: '#fff', ...flattenStyle(style) }} {...rest}>
+            {children}
+        </span>
+    ),
+    TouchableOpacity: ({ style, onPress, children, activeOpacity = 0.6, ...rest }) => {
+        const [isDown, setIsDown] = useState(false);
+        return (
+            <div
+                onClick={onPress}
+                onMouseDown={() => setIsDown(true)}
+                onMouseUp={() => setIsDown(false)}
+                onMouseLeave={() => setIsDown(false)}
+                style={{ cursor: 'pointer', transition: 'opacity 0.15s', opacity: isDown ? activeOpacity : 1, userSelect: 'none', display: 'flex', flexDirection: 'column', boxSizing: 'border-box', ...flattenStyle(style) }}
+                {...rest}
+            >
+                {children}
+            </div>
+        );
+    },
+    TextInput: ({ style, value, onChangeText, placeholder, placeholderTextColor = '#64748b', secureTextEntry, ...rest }) => (
+        <input
+            type={secureTextEntry ? 'password' : 'text'}
+            value={value ?? ''}
+            onChange={(e) => onChangeText && onChangeText(e.target.value)}
+            placeholder={placeholder}
+            style={{ fontSize: '13px', padding: '10px 12px', background: '#1e293b', border: '1px solid #334155', borderRadius: '8px', color: '#fff', outline: 'none', boxSizing: 'border-box', ...flattenStyle(style) }}
+            {...rest}
+        />
+    ),
+    Button: ({ title, onPress, color = '#0284c7', disabled }) => (
+        <button
+            onClick={onPress}
+            disabled={disabled}
+            style={{ background: color, color: '#fff', padding: '10px 16px', borderRadius: '10px', border: 'none', fontWeight: 'bold', fontSize: '13px', cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.5 : 1, width: '100%' }}
+        >
+            {title}
+        </button>
+    ),
+    ScrollView: ({ style, contentContainerStyle, children, ...rest }) => (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto', boxSizing: 'border-box', ...flattenStyle(style) }} {...rest}>
+            <div style={{ display: 'flex', flexDirection: 'column', boxSizing: 'border-box', ...flattenStyle(contentContainerStyle) }}>
+                {children}
+            </div>
+        </div>
+    ),
+    FlatList: ({ data = [], renderItem, keyExtractor, style, contentContainerStyle, ListHeaderComponent, ListEmptyComponent }) => (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto', boxSizing: 'border-box', ...flattenStyle(style) }}>
+            <div style={{ display: 'flex', flexDirection: 'column', boxSizing: 'border-box', ...flattenStyle(contentContainerStyle) }}>
+                {ListHeaderComponent && (typeof ListHeaderComponent === 'function' ? <ListHeaderComponent /> : ListHeaderComponent)}
+                {data.length === 0 && ListEmptyComponent && (typeof ListEmptyComponent === 'function' ? <ListEmptyComponent /> : ListEmptyComponent)}
+                {data.map((item, index) => {
+                    const key = keyExtractor ? keyExtractor(item, index) : (item.id ?? index);
+                    return <React.Fragment key={key}>{renderItem({ item, index })}</React.Fragment>;
+                })}
+            </div>
+        </div>
+    ),
+    Image: ({ source, style, ...rest }) => {
+        const src = typeof source === 'string' ? source : (source?.uri || '');
+        return <img src={src} alt="rn-img" style={{ objectFit: 'cover', display: 'block', ...flattenStyle(style) }} {...rest} />;
+    },
+    ActivityIndicator: ({ size = 'small', color = '#38bdf8', style }) => (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', gap: '8px', color, fontSize: size === 'large' ? '15px' : '12px', ...flattenStyle(style) }}>
+            <span style={{ animation: 'spin 1s linear infinite', display: 'inline-block' }}>⏳</span> Cargando...
+        </div>
+    ),
+    SafeAreaView: ({ style, children, ...rest }) => (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingTop: '8px', boxSizing: 'border-box', ...flattenStyle(style) }} {...rest}>
+            {children}
+        </div>
+    ),
+    KeyboardAvoidingView: ({ style, children, ...rest }) => (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', boxSizing: 'border-box', ...flattenStyle(style) }} {...rest}>
+            {children}
+        </div>
+    ),
+    StyleSheet: { create: (s) => s, flatten: flattenStyle },
+    Platform: { OS: 'ios', select: (obj) => obj.ios ?? obj.default },
+    Dimensions: { get: () => ({ width: 290, height: 520 }) },
+    Alert: { alert: (title, msg) => window.alert(`${title}${msg ? '\n' + msg : ''}`) }
+};
 
-        window.addEventListener('message', (event) => {
-            if (!event.data || event.data.type !== 'UPDATE_CODE') return;
-            
-            try {
-                let cleanCode = event.data.code;
-                cleanCode = cleanCode.replace(/import\\s+.*?from\\s+['"].*?['"];?/g, '');
-                cleanCode = cleanCode.replace(/export\\s+default\\s+function\\s+(\\w+)/g, 'const App = function');
-                cleanCode = cleanCode.replace(/export\\s+default\\s+(\\w+);?/g, 'const App = $1;');
-                
-                const transformed = Babel.transform(cleanCode, { presets: ['react'] }).code;
-                
-                const execute = new Function('React', 'useState', 'useEffect', 'useRef', 'View', 'Text', 'ScrollView', 'TouchableOpacity', 'TextInput', 'FlatList', 'Image', 'ActivityIndicator', 'KeyboardAvoidingView', 'SafeAreaView', 'StyleSheet', 'Ionicons', 'z', 'useForm', 'Controller', transformed + '\\nwindow.App = typeof App !== "undefined" ? App : null;');
-                
-                execute(React, useState, useEffect, useRef, View, Text, ScrollView, TouchableOpacity, TextInput, FlatList, Image, ActivityIndicator, KeyboardAvoidingView, SafeAreaView, StyleSheet, Ionicons, z, useForm, Controller);
-                
-                if (window.App) {
-                    const rootEl = document.getElementById('root');
-                    if (window._reactRoot) {
-                        window._reactRoot.render(React.createElement(window.App));
-                    } else {
-                        window._reactRoot = ReactDOM.createRoot(rootEl);
-                        window._reactRoot.render(React.createElement(window.App));
+const EXPO_ICONS_MOCKS = {
+    Ionicons: ({ name, size = 18, color = '#38bdf8', style }) => {
+        const iconMap = {
+            home: '🏠',
+            search: '🔍',
+            person: '👤',
+            camera: '📸',
+            settings: '⚙️',
+            star: '★',
+            refresh: '🔄'
+        };
+        return (
+            <span style={{ fontSize: `${size}px`, color, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1, ...flattenStyle(style) }}>
+                {iconMap[name] || '★'}
+            </span>
+        );
+    }
+};
+
+const TabsComponent = ({ children, screenOptions }) => {
+    const screens = React.Children.toArray(children).filter(c => React.isValidElement(c));
+    const [activeTab, setActiveTab] = useState(screens[0]?.props?.name || 'index');
+    const activeScreen = screens.find(s => s.props?.name === activeTab) || screens[0];
+    const activeColor = screenOptions?.tabBarActiveTintColor || '#38bdf8';
+
+    return (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', background: '#0b1120' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                {activeScreen?.props?.children || (
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', textAlign: 'center' }}>
+                        <div style={{ fontSize: '42px', marginBottom: '12px' }}>
+                            {activeTab === 'index' || activeTab === 'inicio' ? '🏠' : (activeTab === 'explorar' ? '🔍' : '👤')}
+                        </div>
+                        <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#fff' }}>
+                            {activeScreen?.props?.options?.title || activeTab}
+                        </div>
+                        <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '6px' }}>
+                            Ruta activa: app/(tabs)/{activeTab}.tsx
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div style={{ display: 'flex', borderTop: '1px solid #1f2937', background: '#111827', padding: '8px 0' }}>
+                {screens.map(screen => {
+                    const name = screen.props?.name;
+                    const title = screen.props?.options?.title || name;
+                    const isSelected = activeTab === name;
+                    const iconFn = screen.props?.options?.tabBarIcon;
+                    return (
+                        <div
+                            key={name}
+                            onClick={() => setActiveTab(name)}
+                            style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', opacity: isSelected ? 1 : 0.6 }}
+                        >
+                            {iconFn ? iconFn({ color: isSelected ? activeColor : '#94a3b8', size: 18 }) : <span style={{ fontSize: '16px' }}>📱</span>}
+                            <span style={{ fontSize: '10px', color: isSelected ? activeColor : '#94a3b8', marginTop: '2px', fontWeight: isSelected ? 'bold' : 'normal' }}>
+                                {title}
+                            </span>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+TabsComponent.Screen = () => null;
+
+const EXPO_ROUTER_MOCKS = {
+    Tabs: TabsComponent,
+    Stack: ({ children }) => <div style={{ flex: 1 }}>{children}</div>,
+    useRouter: () => ({ push: () => {}, replace: () => {}, back: () => {} }),
+    Link: ({ children }) => <span style={{ color: '#38bdf8', cursor: 'pointer' }}>{children}</span>
+};
+
+const ZOD_MOCKS = {
+    z: {
+        object: (shape) => ({
+            shape,
+            safeParse: (data) => {
+                for (let k in shape) {
+                    const val = data ? data[k] : '';
+                    if (shape[k].rules) {
+                        for (let rule of shape[k].rules) {
+                            if (rule.type === 'email' && (!val || !val.includes('@') || !val.includes('.'))) {
+                                return { success: false, error: { errors: [{ message: rule.msg || 'Email inválido' }] } };
+                            }
+                            if (rule.type === 'min' && (!val || val.length < rule.minLen)) {
+                                return { success: false, error: { errors: [{ message: rule.msg || `Mínimo ${rule.minLen} caracteres` }] } };
+                            }
+                        }
                     }
+                }
+                return { success: true, data };
+            }
+        }),
+        string: () => {
+            const rules = [];
+            const obj = {
+                rules,
+                email: (msg) => { rules.push({ type: 'email', msg }); return obj; },
+                min: (minLen, msg) => { rules.push({ type: 'min', minLen, msg }); return obj; }
+            };
+            return obj;
+        }
+    }
+};
+
+const REANIMATED_MOCKS = {
+    Animated: { View: RN_MOCKS.View, Text: RN_MOCKS.Text, Image: RN_MOCKS.Image, ScrollView: RN_MOCKS.ScrollView },
+    default: { View: RN_MOCKS.View, Text: RN_MOCKS.Text, Image: RN_MOCKS.Image, ScrollView: RN_MOCKS.ScrollView },
+    useSharedValue: (init) => ({ value: init }),
+    useAnimatedStyle: (fn) => fn(),
+    withSpring: (val) => val,
+    withTiming: (val) => val
+};
+
+const FIRESTORE_MOCKS = {
+    collection: (db, name) => name,
+    onSnapshot: (col, cb) => {
+        setTimeout(() => {
+            cb({
+                docs: [
+                    { id: '1', data: () => ({ titulo: 'Configurar Expo Router', done: true }) },
+                    { id: '2', data: () => ({ titulo: 'Crear store con Zustand', done: false }) },
+                    { id: '3', data: () => ({ titulo: 'Testear con Expo Go', done: false }) }
+                ]
+            });
+        }, 50);
+        return () => {};
+    },
+    addDoc: async (col, data) => ({ id: Date.now().toString(), ...data }),
+    deleteDoc: async () => {},
+    doc: () => ({})
+};
+
+const LOCATION_MOCKS = {
+    requestForegroundPermissionsAsync: async () => ({ status: 'granted' }),
+    getCurrentPositionAsync: async () => ({ coords: { latitude: -34.4586, longitude: -58.9142 } })
+};
+
+const CAMERA_MOCKS = {
+    CameraView: ({ style, children }) => (
+        <div style={{ background: '#1e293b', border: '1px dashed #475569', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '130px', color: '#94a3b8', fontSize: '12px', ...flattenStyle(style) }}>
+            📷 Cámara Móvil Simulada
+            {children}
+        </div>
+    ),
+    useCameraPermissions: () => [{ granted: true }, async () => ({ status: 'granted' })]
+};
+
+class LiveErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
+    componentDidCatch(error) {
+        if (this.props.onError) this.props.onError(error);
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.resetKey !== this.props.resetKey && this.state.hasError) {
+            this.setState({ hasError: false, error: null });
+        }
+    }
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div style={{ flex: 1, padding: '16px', background: '#3b0712', color: '#fca5a5', fontSize: '11px', fontFamily: 'monospace', display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto' }}>
+                    <div style={{ fontWeight: '800', color: '#f87171', fontSize: '12px' }}>⚠️ Error en Tiempo de Ejecución:</div>
+                    <div style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap', color: '#fecdd3', lineHeight: 1.4 }}>
+                        {this.state.error?.toString()}
+                    </div>
+                    <div style={{ marginTop: 'auto', fontSize: '10px', color: '#fda4af' }}>
+                        Modifica el código para corregir el error o presiona Resetear.
+                    </div>
+                </div>
+            );
+        }
+        return this.props.children;
+    }
+}
+
+const LiveSimulatorRunner = ({ code, log, resetKey }) => {
+    const [Comp, setComp] = useState(null);
+    const [compileError, setCompileError] = useState(null);
+
+    useEffect(() => {
+        if (!code) return;
+        const timer = setTimeout(() => {
+            try {
+                const res = Babel.transform(code, {
+                    presets: [
+                        ['env', { modules: 'commonjs' }],
+                        ['react', { runtime: 'classic' }]
+                    ]
+                });
+
+                const exportsObj = {};
+                const customRequire = (moduleName) => {
+                    if (moduleName === 'react') return React;
+                    if (moduleName === 'react-native') return RN_MOCKS;
+                    if (moduleName === '@expo/vector-icons') return EXPO_ICONS_MOCKS;
+                    if (moduleName === 'expo-router') return EXPO_ROUTER_MOCKS;
+                    if (moduleName === 'zod') return ZOD_MOCKS;
+                    if (moduleName === 'react-native-reanimated') return REANIMATED_MOCKS;
+                    if (moduleName === 'firebase/firestore') return FIRESTORE_MOCKS;
+                    if (moduleName.includes('firebaseConfig')) return { db: {} };
+                    if (moduleName === 'expo-location') return LOCATION_MOCKS;
+                    if (moduleName === 'expo-camera') return CAMERA_MOCKS;
+                    return {};
+                };
+
+                const fn = new Function('require', 'exports', res.code);
+                fn(customRequire, exportsObj);
+                const ExportedComp = exportsObj.default || exportsObj.App;
+
+                if (typeof ExportedComp === 'function') {
+                    setComp(() => ExportedComp);
+                    setCompileError(null);
+                    if (log) log('[Metro] Fast Refresh aplicado con éxito.');
                 } else {
-                    document.getElementById('root').innerHTML = '<div style="padding:20px;color:#f59e0b;font-size:12px;">Esperando "export default" del componente...</div>';
+                    setCompileError('No se encontró un "export default function Componente() { ... }" en el código.');
                 }
             } catch (err) {
-                document.getElementById('root').innerHTML = '<div style="color:#ef4444; padding:20px; font-family:monospace; font-size:12px; white-space: pre-wrap;">Error de sintaxis:\\n' + err.toString() + '</div>';
+                setCompileError(err.message || String(err));
             }
-        });
+        }, 120);
 
-        // Avisar que estamos listos
-        window.parent.postMessage({ type: 'READY' }, '*');
-    </script>
-</body>
-</html>
-`;
-
-const LivePreview = ({ code, log }) => {
-    const iframeRef = useRef(null);
-    const [isReady, setIsReady] = useState(false);
-
-    useEffect(() => {
-        const handleMessage = (event) => {
-            if (event.data?.type === 'READY') setIsReady(true);
-        };
-        window.addEventListener('message', handleMessage);
-        return () => window.removeEventListener('message', handleMessage);
-    }, []);
-
-    useEffect(() => {
-        if (!iframeRef.current || !isReady) return;
-        
-        const timer = setTimeout(() => {
-            iframeRef.current.contentWindow.postMessage({ type: 'UPDATE_CODE', code }, '*');
-        }, 150);
-        
         return () => clearTimeout(timer);
-    }, [code, isReady]);
+    }, [code, resetKey]);
 
-    return <iframe ref={iframeRef} srcDoc={LIVE_PREVIEW_HTML} style={{ width: '100%', height: '100%', border: 'none', background: '#fff' }} title="Live Preview" />;
+    if (compileError) {
+        return (
+            <div style={{ flex: 1, padding: '16px', background: '#1e1b4b', borderLeft: '4px solid #f43f5e', color: '#f8fafc', fontSize: '11px', fontFamily: 'monospace', display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto' }}>
+                <div style={{ fontWeight: '800', color: '#f43f5e', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span>⚠️</span> Error de Sintaxis (Babel):
+                </div>
+                <div style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap', color: '#fda4af', lineHeight: 1.4 }}>
+                    {compileError}
+                </div>
+                <div style={{ marginTop: 'auto', fontSize: '10px', color: '#94a3b8' }}>
+                    El código se compila en vivo mientras escribes. Corrige la sintaxis para actualizar el teléfono.
+                </div>
+            </div>
+        );
+    }
+
+    if (!Comp) {
+        return (
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#020617', color: '#94a3b8', fontSize: '11px' }}>
+                Compilando aplicación...
+            </div>
+        );
+    }
+
+    return (
+        <LiveErrorBoundary resetKey={`${code}-${resetKey}`}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden', background: '#020617', color: '#fff' }}>
+                <Comp />
+            </div>
+        </LiveErrorBoundary>
+    );
 };
 
 const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
@@ -1444,22 +1973,19 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                             </div>
 
                             {/* Live App Container */}
-                            <div key={keyReload} style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative' }}>
-                                {customCodes[selectedPresetId] !== undefined ? (
-                                    <>
-                                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', background: '#38bdf8', color: '#000', fontSize: '9px', fontWeight: 'bold', textAlign: 'center', padding: '2px 0', zIndex: 100 }}>
-                                            ⚡ LIVE CODE ACTIVADO
-                                        </div>
-                                        <div style={{ flex: 1, marginTop: '13px' }}>
-                                            <LivePreview code={customCodes[selectedPresetId]} log={addLog} />
-                                        </div>
-                                    </>
-                                ) : (
-                                    activePreset.renderSimulator({
-                                        config: {},
-                                        log: addLog
-                                    })
+                            <div key={keyReload} style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative', background: '#020617' }}>
+                                {customCodes[selectedPresetId] !== undefined && (
+                                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', background: '#38bdf8', color: '#000', fontSize: '9px', fontWeight: 'bold', textAlign: 'center', padding: '2px 0', zIndex: 100 }}>
+                                        ⚡ LIVE CODE ACTIVADO
+                                    </div>
                                 )}
+                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginTop: customCodes[selectedPresetId] !== undefined ? '14px' : '0', overflow: 'hidden' }}>
+                                    <LiveSimulatorRunner
+                                        code={customCodes[selectedPresetId] ?? activePreset.code}
+                                        log={addLog}
+                                        resetKey={`${selectedPresetId}-${keyReload}`}
+                                    />
+                                </div>
                             </div>
 
                             {/* Home Indicator Bar */}
