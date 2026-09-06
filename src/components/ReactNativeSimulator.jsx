@@ -1049,17 +1049,13 @@ const styles = StyleSheet.create({
     }
 ];
 
-const LivePreview = ({ code, log }) => {
-    // Escapar el código para inyectarlo en el srcDoc sin romper el script tag
-    const safeCode = code.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$').replace(/</g, '\\x3c');
-    
-    const srcDoc = `
+const LIVE_PREVIEW_HTML = `
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"><\/script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"><\/script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"><\/script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         body { margin: 0; padding: 0; background: #fff; overflow: hidden; font-family: -apple-system, sans-serif; }
         ::-webkit-scrollbar { width: 4px; }
@@ -1067,56 +1063,92 @@ const LivePreview = ({ code, log }) => {
     </style>
 </head>
 <body>
-    <div id="root" style="width: 100vw; height: 100vh; display: flex; flex-direction: column;"></div>
+    <div id="root" style="width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="color: #94a3b8; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Compilando React Native Web...</div>
+    </div>
     <script>
         const { useState, useEffect, useRef, useMemo, useCallback } = React;
         
-        // Mocks de React Native Web sin JSX para evitar que Babel deba transpilar el script exterior
+        // Mocks de React Native Web
         const View = (props) => React.createElement('div', {style:{display:'flex', flexDirection:'column', position:'relative', ...props.style}, ...props}, props.children);
         const Text = (props) => React.createElement('span', {style:{fontSize:'14px', ...props.style}, ...props}, props.children);
         const ScrollView = (props) => React.createElement('div', {style:{display:'flex', flexDirection:'column', overflowY:'auto', flex:1, ...props.style}, ...props}, props.children);
         const TouchableOpacity = (props) => React.createElement('div', {onClick: props.onPress, style:{cursor:'pointer', opacity:1, transition:'opacity 0.2s', ...props.style}, onMouseDown: e=>e.currentTarget.style.opacity=0.5, onMouseUp: e=>e.currentTarget.style.opacity=1, ...props}, props.children);
         const TextInput = (props) => React.createElement('input', {type: props.secureTextEntry?'password':'text', placeholder: props.placeholder, value: props.value, onChange: e => props.onChangeText && props.onChangeText(e.target.value), style:{fontSize:'14px', padding:'8px', border:'1px solid #ccc', borderRadius:'4px', ...props.style}, ...props});
-        const FlatList = (props) => React.createElement('div', {style:{display:'flex', flexDirection:'column', flex:1, overflowY:'auto', ...props.style}}, props.data?.map((item, index) => React.createElement(React.Fragment, {key: props.keyExtractor ? props.keyExtractor(item) : index}, props.renderItem({item, index}))));
-        const Image = (props) => React.createElement('img', {src: typeof props.source === 'string' ? props.source : props.source?.uri, style:{objectFit:'cover', ...props.style}, ...props});
+        const FlatList = (props) => React.createElement('div', {style:{display:'flex', flexDirection:'column', flex:1, overflowY:'auto', ...props.style}}, props.data && props.data.map((item, index) => React.createElement(React.Fragment, {key: props.keyExtractor ? props.keyExtractor(item) : index}, props.renderItem({item, index}))));
+        const Image = (props) => React.createElement('img', {src: typeof props.source === 'string' ? props.source : (props.source ? props.source.uri : ''), style:{objectFit:'cover', ...props.style}, ...props});
         const ActivityIndicator = (props) => React.createElement('div', {style:{color: props.color || '#0284c7', padding:'20px', textAlign:'center', ...props.style}}, 'Cargando...');
         const KeyboardAvoidingView = (props) => React.createElement(View, props, props.children);
         const SafeAreaView = (props) => React.createElement(View, {style:{paddingTop:'40px', ...props.style}, ...props}, props.children);
         const StyleSheet = { create: (obj) => obj };
 
-        // Mocks de librerías comunes
+        // Mocks de librerías
         const Ionicons = (props) => React.createElement('span', {style:{color: props.color, fontSize: props.size}}, '★ ' + props.name);
         const z = { object:()=>z, string:()=>z, min:()=>z, infer:()=>{} };
-        const useForm = () => ({ control: {}, handleSubmit: (fn) => (e) => { e?.preventDefault(); fn({}); }, formState: { errors: {} } });
+        const useForm = () => ({ control: {}, handleSubmit: (fn) => (e) => { e && e.preventDefault(); fn({}); }, formState: { errors: {} } });
         const Controller = (props) => props.render({ field: { onChange: ()=>{}, onBlur: ()=>{}, value: '' } });
 
-        try {
-            let cleanCode = \`${safeCode}\`;
-            // Eliminar imports y exports
-            cleanCode = cleanCode.replace(/import\\s+.*?from\\s+['"].*?['"];?/g, '');
-            cleanCode = cleanCode.replace(/export\\s+default\\s+function\\s+(\\w+)/g, 'const App = function');
-            cleanCode = cleanCode.replace(/export\\s+default\\s+(\\w+);?/g, 'const App = $1;');
+        window.addEventListener('message', (event) => {
+            if (!event.data || event.data.type !== 'UPDATE_CODE') return;
             
-            const transformed = Babel.transform(cleanCode, { presets: ['react'] }).code;
-            
-            const execute = new Function('React', 'useState', 'useEffect', 'useRef', 'View', 'Text', 'ScrollView', 'TouchableOpacity', 'TextInput', 'FlatList', 'Image', 'ActivityIndicator', 'KeyboardAvoidingView', 'SafeAreaView', 'StyleSheet', 'Ionicons', 'z', 'useForm', 'Controller', transformed + '\\nwindow.App = typeof App !== "undefined" ? App : null;');
-            
-            execute(React, useState, useEffect, useRef, View, Text, ScrollView, TouchableOpacity, TextInput, FlatList, Image, ActivityIndicator, KeyboardAvoidingView, SafeAreaView, StyleSheet, Ionicons, z, useForm, Controller);
-            
-            if (window.App) {
-                const root = ReactDOM.createRoot(document.getElementById('root'));
-                root.render(React.createElement(window.App));
-            } else {
-                document.getElementById('root').innerHTML = '<div style="padding:20px;color:#f59e0b;font-size:12px;">Esperando "export default" del componente App...</div>';
+            try {
+                let cleanCode = event.data.code;
+                cleanCode = cleanCode.replace(/import\\s+.*?from\\s+['"].*?['"];?/g, '');
+                cleanCode = cleanCode.replace(/export\\s+default\\s+function\\s+(\\w+)/g, 'const App = function');
+                cleanCode = cleanCode.replace(/export\\s+default\\s+(\\w+);?/g, 'const App = $1;');
+                
+                const transformed = Babel.transform(cleanCode, { presets: ['react'] }).code;
+                
+                const execute = new Function('React', 'useState', 'useEffect', 'useRef', 'View', 'Text', 'ScrollView', 'TouchableOpacity', 'TextInput', 'FlatList', 'Image', 'ActivityIndicator', 'KeyboardAvoidingView', 'SafeAreaView', 'StyleSheet', 'Ionicons', 'z', 'useForm', 'Controller', transformed + '\\nwindow.App = typeof App !== "undefined" ? App : null;');
+                
+                execute(React, useState, useEffect, useRef, View, Text, ScrollView, TouchableOpacity, TextInput, FlatList, Image, ActivityIndicator, KeyboardAvoidingView, SafeAreaView, StyleSheet, Ionicons, z, useForm, Controller);
+                
+                if (window.App) {
+                    const rootEl = document.getElementById('root');
+                    if (window._reactRoot) {
+                        window._reactRoot.render(React.createElement(window.App));
+                    } else {
+                        window._reactRoot = ReactDOM.createRoot(rootEl);
+                        window._reactRoot.render(React.createElement(window.App));
+                    }
+                } else {
+                    document.getElementById('root').innerHTML = '<div style="padding:20px;color:#f59e0b;font-size:12px;">Esperando "export default" del componente...</div>';
+                }
+            } catch (err) {
+                document.getElementById('root').innerHTML = '<div style="color:#ef4444; padding:20px; font-family:monospace; font-size:12px; white-space: pre-wrap;">Error de sintaxis:\\n' + err.toString() + '</div>';
             }
-        } catch (err) {
-            document.getElementById('root').innerHTML = '<div style="color:#ef4444; padding:20px; font-family:monospace; font-size:12px; white-space: pre-wrap;">Error de compilación:\\n' + err.toString() + '</div>';
-        }
+        });
+
+        // Avisar que estamos listos
+        window.parent.postMessage({ type: 'READY' }, '*');
     </script>
 </body>
 </html>
-    `;
-    return <iframe srcDoc={srcDoc} style={{ width: '100%', height: '100%', border: 'none', background: '#fff' }} title="Live Preview" />;
+`;
+
+const LivePreview = ({ code, log }) => {
+    const iframeRef = useRef(null);
+    const [isReady, setIsReady] = useState(false);
+
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.data?.type === 'READY') setIsReady(true);
+        };
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, []);
+
+    useEffect(() => {
+        if (!iframeRef.current || !isReady) return;
+        
+        const timer = setTimeout(() => {
+            iframeRef.current.contentWindow.postMessage({ type: 'UPDATE_CODE', code }, '*');
+        }, 150);
+        
+        return () => clearTimeout(timer);
+    }, [code, isReady]);
+
+    return <iframe ref={iframeRef} srcDoc={LIVE_PREVIEW_HTML} style={{ width: '100%', height: '100%', border: 'none', background: '#fff' }} title="Live Preview" />;
 };
 
 const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {

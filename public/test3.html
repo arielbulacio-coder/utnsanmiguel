@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root" style="width: 100vw; height: 100vh; display: flex; flex-direction: column;"></div>
+    <script>
+        const { useState, useEffect, useRef, useMemo, useCallback } = React;
+        
+        const View = (props) => React.createElement('div', {style:{display:'flex', flexDirection:'column', position:'relative', ...props.style}, ...props}, props.children);
+        const Text = (props) => React.createElement('span', {style:{fontSize:'14px', ...props.style}, ...props}, props.children);
+        
+        try {
+            let cleanCode = `
+import React from 'react';
+export default function App() {
+  return <View><Text>Hola Mundo</Text></View>;
+}`;
+            // Eliminar imports y exports
+            cleanCode = cleanCode.replace(/import\s+.*?from\s+['"].*?['"];?/g, '');
+            cleanCode = cleanCode.replace(/export\s+default\s+function\s+(\w+)/g, 'const App = function');
+            cleanCode = cleanCode.replace(/export\s+default\s+(\w+);?/g, 'const App = $1;');
+            
+            const transformed = Babel.transform(cleanCode, { presets: ['react'] }).code;
+            
+            const execute = new Function('React', 'useState', 'useEffect', 'useRef', 'View', 'Text', transformed + '\nwindow.App = typeof App !== "undefined" ? App : null;');
+            
+            execute(React, useState, useEffect, useRef, View, Text);
+            
+            if (window.App) {
+                const root = ReactDOM.createRoot(document.getElementById('root'));
+                root.render(React.createElement(window.App));
+            } else {
+                document.getElementById('root').innerHTML = '<div style="padding:20px;color:#f59e0b;font-size:12px;">Esperando "export default" del componente App...</div>';
+            }
+        } catch (err) {
+            document.getElementById('root').innerHTML = '<div style="color:#ef4444; padding:20px; font-family:monospace; font-size:12px; white-space: pre-wrap;">Error de compilación:\n' + err.toString() + '</div>';
+        }
+    </script>
+</body>
+</html>
