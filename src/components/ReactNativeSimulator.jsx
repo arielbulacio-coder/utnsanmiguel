@@ -1056,6 +1056,7 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
     const [logs, setLogs] = useState([]);
     const [currentTime, setCurrentTime] = useState('12:00');
     const [keyReload, setKeyReload] = useState(0);
+    const [customCodes, setCustomCodes] = useState({});
 
     useEffect(() => {
         if (initialPreset) {
@@ -1083,7 +1084,8 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
     };
 
     const copyCode = () => {
-        navigator.clipboard.writeText(activePreset.code);
+        const currentCode = customCodes[selectedPresetId] ?? activePreset.code;
+        navigator.clipboard.writeText(currentCode);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
         addLog('Código copiado al portapapeles para Expo Snack.');
@@ -1194,20 +1196,28 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                             </div>
                         </div>
 
-                        {/* Código con Resaltado y scroll */}
-                        <pre style={{
-                            margin: 0,
-                            padding: '1rem',
-                            fontSize: '0.8rem',
-                            fontFamily: 'Consolas, Monaco, "Fira Code", monospace',
-                            color: '#e2e8f0',
-                            lineHeight: 1.5,
-                            maxHeight: '320px',
-                            overflowY: 'auto',
-                            background: '#070b14'
-                        }}>
-                            <code>{activePreset.code}</code>
-                        </pre>
+                        {/* Código Editable con scroll */}
+                        <textarea
+                            value={customCodes[selectedPresetId] ?? activePreset.code}
+                            onChange={(e) => setCustomCodes(prev => ({ ...prev, [selectedPresetId]: e.target.value }))}
+                            spellCheck={false}
+                            style={{
+                                width: '100%',
+                                margin: 0,
+                                padding: '1rem',
+                                fontSize: '0.8rem',
+                                fontFamily: 'Consolas, Monaco, "Fira Code", monospace',
+                                color: '#e2e8f0',
+                                lineHeight: 1.5,
+                                height: '320px',
+                                minHeight: '320px',
+                                resize: 'vertical',
+                                border: 'none',
+                                outline: 'none',
+                                background: '#070b14',
+                                display: 'block'
+                            }}
+                        />
                     </div>
 
                     {/* Metro Terminal Logs */}
