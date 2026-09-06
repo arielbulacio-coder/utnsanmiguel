@@ -7,6 +7,10 @@ import {
     Zap, Sparkles, ChevronRight, ExternalLink
 } from 'lucide-react';
 
+if (typeof window !== 'undefined') {
+    window.React = React;
+}
+
 // PRESETS EDUCATIVOS DEL CURSO
 export const SIMULATOR_PRESETS = [
     {
@@ -387,7 +391,8 @@ const styles = StyleSheet.create({
         title: 'Navegación con Expo Router',
         icon: <Navigation size={18} />,
         summary: 'Enrutamiento basado en archivos: _layout.tsx, Tabs y Stack.',
-        code: `import { Tabs } from 'expo-router';
+        code: `import React from 'react';
+import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function TabLayout() {
@@ -1488,14 +1493,47 @@ const EXPO_ROUTER_MOCKS = {
     Link: ({ children }) => <span style={{ color: '#38bdf8', cursor: 'pointer' }}>{children}</span>
 };
 
-const ZOD_MOCKS = {
-    z: {
+const createZodMock = () => {
+    const stringBuilder = () => {
+        const rules = [];
+        const obj = {
+            rules,
+            email: (msg) => { rules.push({ type: 'email', msg }); return obj; },
+            min: (minLen, msg) => { rules.push({ type: 'min', minLen, msg }); return obj; },
+            max: (maxLen, msg) => { rules.push({ type: 'max', maxLen, msg }); return obj; },
+            optional: () => obj,
+            nullable: () => obj,
+            regex: () => obj,
+            refine: (fn, msg) => { rules.push({ type: 'refine', fn, msg }); return obj; }
+        };
+        return obj;
+    };
+
+    const numberBuilder = () => {
+        const rules = [];
+        const obj = {
+            rules,
+            min: (minVal, msg) => { rules.push({ type: 'numMin', minVal, msg }); return obj; },
+            max: (maxVal, msg) => { rules.push({ type: 'numMax', maxVal, msg }); return obj; },
+            positive: () => obj,
+            int: () => obj,
+            optional: () => obj,
+            nullable: () => obj
+        };
+        return obj;
+    };
+
+    const zBase = {
+        string: stringBuilder,
+        number: numberBuilder,
+        boolean: () => ({ optional: () => ({}) }),
+        any: () => ({ optional: () => ({}) }),
         object: (shape) => ({
             shape,
             safeParse: (data) => {
                 for (let k in shape) {
                     const val = data ? data[k] : '';
-                    if (shape[k].rules) {
+                    if (shape[k]?.rules) {
                         for (let rule of shape[k].rules) {
                             if (rule.type === 'email' && (!val || !val.includes('@') || !val.includes('.'))) {
                                 return { success: false, error: { errors: [{ message: rule.msg || 'Email inválido' }] } };
@@ -1503,23 +1541,35 @@ const ZOD_MOCKS = {
                             if (rule.type === 'min' && (!val || val.length < rule.minLen)) {
                                 return { success: false, error: { errors: [{ message: rule.msg || `Mínimo ${rule.minLen} caracteres` }] } };
                             }
+                            if (rule.type === 'max' && val && val.length > rule.maxLen) {
+                                return { success: false, error: { errors: [{ message: rule.msg || `Máximo ${rule.maxLen} caracteres` }] } };
+                            }
+                            if (rule.type === 'refine' && rule.fn && !rule.fn(val)) {
+                                return { success: false, error: { errors: [{ message: typeof rule.msg === 'function' ? rule.msg(val) : (rule.msg || 'Valor inválido') }] } };
+                            }
                         }
                     }
                 }
                 return { success: true, data };
+            },
+            parse: (data) => {
+                const res = zBase.object(shape).safeParse(data);
+                if (!res.success) throw new Error(res.error.errors[0].message);
+                return res.data;
             }
         }),
-        string: () => {
-            const rules = [];
-            const obj = {
-                rules,
-                email: (msg) => { rules.push({ type: 'email', msg }); return obj; },
-                min: (minLen, msg) => { rules.push({ type: 'min', minLen, msg }); return obj; }
-            };
-            return obj;
-        }
-    }
+        infer: () => ({})
+    };
+
+    return {
+        z: zBase,
+        ...zBase,
+        default: { z: zBase, ...zBase },
+        __esModule: true
+    };
 };
+
+const ZOD_MOCKS = createZodMock();
 
 const REANIMATED_MOCKS = {
     Animated: { View: RN_MOCKS.View, Text: RN_MOCKS.Text, Image: RN_MOCKS.Image, ScrollView: RN_MOCKS.ScrollView },
@@ -1588,8 +1638,16 @@ class LiveErrorBoundary extends React.Component {
                     <div style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap', color: '#fecdd3', lineHeight: 1.4 }}>
                         {this.state.error?.toString()}
                     </div>
-                    <div style={{ marginTop: 'auto', fontSize: '10px', color: '#fda4af' }}>
-                        Modifica el código para corregir el error o presiona Resetear.
+                    <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        <button
+                            onClick={() => this.setState({ hasError: false, error: null })}
+                            style={{ padding: '6px 12px', background: '#e11d48', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '11px' }}
+                        >
+                            🔄 Reintentar Renderizado
+                        </button>
+                        <div style={{ fontSize: '10px', color: '#fda4af' }}>
+                            Modifica el código para corregir el error o presiona Resetear.
+                        </div>
                     </div>
                 </div>
             );
@@ -1599,7 +1657,7 @@ class LiveErrorBoundary extends React.Component {
 }
 
 const LiveSimulatorRunner = ({ code, log, resetKey }) => {
-    const [Comp, setComp] = useState(null);
+    const [compState, setCompState] = useState({ Comp: null, version: 0 });
     const [compileError, setCompileError] = useState(null);
 
     useEffect(() => {
@@ -1615,25 +1673,25 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
 
                 const exportsObj = {};
                 const customRequire = (moduleName) => {
-                    if (moduleName === 'react') return React;
-                    if (moduleName === 'react-native') return RN_MOCKS;
-                    if (moduleName === '@expo/vector-icons') return EXPO_ICONS_MOCKS;
-                    if (moduleName === 'expo-router') return EXPO_ROUTER_MOCKS;
+                    if (moduleName === 'react') return { ...React, default: React, __esModule: true };
+                    if (moduleName === 'react-native') return { ...RN_MOCKS, default: RN_MOCKS, __esModule: true };
+                    if (moduleName === '@expo/vector-icons') return { ...EXPO_ICONS_MOCKS, default: EXPO_ICONS_MOCKS, __esModule: true };
+                    if (moduleName === 'expo-router') return { ...EXPO_ROUTER_MOCKS, default: EXPO_ROUTER_MOCKS, __esModule: true };
                     if (moduleName === 'zod') return ZOD_MOCKS;
-                    if (moduleName === 'react-native-reanimated') return REANIMATED_MOCKS;
-                    if (moduleName === 'firebase/firestore') return FIRESTORE_MOCKS;
-                    if (moduleName.includes('firebaseConfig')) return { db: {} };
-                    if (moduleName === 'expo-location') return LOCATION_MOCKS;
-                    if (moduleName === 'expo-camera') return CAMERA_MOCKS;
+                    if (moduleName === 'react-native-reanimated') return { ...REANIMATED_MOCKS, default: REANIMATED_MOCKS, __esModule: true };
+                    if (moduleName === 'firebase/firestore') return { ...FIRESTORE_MOCKS, default: FIRESTORE_MOCKS, __esModule: true };
+                    if (moduleName.includes('firebaseConfig')) return { db: {}, default: { db: {} }, __esModule: true };
+                    if (moduleName === 'expo-location') return { ...LOCATION_MOCKS, default: LOCATION_MOCKS, __esModule: true };
+                    if (moduleName === 'expo-camera') return { ...CAMERA_MOCKS, default: CAMERA_MOCKS, __esModule: true };
                     return {};
                 };
 
-                const fn = new Function('require', 'exports', res.code);
-                fn(customRequire, exportsObj);
+                const fn = new Function('require', 'exports', 'React', res.code);
+                fn(customRequire, exportsObj, React);
                 const ExportedComp = exportsObj.default || exportsObj.App;
 
                 if (typeof ExportedComp === 'function') {
-                    setComp(() => ExportedComp);
+                    setCompState(prev => ({ Comp: () => <ExportedComp />, version: prev.version + 1 }));
                     setCompileError(null);
                     if (log) log('[Metro] Fast Refresh aplicado con éxito.');
                 } else {
@@ -1663,6 +1721,7 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
         );
     }
 
+    const { Comp, version } = compState;
     if (!Comp) {
         return (
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#020617', color: '#94a3b8', fontSize: '11px' }}>
@@ -1672,7 +1731,7 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
     }
 
     return (
-        <LiveErrorBoundary resetKey={`${code}-${resetKey}`}>
+        <LiveErrorBoundary key={`${version}-${resetKey}`}>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden', background: '#020617', color: '#fff' }}>
                 <Comp />
             </div>
