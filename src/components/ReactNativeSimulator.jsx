@@ -1049,6 +1049,75 @@ const styles = StyleSheet.create({
     }
 ];
 
+const LivePreview = ({ code, log }) => {
+    // Escapar el código para inyectarlo en el srcDoc sin romper el script tag
+    const safeCode = code.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$').replace(/</g, '\\x3c');
+    
+    const srcDoc = `
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"><\/script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"><\/script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"><\/script>
+    <style>
+        body { margin: 0; padding: 0; background: #fff; overflow: hidden; font-family: -apple-system, sans-serif; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+    </style>
+</head>
+<body>
+    <div id="root" style="width: 100vw; height: 100vh; display: flex; flex-direction: column;"></div>
+    <script type="text/babel" data-type="module">
+        const { useState, useEffect, useRef, useMemo, useCallback } = React;
+        
+        // Mocks de React Native Web
+        const View = (props) => <div style={{display:'flex', flexDirection:'column', position:'relative', ...props.style}} {...props}>{props.children}</div>;
+        const Text = (props) => <span style={{fontSize:'14px', ...props.style}} {...props}>{props.children}</span>;
+        const ScrollView = (props) => <div style={{display:'flex', flexDirection:'column', overflowY:'auto', flex:1, ...props.style}} {...props}>{props.children}</div>;
+        const TouchableOpacity = (props) => <div onClick={props.onPress} style={{cursor:'pointer', opacity:1, transition:'opacity 0.2s', ...props.style}} onMouseDown={e=>e.currentTarget.style.opacity=0.5} onMouseUp={e=>e.currentTarget.style.opacity=1} {...props}>{props.children}</div>;
+        const TextInput = (props) => <input type={props.secureTextEntry?'password':'text'} placeholder={props.placeholder} value={props.value} onChange={e => props.onChangeText && props.onChangeText(e.target.value)} style={{fontSize:'14px', padding:'8px', border:'1px solid #ccc', borderRadius:'4px', ...props.style}} {...props} />;
+        const FlatList = (props) => <div style={{display:'flex', flexDirection:'column', flex:1, overflowY:'auto', ...props.style}}>{props.data?.map((item, index) => <React.Fragment key={props.keyExtractor ? props.keyExtractor(item) : index}>{props.renderItem({item, index})}</React.Fragment>)}</div>;
+        const Image = (props) => <img src={typeof props.source === 'string' ? props.source : props.source?.uri} style={{objectFit:'cover', ...props.style}} {...props} />;
+        const ActivityIndicator = (props) => <div style={{color: props.color || '#0284c7', padding:'20px', textAlign:'center', ...props.style}}>Cargando...</div>;
+        const KeyboardAvoidingView = (props) => <View {...props} />;
+        const StyleSheet = { create: (obj) => obj };
+
+        // Mocks de librerías comunes
+        const Ionicons = (props) => <span style={{color: props.color, fontSize: props.size}}>★ {props.name}</span>;
+        const z = { object:()=>z, string:()=>z, min:()=>z, infer:()=>{} };
+        const useForm = () => ({ control: {}, handleSubmit: (fn) => (e) => { e?.preventDefault(); fn({}); }, formState: { errors: {} } });
+        const Controller = (props) => props.render({ field: { onChange: ()=>{}, onBlur: ()=>{}, value: '' } });
+
+        try {
+            let cleanCode = \`${safeCode}\`;
+            // Eliminar imports y exports
+            cleanCode = cleanCode.replace(/import\\s+.*?from\\s+['"].*?['"];?/g, '');
+            cleanCode = cleanCode.replace(/export\\s+default\\s+function\\s+(\\w+)/g, 'const App = function');
+            cleanCode = cleanCode.replace(/export\\s+default\\s+(\\w+);?/g, 'const App = $1;');
+            
+            const transformed = Babel.transform(cleanCode, { presets: ['react'] }).code;
+            
+            const execute = new Function('React', 'useState', 'useEffect', 'useRef', 'View', 'Text', 'ScrollView', 'TouchableOpacity', 'TextInput', 'FlatList', 'Image', 'ActivityIndicator', 'KeyboardAvoidingView', 'StyleSheet', 'Ionicons', 'z', 'useForm', 'Controller', transformed + '\\nwindow.App = typeof App !== "undefined" ? App : null;');
+            
+            execute(React, useState, useEffect, useRef, View, Text, ScrollView, TouchableOpacity, TextInput, FlatList, Image, ActivityIndicator, KeyboardAvoidingView, StyleSheet, Ionicons, z, useForm, Controller);
+            
+            if (window.App) {
+                const root = ReactDOM.createRoot(document.getElementById('root'));
+                root.render(<window.App />);
+            } else {
+                document.getElementById('root').innerHTML = '<div style="padding:20px;color:#f59e0b;font-size:12px;">Esperando "export default" del componente App...</div>';
+            }
+        } catch (err) {
+            document.getElementById('root').innerHTML = '<div style="color:#ef4444; padding:20px; font-family:monospace; font-size:12px; white-space: pre-wrap;">Error de compilación:\\n' + err.toString() + '</div>';
+        }
+    <\/script>
+</body>
+</html>
+    `;
+    return <iframe srcDoc={srcDoc} style={{ width: '100%', height: '100%', border: 'none', background: '#fff' }} title="Live Preview" />;
+};
+
 const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
     const [selectedPresetId, setSelectedPresetId] = useState(initialPreset);
     const [deviceType, setDeviceType] = useState('iphone'); // 'iphone' | 'android'
@@ -1177,12 +1246,21 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                                 <span>App.tsx (TypeScript / JSX)</span>
                             </div>
                             <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                {customCodes[selectedPresetId] !== undefined && (
+                                    <button
+                                        onClick={() => setCustomCodes(p => { const n = {...p}; delete n[selectedPresetId]; return n; })}
+                                        style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', background: 'rgba(239,68,68,0.1)', color: '#ef4444', padding: '0.3rem 0.7rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '600', border: '1px solid rgba(239,68,68,0.2)' }}
+                                    >
+                                        <RotateCcw size={12} />
+                                        <span>Resetear</span>
+                                    </button>
+                                )}
                                 <button
                                     onClick={copyCode}
-                                    style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', background: 'rgba(255,255,255,0.08)', color: '#fff', padding: '0.3rem 0.7rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '600' }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', background: 'rgba(255,255,255,0.08)', color: '#fff', padding: '0.3rem 0.7rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '600', border: 'none', cursor: 'pointer' }}
                                 >
                                     {copied ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
-                                    <span>{copied ? 'Copiado' : 'Copiar Código'}</span>
+                                    <span>{copied ? 'Copiado' : 'Copiar'}</span>
                                 </button>
                                 <a
                                     href="https://snack.expo.dev"
@@ -1333,11 +1411,22 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                             </div>
 
                             {/* Live App Container */}
-                            <div key={keyReload} style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                                {activePreset.renderSimulator({
-                                    config: {},
-                                    log: addLog
-                                })}
+                            <div key={keyReload} style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative' }}>
+                                {customCodes[selectedPresetId] !== undefined ? (
+                                    <>
+                                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', background: '#38bdf8', color: '#000', fontSize: '9px', fontWeight: 'bold', textAlign: 'center', padding: '2px 0', zIndex: 100 }}>
+                                            ⚡ LIVE CODE ACTIVADO
+                                        </div>
+                                        <div style={{ flex: 1, marginTop: '13px' }}>
+                                            <LivePreview code={customCodes[selectedPresetId]} log={addLog} />
+                                        </div>
+                                    </>
+                                ) : (
+                                    activePreset.renderSimulator({
+                                        config: {},
+                                        log: addLog
+                                    })
+                                )}
                             </div>
 
                             {/* Home Indicator Bar */}
