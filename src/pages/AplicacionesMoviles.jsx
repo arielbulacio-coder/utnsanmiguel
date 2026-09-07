@@ -30,7 +30,10 @@ const AplicacionesMoviles = ({ defaultTab }) => {
         }
     }, [searchParams]);
 
-    const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ';
+        const DRIVE_FOLDER_UNIDAD_1 = 'https://drive.google.com/drive/folders/13Bo7ZCRQSjpeAQDKaxyDY9wir5veXrT6?usp=drive_link';
+    const DRIVE_FOLDER_UNIDAD_2 = 'https://drive.google.com/drive/folders/1PzTCpnSOltKfVa83nIjYIAslABSDCQvV?usp=drive_link';
+    const DRIVE_FOLDER_UNIDAD_3 = 'https://drive.google.com/drive/folders/1wGheJ22GDoULB-ZUbciS5-g2bQL32ty4?usp=drive_link';
+    const DRIVE_FOLDER_URL = DRIVE_FOLDER_UNIDAD_1;
 
     const unidades = [
         {
@@ -38,21 +41,42 @@ const AplicacionesMoviles = ({ defaultTab }) => {
             title: 'Fundamentos de React Native y Expo',
             color: '#0284c7',
             desc: 'Configuración del entorno, arquitectura híbrida vs nativa, componentes básicos, listas optimizadas y navegación basada en archivos.',
-            driveFolder: DRIVE_FOLDER_URL,
+            driveFolder: DRIVE_FOLDER_UNIDAD_1,
             clases: [
                 {
-                    code: '1.1',
-                    name: 'Entorno de trabajo y primera pantalla',
-                    topics: [
-                        'Arquitectura: Bridge vs New Architecture (Fabric & TurboModules)',
-                        'Expo SDK vs React Native CLI: pros y contras',
-                        'Flujo de desarrollo con Expo Go y emuladores',
-                        'JSX, TypeScript básico y StyleSheet',
-                        'Modelo de cajas móvil y Flexbox nativo'
-                    ],
-                    preset: 'flexbox',
-                    simulatorTag: 'Simular Flexbox',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 1 - Kickoff, Setup y JSX',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Fundamentos de React Native, Vistas Nativas y Expo Go',
+                            driveId: '1bouOw36F31onGQuBQIkHaga7sgm-yQ3T',
+                            size: '59 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 1 - Kickoff y Arquitectura',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 1',
+                            driveId: '1IqZ2vZxUf-C6EQk2z_IFS0H1n1_dtx__',
+                            size: '1.2 MB',
+                            type: 'presentacion'
+                        },
+                        {
+                            title: 'Guía de Entorno: Configuración PC, Node y VS Code',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Presentación: Entorno de Desarrollo y Configuración',
+                            driveId: '1BEO-WvkCmEEJ9O_MVyeuMiVZELpsryG6',
+                            size: '850 KB',
+                            type: 'presentacion'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 0 - UX/UI y Expo',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales: Introducción a UX/UI y Expo Go',
+                            driveId: '1_biMOkVlaF4dg_r0Gs4M0R5Oh9VrpGS5',
+                            size: '1.4 MB',
+                            type: 'presentacion'
+                        },
                         {
                             title: 'Learning React Native: Arquitectura, JSX y Estilos',
                             book: "Bonnie Eisenman (O'Reilly)",
@@ -80,18 +104,23 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     ]
                 },
                 {
-                    code: '1.2',
-                    name: 'Componentes, estado y listas',
-                    topics: [
-                        'Estado local con useState y ciclo de renderizado',
-                        'FlatList vs ScrollView: reciclado y virtualización de celdas',
-                        'keyExtractor y optimización de listas',
-                        'Eventos de interacción: onPress, onChangeText',
-                        'Renderizado condicional en mobile'
-                    ],
-                    preset: 'flatlist',
-                    simulatorTag: 'Simular Listas',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 2 - Componentes Core y Estilos',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Vistas Nativas, Flexbox y ScrollView vs FlatList',
+                            driveId: '1dNn8hVjAyjH6mOtzfbVChJEoTNoJr2Ki',
+                            size: '45 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 2 - Layout y Listas',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 2',
+                            driveId: '14y-HoTb8_AAQ8ROnlW0at3QivQF_9rlY',
+                            size: '1.1 MB',
+                            type: 'presentacion'
+                        },
                         {
                             title: 'Learning React Native: Componentes Core, Flexbox y Listas',
                             book: "Bonnie Eisenman (O'Reilly)",
@@ -119,18 +148,31 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     ]
                 },
                 {
-                    code: '1.3',
-                    name: 'Navegación con Expo Router',
-                    topics: [
-                        'Filosofía file-based routing en aplicaciones móviles',
-                        'Configuración de Stack de navegación y cabeceras',
-                        'Pestañas inferiores con Tabs y layouts _layout.tsx',
-                        'Paso de parámetros y rutas dinámicas [id].tsx',
-                        'Estructura recomendada: grupos (tabs) y (auth)'
-                    ],
-                    preset: 'router',
-                    simulatorTag: 'Simular Router',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 3 - Navegación con Expo Router',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Navegación Móvil vs Web, Stacks, Tabs y Rutas Dinámicas',
+                            driveId: '1LNHsSg0Qq4ikyXvJHnMRwi6fHrVD0d-_',
+                            size: '74 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 3 - Stacks, Tabs y Rutas',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 3',
+                            driveId: '1gb9pp3MF0frUVjY-kyvoil4-kYj82LXq',
+                            size: '1.3 MB',
+                            type: 'presentacion'
+                        },
+                        {
+                            title: 'Guía de Documentación: De Requisitos a MVP',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Etapas 1, 2 y 3: Especificación de Requisitos y MVP',
+                            driveId: '1c7WQNJuAF_gP9JHGJ93loktZKNrfszsZ',
+                            size: '520 KB',
+                            type: 'pdf'
+                        },
                         {
                             title: 'Diseñando Apps para Móviles: Patrones de Navegación',
                             book: 'Javier Cuello & José Vittone',
@@ -164,21 +206,26 @@ const AplicacionesMoviles = ({ defaultTab }) => {
             title: 'Funcionalidades e Integración de Datos',
             color: '#10b981',
             desc: 'Estado global, consumo de APIs REST, validación tipada con Zod, formularios móviles y acceso a sensores nativos del smartphone.',
-            driveFolder: DRIVE_FOLDER_URL,
+            driveFolder: DRIVE_FOLDER_UNIDAD_2,
             clases: [
                 {
-                    code: '2.1',
-                    name: 'Estado global y trabajo en equipo',
-                    topics: [
-                        'El problema del Prop Drilling en árboles complejos',
-                        'Zustand: creación de stores tipados vs Context API',
-                        'Persistencia de estado en storage local',
-                        'Estrategia de ramas Git (main, develop, feature-*)',
-                        'Flujo de Pull Requests y code reviews en equipo'
-                    ],
-                    preset: 'state',
-                    simulatorTag: 'Simular Estado',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 4 - Estado Global y Contexto',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Evolución del Estado, Prop Drilling y Context API',
+                            driveId: '1vsb1Z-1J9rnJlbFMnqiGBI-AK1iOdudc',
+                            size: '58 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 4 - Prop Drilling y Stores',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 4',
+                            driveId: '1xSztWe-cKcP18enp5FQLUEr-5BH0joNm',
+                            size: '1.2 MB',
+                            type: 'presentacion'
+                        },
                         {
                             title: 'Documentación de Sistemas: Flujo Git, Ramas y Pull Requests',
                             book: 'Cátedra UNPilar / UTN',
@@ -206,19 +253,23 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     ]
                 },
                 {
-                    code: '2.2',
-                    name: 'APIs REST, Datos Remotos y Supabase PostgreSQL',
-                    topics: [
-                        'useEffect: ciclo de vida, dependencias y función de cleanup',
-                        'Manejo de estados asíncronos: loading, error y data',
-                        'Consumo de APIs REST con fetch y Axios (GET, POST, PUT, DELETE)',
-                        'Bases de datos relacionales en la nube con Supabase (PostgreSQL)',
-                        'Operaciones CRUD completas: Create (insert), Read (select), Update (update), Delete (delete)',
-                        'Políticas de seguridad Row Level Security (RLS) y persistencia con AsyncStorage'
-                    ],
-                    preset: 'supabase_crud',
-                    simulatorTag: 'Simular Supabase CRUD',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 5 - Datos Remotos y Firebase BaaS',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'El fin del mockData: Backend as a Service y Firestore',
+                            driveId: '1zTPSIKTN-cdEVoNJqt_0018JiXajrjKj',
+                            size: '55 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 5 - Firestore y Colecciones',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 5',
+                            driveId: '1Zh-AdbzA7kLcOS06SEz07r-HjWSMaVqL',
+                            size: '1.3 MB',
+                            type: 'presentacion'
+                        },
                         {
                             title: 'Learning React Native: Peticiones de Red y APIs Asíncronas',
                             book: "Bonnie Eisenman (O'Reilly)",
@@ -246,18 +297,23 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     ]
                 },
                 {
-                    code: '2.3',
-                    name: 'Formularios, validación y UX mobile',
-                    topics: [
-                        'TextInput: tipos de teclado, returnKeyType y autocapitalize',
-                        'React Hook Form con Controller en componentes nativos',
-                        'Validación de esquemas con Zod (@hookform/resolvers/zod)',
-                        'KeyboardAvoidingView en iOS vs comportamiento en Android',
-                        'Manejo de errores visuales y accesibilidad'
-                    ],
-                    preset: 'form',
-                    simulatorTag: 'Simular Zod',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 6 - Formularios, Validación y CRUD',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Desafíos de Formularios Móviles, Zod y Operaciones CRUD',
+                            driveId: '1mJSYzX0lDvjJJc9K7HemcvgeQcmH0Kpc',
+                            size: '58 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 6 - Teclados, Zod y CRUD',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 6',
+                            driveId: '1Fx6BwJCiwC7MSRgIKlKh_Ecp22oRySHx',
+                            size: '1.4 MB',
+                            type: 'presentacion'
+                        },
                         {
                             title: 'Diseñando Apps para Móviles: Formularios Móviles y Teclados',
                             book: 'Javier Cuello & José Vittone',
@@ -285,18 +341,23 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     ]
                 },
                 {
-                    code: '2.4',
-                    name: 'Hardware del dispositivo',
-                    topics: [
-                        'Sistema de permisos en runtime (iOS plist / Android manifest)',
-                        'expo-camera y expo-image-picker: captura y selección',
-                        'expo-location: geolocalización en primer plano',
-                        'Notificaciones locales con expo-notifications',
-                        'expo-secure-store vs AsyncStorage para credenciales'
-                    ],
-                    preset: 'hardware',
-                    simulatorTag: 'Simular Sensores',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 7 - Hardware, Sensores y Permisos',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Cámara, Sensores Inerciales, Ubicación y Permisos en Runtime',
+                            driveId: '12XJAZ1ROGiTiE30nIFv8DAWM6ce40vc7',
+                            size: '62 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 7 - Hardware y Notificaciones',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 7',
+                            driveId: '1Z3bkvjk-Rh4s-zFftcTk1kC4K7gMhxN3',
+                            size: '1.1 MB',
+                            type: 'presentacion'
+                        },
                         {
                             title: 'Learning React Native: Sensores Nativos, Ubicación y Cámara',
                             book: "Bonnie Eisenman (O'Reilly)",
@@ -330,21 +391,26 @@ const AplicacionesMoviles = ({ defaultTab }) => {
             title: 'Producción, Performance y Despliegue',
             color: '#8b5cf6',
             desc: 'Backend en tiempo real con Firebase, optimización con Reanimated a 60fps, pruebas unitarias y compilación de APKs en la nube con EAS.',
-            driveFolder: DRIVE_FOLDER_URL,
+            driveFolder: DRIVE_FOLDER_UNIDAD_3,
             clases: [
                 {
-                    code: '3.1',
-                    name: 'Autenticación real y Backend con Firebase',
-                    topics: [
-                        'Firebase Auth: registro y login email/password',
-                        'Firestore: CRUD (addDoc, updateDoc, deleteDoc)',
-                        'Consultas en tiempo real reactivas con onSnapshot',
-                        'Subida de archivos a Firebase Storage',
-                        'Reglas de seguridad (Security Rules) con auth.uid'
-                    ],
-                    preset: 'firebase',
-                    simulatorTag: 'Simular Firestore',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 8 - Autenticación y Rutas Protegidas',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Auth State Listener, Tokens y Rutas Protegidas',
+                            driveId: '1kAjlDo1GGet0mQMgiASYzRm-1WWEktzS',
+                            size: '61 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 8 - Login y Seguridad',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 8',
+                            driveId: '1UMBsdb5f818Th3KzeQVMm8SGupvCTjAA',
+                            size: '1.2 MB',
+                            type: 'presentacion'
+                        },
                         {
                             title: 'Análisis y Diseño de Sistemas: Bases de Datos y Seguridad Cloud',
                             book: 'Kendall & Kendall (8va Ed.)',
@@ -372,18 +438,23 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     ]
                 },
                 {
-                    code: '3.2',
-                    name: 'Performance, animaciones y testing',
-                    topics: [
-                        'React.memo, useMemo y useCallback para evitar re-renders',
-                        'Shopify FlashList como alternativa de ultra rendimiento',
-                        'Reanimated 3: animaciones fluidas en el UI Thread a 60 FPS',
-                        'Testing unitario de hooks y componentes con Jest',
-                        'Accesibilidad (A11y): etiquetas para lectores de pantalla'
-                    ],
-                    preset: 'animations',
-                    simulatorTag: 'Simular Reanimated',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 9 - Performance y Testing',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Profiling, Optimización de Re-renders y Tests Unitarios',
+                            driveId: '1Ke8CeGnE_DPVDdwopyK9zSexEoR07zvR',
+                            size: '59 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 9 - Profiler y Optimización',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 9',
+                            driveId: '1K5goU8FNYSnSqc_yzBRdWCW0N30_BbFw',
+                            size: '1.3 MB',
+                            type: 'presentacion'
+                        },
                         {
                             title: 'Learning React Native: Optimización a 60 FPS y Animaciones',
                             book: "Bonnie Eisenman (O'Reilly)",
@@ -411,18 +482,39 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     ]
                 },
                 {
-                    code: '3.3',
-                    name: 'Build, deploy y demo final',
-                    topics: [
-                        'EAS Build: configuración de eas.json y builds en la nube',
-                        'Generación de binarios APK (Android) e IPA (iOS TestFlight)',
-                        'Actualizaciones Over-The-Air (OTA) con Expo Updates',
-                        'CI/CD básico para testing con GitHub Actions',
-                        'Preparación de metadatos, capturas e íconos de Stores'
-                    ],
-                    preset: 'eas',
-                    simulatorTag: 'Ver Build EAS',
                     materials: [
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 10 - Proyecto Final Integrador',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Arquitectura de Producción y Demo Final',
+                            driveId: '16SReS3FsO0PYxhyNO6uMw8TGyEyXzwkb',
+                            size: '68 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Presentación Cátedra: Clase 10 - Integración Final',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Diapositivas oficiales de la Clase 10',
+                            driveId: '1elVMLpJR3UrTrdhsIPIHutfypdWfgdnp',
+                            size: '1.5 MB',
+                            type: 'presentacion'
+                        },
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 11 - IA en Mobile',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Modelos de Inteligencia Artificial y Visión',
+                            driveId: '16ZOsnzybpMojppJs69JoIuvK5mWVuEZ0',
+                            size: '54 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Apunte Oficial Cátedra: Clase 12 - Backends y APIs Avanzadas',
+                            book: 'Lic. Ariel Bulacio (Cátedra UNPilar / UTN)',
+                            chapter: 'Arquitectura de Servicios y Supabase',
+                            driveId: '1XxIAS65GujSLcCgPi-EHHJVdJWxGzENC',
+                            size: '72 KB',
+                            type: 'pdf'
+                        },
                         {
                             title: 'Learning React Native: Compilación Nativa y Distribución en Tiendas',
                             book: "Bonnie Eisenman (O'Reilly)",

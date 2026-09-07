@@ -25,7 +25,7 @@ export const reactNativeExamQuestions = [
       "RN CLI solo permite desplegar aplicaciones en Android, mientras que Expo está restringido únicamente al sistema operativo iOS."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 1 & 2] El flujo administrado de Expo abstrae las carpetas nativas /android y /ios, permitiendo desarrollar con JavaScript/TypeScript puro y compilar en la nube con EAS Build, mientras que RN CLI requiere administrar directamente los compiladores nativos."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf & O'Reilly Cap. 1-2] El flujo administrado de Expo abstrae las carpetas nativas /android y /ios, permitiendo desarrollar con JavaScript/TypeScript puro y compilar en la nube con EAS Build, mientras que RN CLI requiere administrar directamente los compiladores nativos."
   },
   {
     "id": 2,
@@ -38,7 +38,7 @@ export const reactNativeExamQuestions = [
       "Utilizando un WebSocket bidireccional constante conectado a servidores externos."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 1] El Bridge clásico comunica JavaScript y Native mediante un bus asíncrono por lotes serializado en cadenas JSON, lo que en animaciones complejas o desplazamientos de listas de alta velocidad generaba cuellos de botella."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] El Bridge clásico comunica JavaScript y Native mediante un bus asíncrono por lotes serializado en cadenas JSON, lo que en animaciones complejas o desplazamientos de listas de alta velocidad generaba cuellos de botella."
   },
   {
     "id": 3,
@@ -51,7 +51,7 @@ export const reactNativeExamQuestions = [
       "La sustitución del motor nativo de Android por una máquina virtual Java exclusiva de Google Chrome."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 1] JSI (JavaScript Interface) desacopla a React Native del Bridge tradicional al permitir llamadas síncronas directas de JS a C++ nativo sin sobrecarga de serialización JSON."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] JSI (JavaScript Interface) desacopla a React Native del Bridge tradicional al permitir llamadas síncronas directas de JS a C++ nativo sin sobrecarga de serialización JSON."
   },
   {
     "id": 4,
@@ -64,7 +64,7 @@ export const reactNativeExamQuestions = [
       "Es el emulador oficial de iOS para sistemas operativos Windows."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 1] Fabric es el sistema de renderizado concurrente de la New Architecture: genera la interfaz de usuario en C++ comunicándose directamente con las vistas nativas sin pasar por el Bridge."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] Fabric es el sistema de renderizado concurrente de la New Architecture: genera la interfaz de usuario en C++ comunicándose directamente con las vistas nativas sin pasar por el Bridge."
   },
   {
     "id": 5,
@@ -77,7 +77,7 @@ export const reactNativeExamQuestions = [
       "Eliminan la necesidad de solicitar permisos de cámara y ubicación."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 1] A diferencia del Bridge tradicional donde todos los módulos nativos se cargaban en el inicio de la app, TurboModules se instancian únicamente en el momento en que se invocan por primera vez."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] A diferencia del Bridge tradicional donde todos los módulos nativos se cargaban en el inicio de la app, TurboModules se instancian únicamente en el momento en que se invocan por primera vez."
   },
   {
     "id": 6,
@@ -90,7 +90,7 @@ export const reactNativeExamQuestions = [
       "Configurar el chip Bluetooth del teléfono para transferir archivos."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Setup Inicial & Toolchain PC] Metro Bundler es el servidor de desarrollo que corre en la PC (puerto 8081); compila el árbol de dependencias y envía el bundle por sockets al dispositivo con soporte de Fast Refresh."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] Metro Bundler es el servidor de desarrollo que corre en la PC (puerto 8081); compila el árbol de dependencias y envía el bundle por sockets al dispositivo con soporte de Fast Refresh."
   },
   {
     "id": 7,
@@ -103,7 +103,7 @@ export const reactNativeExamQuestions = [
       "Porque elimina la necesidad de escribir hojas de estilos StyleSheet."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 1] Hermes es el motor JS optimizado por Meta para mobile: compila el código en bytecode durante la etapa de construcción, evitando la sobrecarga de compilación JIT en el dispositivo."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] Hermes es el motor JS optimizado por Meta para mobile: compila el código en bytecode durante la etapa de construcción, evitando la sobrecarga de compilación JIT en el dispositivo."
   },
   {
     "id": 8,
@@ -116,7 +116,7 @@ export const reactNativeExamQuestions = [
       "Elimina todos los errores sintácticos de JavaScript de manera automática."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Setup Inicial & Toolchain PC] Expo Go incluye el runtime y módulos nativos precompilados de Expo SDK; los estudiantes prueban en celulares reales sin lidiar con la configuración pesada de Android SDK o Gradle."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] Expo Go incluye el runtime y módulos nativos precompilados de Expo SDK; los estudiantes prueban en celulares reales sin lidiar con la configuración pesada de Android SDK o Gradle."
   },
   {
     "id": 9,
@@ -129,7 +129,7 @@ export const reactNativeExamQuestions = [
       "Configurar la PC para que no use contraseñas de administrador."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Setup Inicial & Toolchain PC] Si no se agrega Node.js a la variable de entorno PATH, Windows no reconocerá las herramientas de terminal arrojando el error \"node no se reconoce como un comando interno o externo\"."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] Si no se agrega Node.js a la variable de entorno PATH, Windows no reconocerá las herramientas de terminal arrojando el error \"node no se reconoce como un comando interno o externo\"."
   },
   {
     "id": 10,
@@ -142,7 +142,7 @@ export const reactNativeExamQuestions = [
       "npx expo run:server --disable-network"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Setup Inicial & Toolchain PC] El modificador `--tunnel` crea un túnel seguro en la nube de Expo que interconecta la PC y el smartphone mediante URLs seguras, sin importar cortafuegos o aislamiento de clientes en la red local."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] El modificador `--tunnel` crea un túnel seguro en la nube de Expo que interconecta la PC y el smartphone mediante URLs seguras, sin importar cortafuegos o aislamiento de clientes en la red local."
   },
   {
     "id": 11,
@@ -155,7 +155,7 @@ export const reactNativeExamQuestions = [
       "Porque las etiquetas `<div>` consumen el doble de batería que los componentes nativos."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] React Native prescinde del DOM del navegador; `<View>` mapea a un contenedor nativo de plataforma y `<Text>` es el único componente válido para envolver texto en pantalla."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] React Native prescinde del DOM del navegador; `<View>` mapea a un contenedor nativo de plataforma y `<Text>` es el único componente válido para envolver texto en pantalla."
   },
   {
     "id": 12,
@@ -168,7 +168,7 @@ export const reactNativeExamQuestions = [
       "'diagonal-right', alineando los componentes a 45 grados."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] A diferencia de la Web donde el valor predeterminado es `row`, en React Native `flexDirection` es `column` por defecto para optimizar la jerarquía vertical natural de los dispositivos móviles."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] A diferencia de la Web donde el valor predeterminado es `row`, en React Native `flexDirection` es `column` por defecto para optimizar la jerarquía vertical natural de los dispositivos móviles."
   },
   {
     "id": 13,
@@ -181,7 +181,7 @@ export const reactNativeExamQuestions = [
       "Comprime las imágenes asociadas al 50% de su peso original."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `StyleSheet.create` congela los estilos y asigna identificadores numéricos estables, optimizando el paso de propiedades al árbol nativo y evitando la recolección de basura innecesaria."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `StyleSheet.create` congela los estilos y asigna identificadores numéricos estables, optimizando el paso de propiedades al árbol nativo y evitando la recolección de basura innecesaria."
   },
   {
     "id": 14,
@@ -194,7 +194,7 @@ export const reactNativeExamQuestions = [
       "Porcentajes fijos del tamaño de la batería."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] Los tamaños en React Native son adimensionales y representan puntos lógicos (pt/dp), permitiendo que un botón de tamaño 50 se perciba visualmente igual en pantallas de baja o alta densidad (Retina / xxhdpi)."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Los tamaños en React Native son adimensionales y representan puntos lógicos (pt/dp), permitiendo que un botón de tamaño 50 se perciba visualmente igual en pantallas de baja o alta densidad (Retina / xxhdpi)."
   },
   {
     "id": 15,
@@ -207,7 +207,7 @@ export const reactNativeExamQuestions = [
       "Una advertencia de ergonomía médica para no usar el teléfono más de 10 minutos continuos."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 3] La \"Thumb Zone\" clasifica la pantalla en zonas de acceso cómodo, alcanzable y difícil; las acciones primarias y pestañas principales deben ubicarse en la zona cómoda inferior."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Zonas del Pulgar y Ergonomía Táctil • Ref: Clase_2 & Cuello/Vittone Cap. 3] La \"Thumb Zone\" clasifica la pantalla en zonas de acceso cómodo, alcanzable y difícil; las acciones primarias y pestañas principales deben ubicarse en la zona cómoda inferior."
   },
   {
     "id": 16,
@@ -220,7 +220,7 @@ export const reactNativeExamQuestions = [
       "No existen recomendaciones de tamaño táctil en sistemas operativos móviles."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 3] Un touch target inferior a 44x44 pt o 48x48 dp provoca frustración y toques accidentales debido a la imprecisión de la yema del dedo frente a un cursor de mouse de escritorio."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Zonas del Pulgar y Ergonomía Táctil • Ref: Clase_2 & Cuello/Vittone Cap. 3] Un touch target inferior a 44x44 pt o 48x48 dp provoca frustración y toques accidentales debido a la imprecisión de la yema del dedo frente a un cursor de mouse de escritorio."
   },
   {
     "id": 17,
@@ -233,7 +233,7 @@ export const reactNativeExamQuestions = [
       "alignContent"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `justifyContent` siempre alinea en el eje principal (vertical cuando es column), mientras que `alignItems` alinea en el eje cruzado perpendicular (horizontal)."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `justifyContent` siempre alinea en el eje principal (vertical cuando es column), mientras que `alignItems` alinea en el eje cruzado perpendicular (horizontal)."
   },
   {
     "id": 18,
@@ -246,7 +246,7 @@ export const reactNativeExamQuestions = [
       "Obliga al usuario a ingresar su código PIN antes de ejecutar el toque."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] `<Pressable>` es el reemplazo moderno de los Touchable*: permite estilar dinámicamente según `({ pressed }) => [...]`, soporta hitSlop y eventos avanzados como `onLongPress`."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `<Pressable>` es el reemplazo moderno de los Touchable*: permite estilar dinámicamente según `({ pressed }) => [...]`, soporta hitSlop y eventos avanzados como `onLongPress`."
   },
   {
     "id": 19,
@@ -259,7 +259,7 @@ export const reactNativeExamQuestions = [
       "Fija su tamaño exactamente al 1% del ancho del teléfono."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `flex: 1` indica al algoritmo de Yoga que el componente debe crecer de forma proporcional para llenar el espacio libre disponible en su contenedor contenedor."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `flex: 1` indica al algoritmo de Yoga que el componente debe crecer de forma proporcional para llenar el espacio libre disponible en su contenedor contenedor."
   },
   {
     "id": 20,
@@ -272,7 +272,7 @@ export const reactNativeExamQuestions = [
       "Porque los estándares de software prohíben interfaces con respuestas mayores a 1 milisegundo."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseño de Interfaces - Ian Sommerville, Cap. 16] El principio de retroalimentación establece que el usuario debe ser informado oportunamente del estado del sistema; un cambio de opacidad o spinner previene toques múltiples repetidos."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Consistencia Visual y Navegación • Ref: Clase_3.pdf & Sommerville Cap. 16] El principio de retroalimentación establece que el usuario debe ser informado oportunamente del estado del sistema; un cambio de opacidad o spinner previene toques múltiples repetidos."
   },
   {
     "id": 21,
@@ -285,7 +285,7 @@ export const reactNativeExamQuestions = [
       "El sistema operativo bloquea la ejecución de JavaScript hasta el siguiente día."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] `useState` notifica a React que el estado cambió, lo que desencadena un nuevo ciclo de renderizado para calcular las diferencias (reconciliación) y actualizar las vistas nativas."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `useState` notifica a React que el estado cambió, lo que desencadena un nuevo ciclo de renderizado para calcular las diferencias (reconciliación) y actualizar las vistas nativas."
   },
   {
     "id": 22,
@@ -298,7 +298,7 @@ export const reactNativeExamQuestions = [
       "Porque los teléfonos Android arrojan una excepción de hardware al mutar arrays."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] React compara referencias mediante igualdad estricta (`Object.is`). Si se muta el array con `push()`, la referencia sigue siendo la misma y React asume que no hubo cambios, omitiendo el re-render."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] React compara referencias mediante igualdad estricta (`Object.is`). Si se muta el array con `push()`, la referencia sigue siendo la misma y React asume que no hubo cambios, omitiendo el re-render."
   },
   {
     "id": 23,
@@ -311,7 +311,7 @@ export const reactNativeExamQuestions = [
       "setLista(Object.assign(nuevoElemento, lista));"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] Crear un nuevo array con el operador spread `[...prevLista, nuevoElemento]` asegura una nueva referencia de memoria y garantiza inmutabilidad estricta."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Crear un nuevo array con el operador spread `[...prevLista, nuevoElemento]` asegura una nueva referencia de memoria y garantiza inmutabilidad estricta."
   },
   {
     "id": 24,
@@ -324,7 +324,7 @@ export const reactNativeExamQuestions = [
       "React arrojará un error de desbordamiento de pila (Stack Overflow)."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] En un mismo ciclo de renderizado, `contador` mantiene el valor 0 en su clausura. Para encadenar incrementos acumulativos se debe usar la forma funcional: `setContador(c => c + 1)`."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] En un mismo ciclo de renderizado, `contador` mantiene el valor 0 en su clausura. Para encadenar incrementos acumulativos se debe usar la forma funcional: `setContador(c => c + 1)`."
   },
   {
     "id": 25,
@@ -337,7 +337,7 @@ export const reactNativeExamQuestions = [
       "Solo cuando el usuario apaga la pantalla de su teléfono."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] Un array de dependencias vacío `[]` indica que el efecto no depende de ninguna prop ni estado, ejecutándose únicamente tras el primer montaje del componente (ideal para peticiones iniciales)."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Un array de dependencias vacío `[]` indica que el efecto no depende de ninguna prop ni estado, ejecutándose únicamente tras el primer montaje del componente (ideal para peticiones iniciales)."
   },
   {
     "id": 26,
@@ -350,7 +350,7 @@ export const reactNativeExamQuestions = [
       "Para formatear el código fuente aplicando reglas de Prettier."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] La función de limpieza se ejecuta al desmontarse el componente o antes de re-ejecutar el efecto si las dependencias cambiaron, evitando fugas de memoria por listeners huérfanos."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] La función de limpieza se ejecuta al desmontarse el componente o antes de re-ejecutar el efecto si las dependencias cambiaron, evitando fugas de memoria por listeners huérfanos."
   },
   {
     "id": 27,
@@ -363,7 +363,7 @@ export const reactNativeExamQuestions = [
       "Es un tipo de base de datos relacional para guardar contraseñas."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] Si un valor puede computarse a partir de props o estados existentes, debe calcularse durante el render o memorizarse con `useMemo`, nunca almacenarse en un estado duplicado que pueda quedar desfasado."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Si un valor puede computarse a partir de props o estados existentes, debe calcularse durante el render o memorizarse con `useMemo`, nunca almacenarse en un estado duplicado que pueda quedar desfasado."
   },
   {
     "id": 28,
@@ -376,7 +376,7 @@ export const reactNativeExamQuestions = [
       "Porque se agota la memoria del emulador al primer intento."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] Las llamadas a actualización de estado dentro del cuerpo de render provocan un nuevo render inmediatamente. Deben estar dentro de manejadores de eventos o de `useEffect` condicionados."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Las llamadas a actualización de estado dentro del cuerpo de render provocan un nuevo render inmediatamente. Deben estar dentro de manejadores de eventos o de `useEffect` condicionados."
   },
   {
     "id": 29,
@@ -389,7 +389,7 @@ export const reactNativeExamQuestions = [
       "No existe diferencia técnica; son alias del mismo método en React."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 3] `useRef` persiste un valor mutable a lo largo de los renders sin desencadenar una nueva renderización visual al cambiar `.current`, ideal para referencias a componentes o contadores de control."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `useRef` persiste un valor mutable a lo largo de los renders sin desencadenar una nueva renderización visual al cambiar `.current`, ideal para referencias a componentes o contadores de control."
   },
   {
     "id": 30,
@@ -402,7 +402,7 @@ export const reactNativeExamQuestions = [
       "Principio de recuperación rápida cerrando la conexión Wi-Fi."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseño de Interfaces - Ian Sommerville, Cap. 16] La prevención de errores de interacción es una directriz básica: deshabilitar controles y mostrar estado de carga previene transacciones duplicadas del usuario."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Consistencia Visual y Navegación • Ref: Clase_3.pdf & Sommerville Cap. 16] La prevención de errores de interacción es una directriz básica: deshabilitar controles y mostrar estado de carga previene transacciones duplicadas del usuario."
   },
   {
     "id": 31,
@@ -415,7 +415,7 @@ export const reactNativeExamQuestions = [
       "Porque `<FlatList>` envía los datos al navegador web antes de dibujarlos en pantalla."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `<ScrollView>` renderiza todos sus hijos simultáneamente agotando la memoria RAM con listas largas. `<FlatList>` virtualiza y desmonta celdas fuera del viewport para mantener 60 FPS estables."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `<ScrollView>` renderiza todos sus hijos simultáneamente agotando la memoria RAM con listas largas. `<FlatList>` virtualiza y desmonta celdas fuera del viewport para mantener 60 FPS estables."
   },
   {
     "id": 32,
@@ -428,7 +428,7 @@ export const reactNativeExamQuestions = [
       "Determinar el color de fondo de cada fila en modo nocturno."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] Proporcionar claves estables con `keyExtractor={(item) => item.id}` permite a React reutilizar componentes sin re-renderizar toda la lista ante cambios menores."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Proporcionar claves estables con `keyExtractor={(item) => item.id}` permite a React reutilizar componentes sin re-renderizar toda la lista ante cambios menores."
   },
   {
     "id": 33,
@@ -441,7 +441,7 @@ export const reactNativeExamQuestions = [
       "Porque el índice del array ocupa 10 veces más memoria que un string UUID."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] Usar el índice como key causa desajustes visuales graves en listas mutables: al eliminar el primer elemento, el segundo hereda la clave 0 y mantiene el estado interno del anterior."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Usar el índice como key causa desajustes visuales graves en listas mutables: al eliminar el primer elemento, el segundo hereda la clave 0 y mantiene el estado interno del anterior."
   },
   {
     "id": 34,
@@ -454,7 +454,7 @@ export const reactNativeExamQuestions = [
       "Borra los primeros 10 elementos si la batería del celular está baja."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `initialNumToRender` controla el tamaño del primer lote de montaje. Un valor ajustado a la pantalla acelera la respuesta inicial visual (First Contentful Paint)."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `initialNumToRender` controla el tamaño del primer lote de montaje. Un valor ajustado a la pantalla acelera la respuesta inicial visual (First Contentful Paint)."
   },
   {
     "id": 35,
@@ -467,7 +467,7 @@ export const reactNativeExamQuestions = [
       "El sistema operativo Android suspende el proceso por falta de memoria."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Usabilidad en Aplicaciones Móviles - Dialnet / Univ. de Zaragoza, Cap. 2] La sobrecarga informativa y la falta de espaciado táctil reducen la velocidad de escaneo del ojo y generan errores de selección con los dedos."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Densidad Perceptiva y Listas Móviles • Ref: Clase_2 & Dialnet Cap. 2] La sobrecarga informativa y la falta de espaciado táctil reducen la velocidad de escaneo del ojo y generan errores de selección con los dedos."
   },
   {
     "id": 36,
@@ -480,7 +480,7 @@ export const reactNativeExamQuestions = [
       "fallbackWhenZero"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `ListEmptyComponent` renderiza un componente visual (icono, mensaje explicativo o botón de reintentar) cuando el array proporcionado en `data` no contiene elementos."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `ListEmptyComponent` renderiza un componente visual (icono, mensaje explicativo o botón de reintentar) cuando el array proporcionado en `data` no contiene elementos."
   },
   {
     "id": 37,
@@ -493,7 +493,7 @@ export const reactNativeExamQuestions = [
       "Descargando toda la base de datos completa de un solo intento al iniciar."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `onEndReached` detecta cuando el usuario se encuentra a cierta distancia del pie de la lista (definida por `onEndReachedThreshold`), permitiendo encadenar peticiones paginadas."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `onEndReached` detecta cuando el usuario se encuentra a cierta distancia del pie de la lista (definida por `onEndReachedThreshold`), permitiendo encadenar peticiones paginadas."
   },
   {
     "id": 38,
@@ -506,7 +506,7 @@ export const reactNativeExamQuestions = [
       "Calcula el precio total de una lista de compras sin usar JavaScript."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] Al proveer `getItemLayout: (data, index) => ({ length, offset, index })`, FlatList no necesita medir en tiempo de ejecución cada celda, permitiendo scroll instantáneo de alto rendimiento."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Al proveer `getItemLayout: (data, index) => ({ length, offset, index })`, FlatList no necesita medir en tiempo de ejecución cada celda, permitiendo scroll instantáneo de alto rendimiento."
   },
   {
     "id": 39,
@@ -519,7 +519,7 @@ export const reactNativeExamQuestions = [
       "Escribiendo `style={{ refresh: \"pull-down\" }}` en el contenedor."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `<RefreshControl>` provee el indicador nativo giratorio de recarga al estirar la lista desde el tope, sincronizándose con el estado booleano de actualización."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `<RefreshControl>` provee el indicador nativo giratorio de recarga al estirar la lista desde el tope, sincronizándose con el estado booleano de actualización."
   },
   {
     "id": 40,
@@ -532,7 +532,7 @@ export const reactNativeExamQuestions = [
       "Usar un `setTimeout` que pause el renderizado entre cada celda."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 4] `ItemSeparatorComponent` se dibuja exclusivamente entre elementos adyacentes, omitiendo el separador antes del primer elemento y después del último."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `ItemSeparatorComponent` se dibuja exclusivamente entre elementos adyacentes, omitiendo el separador antes del primer elemento y después del último."
   },
   {
     "id": 41,
@@ -571,7 +571,7 @@ export const reactNativeExamQuestions = [
       "Exclusivamente en tabletas de más de 12 pulgadas."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 4] Las pestañas inferiores son el patrón móvil por excelencia para los destinos de nivel superior: ofrecen visibilidad permanente de ubicación y acceso directo con el pulgar."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Patrones de Navegación Móvil (Stack y Tabs) • Ref: Clase_3.pdf & clase3.pptx] Las pestañas inferiores son el patrón móvil por excelencia para los destinos de nivel superior: ofrecen visibilidad permanente de ubicación y acceso directo con el pulgar."
   },
   {
     "id": 44,
@@ -610,7 +610,7 @@ export const reactNativeExamQuestions = [
       "Solo permite moverse de derecha a izquierda en un carrusel infinito."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 4] El patrón Stack modela la navegación jerárquica: al hacer click en un detalle se apila la nueva vista, y el botón \"Atrás\" desapila volviendo al estado anterior intacto."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Patrones de Navegación Móvil (Stack y Tabs) • Ref: Clase_3.pdf & clase3.pptx] El patrón Stack modela la navegación jerárquica: al hacer click en un detalle se apila la nueva vista, y el botón \"Atrás\" desapila volviendo al estado anterior intacto."
   },
   {
     "id": 47,
@@ -623,7 +623,7 @@ export const reactNativeExamQuestions = [
       "Convierte el texto de la pantalla en un mensaje de voz en segundo plano."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 4] Las vistas modales interrumpen el flujo principal para una subtarea puntual (ej: filtros, confirmación, nuevo ítem); se cierran con una acción explícita de \"Cancelar\" o deslizamiento."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Patrones de Navegación Móvil (Stack y Tabs) • Ref: Clase_3.pdf & clase3.pptx] Las vistas modales interrumpen el flujo principal para una subtarea puntual (ej: filtros, confirmación, nuevo ítem); se cierran con una acción explícita de \"Cancelar\" o deslizamiento."
   },
   {
     "id": 48,
@@ -662,7 +662,7 @@ export const reactNativeExamQuestions = [
       "Porque las tiendas de aplicaciones exigen que todas las pantallas tengan exactamente el mismo título."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseño de Interfaces - Ian Sommerville, Cap. 16] El principio de modelo mental establece que el usuario debe saber en todo momento \"dónde está\", \"cómo llegó allí\" y \"cómo regresar\" con facilidad."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Consistencia Visual y Navegación • Ref: Clase_3.pdf & Sommerville Cap. 16] El principio de modelo mental establece que el usuario debe saber en todo momento \"dónde está\", \"cómo llegó allí\" y \"cómo regresar\" con facilidad."
   },
   {
     "id": 51,
@@ -766,7 +766,7 @@ export const reactNativeExamQuestions = [
       "Hace que las imágenes se descarguen en menos de 1 segundo."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Diseño de Interfaces - Ian Sommerville, Cap. 16] La consistencia del sistema exige que dos vistas de un mismo modelo reflejen la misma información; un store global centralizado garantiza sincronización total en tiempo real."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Consistencia Visual y Navegación • Ref: Clase_3.pdf & Sommerville Cap. 16] La consistencia del sistema exige que dos vistas de un mismo modelo reflejen la misma información; un store global centralizado garantiza sincronización total en tiempo real."
   },
   {
     "id": 59,
@@ -805,7 +805,7 @@ export const reactNativeExamQuestions = [
       "const res = fetch.get(url); const data = res.data;"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 7] `fetch` retorna una promesa con el objeto `Response`. Se debe validar `res.ok` (códigos 200-299) y luego invocar `await res.json()` para parsear el flujo asíncrono."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] `fetch` retorna una promesa con el objeto `Response`. Se debe validar `res.ok` (códigos 200-299) y luego invocar `await res.json()` para parsear el flujo asíncrono."
   },
   {
     "id": 62,
@@ -818,7 +818,7 @@ export const reactNativeExamQuestions = [
       "Porque React Native oculta los errores del servidor para que el usuario no se asuste."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 7] A diferencia de Axios, `fetch` resuelve la promesa positivamente ante cualquier respuesta HTTP válida del servidor. Se debe verificar explícitamente `if (!res.ok)` para lanzar el error."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] A diferencia de Axios, `fetch` resuelve la promesa positivamente ante cualquier respuesta HTTP válida del servidor. Se debe verificar explícitamente `if (!res.ok)` para lanzar el error."
   },
   {
     "id": 63,
@@ -831,7 +831,7 @@ export const reactNativeExamQuestions = [
       "Solo se debe gestionar el estado de éxito; los errores nunca deben mostrarse."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 7] El manejo de los tres estados asíncronos (`loading`, `data`, `error`) es la base del diseño robusto en mobile: guía al usuario durante la espera y ofrece recuperación ante fallas."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] El manejo de los tres estados asíncronos (`loading`, `data`, `error`) es la base del diseño robusto en mobile: guía al usuario durante la espera y ofrece recuperación ante fallas."
   },
   {
     "id": 64,
@@ -870,7 +870,7 @@ export const reactNativeExamQuestions = [
       "'Authorization': 'allow-all'"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 7] La cabecera 'Content-Type': 'application/json' informa al parser del backend que el cuerpo debe interpretarse y deserializarse como un objeto JSON estructurado."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] La cabecera 'Content-Type': 'application/json' informa al parser del backend que el cuerpo debe interpretarse y deserializarse como un objeto JSON estructurado."
   },
   {
     "id": 67,
@@ -883,7 +883,7 @@ export const reactNativeExamQuestions = [
       "Escribiendo `return false` en el componente."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 7] `AbortController` permite cancelar peticiones en vuelo invocando `controller.abort()` dentro de la función de limpieza del `useEffect` al desmontar la vista."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] `AbortController` permite cancelar peticiones en vuelo invocando `controller.abort()` dentro de la función de limpieza del `useEffect` al desmontar la vista."
   },
   {
     "id": 68,
@@ -896,7 +896,7 @@ export const reactNativeExamQuestions = [
       "Porque reduce el peso de la base de datos remota a la mitad."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 7] El tipado de contratos API previene errores de ejecución tipo `Cannot read properties of undefined` y documenta de forma explícita el esquema de intercambio entre frontend y backend."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] El tipado de contratos API previene errores de ejecución tipo `Cannot read properties of undefined` y documenta de forma explícita el esquema de intercambio entre frontend y backend."
   },
   {
     "id": 69,
@@ -922,7 +922,7 @@ export const reactNativeExamQuestions = [
       "Dentro del código de un comentario en el archivo `App.tsx`."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Setup Inicial & Toolchain PC] Expo soporta variables de entorno embebidas en el bundle mediante el prefijo `EXPO_PUBLIC_`, permitiendo alternar entornos de desarrollo y producción con total prolijidad."
+    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] Expo soporta variables de entorno embebidas en el bundle mediante el prefijo `EXPO_PUBLIC_`, permitiendo alternar entornos de desarrollo y producción con total prolijidad."
   },
   {
     "id": 71,
@@ -1039,7 +1039,7 @@ export const reactNativeExamQuestions = [
       "Para compilar aplicaciones de React Native a archivos binarios de Windows."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 8] AsyncStorage es el almacenamiento clave-valor persistente estándar en React Native; los datos sobreviven al cierre de la app y reinicio del dispositivo."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] AsyncStorage es el almacenamiento clave-valor persistente estándar en React Native; los datos sobreviven al cierre de la app y reinicio del dispositivo."
   },
   {
     "id": 80,
@@ -1065,7 +1065,7 @@ export const reactNativeExamQuestions = [
       "No existe diferencia técnica; todos los inputs en React Native son forzosamente no controlados."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 6] Un input controlado tiene una única fuente de verdad: el estado de React. Su valor visual se deriva de `value={texto}` y se sincroniza en cada pulsación con `onChangeText`."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 4: Estado Global y Contexto (Lic. Ariel Bulacio) • Ref: Clase_4_Estado_Global_UNP_Reescrita.pdf] Un input controlado tiene una única fuente de verdad: el estado de React. Su valor visual se deriva de `value={texto}` y se sincroniza en cada pulsación con `onChangeText`."
   },
   {
     "id": 82,
@@ -1078,7 +1078,7 @@ export const reactNativeExamQuestions = [
       "Para evitar que el usuario use emojis en el formulario."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 5] Adaptar el teclado al tipo de dato esperado (`keyboardType=\"numeric\"`, `\"email-address\"`, `\"phone-pad\"`) reduce drásticamente la fricción y el tiempo de completado del formulario."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 6: Formularios Móviles, Teclados y Validación • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf] Adaptar el teclado al tipo de dato esperado (`keyboardType=\"numeric\"`, `\"email-address\"`, `\"phone-pad\"`) reduce drásticamente la fricción y el tiempo de completado del formulario."
   },
   {
     "id": 83,
@@ -1091,7 +1091,7 @@ export const reactNativeExamQuestions = [
       "Corrige automáticamente las faltas de ortografía del usuario."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 6] Al abrirse el teclado virtual, la pantalla física pierde hasta el 50% de su espacio visible. `<KeyboardAvoidingView behavior=\"padding\">` desplaza la vista para mantener el input enfocado a la vista."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 4: Estado Global y Contexto (Lic. Ariel Bulacio) • Ref: Clase_4_Estado_Global_UNP_Reescrita.pdf] Al abrirse el teclado virtual, la pantalla física pierde hasta el 50% de su espacio visible. `<KeyboardAvoidingView behavior=\"padding\">` desplaza la vista para mantener el input enfocado a la vista."
   },
   {
     "id": 84,
@@ -1143,7 +1143,7 @@ export const reactNativeExamQuestions = [
       "privacyProtect=\"enable\""
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 6] `secureTextEntry={true}` enmascara los caracteres ingresados sustituyéndolos por puntos o asteriscos nativos en iOS y Android para proteger la privacidad."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 4: Estado Global y Contexto (Lic. Ariel Bulacio) • Ref: Clase_4_Estado_Global_UNP_Reescrita.pdf] `secureTextEntry={true}` enmascara los caracteres ingresados sustituyéndolos por puntos o asteriscos nativos en iOS y Android para proteger la privacidad."
   },
   {
     "id": 88,
@@ -1156,7 +1156,7 @@ export const reactNativeExamQuestions = [
       "Ejecutando un bucle infinito en JavaScript."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 6] El patrón estándar de UX móvil en React Native consiste en envolver el contenedor en `<TouchableWithoutFeedback onPress={Keyboard.dismiss}>` para ocultar el teclado al tocar fuera."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 4: Estado Global y Contexto (Lic. Ariel Bulacio) • Ref: Clase_4_Estado_Global_UNP_Reescrita.pdf] El patrón estándar de UX móvil en React Native consiste en envolver el contenedor en `<TouchableWithoutFeedback onPress={Keyboard.dismiss}>` para ocultar el teclado al tocar fuera."
   },
   {
     "id": 89,
@@ -1182,7 +1182,7 @@ export const reactNativeExamQuestions = [
       "Enviados por mensaje de texto SMS al teléfono del usuario."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 5] La accesibilidad móvil exige mensajes de error contextualmente ubicados debajo del campo con iconos y texto explicativo, evitando ambigüedades."
+    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 6: Formularios Móviles, Teclados y Validación • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf] La accesibilidad móvil exige mensajes de error contextualmente ubicados debajo del campo con iconos y texto explicativo, evitando ambigüedades."
   },
   {
     "id": 91,
@@ -1195,7 +1195,7 @@ export const reactNativeExamQuestions = [
       "Permisos para instalar juegos en la memoria del teléfono."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Usabilidad en Aplicaciones Móviles - Dialnet / Univ. de Zaragoza, Cap. 4] Los sistemas operativos móviles exigen solicitar permisos sensibles en tiempo de ejecución de manera interactiva para proteger la privacidad del usuario."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Permisos en Runtime y Confianza de Usuario • Ref: Clase_6 & Dialnet Cap. 4] Los sistemas operativos móviles exigen solicitar permisos sensibles en tiempo de ejecución de manera interactiva para proteger la privacidad del usuario."
   },
   {
     "id": 92,
@@ -1208,7 +1208,7 @@ export const reactNativeExamQuestions = [
       "Bloquear el teléfono hasta que el usuario acepte todos los términos."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Usabilidad en Aplicaciones Móviles - Dialnet / Univ. de Zaragoza, Cap. 4] La solicitud contextualizada y transparente de permisos incrementa la confianza del usuario y eleva significativamente la tasa de aceptación frente a peticiones abruptas."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Permisos en Runtime y Confianza de Usuario • Ref: Clase_6 & Dialnet Cap. 4] La solicitud contextualizada y transparente de permisos incrementa la confianza del usuario y eleva significativamente la tasa de aceptación frente a peticiones abruptas."
   },
   {
     "id": 93,
@@ -1221,7 +1221,7 @@ export const reactNativeExamQuestions = [
       "expo-video-scanner-native"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 8] `expo-camera` provee el componente nativo `<CameraView>` para previsualización en vivo, captura de fotografías, control de flash y lectura de códigos QR / códigos de barras."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] `expo-camera` provee el componente nativo `<CameraView>` para previsualización en vivo, captura de fotografías, control de flash y lectura de códigos QR / códigos de barras."
   },
   {
     "id": 94,
@@ -1234,7 +1234,7 @@ export const reactNativeExamQuestions = [
       "No existe diferencia técnica; son llamadas equivalentes."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 8] Por estrictas políticas de privacidad y batería, los sistemas móviles aíslan el acceso a geolocalización en segundo plano, exigiendo justificación exhaustiva en las tiendas de apps."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] Por estrictas políticas de privacidad y batería, los sistemas móviles aíslan el acceso a geolocalización en segundo plano, exigiendo justificación exhaustiva en las tiendas de apps."
   },
   {
     "id": 95,
@@ -1247,7 +1247,7 @@ export const reactNativeExamQuestions = [
       "react-native-album-reader"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 8] `expo-image-picker` y su método `launchImageLibraryAsync()` abren el selector nativo del sistema permitiendo escoger archivos multimedia con opciones de recorte y compresión."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] `expo-image-picker` y su método `launchImageLibraryAsync()` abren el selector nativo del sistema permitiendo escoger archivos multimedia con opciones de recorte y compresión."
   },
   {
     "id": 96,
@@ -1260,7 +1260,7 @@ export const reactNativeExamQuestions = [
       "Reiniciar el teléfono móvil de manera remota."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 8] Una vez denegado permanentemente, el sistema operativo no vuelve a mostrar el diálogo nativo. La app debe guiar al usuario educadamente con `Linking.openSettings()` a los Ajustes del teléfono."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] Una vez denegado permanentemente, el sistema operativo no vuelve a mostrar el diálogo nativo. La app debe guiar al usuario educadamente con `Linking.openSettings()` a los Ajustes del teléfono."
   },
   {
     "id": 97,
@@ -1273,7 +1273,7 @@ export const reactNativeExamQuestions = [
       "expo-physics-reader"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 8] `expo-sensors` expone APIs uniformes para suscribirse en tiempo real a los sensores inerciales del dispositivo (Accelerometer, Gyroscope, Barometer, Magnetometer)."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] `expo-sensors` expone APIs uniformes para suscribirse en tiempo real a los sensores inerciales del dispositivo (Accelerometer, Gyroscope, Barometer, Magnetometer)."
   },
   {
     "id": 98,
@@ -1286,7 +1286,7 @@ export const reactNativeExamQuestions = [
       "Elimina los virus informáticos del sistema operativo."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 7] El feedback háptico (`Haptics.impactAsync()`, `notificationAsync()`) estimula el sentido del tacto, confirmando al usuario que la acción fue registrada con éxito."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Integración de Hardware Móvil y Háptica • Ref: Cuello & Vittone Cap. 7] El feedback háptico (`Haptics.impactAsync()`, `notificationAsync()`) estimula el sentido del tacto, confirmando al usuario que la acción fue registrada con éxito."
   },
   {
     "id": 99,
@@ -1299,7 +1299,7 @@ export const reactNativeExamQuestions = [
       "Porque AsyncStorage borra los datos cada vez que se reinicia el teléfono."
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Learning React Native - Bonnie Eisenman (O'Reilly), Cap. 8] `AsyncStorage` no es seguro para secretos; en dispositivos rooteados o con acceso al filesystem puede ser leído. `expo-secure-store` utiliza las bóvedas de cifrado por hardware del teléfono."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] `AsyncStorage` no es seguro para secretos; en dispositivos rooteados o con acceso al filesystem puede ser leído. `expo-secure-store` utiliza las bóvedas de cifrado por hardware del teléfono."
   },
   {
     "id": 100,
@@ -1312,6 +1312,6 @@ export const reactNativeExamQuestions = [
       "expo-toast-manager"
     ],
     "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Diseñando Apps para Móviles - Javier Cuello & José Vittone, Cap. 7] `expo-notifications` administra notificaciones locales programadas por tiempo o intervalos (`scheduleNotificationAsync`), con control de canales en Android y disparadores basados en fechas."
+    "exp": "[📄 Apunte Cátedra Unidad 2: Integración de Hardware Móvil y Háptica • Ref: Cuello & Vittone Cap. 7] `expo-notifications` administra notificaciones locales programadas por tiempo o intervalos (`scheduleNotificationAsync`), con control de canales en Android y disparadores basados en fechas."
   }
 ];

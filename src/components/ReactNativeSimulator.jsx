@@ -6,7 +6,8 @@ import {
     ShoppingCart, ShoppingBag, Package, Trash2, Plus, Minus, Search, ArrowLeft,
     Layers, List, Navigation, ShieldCheck, Database, Camera,
     Zap, Sparkles, ChevronRight, ExternalLink, BookOpen, CheckCircle2, Lightbulb,
-    AlertTriangle, HelpCircle, ChevronDown, ChevronUp, Server, Edit3, Filter
+    AlertTriangle, HelpCircle, ChevronDown, ChevronUp, Server, Edit3, Filter,
+    FileText, FolderOpen
 } from 'lucide-react';
 
 if (typeof window !== 'undefined') {
@@ -3671,6 +3672,15 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
 const PRESET_EXPLANATIONS = {
     supabase_crud: {
         badge: 'Base de Datos PostgreSQL Cloud • Supabase',
+        catedraDoc: {
+          "unit": "Unidad 2",
+          "topic": "Clase 6 • Formularios, Validación y CRUD Relacional PostgreSQL",
+          "folderLink": "https://drive.google.com/drive/folders/1PzTCpnSOltKfVa83nIjYIAslABSDCQvV?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 6 - Formularios, Validación y CRUD (PDF)",
+          "docLink": "https://drive.google.com/file/d/1mJSYzX0lDvjJJc9K7HemcvgeQcmH0Kpc/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 6: Teclados, Zod y CRUD",
+          "presentationLink": "https://drive.google.com/file/d/1Fx6BwJCiwC7MSRgIKlKh_Ecp22oRySHx/view?usp=sharing"
+},
         concept: 'Supabase es la alternativa open-source a Firebase basada en PostgreSQL relacional. A través de la tecnología PostgREST, traduce automáticamente llamadas de la app móvil en consultas SQL seguras (SELECT, INSERT, UPDATE, DELETE). Permite definir esquemas relacionales estrictos, relaciones con claves foráneas y protección a nivel de fila mediante Row Level Security (RLS).',
         image: '/images/rn_supabase_postgres_crud.jpg',
         imageCaption: '🐘 Diagrama Didáctico con IA: Arquitectura de Conexión React Native & Supabase PostgreSQL — 1) Interfaz móvil React Native disparando operaciones CRUD. 2) Capa API PostgREST resolviendo verbos HTTP (GET, POST, PATCH, DELETE) con autenticación Bearer Token. 3) Motor PostgreSQL ejecutando sentencias SQL relacionales sobre la tabla productos protegida por Row Level Security (RLS). 4) Bus de WebSockets en tiempo real para sincronización instantánea entre múltiples dispositivos.',
@@ -3717,6 +3727,15 @@ const PRESET_EXPLANATIONS = {
     },
     expo_setup: {
         badge: 'Setup Inicial & Toolchain PC',
+        catedraDoc: {
+          "unit": "Unidad 1",
+          "topic": "Clase 0 • Setup Inicial de Entorno & Configuración PC",
+          "folderLink": "https://drive.google.com/drive/folders/13Bo7ZCRQSjpeAQDKaxyDY9wir5veXrT6?usp=drive_link",
+          "docTitle": "Guía de Entorno: Configuración PC, Node y VS Code",
+          "docLink": "https://drive.google.com/file/d/1BEO-WvkCmEEJ9O_MVyeuMiVZELpsryG6/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 0: UX/UI y Expo",
+          "presentationLink": "https://drive.google.com/file/d/1_biMOkVlaF4dg_r0Gs4M0R5Oh9VrpGS5/view?usp=sharing"
+},
         concept: 'Comenzar un proyecto React Native moderno con Expo elimina la necesidad de configurar manualmente compiladores nativos C++, Gradle o CocoaPods. Todo el ciclo de desarrollo se orquesta mediante Node.js, Visual Studio Code y el empaquetador Metro Bundler, permitiendo ejecutar código en tiempo real en smartphones físicos vía Expo Go.',
         image: '/images/rn_expo_pc_setup_guide.jpg',
         imageCaption: '🛠️ Diagrama Didáctico con IA: Entorno de Desarrollo y Setup en PC — 1) Instalación de software base en la PC (Node.js, VS Code, Git CLI). 2) Creación del proyecto con npx create-expo-app@latest. 3) Servidor Metro Bundler con atajos de terminal interactivos ([a] Android, [i] iOS, [w] Web, [r] Reload). 4) Conexión en tiempo real con Expo Go vía Wi-Fi para Fast Refresh instantáneo.',
@@ -3763,6 +3782,15 @@ const PRESET_EXPLANATIONS = {
     },
     ecommerce_cart: {
         badge: 'Arquitectura Completa E-Commerce',
+        catedraDoc: {
+          "unit": "Unidad 1 y Unidad 3",
+          "topic": "Proyecto Integrador • De Requisitos a MVP & App E-Commerce Completa",
+          "folderLink": "https://drive.google.com/drive/folders/13Bo7ZCRQSjpeAQDKaxyDY9wir5veXrT6?usp=drive_link",
+          "docTitle": "Guía Cátedra: De Requisitos a MVP",
+          "docLink": "https://drive.google.com/file/d/1c7WQNJuAF_gP9JHGJ93loktZKNrfszsZ/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 10: UNP Final Firebase",
+          "presentationLink": "https://drive.google.com/file/d/1elVMLpJR3UrTrdhsIPIHutfypdWfgdnp/view?usp=sharing"
+},
         concept: 'Una aplicación móvil de comercio electrónico completa requiere coordinar múltiples pantallas (Catálogo, Carrito y Checkout) mediante un Store Centralizado (Zustand). El store sincroniza el badge de la barra de navegación, actualiza cantidades de items en tiempo real y calcula subtotales y descuentos sin acoplar los componentes.',
         image: '/images/rn_ecommerce_full_architecture.jpg',
         imageCaption: '🛒 Diagrama Didáctico con IA: Arquitectura Completa E-Commerce — 1) Catálogo de productos virtualizado con FlatList. 2) Store Centralizado (Zustand) que mantiene el estado global inmutable. 3) Carrito interactivo con badge contador en tiempo real y selectores atómicos. 4) Flujo de Checkout con resumen de orden y confirmación.',
@@ -3809,6 +3837,15 @@ const PRESET_EXPLANATIONS = {
     },
     ecommerce_nocart: {
         badge: 'Arquitectura Directa (Sin Carrito)',
+        catedraDoc: {
+          "unit": "Unidad 1 y Unidad 3",
+          "topic": "Proyecto Integrador • Catálogo Informativo & Especificación de Requisitos",
+          "folderLink": "https://drive.google.com/drive/folders/13Bo7ZCRQSjpeAQDKaxyDY9wir5veXrT6?usp=drive_link",
+          "docTitle": "Guía Cátedra: De Requisitos a MVP (Etapas 1, 2 y 3)",
+          "docLink": "https://drive.google.com/file/d/1c7WQNJuAF_gP9JHGJ93loktZKNrfszsZ/view?usp=sharing",
+          "presentationTitle": "Plantilla de Documentación MVP (Word)",
+          "presentationLink": "https://drive.google.com/file/d/1bAJ-egjDlYjJcenGAbMRLgNpkyj2pdkI/view?usp=sharing"
+},
         concept: 'No todas las aplicaciones móviles requieren un carrito de compras. Aplicaciones de catálogo, consulta técnica, portfolios o pañoles universitarios se benefician de una Arquitectura Directa basada puramente en Navegación Stack y paso de parámetros, reduciendo el consumo de memoria RAM y simplificando el mantenimiento.',
         image: '/images/rn_catalog_vs_cart.jpg',
         imageCaption: '⚖️ Diagrama Didáctico con IA: Comparativa de Arquitecturas — Izquierda: Arquitectura Directa / Catálogo (Sin Carrito) con navegación Stack lineal, paso de parámetros por ruta [id].tsx, memoria ultraliviana (8MB RAM) y sin sincronización global. Derecha: E-Commerce con Carro que exige Store Centralizado (Zustand/Redux), persistencia en disco y cálculo continuo de totales.',
@@ -3855,6 +3892,15 @@ const PRESET_EXPLANATIONS = {
     },
     flexbox: {
         badge: 'Arquitectura de Layout',
+        catedraDoc: {
+          "unit": "Unidad 1",
+          "topic": "Clase 1 • Kickoff, Setup y JSX en React Native",
+          "folderLink": "https://drive.google.com/drive/folders/13Bo7ZCRQSjpeAQDKaxyDY9wir5veXrT6?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 1 - Código y Fundamentos (PDF)",
+          "docLink": "https://drive.google.com/file/d/1bouOw36F31onGQuBQIkHaga7sgm-yQ3T/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 1: Kickoff y Arquitectura",
+          "presentationLink": "https://drive.google.com/file/d/1IqZ2vZxUf-C6EQk2z_IFS0H1n1_dtx__/view?usp=sharing"
+},
         concept: 'En React Native, TODO componente contenedor utiliza Flexbox por defecto con flexDirection: "column" y display: "flex". No existen "block", "inline" ni floats.',
         image: '/images/rn_flexbox_diagram.jpg',
         imageCaption: '📐 Diagrama Didáctico con IA: Arquitectura Flexbox en Móviles — El Eje Principal (Main Axis) es vertical por defecto en smartphones ("column") y el Eje Secundario (Cross Axis) es horizontal. Observa cómo justifyContent distribuye el espacio en el eje vertical y alignItems alinea en el eje horizontal.',
@@ -3901,6 +3947,15 @@ const PRESET_EXPLANATIONS = {
     },
     state: {
         badge: 'Gestión Reactiva de Estado',
+        catedraDoc: {
+          "unit": "Unidad 2",
+          "topic": "Clase 4 • Estado Global y Contexto (UNPilar Reescrita)",
+          "folderLink": "https://drive.google.com/drive/folders/1PzTCpnSOltKfVa83nIjYIAslABSDCQvV?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 4 - Estado Global y Contexto (PDF)",
+          "docLink": "https://drive.google.com/file/d/1vsb1Z-1J9rnJlbFMnqiGBI-AK1iOdudc/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 4: Prop Drilling y Stores",
+          "presentationLink": "https://drive.google.com/file/d/1xSztWe-cKcP18enp5FQLUEr-5BH0joNm/view?usp=sharing"
+},
         concept: 'El manejo de estado en móviles gobierna la interactividad táctil sin recargar la pantalla. Cada mutación con useState() re-renderiza el árbol de componentes a 60 FPS mediante el motor JavaScript Hermes y el renderer Fabric.',
         image: '/images/rn_state_loop.jpg',
         imageCaption: '🔄 Diagrama Didáctico con IA: Ciclo de Vida y Render Loop — Paso 1: El usuario realiza un gesto táctil físico (onPress). Paso 2: Se invoca setCount() y se actualiza el registro en memoria en el motor Hermes. Paso 3: React calcula la diferencia en el Árbol Virtual (Diffing). Paso 4: Fabric envía la instrucción nativa para actualizar la vista en Android (View) e iOS (UIView).',
@@ -3947,6 +4002,15 @@ const PRESET_EXPLANATIONS = {
     },
     flatlist: {
         badge: 'Listas Virtualizadas',
+        catedraDoc: {
+          "unit": "Unidad 1",
+          "topic": "Clase 2 • Componentes Core, Estilos y Listas Optimizadas",
+          "folderLink": "https://drive.google.com/drive/folders/13Bo7ZCRQSjpeAQDKaxyDY9wir5veXrT6?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 2 - Componentes y Layout",
+          "docLink": "https://drive.google.com/file/d/1dNn8hVjAyjH6mOtzfbVChJEoTNoJr2Ki/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 2: ScrollView vs FlatList",
+          "presentationLink": "https://drive.google.com/file/d/14y-HoTb8_AAQ8ROnlW0at3QivQF_9rlY/view?usp=sharing"
+},
         concept: 'FlatList es el componente estándar de React Native para renderizar colecciones de cientos o miles de elementos con mínimo consumo de memoria RAM mediante reciclaje de vistas (Windowing/Virtualization).',
         image: '/images/rn_flatlist_recycling.jpg',
         imageCaption: '⚡ Diagrama Didáctico con IA: Virtualización y Reciclaje de Celdas — ScrollView carga 1,000 elementos simultáneamente disparando el uso de memoria RAM (200MB+) y provocando caídas de frames. FlatList virtualiza el scroll: mantiene un pool de solo 10-15 celdas activas en pantalla y recicla las que salen del viewport, logrando 60 FPS estables y consumo mínimo de RAM (20MB).',
@@ -3993,6 +4057,15 @@ const PRESET_EXPLANATIONS = {
     },
     router: {
         badge: 'Enrutamiento Basado en Archivos',
+        catedraDoc: {
+          "unit": "Unidad 1",
+          "topic": "Clase 3 • Navegación con Expo Router (File-based Routing)",
+          "folderLink": "https://drive.google.com/drive/folders/13Bo7ZCRQSjpeAQDKaxyDY9wir5veXrT6?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 3 - Navegación con Expo Router (PDF)",
+          "docLink": "https://drive.google.com/file/d/1LNHsSg0Qq4ikyXvJHnMRwi6fHrVD0d-_/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 3: Stacks, Tabs y Rutas",
+          "presentationLink": "https://drive.google.com/file/d/1gb9pp3MF0frUVjY-kyvoil4-kYj82LXq/view?usp=sharing"
+},
         concept: 'Expo Router traduce la estructura física de carpetas y archivos en rutas nativas nativamente compiladas, similar a Next.js App Router pero para iOS y Android.',
         image: '/images/rn_router_arch.jpg',
         imageCaption: '🗺️ Diagrama Didáctico con IA: Arquitectura de Enrutamiento Basado en Archivos — La estructura de carpetas app/ se mapea automáticamente a controladores nativos: app/_layout.tsx crea el Root Stack, app/(tabs)/_layout.tsx define la barra de pestañas inferiores, y las rutas dinámicas como app/profile/[id].tsx reciben parámetros por URL nativa.',
@@ -4085,6 +4158,15 @@ const PRESET_EXPLANATIONS = {
     },
     firebase: {
         badge: 'Base de Datos en Tiempo Real',
+        catedraDoc: {
+          "unit": "Unidad 2",
+          "topic": "Clase 5 • Datos Remotos: Firebase Firestore & BaaS",
+          "folderLink": "https://drive.google.com/drive/folders/1PzTCpnSOltKfVa83nIjYIAslABSDCQvV?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 5 - Datos Remotos y Firebase (PDF)",
+          "docLink": "https://drive.google.com/file/d/1zTPSIKTN-cdEVoNJqt_0018JiXajrjKj/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 5: Firestore y Colecciones",
+          "presentationLink": "https://drive.google.com/file/d/1Zh-AdbzA7kLcOS06SEz07r-HjWSMaVqL/view?usp=sharing"
+},
         concept: 'Cloud Firestore permite crear aplicaciones colaborativas en tiempo real. Mediante listeners WebSocket (onSnapshot), cualquier cambio en la nube se replica instantáneamente en el smartphone.',
         image: '/images/rn_firebase_sync.jpg',
         imageCaption: '🔥 Diagrama Didáctico con IA: Sincronización NoSQL en Tiempo Real — Flujo continuo entre la base de datos Cloud Firestore y el smartphone. onSnapshot() establece un canal WebSocket push que reacciona de inmediato ante cualquier creación, edición o borrado sin necesidad de polling.',
@@ -4131,6 +4213,15 @@ const PRESET_EXPLANATIONS = {
     },
     hardware: {
         badge: 'Acceso a Sensores y Periféricos',
+        catedraDoc: {
+          "unit": "Unidad 3",
+          "topic": "Clase 7 • Hardware, Sensores y Permisos en Runtime",
+          "folderLink": "https://drive.google.com/drive/folders/1wGheJ22GDoULB-ZUbciS5-g2bQL32ty4?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 7 - Hardware y Sensores (PDF)",
+          "docLink": "https://drive.google.com/file/d/12XJAZ1ROGiTiE30nIFv8DAWM6ce40vc7/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 7: Cámara, GPS y Sensores",
+          "presentationLink": "https://drive.google.com/file/d/1Z3bkvjk-Rh4s-zFftcTk1kC4K7gMhxN3/view?usp=sharing"
+},
         concept: 'React Native permite acceder a las APIs de hardware de iOS y Android mediante bibliotecas de Expo (Cámara, GPS, Acelerómetro, Biometría, Giroscopio) con interfaz JSI de alta velocidad.',
         image: '/images/rn_hardware_sensors.jpg',
         imageCaption: '📱 Diagrama Didáctico con IA: Periféricos y Permisos de Hardware en Smartphones — Muestra la arquitectura entre el código JavaScript/TypeScript y los sensores nativos (GPS, Cámara, Giroscopio, Biometría) gobernados por diálogos de permisos en tiempo de ejecución (Runtime Permissions).',
@@ -4177,6 +4268,15 @@ const PRESET_EXPLANATIONS = {
     },
     animations: {
         badge: 'Animaciones a 60/120 FPS',
+        catedraDoc: {
+          "unit": "Unidad 3",
+          "topic": "Clase 9 • Performance, Testing & Optimización",
+          "folderLink": "https://drive.google.com/drive/folders/1wGheJ22GDoULB-ZUbciS5-g2bQL32ty4?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 9 - Performance y Testing (PDF)",
+          "docLink": "https://drive.google.com/file/d/1Ke8CeGnE_DPVDdwopyK9zSexEoR07zvR/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 9: Profiler y Animaciones Fluidas",
+          "presentationLink": "https://drive.google.com/file/d/1K5goU8FNYSnSqc_yzBRdWCW0N30_BbFw/view?usp=sharing"
+},
         concept: 'React Native Reanimated 3 ejecuta cálculos de física y transiciones directamente en el hilo de la interfaz de usuario (UI Thread / Render Thread) en C++, sin bloquear el hilo de JavaScript.',
         image: '/images/rn_state_loop.jpg',
         imageCaption: '✨ Diagrama Didáctico con IA: Render Thread y Física Concurrente — La ejecución directa en el UI Thread en C++ evita que cálculos pesados de JavaScript provoquen caídas de frames en animaciones táctiles.',
@@ -4223,6 +4323,15 @@ const PRESET_EXPLANATIONS = {
     },
     api: {
         badge: 'Peticiones de Red Asíncronas',
+        catedraDoc: {
+          "unit": "Unidad 2",
+          "topic": "Clase 5 • Datos Remotos: Firebase Firestore & BaaS",
+          "folderLink": "https://drive.google.com/drive/folders/1PzTCpnSOltKfVa83nIjYIAslABSDCQvV?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 5 - Datos Remotos y Firebase (PDF)",
+          "docLink": "https://drive.google.com/file/d/1zTPSIKTN-cdEVoNJqt_0018JiXajrjKj/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 5: Firestore y Colecciones",
+          "presentationLink": "https://drive.google.com/file/d/1Zh-AdbzA7kLcOS06SEz07r-HjWSMaVqL/view?usp=sharing"
+},
         concept: 'Las aplicaciones móviles consumen servicios web REST y GraphQL a través del protocolo HTTPS estándar mediante fetch() o axios.',
         image: '/images/rn_firebase_sync.jpg',
         imageCaption: '🌐 Diagrama Didáctico con IA: Flujo de Peticiones Asíncronas Móviles — Solicitud HTTP, gestión de estados (Loading, Data, Error) y renderizado reactivo en el smartphone.',
@@ -4269,6 +4378,15 @@ const PRESET_EXPLANATIONS = {
     },
     eas: {
         badge: 'DevOps & Compilación en la Nube',
+        catedraDoc: {
+          "unit": "Unidad 3",
+          "topic": "Clase 9 & 10 • Compilación en la Nube con EAS Build",
+          "folderLink": "https://drive.google.com/drive/folders/1wGheJ22GDoULB-ZUbciS5-g2bQL32ty4?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 10 - Despliegue y Proyecto Final (PDF)",
+          "docLink": "https://drive.google.com/file/d/16SReS3FsO0PYxhyNO6uMw8TGyEyXzwkb/view?usp=sharing",
+          "presentationTitle": "Presentación Clase 10: EAS y Despliegue",
+          "presentationLink": "https://drive.google.com/file/d/1elVMLpJR3UrTrdhsIPIHutfypdWfgdnp/view?usp=sharing"
+},
         concept: 'Expo Application Services (EAS) compila binarios de producción nativos (.apk/.aab para Android y .ipa para iOS) en granjas de servidores en la nube sin requerir una Mac física ni configurar Android Studio localmente.',
         image: '/images/rn_router_arch.jpg',
         imageCaption: '☁️ Diagrama Didáctico con IA: DevOps y Compilación en la Nube — Flujo desde el código local hacia EAS Build, firma criptográfica automática y generación de paquetes para Google Play y App Store.',
@@ -4315,6 +4433,15 @@ const PRESET_EXPLANATIONS = {
     },
     ai: {
         badge: 'Copilotos de IA en Desarrollo Móvil',
+        catedraDoc: {
+          "unit": "Unidad 3",
+          "topic": "Clase 11 • Inteligencia Artificial y Visión Computacional",
+          "folderLink": "https://drive.google.com/drive/folders/1wGheJ22GDoULB-ZUbciS5-g2bQL32ty4?usp=drive_link",
+          "docTitle": "Apunte Cátedra: Clase 11 - IA y Logo (PDF)",
+          "docLink": "https://drive.google.com/file/d/16ZOsnzybpMojppJs69JoIuvK5mWVuEZ0/view?usp=sharing",
+          "presentationTitle": "Carpeta Drive Unidad 3",
+          "presentationLink": "https://drive.google.com/drive/folders/1wGheJ22GDoULB-ZUbciS5-g2bQL32ty4?usp=drive_link"
+},
         concept: 'La integración de modelos de lenguaje (LLMs) acelera la creación de interfaces, la corrección de errores de layout y la optimización de código en React Native.',
         image: '/images/rn_state_loop.jpg',
         imageCaption: '🤖 Diagrama Didáctico con IA: Ingeniería de Prompts para React Native — Transformación guiada de requisitos en código nativo libre de etiquetas web.',
@@ -4403,6 +4530,63 @@ const CodeExplanationSection = ({ preset }) => {
                     🏷️ {exp.badge}
                 </div>
             </div>
+
+            {/* DOCUMENTACIÓN DE CÁTEDRA OFICIAL LINKED */}
+            {exp.catedraDoc && (
+                <div style={{
+                    background: 'linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, rgba(15, 23, 42, 0.6) 100%)',
+                    border: '1.5px solid rgba(56, 189, 248, 0.35)',
+                    borderRadius: '18px',
+                    padding: '1.25rem 1.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.85rem',
+                    boxShadow: '0 4px 20px rgba(2, 132, 199, 0.08)'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', fontWeight: '800', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.7px' }}>
+                            <BookOpen size={16} /> Documento Oficial de Cátedra • {exp.catedraDoc.unit}
+                        </div>
+                        <a
+                            href={exp.catedraDoc.folderLink}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '0.78rem', color: '#cbd5e1', textDecoration: 'none', background: 'rgba(255,255,255,0.08)', padding: '5px 12px', borderRadius: '8px', fontWeight: '700', border: '1px solid rgba(255,255,255,0.1)' }}
+                        >
+                            <span>📁 Carpeta Google Drive ({exp.catedraDoc.unit})</span>
+                            <ExternalLink size={12} />
+                        </a>
+                    </div>
+                    <div style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span>📖</span> {exp.catedraDoc.topic}
+                    </div>
+                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '2px' }}>
+                        {exp.catedraDoc.docLink && (
+                            <a
+                                href={exp.catedraDoc.docLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#0284c7', color: '#ffffff', textDecoration: 'none', padding: '8px 16px', borderRadius: '10px', fontSize: '0.82rem', fontWeight: '800', boxShadow: '0 2px 8px rgba(2,132,199,0.3)' }}
+                            >
+                                <FileText size={15} />
+                                <span>{exp.catedraDoc.docTitle}</span>
+                                <ExternalLink size={13} />
+                            </a>
+                        )}
+                        {exp.catedraDoc.presentationLink && (
+                            <a
+                                href={exp.catedraDoc.presentationLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: 'rgba(255,255,255,0.07)', border: '1px solid var(--border-color)', color: 'var(--text-main)', textDecoration: 'none', padding: '8px 16px', borderRadius: '10px', fontSize: '0.82rem', fontWeight: '700' }}
+                            >
+                                <span>📊 {exp.catedraDoc.presentationTitle}</span>
+                                <ExternalLink size={13} />
+                            </a>
+                        )}
+                    </div>
+                </div>
+            )}
 
             {/* IMAGEN DIDÁCTICA GENERADA CON IA */}
             {exp.image && (
