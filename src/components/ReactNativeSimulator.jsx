@@ -4,7 +4,8 @@ import * as Babel from '@babel/standalone';
 import {
     Play, RotateCcw, Copy, Check, Smartphone, Terminal,
     Layers, List, Navigation, ShieldCheck, Database, Camera,
-    Zap, Sparkles, ChevronRight, ExternalLink, BookOpen, CheckCircle2, Lightbulb
+    Zap, Sparkles, ChevronRight, ExternalLink, BookOpen, CheckCircle2, Lightbulb,
+    AlertTriangle, HelpCircle, ChevronDown, ChevronUp
 } from 'lucide-react';
 
 if (typeof window !== 'undefined') {
@@ -191,31 +192,48 @@ const styles = StyleSheet.create({
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function CounterApp() {
+  // 1. Declaración de la variable de estado reactiva
   const [count, setCount] = useState(0);
 
+  // 2. Función que incrementa la variable
   const increment = () => {
     setCount(prev => prev + 1);
-    console.log('Nuevo valor:', count + 1);
+    console.log('Variable count incrementada a:', count + 1);
   };
 
+  // 3. Función que reinicia la variable a cero
   const reset = () => {
     setCount(0);
-    console.log('Contador reiniciado');
+    console.log('Variable count reiniciada a 0');
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.badge}>UNIDAD 1.2 • REACT STATE</Text>
+
+      {/* Monitor en vivo del código y la variable en memoria */}
+      <View style={styles.codeCard}>
+        <Text style={styles.codeTitle}>// Variable que se incrementa:</Text>
+        <Text style={styles.codeDecl}>
+          const [<Text style={styles.varHighlight}>count</Text>, setCount] = useState({count});
+        </Text>
+        <View style={styles.stateRow}>
+          <Text style={styles.codeLabel}>Valor en memoria:</Text>
+          <Text style={styles.varBadge}>count = {count}</Text>
+        </View>
+        <Text style={styles.codeAction}>Código: setCount({count} + 1)</Text>
+      </View>
+
       <Text style={styles.number}>{count}</Text>
-      <Text style={styles.label}>Toques registrados</Text>
+      <Text style={styles.label}>Toques registrados en la variable count</Text>
 
       <View style={styles.buttonGroup}>
         <TouchableOpacity style={styles.btnPrimary} onPress={increment}>
-          <Text style={styles.btnText}>+ Incrementar</Text>
+          <Text style={styles.btnText}>+ Incrementar Variable count</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.btnSecondary} onPress={reset}>
-          <Text style={styles.btnSecondaryText}>Reiniciar</Text>
+          <Text style={styles.btnSecondaryText}>Reiniciar count a 0</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -228,7 +246,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0a0f1d',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    padding: 16,
   },
   badge: {
     color: '#38bdf8',
@@ -238,39 +256,91 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 12,
     borderRadius: 999,
-    marginBottom: 20,
+    marginBottom: 14,
     letterSpacing: 1,
   },
+  codeCard: {
+    width: '100%',
+    backgroundColor: '#111827',
+    borderWidth: 1.5,
+    borderColor: '#38bdf8',
+    borderRadius: 14,
+    padding: 12,
+    marginBottom: 16,
+  },
+  codeTitle: {
+    color: '#94a3b8',
+    fontSize: 10,
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  codeDecl: {
+    color: '#f8fafc',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  varHighlight: {
+    color: '#38bdf8',
+    fontWeight: '900',
+  },
+  stateRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 6,
+    paddingTop: 6,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.1)',
+  },
+  codeLabel: {
+    color: '#cbd5e1',
+    fontSize: 11,
+  },
+  varBadge: {
+    color: '#34d399',
+    backgroundColor: 'rgba(16,185,129,0.15)',
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    borderRadius: 6,
+    fontWeight: '900',
+    fontSize: 12,
+  },
+  codeAction: {
+    color: '#fbbf24',
+    fontSize: 11,
+    fontWeight: '700',
+    marginTop: 6,
+  },
   number: {
-    fontSize: 60,
+    fontSize: 52,
     fontWeight: '900',
     color: '#ffffff',
-    lineHeight: 70,
-    marginBottom: 6,
+    lineHeight: 58,
+    marginBottom: 4,
   },
   label: {
-    fontSize: 12,
-    color: '#94a3b8',
-    marginBottom: 28,
+    fontSize: 11,
+    color: '#cbd5e1',
+    marginBottom: 20,
   },
   buttonGroup: {
     width: '100%',
-    gap: 10,
+    gap: 8,
   },
   btnPrimary: {
-    backgroundColor: '#3b82f6',
-    paddingVertical: 14,
+    backgroundColor: '#0284c7',
+    paddingVertical: 12,
     borderRadius: 12,
     alignItems: 'center',
   },
   btnText: {
     color: '#ffffff',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 13,
   },
   btnSecondary: {
     backgroundColor: 'rgba(255,255,255,0.08)',
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderRadius: 12,
     alignItems: 'center',
   },
@@ -284,43 +354,58 @@ const styles = StyleSheet.create({
             const [count, setCount] = useState(0);
 
             return (
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', background: '#0a0f1d', color: '#fff', textAlign: 'center' }}>
-                    <div style={{ fontSize: '10px', letterSpacing: '1px', fontWeight: '800', color: '#38bdf8', background: 'rgba(56,189,248,0.1)', padding: '4px 10px', borderRadius: '999px', marginBottom: '16px' }}>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '16px', background: '#0a0f1d', color: '#fff', textAlign: 'center' }}>
+                    <div style={{ fontSize: '10px', letterSpacing: '1px', fontWeight: '800', color: '#38bdf8', background: 'rgba(56,189,248,0.1)', padding: '4px 10px', borderRadius: '999px', marginBottom: '12px' }}>
                         UNIDAD 1.2 • REACT STATE
+                    </div>
+
+                    {/* Monitor en vivo de la variable */}
+                    <div style={{ width: '100%', background: '#111827', border: '1.5px solid #38bdf8', borderRadius: '12px', padding: '10px', marginBottom: '14px', textAlign: 'left', fontFamily: 'monospace', fontSize: '11px' }}>
+                        <div style={{ color: '#94a3b8', fontSize: '10px', fontWeight: 'bold', marginBottom: '4px' }}>// Variable que se incrementa:</div>
+                        <div style={{ color: '#f8fafc', fontWeight: 'bold' }}>
+                            const [<span style={{ color: '#38bdf8', fontWeight: '900' }}>count</span>, setCount] = useState({count});
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px', paddingTop: '4px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                            <span style={{ color: '#cbd5e1' }}>Valor en memoria:</span>
+                            <span style={{ color: '#34d399', background: 'rgba(16,185,129,0.15)', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>count = {count}</span>
+                        </div>
+                        <div style={{ color: '#fbbf24', marginTop: '4px', fontWeight: 'bold' }}>
+                            Código: setCount({count} + 1)
+                        </div>
                     </div>
 
                     <motion.div
                         key={count}
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        style={{ fontSize: '56px', fontWeight: '900', color: '#ffffff', lineHeight: 1 }}
+                        style={{ fontSize: '48px', fontWeight: '900', color: '#ffffff', lineHeight: 1 }}
                     >
                         {count}
                     </motion.div>
 
-                    <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '6px', marginBottom: '24px' }}>
-                        Toques registrados con <span style={{ color: '#a855f7' }}>useState()</span>
+                    <div style={{ fontSize: '11px', color: '#cbd5e1', marginTop: '4px', marginBottom: '18px' }}>
+                        Toques registrados en la variable <code style={{ color: '#38bdf8' }}>count</code>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '10px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '8px' }}>
                         <button
                             onClick={() => {
                                 setCount(c => c + 1);
-                                log(`[State] setCount(${count + 1}) -> Re-render ejecutado`);
+                                log(`[State] setCount(${count} + 1) -> variable count = ${count + 1}`);
                             }}
-                            style={{ width: '100%', padding: '12px', borderRadius: '12px', background: 'linear-gradient(135deg, #3b82f6, #06b6d4)', color: '#fff', fontWeight: '800', fontSize: '14px', boxShadow: '0 4px 15px rgba(59,130,246,0.4)' }}
+                            style={{ width: '100%', padding: '11px', borderRadius: '12px', background: 'linear-gradient(135deg, #0284c7, #06b6d4)', color: '#fff', fontWeight: '800', fontSize: '13px', boxShadow: '0 4px 15px rgba(2,132,199,0.4)', border: 'none', cursor: 'pointer' }}
                         >
-                            + Incrementar Toque
+                            + Incrementar Variable count
                         </button>
 
                         <button
                             onClick={() => {
                                 setCount(0);
-                                log(`[State] Contador reseteado a 0`);
+                                log(`[State] setCount(0) -> variable count reseteada a 0`);
                             }}
-                            style={{ width: '100%', padding: '10px', borderRadius: '12px', background: 'rgba(255,255,255,0.08)', color: '#94a3b8', fontWeight: '600', fontSize: '12px' }}
+                            style={{ width: '100%', padding: '9px', borderRadius: '12px', background: 'rgba(255,255,255,0.08)', color: '#cbd5e1', fontWeight: '600', fontSize: '12px', border: 'none', cursor: 'pointer' }}
                         >
-                            Reiniciar
+                            Reiniciar count a 0
                         </button>
                     </div>
                 </div>
@@ -1802,6 +1887,15 @@ const PRESET_EXPLANATIONS = {
     flexbox: {
         badge: 'Arquitectura de Layout',
         concept: 'En React Native, TODO componente contenedor utiliza Flexbox por defecto con flexDirection: "column" y display: "flex". No existen "block", "inline" ni floats.',
+        image: '/images/rn_flexbox_diagram.jpg',
+        imageCaption: '📐 Diagrama Didáctico con IA: Arquitectura Flexbox en Móviles — El Eje Principal (Main Axis) es vertical por defecto en smartphones ("column") y el Eje Secundario (Cross Axis) es horizontal. Observa cómo justifyContent distribuye el espacio en el eje vertical y alignItems alinea en el eje horizontal.',
+        stepByStep: [
+            'Línea 1-2: Importa View (contenedor nativo UIView/ViewGroup), Text (tipografía nativa obligatoria) y StyleSheet.',
+            'Línea 4: Declara el componente funcional App() que sirve como pantalla raíz.',
+            'Línea 6: Aplica styles.container con flex: 1 para ocupar el 100% del alto y ancho disponible del smartphone.',
+            'Líneas 10-18: Renderiza las tarjetas usando flexDirection: "column" y gap: 12 para espaciado táctil ergonómico.',
+            'Líneas 24-38: StyleSheet.create() compila los estilos en IDs numéricos nativos inmutables de alto rendimiento.'
+        ],
         sections: [
             {
                 title: '1. Imports Principales de React Native',
@@ -1824,15 +1918,33 @@ const PRESET_EXPLANATIONS = {
                 detail: 'flex: 1 hace que el contenedor ocupe el 100% del alto y ancho disponible en la pantalla del smartphone. Las unidades no llevan "px", son píxeles independientes de la densidad (dp en Android / puntos en iOS).'
             }
         ],
+        pitfalls: [
+            '❌ Escribir texto suelto dentro de <View>texto</View> sin envolverlo en <Text> lanzará un error fatal en tiempo de ejecución.',
+            '❌ Asumir que flexDirection es "row" como en CSS web. En React Native siempre es "column" por diseño móvil.',
+            '❌ Usar unidades con "px" en StyleSheet (ej: fontSize: "16px"). En React Native los valores deben ser números puros (dp / puntos).'
+        ],
+        selfCheck: {
+            q: '¿Por qué en React Native no podemos utilizar un <div> o escribir texto suelto dentro de <View>?',
+            a: 'Porque React Native compila a componentes nativos del sistema operativo (UIKit en iOS y Android Views en Android). Los <div> de HTML no existen en los kernels móviles, y las vistas nativas no admiten cadenas de texto sin una vista especializada como UITextView / TextView (representada por <Text>).'
+        },
         webVsNative: 'En Web usas <div> y CSS tradicional con cascada. En React Native no hay cascada (no-inheritance), los estilos son scoped a cada elemento, y no existen bordes o textos directos en contenedores genéricos.',
         tip: 'Usa siempre StyleSheet.create() en lugar de objetos literales inline en JSX para evitar que el Garbage Collector recolecte y recree objetos en cada frame.'
     },
     state: {
         badge: 'Gestión Reactiva de Estado',
-        concept: 'El manejo de estado en móviles gobierna la interactividad táctil sin recargar la pantalla. Cada mutación con useState() re-renderiza el árbol de componentes a 60 FPS.',
+        concept: 'El manejo de estado en móviles gobierna la interactividad táctil sin recargar la pantalla. Cada mutación con useState() re-renderiza el árbol de componentes a 60 FPS mediante el motor JavaScript Hermes y el renderer Fabric.',
+        image: '/images/rn_state_loop.jpg',
+        imageCaption: '🔄 Diagrama Didáctico con IA: Ciclo de Vida y Render Loop — Paso 1: El usuario realiza un gesto táctil físico (onPress). Paso 2: Se invoca setCount() y se actualiza el registro en memoria en el motor Hermes. Paso 3: React calcula la diferencia en el Árbol Virtual (Diffing). Paso 4: Fabric envía la instrucción nativa para actualizar la vista en Android (View) e iOS (UIView).',
+        stepByStep: [
+            'Línea 1: Importa el Hook useState desde React para crear una variable reactiva con memoria local persistente.',
+            'Línea 5: const [count, setCount] = useState(0); Inicializa "count" en 0 y crea la función despachadora "setCount".',
+            'Líneas 9-18: Monitor en vivo del código que inspecciona en tiempo real el valor de "count" en memoria y la sentencia de mutación.',
+            'Línea 21: TouchableOpacity captura el toque físico del usuario mediante el subsistema táctil nativo.',
+            'Línea 22: setCount(c => c + 1) encola el nuevo valor inmutable; React Native programa un re-render eficiente sin parpadeos a 60 FPS.'
+        ],
         sections: [
             {
-                title: '1. Hook useState & Reactividad',
+                title: '1. Hook useState & Reactividad Inmutable',
                 desc: 'const [count, setCount] = useState(0);',
                 detail: 'Define el estado local reactivo. Al invocar setCount(prev => prev + 1), React programa un re-render del componente móvil actualizando únicamente los nodos afectados.'
             },
@@ -1842,22 +1954,40 @@ const PRESET_EXPLANATIONS = {
                 detail: 'A diferencia de la Web (onClick), los smartphones responden a gestos táctiles. TouchableOpacity proporciona retroalimentación háptica y visual reduciendo la opacidad al pulsar (feedback activo de toque).'
             },
             {
-                title: '3. Funciones Manejadoras (Handlers)',
+                title: '3. Funciones Manejadoras (Handlers Funcionales)',
                 desc: 'const increment = () => { setCount(prev => prev + 1); };',
                 detail: 'Se recomienda usar la forma funcional setCount(prev => prev + 1) para garantizar que se opera sobre el valor más reciente del estado ante múltiples toques rápidos consecutivos.'
             },
             {
-                title: '4. Estilos Nativos con StyleSheet',
+                title: '4. Estilos Nativos Adaptados al Pulgar',
                 desc: 'container, badge, number, buttonGroup, btnPrimary',
-                detail: 'Define un diseño móvil centrado con justifyContent: "center" y alignItems: "center". Los botones utilizan borderRadius: 12 y paddingVertical: 14 adaptados a la zona ergonómica del pulgar.'
+                detail: 'Define un diseño móvil centrado con justifyContent: "center" y alignItems: "center". Los botones utilizan borderRadius: 12 y paddingVertical: 12 adaptados a la zona ergonómica del pulgar (Thumb Zone).'
             }
         ],
+        pitfalls: [
+            '❌ Intentar mutar la variable directamente con count = count + 1. React NO detectará el cambio y el celular nunca se actualizará.',
+            '❌ Olvidar usar la forma funcional setCount(c => c + 1) cuando ocurren toques táctiles ultra rápidos consecutivos.',
+            '❌ Confundir onClick (evento del ratón web) con onPress (evento de gesto táctil nativo en smartphones).'
+        ],
+        selfCheck: {
+            q: '¿Qué sucede exactamente en memoria cuando el usuario presiona "+ Incrementar Variable count"?',
+            a: 'El botón TouchableOpacity captura el evento nativo de touch. Se ejecuta setCount(c => c + 1), el motor Hermes actualiza el registro en memoria de la variable "count", programa un ciclo de renderizado, y el renderer Fabric sincroniza la nueva vista nativa con el nuevo valor numérico.'
+        },
         webVsNative: 'En Web usas <button onClick={...}>. En React Native usas <TouchableOpacity onPress={...}> o <Pressable> para controlar eventos touchstart, touchend y respuesta táctil.',
         tip: 'Para listas largas o estados compartidos entre múltiples pantallas, se recomienda Zustand o Redux Toolkit en lugar de prop drilling.'
     },
     flatlist: {
         badge: 'Listas Virtualizadas',
         concept: 'FlatList es el componente estándar de React Native para renderizar colecciones de cientos o miles de elementos con mínimo consumo de memoria RAM mediante reciclaje de vistas (Windowing/Virtualization).',
+        image: '/images/rn_flatlist_recycling.jpg',
+        imageCaption: '⚡ Diagrama Didáctico con IA: Virtualización y Reciclaje de Celdas — ScrollView carga 1,000 elementos simultáneamente disparando el uso de memoria RAM (200MB+) y provocando caídas de frames. FlatList virtualiza el scroll: mantiene un pool de solo 10-15 celdas activas en pantalla y recicla las que salen del viewport, logrando 60 FPS estables y consumo mínimo de RAM (20MB).',
+        stepByStep: [
+            'Línea 1: Importa FlatList, el componente optimizado de alto rendimiento para colecciones móviles.',
+            'Línea 12: Define la colección de datos "data={CURSOS}" con objetos JavaScript que contienen IDs únicos.',
+            'Línea 15: keyExtractor={item => item.id} provee una clave única de tipo string para rastreo y reciclado de celdas.',
+            'Líneas 16-25: renderItem={({ item }) => ...} función de renderizado que devuelve la plantilla nativa de cada fila visible.',
+            'Línea 26: contentContainerStyle={{ padding: 16 }} evita que el último elemento sea tapado por la barra de inicio o navegación.'
+        ],
         sections: [
             {
                 title: '1. Prop data',
@@ -1880,12 +2010,30 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Aplica padding interno al contenido desplazable de la lista, evitando cortar las sombras o bordes de los elementos finales al hacer scroll.'
             }
         ],
+        pitfalls: [
+            '❌ Usar array.map() dentro de un <ScrollView> para listas con más de 50 elementos provocará caídas de frames y eventual crash por falta de RAM.',
+            '❌ Devolver números en lugar de strings en keyExtractor (ej: item.id número sin convertir a String).',
+            '❌ Definir renderItem como una función anónima inline pesada que se recree en cada render del padre.'
+        ],
+        selfCheck: {
+            q: '¿Por qué una lista de 5,000 elementos corre fluida en FlatList pero congelaría la app en un ScrollView?',
+            a: 'ScrollView crea 5,000 vistas nativas en memoria de forma simultánea consumiendo cientos de megabytes de RAM. FlatList crea un "pool" de apenas unas 10 a 15 celdas y reutiliza las mismas vistas a medida que el usuario hace scroll (Virtualización).'
+        },
         webVsNative: 'En Web solemos hacer array.map() dentro de un div con scroll. En móviles esto provocaría un "Out of Memory" (OOM) crash con listas largas. FlatList solo mantiene en memoria los elementos visibles.',
         tip: 'Si necesitas aún más rendimiento en listas masivas (10,000+ items), la librería de Shopify llamada FlashList es hasta 10 veces más rápida que FlatList.'
     },
     router: {
         badge: 'Enrutamiento Basado en Archivos',
         concept: 'Expo Router traduce la estructura física de carpetas y archivos en rutas nativas nativamente compiladas, similar a Next.js App Router pero para iOS y Android.',
+        image: '/images/rn_router_arch.jpg',
+        imageCaption: '🗺️ Diagrama Didáctico con IA: Arquitectura de Enrutamiento Basado en Archivos — La estructura de carpetas app/ se mapea automáticamente a controladores nativos: app/_layout.tsx crea el Root Stack, app/(tabs)/_layout.tsx define la barra de pestañas inferiores, y las rutas dinámicas como app/profile/[id].tsx reciben parámetros por URL nativa.',
+        stepByStep: [
+            'Línea 1: Importa Tabs y Screen desde expo-router para declarar la navegación por pestañas inferiores.',
+            'Línea 5: app/_layout.tsx define el diseño envolvente global (Root Layout) con su Stack principal.',
+            'Líneas 8-16: <Tabs.Screen name="index" /> mapea directamente al archivo app/(tabs)/index.tsx.',
+            'Líneas 20-28: tabBarIcon inyecta iconos vectoriales de @expo/vector-icons con color reactivo de selección.',
+            'Líneas 32-40: useRouter() y <Link href="/detalle"> permiten navegar apilando pantallas (Push) o volviendo atrás (Pop).'
+        ],
         sections: [
             {
                 title: '1. Contenedor de Pestañas <Tabs>',
@@ -1908,12 +2056,30 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Permite transiciones entre pantallas mediante push, replace o enlaces declarativos <Link href="/perfil">.'
             }
         ],
+        pitfalls: [
+            '❌ Colocar componentes de pantalla fuera de la carpeta app/ al usar Expo Router.',
+            '❌ Olvidar exportar por defecto ("export default") el componente de la pantalla en cada archivo de ruta.',
+            '❌ Confundir navegación Web basada en URL con navegación Móvil basada en Pila (Stack) donde las pantallas se superponen y conservan estado.'
+        ],
+        selfCheck: {
+            q: '¿Qué ventaja tiene Expo Router frente a React Navigation clásico con configuraciones manuales?',
+            a: 'Expo Router automatiza el enrutamiento según el árbol de archivos (File-based Routing), genera rutas dinámicas seguras [id].tsx, proporciona Deep Linking automático y compila directamente a controladores nativos de UINavigationController (iOS) y Fragment/Activity (Android).'
+        },
         webVsNative: 'En la Web el historial de navegación cambia la URL del navegador. En móviles, la navegación administra una pila (Stack) o pestañas (Tabs) con transiciones nativas de deslizamiento a 60 FPS.',
         tip: 'Usa el archivo _layout.tsx en cada carpeta para envolver tus pantallas con temas, barras de navegación o contextos compartidos.'
     },
     form: {
         badge: 'Validación Tipada de Esquemas',
         concept: 'Los formularios móviles requieren validación rigurosa de datos en tiempo real antes de enviar información a la API o base de datos. Zod define esquemas de validación tipados y seguros.',
+        image: '/images/rn_state_loop.jpg',
+        imageCaption: '🛡️ Diagrama Didáctico con IA: Flujo de Validación de Formularios — La entrada táctil en TextInput actualiza el estado, Zod valida el esquema sin lanzar excepciones mediante safeParse(), y la UI reacciona mostrando errores en rojo o confirmación verde.',
+        stepByStep: [
+            'Línea 2: Importa z desde zod para definir esquemas tipados con validación síncrona.',
+            'Líneas 5-8: const userSchema = z.object({...}) define reglas: email() válido y password mínimo de 6 caracteres.',
+            'Línea 14: userSchema.safeParse({ email, password }) comprueba la validez sin lanzar excepciones que cuelguen la app.',
+            'Líneas 20-30: TextInput controlado con value y onChangeText adaptado al teclado virtual del smartphone.',
+            'Línea 35: Botón de envío que solo procede si result.success es true, mostrando mensajes contextuales.'
+        ],
         sections: [
             {
                 title: '1. Esquema con Zod',
@@ -1936,12 +2102,30 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Muestra mensajes de error contextuales con estilos de alerta visual antes de proceder a la acción de submit.'
             }
         ],
+        pitfalls: [
+            '❌ Usar parse() en lugar de safeParse() sin envolverlo en try/catch: provocará un crash si los datos no coinciden.',
+            '❌ Olvidar configurar keyboardType="email-address" o secureTextEntry en los campos de contraseña.',
+            '❌ No usar KeyboardAvoidingView: el teclado virtual tapará el botón de confirmación en teléfonos compactos.'
+        ],
+        selfCheck: {
+            q: '¿Por qué en móviles se prefiere safeParse() antes que parse() de Zod?',
+            a: 'Porque safeParse() no arroja excepciones runtime (throw Error), sino que retorna un objeto tipado { success, data, error }, permitiendo manejar el feedback de error suavemente en la UI sin colapsar la aplicación del usuario.'
+        },
         webVsNative: 'En Web usas <form onSubmit={...}> con FormData. En React Native no hay etiqueta <form>; los formularios son combinaciones de estados de TextInput gestionados con hooks o librerías como React Hook Form.',
         tip: 'Utiliza KeyboardAvoidingView para evitar que el teclado virtual del smartphone tape los inputs al escribir.'
     },
     firebase: {
         badge: 'Base de Datos en Tiempo Real',
         concept: 'Cloud Firestore permite crear aplicaciones colaborativas en tiempo real. Mediante listeners WebSocket (onSnapshot), cualquier cambio en la nube se replica instantáneamente en el smartphone.',
+        image: '/images/rn_firebase_sync.jpg',
+        imageCaption: '🔥 Diagrama Didáctico con IA: Sincronización NoSQL en Tiempo Real — Flujo continuo entre la base de datos Cloud Firestore y el smartphone. onSnapshot() establece un canal WebSocket push que reacciona de inmediato ante cualquier creación, edición o borrado sin necesidad de polling.',
+        stepByStep: [
+            'Línea 2: Importa collection, onSnapshot y addDoc desde el SDK modular de Firebase v9+ / v10+.',
+            'Línea 6: collection(db, "tareas") referencia la colección NoSQL remota.',
+            'Líneas 10-18: onSnapshot() establece un canal WebSocket en tiempo real que reacciona a cualquier creación, edición o borrado.',
+            'Líneas 22-26: addDoc() envía la mutación asíncrona a la nube con ID criptográfico autogenerado.',
+            'Líneas 30-34: return () => unsubscribe() dentro de useEffect asegura cerrar el socket al desmontar la pantalla.'
+        ],
         sections: [
             {
                 title: '1. Conexión y Referencia a Colecciones',
@@ -1964,12 +2148,30 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Es fundamental retornar la función unsubscribe para cerrar la conexión cuando el componente se desmonta y evitar fugas de memoria (memory leaks).'
             }
         ],
+        pitfalls: [
+            '❌ No desuscribirse de onSnapshot() al salir de la pantalla provocará fugas de memoria y llamadas fantasma a setState en componentes desmontados.',
+            '❌ Guardar credenciales privadas o tokens de administrador de Firebase en el código del cliente móvil.',
+            '❌ No configurar Security Rules en Firestore, permitiendo que cualquiera lea o sobrescriba la base de datos completa.'
+        ],
+        selfCheck: {
+            q: '¿Por qué onSnapshot() es superior a realizar peticiones fetch() cada pocos segundos (polling)?',
+            a: 'El polling consume batería del smartphone y cuota de red innecesariamente. onSnapshot() utiliza un único socket persistente y el servidor solo envía deltas de datos cuando ocurre una mutación real en la nube.'
+        },
         webVsNative: 'Firebase SDK funciona tanto en web como en móviles nativos. En React Native, además puedes integrar persistencia offline con AsyncStorage para que la app funcione sin conexión a Internet.',
         tip: 'Configura siempre Security Rules en la consola de Firebase para asegurar que los usuarios solo puedan leer y escribir sus propios documentos.'
     },
     hardware: {
         badge: 'Acceso a Sensores y Periféricos',
-        concept: 'React Native permite acceder a las APIs de hardware de iOS y Android mediante bibliotecas de Expo (Cámara, GPS, Acelerómetro, Biometría, Giroscopio).',
+        concept: 'React Native permite acceder a las APIs de hardware de iOS y Android mediante bibliotecas de Expo (Cámara, GPS, Acelerómetro, Biometría, Giroscopio) con interfaz JSI de alta velocidad.',
+        image: '/images/rn_hardware_sensors.jpg',
+        imageCaption: '📱 Diagrama Didáctico con IA: Periféricos y Permisos de Hardware en Smartphones — Muestra la arquitectura entre el código JavaScript/TypeScript y los sensores nativos (GPS, Cámara, Giroscopio, Biometría) gobernados por diálogos de permisos en tiempo de ejecución (Runtime Permissions).',
+        stepByStep: [
+            'Línea 1: Importa módulos de hardware como CameraView desde expo-camera o Location desde expo-location.',
+            'Líneas 5-10: Solicita permisos en runtime con requestCameraPermissionsAsync() antes de intentar leer el sensor.',
+            'Líneas 12-18: Renderiza la superficie <CameraView> conectada al sensor óptico nativo del smartphone.',
+            'Líneas 20-26: Captura de coordenadas GPS con precisión de alta resolución para geolocalización.',
+            'Líneas 30-36: Maneja estados de error o permiso denegado guiando al usuario a la configuración del dispositivo.'
+        ],
         sections: [
             {
                 title: '1. Modelo de Permisos de Sistema Operativo',
@@ -1992,12 +2194,30 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Expo proporciona hooks dedicados para verificar si el usuario concedió, denegó o bloqueó permanentemente los permisos.'
             }
         ],
+        pitfalls: [
+            '❌ Intentar acceder a la cámara o GPS sin comprobar primero si el permiso fue otorgado provocará un crash inmediato de la app.',
+            '❌ Olvidar declarar los motivos de uso en app.json (Info.plist en iOS / AndroidManifest en Android). Apple rechaza apps que no justifiquen el permiso.',
+            '❌ Mantener el sensor GPS en máxima precisión constantemente, lo que drena la batería del smartphone en minutos.'
+        ],
+        selfCheck: {
+            q: '¿En qué se diferencia el modelo de permisos de un navegador web del de una aplicación nativa en iOS/Android?',
+            a: 'En móviles, los permisos se declaran estáticamente en los manifiestos del sistema operativo y deben solicitarse explícitamente en runtime con diálogos del sistema gobernados por el kernel. Si el usuario selecciona "No volver a preguntar", la app debe redirigirlo a la configuración de ajustes del teléfono.'
+        },
         webVsNative: 'En la Web el navegador puede bloquear el acceso si no hay HTTPS. En smartphones nativos, los permisos se declaran en AndroidManifest.xml e Info.plist y son gestionados por el kernel del sistema.',
         tip: 'Comprueba siempre el nivel de batería y la precisión deseada al usar GPS para evitar descargar rápidamente el dispositivo del usuario.'
     },
     animations: {
         badge: 'Animaciones a 60/120 FPS',
         concept: 'React Native Reanimated 3 ejecuta cálculos de física y transiciones directamente en el hilo de la interfaz de usuario (UI Thread / Render Thread) en C++, sin bloquear el hilo de JavaScript.',
+        image: '/images/rn_state_loop.jpg',
+        imageCaption: '✨ Diagrama Didáctico con IA: Render Thread y Física Concurrente — La ejecución directa en el UI Thread en C++ evita que cálculos pesados de JavaScript provoquen caídas de frames en animaciones táctiles.',
+        stepByStep: [
+            'Línea 1: Importa useSharedValue, useAnimatedStyle y withSpring desde react-native-reanimated.',
+            'Línea 4: const scale = useSharedValue(1); Declara un valor mutable que reside en el hilo nativo C++.',
+            'Línea 8: withSpring(1.2, { damping: 15 }) computa la curva de física de rebote en tiempo real.',
+            'Líneas 12-16: useAnimatedStyle mapea el valor compartido a la propiedad de transformación visual.',
+            'Línea 20: Animated.View renderiza el nodo nativo con aceleración por hardware GPU.'
+        ],
         sections: [
             {
                 title: '1. useSharedValue',
@@ -2020,12 +2240,30 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Variantes animables de los componentes nativos capaces de actualizar sus propiedades directamente en C++ sin intervención del JavaScript engine.'
             }
         ],
+        pitfalls: [
+            '❌ Animar "width" o "height" directamente en lugar de "transform: [{ scale }]" recalcula todo el árbol Flexbox (Yoga) provocando lentitud.',
+            '❌ Olvidar añadir el plugin de Babel react-native-reanimated/plugin en babel.config.js.',
+            '❌ Modificar shared values dentro de callbacks síncronos pesados en el JS thread.'
+        ],
+        selfCheck: {
+            q: '¿Por qué Reanimated es capaz de mantener 60 FPS constantes incluso si la app está procesando datos pesados?',
+            a: 'Porque Reanimated compila "worklets" en C++ que corren directamente en el UI Thread (Render Thread) de la GPU nativa, totalmente desacoplados del JavaScript Thread principal.'
+        },
         webVsNative: 'En Web usas transiciones CSS o CSS Keyframes. En React Native, usar estilos CSS provocaría saltos de frames si el hilo JS está ocupado procesando datos o peticiones de red. Reanimated garantiza fluidez absoluta.',
         tip: 'Evita animar propiedades de layout como "width" o "height" ya que recalculan el motor Yoga; en su lugar anima "transform: [{ scale }]" y "opacity".'
     },
     api: {
         badge: 'Peticiones de Red Asíncronas',
         concept: 'Las aplicaciones móviles consumen servicios web REST y GraphQL a través del protocolo HTTPS estándar mediante fetch() o axios.',
+        image: '/images/rn_firebase_sync.jpg',
+        imageCaption: '🌐 Diagrama Didáctico con IA: Flujo de Peticiones Asíncronas Móviles — Solicitud HTTP, gestión de estados (Loading, Data, Error) y renderizado reactivo en el smartphone.',
+        stepByStep: [
+            'Línea 1: Implementa fetch() nativo de la especificación WHATWG sobre el motor Hermes.',
+            'Línea 4: useEffect(() => { loadData(); }, []) dispara la petición al montarse el componente.',
+            'Líneas 8-14: ActivityIndicator muestra el spinner nativo de iOS o Android mientras se resuelve la promesa.',
+            'Líneas 16-22: Renderizado condicional del error de conexión con botón de reintento.',
+            'Líneas 25-35: Mapeo ordenado de la respuesta JSON a componentes nativos con ScrollView.'
+        ],
         sections: [
             {
                 title: '1. API fetch() Estándar',
@@ -2048,12 +2286,30 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Una experiencia móvil profesional siempre contempla los 3 estados: cargando, error de red y datos listos para renderizar.'
             }
         ],
+        pitfalls: [
+            '❌ No contemplar el estado "offline" o pérdida de señal en túneles/ascensores.',
+            '❌ Olvidar el array de dependencias en useEffect, provocando peticiones de red infinitas en bucle.',
+            '❌ No tipar la respuesta de la API con TypeScript o esquemas Zod.'
+        ],
+        selfCheck: {
+            q: '¿Por qué es obligatorio contemplar siempre los tres estados (Loading, Data, Error) en aplicaciones móviles?',
+            a: 'Porque los smartphones operan en redes celulares fluctuantes (4G/5G, roaming, pérdida de señal). Un fallo no controlado dejaría la pantalla en blanco o congelada sin feedback para el usuario.'
+        },
         webVsNative: 'En móviles, la conectividad cambia constantemente (WiFi a 4G/5G, modo avión, túneles). Es crítico manejar timeouts y reintentos (retry) para una UX robusta.',
         tip: 'Para caching inteligente, deduplicación de peticiones y sincronización en background en React Native, utiliza TanStack Query (React Query).'
     },
     eas: {
         badge: 'DevOps & Compilación en la Nube',
         concept: 'Expo Application Services (EAS) compila binarios de producción nativos (.apk/.aab para Android y .ipa para iOS) en granjas de servidores en la nube sin requerir una Mac física ni configurar Android Studio localmente.',
+        image: '/images/rn_router_arch.jpg',
+        imageCaption: '☁️ Diagrama Didáctico con IA: DevOps y Compilación en la Nube — Flujo desde el código local hacia EAS Build, firma criptográfica automática y generación de paquetes para Google Play y App Store.',
+        stepByStep: [
+            'Línea 1: Configuración del archivo eas.json con perfiles preview y production.',
+            'Línea 5: Ejecución de eas build -p android --profile preview en la terminal.',
+            'Línea 10: Compilación remota en servidores Linux/macOS con Gradle y Xcode.',
+            'Línea 15: Generación del enlace de descarga directa con código QR para el smartphone.',
+            'Línea 20: Despliegue de parches instantáneos sin revisión de tiendas mediante EAS Update (OTA).'
+        ],
         sections: [
             {
                 title: '1. Configuración con eas.json',
@@ -2076,12 +2332,30 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Permite corregir errores de código JavaScript al instante en los dispositivos de los usuarios sin necesidad de una nueva aprobación de Apple o Google.'
             }
         ],
+        pitfalls: [
+            '❌ Intentar subir un archivo APK a Google Play Store (Google Play solo acepta paquetes AAB bundleados).',
+            '❌ Perder las llaves Keystore generadas, lo que impediría actualizar la app para siempre en las tiendas.',
+            '❌ Subir credenciales o contraseñas en eas.json al repositorio público de GitHub.'
+        ],
+        selfCheck: {
+            q: '¿Cuál es la diferencia entre un archivo .APK y un .AAB generado por EAS Build?',
+            a: 'El .APK es un paquete ejecutable final listo para instalarse directamente en cualquier dispositivo Android de prueba. El .AAB (Android App Bundle) es un formato de publicación para Google Play que genera APKs divididos y optimizados específicamente para la arquitectura y pantalla de cada usuario.'
+        },
         webVsNative: 'En Web despliegas archivos estáticos a Vercel o Netlify en segundos. En móviles, compilar código nativo en C++, Java y Swift requiere compiladores pesados (Gradle/Xcode) que EAS resuelve en la nube.',
         tip: 'Utiliza el perfil "preview" para generar un APK descargable por QR antes de enviar la versión definitiva a Google Play.'
     },
     ai: {
         badge: 'Copilotos de IA en Desarrollo Móvil',
         concept: 'La integración de modelos de lenguaje (LLMs) acelera la creación de interfaces, la corrección de errores de layout y la optimización de código en React Native.',
+        image: '/images/rn_state_loop.jpg',
+        imageCaption: '🤖 Diagrama Didáctico con IA: Ingeniería de Prompts para React Native — Transformación guiada de requisitos en código nativo libre de etiquetas web.',
+        stepByStep: [
+            'Línea 1: Especificar siempre "React Native con Expo SDK 51 y TypeScript" en el prompt inicial.',
+            'Línea 5: Solicitar la utilización estricta de StyleSheet.create() en lugar de estilos inline.',
+            'Línea 10: Indicar componentes táctiles nativos como TouchableOpacity o Pressable.',
+            'Línea 15: Validar el código generado en el simulador interactivo en tiempo real.',
+            'Línea 20: Verificar accesibilidad con accessibilityLabel y soporte de lectores de pantalla.'
+        ],
         sections: [
             {
                 title: '1. Generación de Interfaces Nativas',
@@ -2104,6 +2378,15 @@ const PRESET_EXPLANATIONS = {
                 detail: 'Ayuda a incorporar accessibilityLabel y accessibilityHint para que personas con discapacidad visual puedan usar la app con TalkBack o VoiceOver.'
             }
         ],
+        pitfalls: [
+            '❌ Aceptar código que contenga <div>, <span> o <button>, los cuales romperán la aplicación nativa.',
+            '❌ No verificar si las librerías generadas por la IA son compatibles con la versión actual de Expo SDK.',
+            '❌ Confiar ciegamente en estilos CSS web no soportados como "float", "clear" o "grid".'
+        ],
+        selfCheck: {
+            q: '¿Cuál es el error más común que cometen los modelos de IA al generar código para React Native?',
+            a: 'Introducir etiquetas HTML clásicas de la web (como <div>, <p> o <button>) o propiedades CSS no soportadas por el motor Yoga (como display: grid o float). Por eso siempre se debe exigir explícitamente "React Native puro".'
+        },
         webVsNative: 'Al usar IA para React Native, asegúrate de indicarle explícitamente "React Native con TypeScript y Expo", para evitar que te genere código con etiquetas HTML como <div> o <button>.',
         tip: 'Prueba tus componentes generados directamente en el simulador interactivo de la derecha para verificar la interactividad en tiempo real.'
     }
@@ -2111,6 +2394,7 @@ const PRESET_EXPLANATIONS = {
 
 const CodeExplanationSection = ({ preset }) => {
     const exp = PRESET_EXPLANATIONS[preset.id];
+    const [showAnswer, setShowAnswer] = useState(false);
     if (!exp) return null;
 
     return (
@@ -2121,48 +2405,106 @@ const CodeExplanationSection = ({ preset }) => {
             transition={{ duration: 0.3 }}
             style={{
                 marginTop: '2rem',
-                background: 'linear-gradient(180deg, #0b1120 0%, #060913 100%)',
-                border: '1px solid rgba(56, 189, 248, 0.25)',
+                background: 'var(--card-bg)',
+                border: '1px solid var(--border-color)',
                 borderRadius: '24px',
                 padding: '2rem',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                color: '#f8fafc',
+                boxShadow: 'var(--card-shadow)',
+                color: 'var(--text-main)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1.5rem'
+                gap: '2rem'
             }}
         >
             {/* Header del bloque explicativo */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '1.25rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1.25rem' }}>
                 <div>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(56, 189, 248, 0.12)', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: '800', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '0.6rem' }}>
-                        <Lightbulb size={14} /> Explicación Pedagógica del Código • {preset.unit}
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(56, 189, 248, 0.12)', border: '1px solid var(--border-color)', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: '800', color: 'var(--primary-color)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '0.6rem' }}>
+                        <Lightbulb size={14} /> Explicación Didáctica y Pedagógica • {preset.unit}
                     </div>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#fff', margin: '0 0 0.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <h3 style={{ fontSize: '1.6rem', fontWeight: '900', color: 'var(--text-main)', margin: '0 0 0.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <span>{preset.icon}</span> {preset.title}
                     </h3>
-                    <p style={{ margin: 0, fontSize: '0.95rem', color: '#94a3b8', lineHeight: 1.6, maxWidth: '850px' }}>
+                    <p style={{ margin: 0, fontSize: '1rem', color: 'var(--text-dim)', lineHeight: 1.6, maxWidth: '850px' }}>
                         {exp.concept}
                     </p>
                 </div>
 
-                <div style={{ background: '#1e293b', padding: '8px 16px', borderRadius: '12px', border: '1px solid #334155', fontSize: '0.82rem', color: '#cbd5e1', fontWeight: '700', alignSelf: 'flex-start' }}>
+                <div style={{ background: 'var(--card-inner-bg)', padding: '8px 16px', borderRadius: '12px', border: '1px solid var(--border-color)', fontSize: '0.82rem', color: 'var(--text-main)', fontWeight: '800', alignSelf: 'flex-start' }}>
                     🏷️ {exp.badge}
                 </div>
             </div>
 
-            {/* Grid con Desglose Sección por Sección */}
+            {/* IMAGEN DIDÁCTICA GENERADA CON IA */}
+            {exp.image && (
+                <div style={{
+                    background: 'var(--card-inner-bg)',
+                    border: '1.5px solid var(--border-color)',
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
+                }}>
+                    <div style={{ padding: '0.75rem 1.25rem', background: 'rgba(56, 189, 248, 0.08)', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', fontWeight: '800', color: 'var(--primary-color)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            <Sparkles size={16} /> Diagrama Conceptual Didáctico con Inteligencia Artificial
+                        </div>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Infografía de Alta Definición</span>
+                    </div>
+
+                    <div style={{ position: 'relative', width: '100%', overflow: 'hidden', background: '#020617' }}>
+                        <img
+                            src={exp.image}
+                            alt={exp.badge}
+                            style={{
+                                width: '100%',
+                                height: 'auto',
+                                display: 'block',
+                                maxHeight: '480px',
+                                objectFit: 'contain',
+                                transition: 'transform 0.4s ease'
+                            }}
+                        />
+                    </div>
+
+                    <div style={{ padding: '1rem 1.25rem', background: 'var(--card-inner-bg)', borderTop: '1px solid var(--border-color)' }}>
+                        <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-dim)', lineHeight: 1.6, fontWeight: '500' }}>
+                            {exp.imageCaption}
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {/* PASO A PASO DIDÁCTICO */}
+            {exp.stepByStep && (
+                <div style={{ background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', borderRadius: '18px', padding: '1.5rem' }}>
+                    <div style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--primary-color)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Terminal size={18} /> Flujo de Ejecución Paso a Paso (Línea por Línea)
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        {exp.stepByStep.map((step, idx) => (
+                            <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
+                                <span style={{ background: 'var(--primary-color)', color: '#0f172a', fontWeight: '900', fontSize: '0.75rem', padding: '2px 8px', borderRadius: '6px', marginTop: '2px', flexShrink: 0 }}>
+                                    {idx + 1}
+                                </span>
+                                <span>{step}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Grid con Desglose Técnico Sección por Sección */}
             <div>
-                <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <BookOpen size={16} color="#38bdf8" /> Desglose Técnico de la Lección
+                <div style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--text-main)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <BookOpen size={18} color="var(--primary-color)" /> Desglose Técnico de Componentes & Props
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
                     {exp.sections.map((sec, idx) => (
                         <div
                             key={idx}
                             style={{
-                                background: 'rgba(15, 23, 42, 0.65)',
-                                border: '1px solid rgba(51, 65, 85, 0.7)',
+                                background: 'var(--card-inner-bg)',
+                                border: '1px solid var(--border-color)',
                                 borderRadius: '16px',
                                 padding: '1.25rem',
                                 display: 'flex',
@@ -2170,17 +2512,17 @@ const CodeExplanationSection = ({ preset }) => {
                                 gap: '0.6rem'
                             }}
                         >
-                            <div style={{ fontSize: '0.92rem', fontWeight: '800', color: '#38bdf8' }}>
+                            <div style={{ fontSize: '0.95rem', fontWeight: '800', color: 'var(--primary-color)' }}>
                                 {sec.title}
                             </div>
                             <div style={{
-                                background: '#020617',
-                                border: '1px solid rgba(255, 255, 255, 0.08)',
+                                background: 'rgba(0,0,0,0.3)',
+                                border: '1px solid var(--border-color)',
                                 borderRadius: '8px',
                                 padding: '8px 12px',
                                 fontSize: '0.8rem',
                                 fontFamily: 'monospace',
-                                color: '#a5f3fc',
+                                color: 'var(--primary-color)',
                                 whiteSpace: 'pre-wrap',
                                 wordBreak: 'break-word'
                             }}>
@@ -2188,8 +2530,8 @@ const CodeExplanationSection = ({ preset }) => {
                             </div>
                             <p style={{
                                 margin: 0,
-                                fontSize: '0.85rem',
-                                color: '#94a3b8',
+                                fontSize: '0.88rem',
+                                color: 'var(--text-dim)',
                                 lineHeight: 1.6,
                                 whiteSpace: 'pre-line'
                             }}>
@@ -2200,8 +2542,73 @@ const CodeExplanationSection = ({ preset }) => {
                 </div>
             </div>
 
+            {/* ERRORES FRECUENTES EN EXÁMENES Y CÓDIGO */}
+            {exp.pitfalls && (
+                <div style={{ background: 'rgba(239, 68, 68, 0.06)', border: '1px solid rgba(239, 68, 68, 0.25)', borderRadius: '18px', padding: '1.5rem' }}>
+                    <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#ef4444', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <AlertTriangle size={18} /> Errores Frecuentes en Código y Exámenes
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                        {exp.pitfalls.map((p, idx) => (
+                            <div key={idx} style={{ fontSize: '0.9rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
+                                {p}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* AUTOEVALUACIÓN DIDÁCTICA CON RESPUESTA INTERACTIVA */}
+            {exp.selfCheck && (
+                <div style={{ background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', borderRadius: '18px', padding: '1.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                        <div style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--primary-color)', textTransform: 'uppercase', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <HelpCircle size={18} /> Pregunta de Autoevaluación Conceptual
+                        </div>
+                        <button
+                            onClick={() => setShowAnswer(!showAnswer)}
+                            style={{
+                                background: showAnswer ? 'var(--border-color)' : 'var(--primary-color)',
+                                color: showAnswer ? 'var(--text-main)' : '#0f172a',
+                                border: 'none',
+                                borderRadius: '8px',
+                                padding: '6px 14px',
+                                fontSize: '0.8rem',
+                                fontWeight: '800',
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px'
+                            }}
+                        >
+                            {showAnswer ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                            <span>{showAnswer ? 'Ocultar Explicación' : '💡 Revelar Explicación y Respuesta'}</span>
+                        </button>
+                    </div>
+
+                    <p style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--text-main)', margin: '0 0 0.5rem' }}>
+                        {exp.selfCheck.q}
+                    </p>
+
+                    {showAnswer && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            style={{ marginTop: '0.75rem', padding: '1rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '12px' }}
+                        >
+                            <div style={{ fontWeight: '800', color: '#10b981', fontSize: '0.85rem', marginBottom: '0.3rem' }}>
+                                ✅ RESPUESTA DIDÁCTICA:
+                            </div>
+                            <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
+                                {exp.selfCheck.a}
+                            </p>
+                        </motion.div>
+                    )}
+                </div>
+            )}
+
             {/* Comparativa Web vs Mobile & Tip Docente */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem', paddingTop: '0.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
                 <div style={{
                     background: 'rgba(168, 85, 247, 0.08)',
                     border: '1px solid rgba(168, 85, 247, 0.3)',
@@ -2211,7 +2618,7 @@ const CodeExplanationSection = ({ preset }) => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#c084fc', fontWeight: '800', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
                         <span>🌐 vs 📱</span> Diferencia Crítica: React Web vs React Native
                     </div>
-                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#e9d5ff', lineHeight: 1.6 }}>
+                    <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
                         {exp.webVsNative}
                     </p>
                 </div>
@@ -2225,7 +2632,7 @@ const CodeExplanationSection = ({ preset }) => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#34d399', fontWeight: '800', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
                         <Sparkles size={16} /> Consejo Docente & Rendimiento Móvil
                     </div>
-                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#a7f3d0', lineHeight: 1.6 }}>
+                    <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
                         {exp.tip}
                     </p>
                 </div>

@@ -20,12 +20,12 @@ const SimuladorReactNative = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <Link
                     to="/aplicaciones-moviles"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#0284c7', fontWeight: '700', fontSize: '0.9rem', textDecoration: 'none' }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary-color)', fontWeight: '700', fontSize: '0.9rem', textDecoration: 'none' }}
                 >
                     <ArrowLeft size={16} /> Volver al Programa de Aplicaciones Móviles
                 </Link>
 
-                <div style={{ display: 'flex', gap: '0.5rem', background: '#f1f5f9', padding: '4px', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', padding: '4px', borderRadius: '12px' }}>
                     <button
                         onClick={() => setActiveTab('simulador')}
                         style={{
@@ -33,8 +33,10 @@ const SimuladorReactNative = () => {
                             borderRadius: '8px',
                             fontSize: '0.85rem',
                             fontWeight: '700',
-                            background: activeTab === 'simulador' ? '#0284c7' : 'transparent',
-                            color: activeTab === 'simulador' ? '#fff' : '#64748b'
+                            border: 'none',
+                            cursor: 'pointer',
+                            background: activeTab === 'simulador' ? 'var(--primary-color)' : 'transparent',
+                            color: activeTab === 'simulador' ? '#0f172a' : 'var(--text-dim)'
                         }}
                     >
                         📱 Simulador en Vivo
@@ -46,8 +48,10 @@ const SimuladorReactNative = () => {
                             borderRadius: '8px',
                             fontSize: '0.85rem',
                             fontWeight: '700',
-                            background: activeTab === 'arquitectura' ? '#0284c7' : 'transparent',
-                            color: activeTab === 'arquitectura' ? '#fff' : '#64748b'
+                            border: 'none',
+                            cursor: 'pointer',
+                            background: activeTab === 'arquitectura' ? 'var(--primary-color)' : 'transparent',
+                            color: activeTab === 'arquitectura' ? '#0f172a' : 'var(--text-dim)'
                         }}
                     >
                         ⚡ Arquitectura Interna
@@ -59,8 +63,10 @@ const SimuladorReactNative = () => {
                             borderRadius: '8px',
                             fontSize: '0.85rem',
                             fontWeight: '700',
-                            background: activeTab === 'cheatsheet' ? '#0284c7' : 'transparent',
-                            color: activeTab === 'cheatsheet' ? '#fff' : '#64748b'
+                            border: 'none',
+                            cursor: 'pointer',
+                            background: activeTab === 'cheatsheet' ? 'var(--primary-color)' : 'transparent',
+                            color: activeTab === 'cheatsheet' ? '#0f172a' : 'var(--text-dim)'
                         }}
                     >
                         📖 Guía Rápida de Componentes
@@ -70,13 +76,13 @@ const SimuladorReactNative = () => {
 
             {/* Encabezado Principal */}
             <header style={{ marginBottom: '2rem' }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 1rem', background: 'rgba(2,132,199,0.1)', border: '1px solid rgba(2,132,199,0.25)', borderRadius: '999px', color: '#0284c7', fontWeight: 800, fontSize: '0.75rem', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 1rem', background: 'rgba(56,189,248,0.12)', border: '1px solid var(--border-color)', borderRadius: '999px', color: 'var(--primary-color)', fontWeight: 800, fontSize: '0.75rem', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
                     <Sparkles size={14} /> Laboratorio Interactivo de Desarrollo Móvil
                 </div>
-                <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 900, color: '#0f172a', margin: '0 0 0.5rem', letterSpacing: '-1px' }}>
+                <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 900, color: 'var(--text-main)', margin: '0 0 0.5rem', letterSpacing: '-1px' }}>
                     Simulador React Native & Expo
                 </h1>
-                <p style={{ fontSize: '1.05rem', color: '#64748b', maxWidth: '850px', margin: 0, lineHeight: 1.6 }}>
+                <p style={{ fontSize: '1.05rem', color: 'var(--text-dim)', maxWidth: '850px', margin: 0, lineHeight: 1.6 }}>
                     Experimenta en tiempo real con componentes nativos, layouts flexibles, navegación Expo Router, formularios validados con Zod, base de datos Firebase y sensores de hardware dentro de un smartphone simulado.
                 </p>
             </header>
@@ -88,32 +94,32 @@ const SimuladorReactNative = () => {
 
                     {/* Guía Rápida para el Alumno */}
                     <div style={{ marginTop: '2.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-                        <div style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '1.25rem', borderRadius: '16px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#0284c7', fontWeight: '800', marginBottom: '0.5rem' }}>
+                        <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', padding: '1.25rem', borderRadius: '16px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary-color)', fontWeight: '800', marginBottom: '0.5rem' }}>
                                 <Smartphone size={18} />
                                 <span>1. Probar en tu propio celular</span>
                             </div>
-                            <p style={{ fontSize: '0.88rem', color: '#64748b', margin: 0, lineHeight: 1.5 }}>
-                                Instala <strong>Expo Go</strong> desde Google Play o App Store. Haz clic en <em>"Abrir en Expo Snack"</em> y escanea el código QR para correr la app en tu teléfono físico sin cables.
+                            <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', margin: 0, lineHeight: 1.5 }}>
+                                Instala <strong style={{ color: 'var(--text-main)' }}>Expo Go</strong> desde Google Play o App Store. Haz clic en <em>"Abrir en Expo Snack"</em> y escanea el código QR para correr la app en tu teléfono físico sin cables.
                             </p>
                         </div>
 
-                        <div style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '1.25rem', borderRadius: '16px' }}>
+                        <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', padding: '1.25rem', borderRadius: '16px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10b981', fontWeight: '800', marginBottom: '0.5rem' }}>
                                 <Terminal size={18} />
                                 <span>2. Consola de Depuración</span>
                             </div>
-                            <p style={{ fontSize: '0.88rem', color: '#64748b', margin: 0, lineHeight: 1.5 }}>
+                            <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', margin: 0, lineHeight: 1.5 }}>
                                 Cada acción, toque y cambio de estado dispara eventos en la consola Metro Bundler simulada, mostrando el ciclo de renderizado y las mutaciones.
                             </p>
                         </div>
 
-                        <div style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '1.25rem', borderRadius: '16px' }}>
+                        <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', padding: '1.25rem', borderRadius: '16px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#8b5cf6', fontWeight: '800', marginBottom: '0.5rem' }}>
                                 <Zap size={18} />
                                 <span>3. Proyecto Integrador</span>
                             </div>
-                            <p style={{ fontSize: '0.88rem', color: '#64748b', margin: 0, lineHeight: 1.5 }}>
+                            <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', margin: 0, lineHeight: 1.5 }}>
                                 Combina estos módulos para tu entrega del Parcial 2: autenticación con Firebase, navegación en pestañas y cámara integrada.
                             </p>
                         </div>
@@ -124,34 +130,34 @@ const SimuladorReactNative = () => {
             {/* TAB CONTENT: ARQUITECTURA (Bridge vs New Architecture) */}
             {activeTab === 'arquitectura' && (
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                    <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '20px', padding: '2rem' }}>
-                        <h2 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0f172a', marginBottom: '1rem' }}>
+                    <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '2rem' }}>
+                        <h2 style={{ fontSize: '1.6rem', fontWeight: 900, color: 'var(--text-main)', marginBottom: '1rem' }}>
                             ¿Cómo funciona React Native por dentro?
                         </h2>
-                        <p style={{ color: '#475569', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                            A diferencia de Flutter (que dibuja sus propios píxeles con Skia o Impeller) o Ionic (que corre dentro de un WebView HTML), <strong>React Native ejecuta componentes 100% nativos del sistema operativo (UIKit en iOS y Android Views en Android)</strong> gobernados por código JavaScript/TypeScript.
+                        <p style={{ color: 'var(--text-dim)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                            A diferencia de Flutter (que dibuja sus propios píxeles con Skia o Impeller) o Ionic (que corre dentro de un WebView HTML), <strong style={{ color: 'var(--text-main)' }}>React Native ejecuta componentes 100% nativos del sistema operativo (UIKit en iOS y Android Views en Android)</strong> gobernados por código JavaScript/TypeScript.
                         </p>
 
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
                             {/* Arquitectura Clásica */}
-                            <div style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '1.5rem' }}>
-                                <span style={{ fontSize: '0.75rem', fontWeight: '800', background: '#e2e8f0', color: '#475569', padding: '2px 8px', borderRadius: '6px' }}>HISTÓRICO</span>
-                                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0.6rem 0 0.4rem', color: '#1e293b' }}>El Puente Asíncrono (The Bridge)</h3>
-                                <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5 }}>
+                            <div style={{ background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', borderRadius: '14px', padding: '1.5rem' }}>
+                                <span style={{ fontSize: '0.75rem', fontWeight: '800', background: 'rgba(148, 163, 184, 0.2)', color: 'var(--text-dim)', padding: '2px 8px', borderRadius: '6px' }}>HISTÓRICO</span>
+                                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0.6rem 0 0.4rem', color: 'var(--text-main)' }}>El Puente Asíncrono (The Bridge)</h3>
+                                <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', lineHeight: 1.5 }}>
                                     JavaScript y el código nativo (Java/Obj-C) se comunicaban serializando mensajes JSON a través de un puente asíncrono. En listas con miles de elementos o animaciones complejas, este puente podía congestionarse causando caídas de frames.
                                 </p>
                             </div>
 
                             {/* Nueva Arquitectura */}
-                            <div style={{ background: 'rgba(2,132,199,0.04)', border: '1px solid #0284c7', borderRadius: '14px', padding: '1.5rem' }}>
-                                <span style={{ fontSize: '0.75rem', fontWeight: '800', background: '#0284c7', color: '#fff', padding: '2px 8px', borderRadius: '6px' }}>NUEVA ARQUITECTURA (ACTUAL)</span>
-                                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0.6rem 0 0.4rem', color: '#0284c7' }}>JSI, Hermes & Fabric</h3>
-                                <p style={{ fontSize: '0.88rem', color: '#334155', lineHeight: 1.5 }}>
-                                    <strong>JavaScript Interface (JSI):</strong> Permite que JavaScript sostenga referencias a objetos nativos C++ en memoria y los invoque directamente de forma síncrona sin serializar JSON.
+                            <div style={{ background: 'rgba(56,189,248,0.08)', border: '1.5px solid var(--primary-color)', borderRadius: '14px', padding: '1.5rem' }}>
+                                <span style={{ fontSize: '0.75rem', fontWeight: '800', background: 'var(--primary-color)', color: '#0f172a', padding: '2px 8px', borderRadius: '6px' }}>NUEVA ARQUITECTURA (ACTUAL)</span>
+                                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0.6rem 0 0.4rem', color: 'var(--primary-color)' }}>JSI, Hermes & Fabric</h3>
+                                <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', lineHeight: 1.5 }}>
+                                    <strong style={{ color: 'var(--text-main)' }}>JavaScript Interface (JSI):</strong> Permite que JavaScript sostenga referencias a objetos nativos C++ en memoria y los invoque directamente de forma síncrona sin serializar JSON.
                                     <br /><br />
-                                    <strong>Hermes:</strong> Motor JS optimizado por Meta para arranque instantáneo y mínimo consumo de RAM.
+                                    <strong style={{ color: 'var(--text-main)' }}>Hermes:</strong> Motor JS optimizado por Meta para arranque instantáneo y mínimo consumo de RAM.
                                     <br /><br />
-                                    <strong>Fabric Render & TurboModules:</strong> Renderizador nativo concurrente y carga bajo demanda de módulos nativos.
+                                    <strong style={{ color: 'var(--text-main)' }}>Fabric Render & TurboModules:</strong> Renderizador nativo concurrente y carga bajo demanda de módulos nativos.
                                 </p>
                             </div>
                         </div>
@@ -172,12 +178,12 @@ const SimuladorReactNative = () => {
                         { tag: 'ScrollView', equiv: 'div con scroll', desc: 'Contenedor con desplazamiento simple para pantallas con poco contenido.' },
                         { tag: 'KeyboardAvoidingView', equiv: 'Nativo', desc: 'Ajusta la interfaz cuando el teclado virtual del teléfono se abre.' },
                     ].map(c => (
-                        <div key={c.tag} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '1.25rem' }}>
+                        <div key={c.tag} style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '14px', padding: '1.25rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                <code style={{ fontSize: '1rem', fontWeight: '800', color: '#0284c7', background: 'rgba(2,132,199,0.08)', padding: '2px 8px', borderRadius: '6px' }}>&lt;{c.tag} /&gt;</code>
-                                <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Web: &lt;{c.equiv}&gt;</span>
+                                <code style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--primary-color)', background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', padding: '2px 8px', borderRadius: '6px' }}>&lt;{c.tag} /&gt;</code>
+                                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Web: &lt;{c.equiv}&gt;</span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5 }}>{c.desc}</p>
+                            <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-dim)', lineHeight: 1.5 }}>{c.desc}</p>
                         </div>
                     ))}
                 </motion.div>

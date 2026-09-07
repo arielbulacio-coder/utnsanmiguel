@@ -16,36 +16,43 @@
 
 :root {
   /* Common colors */
-  --primary-color: #00f2ff;
-  --secondary-color: #ff0055;
+  --primary-color: #38bdf8;
+  --secondary-color: #f43f5e;
 
-  /* Dark theme (default) */
-  --bg-color: #0f172a;
-  --bg-gradient: radial-gradient(circle at top center, #1e293b 0%, #0f172a 100%);
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  /* Dark theme (default) - High contrast & accessibility */
+  --bg-color: #0b1329;
+  --bg-gradient: radial-gradient(circle at top center, #172554 0%, #0b1329 100%);
+  --glass-bg: rgba(15, 23, 42, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --card-bg: rgba(17, 24, 39, 0.92);
+  --card-inner-bg: rgba(30, 41, 59, 0.75);
+  --border-color: rgba(255, 255, 255, 0.18);
   --text-main: #ffffff;
-  --text-dim: #e2e8f0;
-  --text-dark: #1e293b;
-  --nav-bg: rgba(15, 23, 42, 0.95);
-  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  --input-bg: rgba(0, 0, 0, 0.3);
+  --text-dim: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-dark: #0f172a;
+  --nav-bg: rgba(11, 19, 41, 0.96);
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  --input-bg: rgba(15, 23, 42, 0.85);
 }
 
 [data-theme='light'] {
   --primary-color: #0284c7;
-  /* A bit darker blue for better contrast on light */
-  --secondary-color: #e11d48;
+  --secondary-color: #be123c;
   --bg-color: #f8fafc;
   --bg-gradient: radial-gradient(circle at top center, #f1f5f9 0%, #e2e8f0 100%);
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(15, 23, 42, 0.1);
-  --text-main: #1e293b;
-  --text-dim: #475569;
-  --text-dark: #0f172a;
-  --nav-bg: rgba(255, 255, 255, 0.9);
-  --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-  --input-bg: rgba(255, 255, 255, 0.8);
+  --glass-bg: rgba(255, 255, 255, 0.96);
+  --glass-border: rgba(15, 23, 42, 0.16);
+  --card-bg: #ffffff;
+  --card-inner-bg: #f8fafc;
+  --border-color: #cbd5e1;
+  --text-main: #090d16;
+  --text-dim: #1e293b;
+  --text-muted: #475569;
+  --text-dark: #090d16;
+  --nav-bg: rgba(255, 255, 255, 0.96);
+  --card-shadow: 0 8px 30px 0 rgba(15, 23, 42, 0.08);
+  --input-bg: #ffffff;
 }
 
 /* Reset para forzar colores claros */
@@ -188,14 +195,23 @@ p {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Forzar colores claros dentro de cards */
-.glass-card>*:not(.active):not(button):not(input):not(.result-value) {
-  color: var(--text-dim);
+/* Reglas de texto de alto contraste dentro de glass cards */
+.glass-card p {
+  color: var(--text-dim) !important;
+}
+
+.glass-card h1,
+.glass-card h2,
+.glass-card h3,
+.glass-card h4,
+.glass-card h5,
+.glass-card h6 {
+  color: var(--text-main) !important;
 }
 
 .glass-card strong,
 .glass-card b {
-  color: var(--text-main);
+  color: var(--text-main) !important;
 }
 
 /* Layout - Mobile First */
@@ -533,11 +549,12 @@ blockquote {
 }
 
 code {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--card-inner-bg);
   color: var(--primary-color) !important;
+  border: 1px solid var(--border-color);
   padding: 2px 6px;
   border-radius: 4px;
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 /* Tablas */
@@ -596,9 +613,25 @@ td {
   }
 }
 
-/* Sobrescribir cualquier color negro heredado, excepto en elementos con clases específicas de UI */
+/* --- REGLAS GLOBALES DE ALTO CONTRASTE (DARK & LIGHT) --- */
+
+/* Normalización de colores grises y opacos para asegurar ratio WCAG AA/AAA */
+[style*="color: #64748b"],
+[style*="color:#64748b"],
+[style*="color: #475569"],
+[style*="color:#475569"],
+[style*="color: #94a3b8"],
+[style*="color:#94a3b8"],
 [style*="color: rgba(0,0,0"]:not(.nav-btn-login) {
   color: var(--text-dim) !important;
+}
+
+/* Normalización de textos oscuros fijos para que se adapten a dark mode */
+[style*="color: #0f172a"],
+[style*="color:#0f172a"],
+[style*="color: #1e293b"],
+[style*="color:#1e293b"] {
+  color: var(--text-main) !important;
 }
 
 /* --- THEME COMPATIBILITY FIXES --- */
