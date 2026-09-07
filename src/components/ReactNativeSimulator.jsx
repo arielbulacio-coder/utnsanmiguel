@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
                                     }}
                                     style={{ flex: 1, padding: '5px', borderRadius: '6px', background: '#6366f1', color: '#fff', fontSize: '11px', fontWeight: '700' }}
                                 >
-                                    Justify: {justify.slice(0, 7)}
+                                    Justify: {String(justify || '').slice(0, 7)}
                                 </button>
                             </div>
                         </div>
@@ -3687,6 +3687,12 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
     );
 };
 
+const PresetSimulatorHost = ({ preset, config, log }) => {
+    const SimulatorComponent = preset?.renderSimulator;
+    if (!SimulatorComponent) return null;
+    return <SimulatorComponent config={config} log={log} />;
+};
+
 const PRESET_EXPLANATIONS = {
     supabase_crud: {
         badge: 'Base de Datos PostgreSQL Cloud • Supabase',
@@ -5175,10 +5181,13 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                                         </div>
                                     </>
                                 ) : activePreset.renderSimulator ? (
-                                    activePreset.renderSimulator({
-                                        config: {},
-                                        log: addLog
-                                    })
+                                    <LiveErrorBoundary key={`${selectedPresetId}-${keyReload}`} resetKey={`${selectedPresetId}-${keyReload}`}>
+                                        <PresetSimulatorHost
+                                            preset={activePreset}
+                                            config={{}}
+                                            log={addLog}
+                                        />
+                                    </LiveErrorBoundary>
                                 ) : (
                                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                                         <LiveSimulatorRunner
