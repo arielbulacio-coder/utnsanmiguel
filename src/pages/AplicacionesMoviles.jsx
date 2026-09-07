@@ -7,12 +7,13 @@ import {
     Smartphone, BookOpen, Layers, Code, Zap, Database, Camera,
     ShieldCheck, Sparkles, Navigation, List, ExternalLink, ArrowRight,
     GraduationCap, Calendar, Users, CheckCircle2, FileText, Download,
-    FolderGit2, Rocket, Award, Cpu, ShieldAlert, BookMarked
+    FolderGit2, Rocket, Award, Cpu, ShieldAlert, BookMarked, Eye, X
 } from 'lucide-react';
 
 const AplicacionesMoviles = ({ defaultTab }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedTab, setSelectedTab] = useState(defaultTab || searchParams.get('tab') || 'unidades'); // 'unidades' | 'proyecto' | 'evaluacion' | 'examen' | 'bibliografia'
+    const [activePdfViewer, setActivePdfViewer] = useState(null); // { title, driveId, chapter }
 
     useEffect(() => {
         const tab = searchParams.get('tab');
@@ -21,12 +22,15 @@ const AplicacionesMoviles = ({ defaultTab }) => {
         }
     }, [searchParams]);
 
+    const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ';
+
     const unidades = [
         {
             num: 'UNIDAD 1',
             title: 'Fundamentos de React Native y Expo',
             color: '#0284c7',
             desc: 'Configuración del entorno, arquitectura híbrida vs nativa, componentes básicos, listas optimizadas y navegación basada en archivos.',
+            driveFolder: DRIVE_FOLDER_URL,
             clases: [
                 {
                     code: '1.1',
@@ -39,7 +43,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Modelo de cajas móvil y Flexbox nativo'
                     ],
                     preset: 'flexbox',
-                    simulatorTag: 'Simular Flexbox'
+                    simulatorTag: 'Simular Flexbox',
+                    materials: [
+                        {
+                            title: 'Learning React Native: Arquitectura, JSX y Estilos',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulos 1 y 2: "The Architecture of React Native" y "First App"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Diseñando Apps para Móviles: Anatomía y Ergonomía Táctil',
+                            book: 'Javier Cuello & José Vittone',
+                            chapter: 'Capítulo 1: Anatomía de aplicaciones móviles y plataformas nativas',
+                            driveId: '1zfYEA8SW6_Noy34hcsbFyFTOqLpD7_-f',
+                            size: '44.7 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Documentación de Sistemas: Guía de Arquitectura y Entorno',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Presentación: Estándares de Arquitectura y Configuración del Entorno',
+                            driveId: '119kxXKhBVoOgoqPNRo-qBhCBnC_L9VYp',
+                            size: '58 KB',
+                            type: 'presentacion'
+                        }
+                    ]
                 },
                 {
                     code: '1.2',
@@ -52,7 +82,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Renderizado condicional en mobile'
                     ],
                     preset: 'flatlist',
-                    simulatorTag: 'Simular Listas'
+                    simulatorTag: 'Simular Listas',
+                    materials: [
+                        {
+                            title: 'Learning React Native: Componentes Core, Flexbox y Listas',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulos 3 y 4: "Components for Mobile" y "Styles & Layout"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Diseñando Apps para Móviles: Zonas del Pulgar y Espaciado Táctil',
+                            book: 'Javier Cuello & José Vittone',
+                            chapter: 'Capítulo 3: Patrones visuales, alcance del pulgar y botones de acción',
+                            driveId: '1zfYEA8SW6_Noy34hcsbFyFTOqLpD7_-f',
+                            size: '44.7 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Usabilidad en Aplicaciones Móviles: Eficiencia Perceptiva en Listas',
+                            book: 'Dialnet / Universidad de Zaragoza',
+                            chapter: 'Capítulo 2: Densidad de información y jerarquía táctil en listas móviles',
+                            driveId: '1X6w8pogsDCWZizgzUByosOowi0iXobJG',
+                            size: '882 KB',
+                            type: 'pdf'
+                        }
+                    ]
                 },
                 {
                     code: '1.3',
@@ -65,7 +121,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Estructura recomendada: grupos (tabs) y (auth)'
                     ],
                     preset: 'router',
-                    simulatorTag: 'Simular Router'
+                    simulatorTag: 'Simular Router',
+                    materials: [
+                        {
+                            title: 'Diseñando Apps para Móviles: Patrones de Navegación',
+                            book: 'Javier Cuello & José Vittone',
+                            chapter: 'Capítulo 4: Patrones de navegación (Tabs, Stacks, Drawer y Modales)',
+                            driveId: '1zfYEA8SW6_Noy34hcsbFyFTOqLpD7_-f',
+                            size: '44.7 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Diseño de Interfaces: Navegación Consistente y Orientación',
+                            book: 'Ian Sommerville',
+                            chapter: 'Capítulo 16: Interacción de usuario, consistencia visual y navegación',
+                            driveId: '1GMc7pTpFpvV60x1_TFKFdWZyb0fSWTq5',
+                            size: '907 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Learning React Native: Navegación y Enlaces Profundos',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulo 5: "Navigation Patterns & Deep Linking in Native Apps"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        }
+                    ]
                 }
             ]
         },
@@ -74,6 +156,7 @@ const AplicacionesMoviles = ({ defaultTab }) => {
             title: 'Funcionalidades e Integración de Datos',
             color: '#10b981',
             desc: 'Estado global, consumo de APIs REST, validación tipada con Zod, formularios móviles y acceso a sensores nativos del smartphone.',
+            driveFolder: DRIVE_FOLDER_URL,
             clases: [
                 {
                     code: '2.1',
@@ -86,7 +169,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Flujo de Pull Requests y code reviews en equipo'
                     ],
                     preset: 'state',
-                    simulatorTag: 'Simular Estado'
+                    simulatorTag: 'Simular Estado',
+                    materials: [
+                        {
+                            title: 'Documentación de Sistemas: Flujo Git, Ramas y Pull Requests',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Presentación y Guía: Git Flow, ramas colaborativas y Code Reviews',
+                            driveId: '119kxXKhBVoOgoqPNRo-qBhCBnC_L9VYp',
+                            size: '58 KB',
+                            type: 'presentacion'
+                        },
+                        {
+                            title: 'Análisis y Diseño de Sistemas: Coordinación Ágil de Proyectos',
+                            book: 'Kendall & Kendall (8va Ed.)',
+                            chapter: 'Capítulo 3: Metodologías ágiles, trabajo colaborativo y control de versiones',
+                            driveId: '1ZuYaZt0vOy8gsAyn4oj209qCmU5EfdBZ',
+                            size: '7.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Learning React Native: Arquitectura de Estado Centralizado',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulo 6: "State Architecture, Store Separation & Persistence"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        }
+                    ]
                 },
                 {
                     code: '2.2',
@@ -99,7 +208,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Inicialización y tipado de firebase.ts'
                     ],
                     preset: 'api',
-                    simulatorTag: 'Simular Fetch'
+                    simulatorTag: 'Simular Fetch',
+                    materials: [
+                        {
+                            title: 'Learning React Native: Peticiones de Red y APIs Asíncronas',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulo 7: "Working with the Network: REST APIs and Async Lifecycle"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Usabilidad en Aplicaciones Móviles: Latencia y Feedback Visual',
+                            book: 'Dialnet / Universidad de Zaragoza',
+                            chapter: 'Capítulo 3: Indicadores de carga, tolerancia a la espera y feedback de error',
+                            driveId: '1X6w8pogsDCWZizgzUByosOowi0iXobJG',
+                            size: '882 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Análisis y Diseño de Sistemas: Contratos de Datos y Servicios Web',
+                            book: 'Kendall & Kendall (8va Ed.)',
+                            chapter: 'Capítulo 12: Diseño de interfaces de entrada/salida y contratos de servicio',
+                            driveId: '1ZuYaZt0vOy8gsAyn4oj209qCmU5EfdBZ',
+                            size: '7.1 MB',
+                            type: 'pdf'
+                        }
+                    ]
                 },
                 {
                     code: '2.3',
@@ -112,7 +247,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Manejo de errores visuales y accesibilidad'
                     ],
                     preset: 'form',
-                    simulatorTag: 'Simular Zod'
+                    simulatorTag: 'Simular Zod',
+                    materials: [
+                        {
+                            title: 'Diseñando Apps para Móviles: Formularios Móviles y Teclados',
+                            book: 'Javier Cuello & José Vittone',
+                            chapter: 'Capítulo 5: Diseño de Formularios móviles: tipos de teclado y validación inmediata',
+                            driveId: '1zfYEA8SW6_Noy34hcsbFyFTOqLpD7_-f',
+                            size: '44.7 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Diseño de Interfaces: Validación y Prevención de Errores',
+                            book: 'Ian Sommerville',
+                            chapter: 'Capítulo 16: Interfaz centrada en el usuario, mensajes de error y tolerancia a fallos',
+                            driveId: '1GMc7pTpFpvV60x1_TFKFdWZyb0fSWTq5',
+                            size: '907 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Learning React Native: Entradas de Usuario y Formularios Controlados',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulo 4: "User Input Components, Controlled Forms and Keyboard Handling"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        }
+                    ]
                 },
                 {
                     code: '2.4',
@@ -125,7 +286,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'expo-secure-store vs AsyncStorage para credenciales'
                     ],
                     preset: 'hardware',
-                    simulatorTag: 'Simular Sensores'
+                    simulatorTag: 'Simular Sensores',
+                    materials: [
+                        {
+                            title: 'Learning React Native: Sensores Nativos, Ubicación y Cámara',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulo 8: "Integrating Hardware Sensors, Geolocation & Camera Access"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Usabilidad en Aplicaciones Móviles: Permisos en Runtime y Confianza',
+                            book: 'Dialnet / Universidad de Zaragoza',
+                            chapter: 'Capítulo 4: Solicitud contextual de permisos, transparencia y privacidad',
+                            driveId: '1X6w8pogsDCWZizgzUByosOowi0iXobJG',
+                            size: '882 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Diseñando Apps para Móviles: Funciones Nativas del Smartphone',
+                            book: 'Javier Cuello & José Vittone',
+                            chapter: 'Capítulo 7: Hardware móvil: cámara, geolocalización y notificaciones del sistema',
+                            driveId: '1zfYEA8SW6_Noy34hcsbFyFTOqLpD7_-f',
+                            size: '44.7 MB',
+                            type: 'pdf'
+                        }
+                    ]
                 }
             ]
         },
@@ -134,6 +321,7 @@ const AplicacionesMoviles = ({ defaultTab }) => {
             title: 'Producción, Performance y Despliegue',
             color: '#8b5cf6',
             desc: 'Backend en tiempo real con Firebase, optimización con Reanimated a 60fps, pruebas unitarias y compilación de APKs en la nube con EAS.',
+            driveFolder: DRIVE_FOLDER_URL,
             clases: [
                 {
                     code: '3.1',
@@ -146,7 +334,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Reglas de seguridad (Security Rules) con auth.uid'
                     ],
                     preset: 'firebase',
-                    simulatorTag: 'Simular Firestore'
+                    simulatorTag: 'Simular Firestore',
+                    materials: [
+                        {
+                            title: 'Análisis y Diseño de Sistemas: Bases de Datos y Seguridad Cloud',
+                            book: 'Kendall & Kendall (8va Ed.)',
+                            chapter: 'Capítulo 13: Diseño de bases de datos documentales y reglas de seguridad de acceso',
+                            driveId: '1ZuYaZt0vOy8gsAyn4oj209qCmU5EfdBZ',
+                            size: '7.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Documentación de Sistemas: Especificación de Modelo Cloud y Auth',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Presentación: Esquema de Colecciones Firestore y Reglas de Seguridad',
+                            driveId: '119kxXKhBVoOgoqPNRo-qBhCBnC_L9VYp',
+                            size: '58 KB',
+                            type: 'presentacion'
+                        },
+                        {
+                            title: 'Learning React Native: Backend Cloud y Datos en Tiempo Real',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulo 9: "Backend Integration, Real-time Data Sync & Secure Storage"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        }
+                    ]
                 },
                 {
                     code: '3.2',
@@ -159,7 +373,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Accesibilidad (A11y): etiquetas para lectores de pantalla'
                     ],
                     preset: 'animations',
-                    simulatorTag: 'Simular Reanimated'
+                    simulatorTag: 'Simular Reanimated',
+                    materials: [
+                        {
+                            title: 'Learning React Native: Optimización a 60 FPS y Animaciones',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulo 10: "Performance Tuning: 60 FPS Animations, Memoization & Profiling"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Diseño de Interfaces: Pruebas de Calidad y Accesibilidad (A11y)',
+                            book: 'Ian Sommerville',
+                            chapter: 'Capítulo 16: Pruebas de usabilidad, evaluación heurística y diseño universal inclusivo',
+                            driveId: '1GMc7pTpFpvV60x1_TFKFdWZyb0fSWTq5',
+                            size: '907 KB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Usabilidad en Aplicaciones Móviles: Fluidez y Experiencia Subjetiva',
+                            book: 'Dialnet / Universidad de Zaragoza',
+                            chapter: 'Capítulo 5: Tasa de refresco, microanimaciones y retención cognitiva del usuario',
+                            driveId: '1X6w8pogsDCWZizgzUByosOowi0iXobJG',
+                            size: '882 KB',
+                            type: 'pdf'
+                        }
+                    ]
                 },
                 {
                     code: '3.3',
@@ -172,7 +412,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Preparación de metadatos, capturas e íconos de Stores'
                     ],
                     preset: 'eas',
-                    simulatorTag: 'Ver Build EAS'
+                    simulatorTag: 'Ver Build EAS',
+                    materials: [
+                        {
+                            title: 'Learning React Native: Compilación Nativa y Distribución en Tiendas',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Capítulo 11: "Deployment: Compiling Binaries, Code Signing & App Stores"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Documentación de Sistemas: Checklist de Entrega y Demo Day',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Presentación: Pautas para la Presentación en Vivo, Rúbricas y Entregables',
+                            driveId: '119kxXKhBVoOgoqPNRo-qBhCBnC_L9VYp',
+                            size: '58 KB',
+                            type: 'presentacion'
+                        },
+                        {
+                            title: 'Diseñando Apps para Móviles: Publicación y Lineamientos de Stores',
+                            book: 'Javier Cuello & José Vittone',
+                            chapter: 'Capítulo 8: Publicación en Google Play y App Store: capturas y lineamientos de aprobación',
+                            driveId: '1zfYEA8SW6_Noy34hcsbFyFTOqLpD7_-f',
+                            size: '44.7 MB',
+                            type: 'pdf'
+                        }
+                    ]
                 },
                 {
                     code: '3.4',
@@ -185,7 +451,33 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         'Refactoring y buenas prácticas asistidas por IA'
                     ],
                     preset: 'ai',
-                    simulatorTag: 'Ver IA Assistant'
+                    simulatorTag: 'Ver IA Assistant',
+                    materials: [
+                        {
+                            title: 'Learning React Native: Herramientas Modernas y Depuración',
+                            book: "Bonnie Eisenman (O'Reilly)",
+                            chapter: 'Apéndice: "Developer Tools, Fast Debugging and Productivity Workflows"',
+                            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+                            size: '15.1 MB',
+                            type: 'pdf'
+                        },
+                        {
+                            title: 'Documentación de Sistemas: Arquitectura Asistida y Buenas Prácticas',
+                            book: 'Cátedra UNPilar / UTN',
+                            chapter: 'Presentación: Flujos de Desarrollo Asistido por IA y Calidad de Código',
+                            driveId: '119kxXKhBVoOgoqPNRo-qBhCBnC_L9VYp',
+                            size: '58 KB',
+                            type: 'presentacion'
+                        },
+                        {
+                            title: 'Análisis y Diseño de Sistemas: Nuevas Fronteras Tecnológicas',
+                            book: 'Kendall & Kendall (8va Ed.)',
+                            chapter: 'Capítulo 1: El rol del analista y los entornos colaborativos aumentados',
+                            driveId: '1ZuYaZt0vOy8gsAyn4oj209qCmU5EfdBZ',
+                            size: '7.1 MB',
+                            type: 'pdf'
+                        }
+                    ]
                 }
             ]
         }
@@ -197,45 +489,66 @@ const AplicacionesMoviles = ({ defaultTab }) => {
             autor: 'Bonnie Eisenman',
             editorial: "O'Reilly Media",
             año: '2017 (2da Ed.)',
-            enlace: 'https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ',
-            rol: 'Lectura Base',
-            desc: 'Fundamentos de la arquitectura puente, componentes nativos y ciclo de vida de aplicaciones móviles con JavaScript.'
+            driveId: '1xZnzwSc201tBUfA2rRFOT4HVfXacLsMD',
+            tamaño: '15.1 MB',
+            rol: 'Lectura Base Oficial',
+            tipo: 'Libro PDF',
+            desc: 'Fundamentos de la arquitectura puente, componentes nativos (View, Text, FlatList), Flexbox nativo y ciclo de vida de aplicaciones móviles con JavaScript.'
         },
         {
-            titulo: 'Learning React: Modern Patterns for Developing React Apps',
-            autor: 'Alex Banks & Eve Porcello',
-            editorial: "O'Reilly Media",
-            año: '2020 (2da Ed.)',
-            enlace: 'https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ',
-            rol: 'Complementaria',
-            desc: 'Patrones funcionales modernos, hooks personalizados y manejo inmutable de estado que aplican directamente a React Native.'
-        },
-        {
-            titulo: 'Diseñando Apps para móviles',
+            titulo: 'Diseñando Apps para Móviles',
             autor: 'Javier Cuello & José Vittone',
             editorial: 'Edición de autor',
             año: '2013 / Actualizado',
-            enlace: 'https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ',
-            rol: 'Lectura UX/UI',
-            desc: 'Guía esencial en español sobre ergonomía de interfaces móviles, patrones de interacción táctil y zonas de alcance del pulgar.'
+            driveId: '1zfYEA8SW6_Noy34hcsbFyFTOqLpD7_-f',
+            tamaño: '44.7 MB',
+            rol: 'Lectura UX/UI Oficial',
+            tipo: 'Libro PDF',
+            desc: 'Guía esencial en español sobre ergonomía de interfaces táctiles, zonas de alcance del pulgar, formularios móviles y patrones de navegación.'
         },
         {
-            titulo: 'Ingeniería del Software',
+            titulo: 'Diseño de Interfaces (Capítulo 16 - Ingeniería del Software)',
             autor: 'Ian Sommerville',
             editorial: 'Pearson Educación',
             año: '2011 (9na Ed.)',
-            enlace: 'https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ',
-            rol: 'Metodología',
-            desc: 'Procesos ágiles, control de versiones, pruebas de software y ciclo de vida para el desarrollo en equipo.'
+            driveId: '1GMc7pTpFpvV60x1_TFKFdWZyb0fSWTq5',
+            tamaño: '907 KB',
+            rol: 'Diseño & Usabilidad',
+            tipo: 'Capítulo PDF',
+            desc: 'Principios universales de diseño de interacción, retroalimentación del sistema, consistencia de interfaz y prevención de errores.'
+        },
+        {
+            titulo: 'Usabilidad en Aplicaciones Móviles',
+            autor: 'Dialnet / Universidad de Zaragoza',
+            editorial: 'Investigación Académica',
+            año: '2016',
+            driveId: '1X6w8pogsDCWZizgzUByosOowi0iXobJG',
+            tamaño: '882 KB',
+            rol: 'Investigación Aplicada',
+            tipo: 'Paper PDF',
+            desc: 'Heurísticas de usabilidad para smartphones, gestión de permisos en tiempo de ejecución, respuesta ante latencia de red y rendimiento perceptivo.'
         },
         {
             titulo: 'Análisis y Diseño de Sistemas',
             autor: 'Kenneth E. Kendall & Julie E. Kendall',
             editorial: 'Pearson Educación',
             año: '2011 (8va Ed.)',
-            enlace: 'https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ',
-            rol: 'Diseño de Requisitos',
-            desc: 'Modelado de requisitos, diagramas de interacción y especificación funcional de sistemas de información.'
+            driveId: '1ZuYaZt0vOy8gsAyn4oj209qCmU5EfdBZ',
+            tamaño: '7.1 MB',
+            rol: 'Ingeniería de Requisitos',
+            tipo: 'Libro PDF',
+            desc: 'Modelado de requisitos, metodologías ágiles, diseño de bases de datos documentales, APIs y especificación funcional de sistemas.'
+        },
+        {
+            titulo: 'Documentación de Sistemas: Guía de Cátedra & Presentaciones',
+            autor: 'Cátedra UNPilar / UTN',
+            editorial: 'Material Docente Universitario',
+            año: '2025 / 2026',
+            driveId: '119kxXKhBVoOgoqPNRo-qBhCBnC_L9VYp',
+            tamaño: '58 KB',
+            rol: 'Guía de Cátedra',
+            tipo: 'Presentación / Guía',
+            desc: 'Flujo de trabajo en Git/GitHub, directrices de entrega del proyecto integrador, rúbricas del Demo Day y pautas de arquitectura móvil.'
         }
     ];
 
@@ -381,13 +694,37 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     {unidades.map(u => (
                         <section key={u.num} style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '24px', padding: '2rem', boxShadow: 'var(--card-shadow)' }}>
                             {/* Cabecera de la Unidad */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
-                                <span style={{ padding: '0.35rem 0.85rem', background: u.color, color: '#fff', borderRadius: '8px', fontWeight: 900, fontSize: '0.78rem', letterSpacing: '1px' }}>
-                                    {u.num}
-                                </span>
-                                <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)', fontWeight: 900, margin: 0, color: 'var(--text-main)' }}>
-                                    {u.title}
-                                </h2>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                                    <span style={{ padding: '0.35rem 0.85rem', background: u.color, color: '#fff', borderRadius: '8px', fontWeight: 900, fontSize: '0.78rem', letterSpacing: '1px' }}>
+                                        {u.num}
+                                    </span>
+                                    <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)', fontWeight: 900, margin: 0, color: 'var(--text-main)' }}>
+                                        {u.title}
+                                    </h2>
+                                </div>
+                                <a
+                                    href={u.driveFolder}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.4rem',
+                                        padding: '0.45rem 0.9rem',
+                                        background: 'var(--card-inner-bg)',
+                                        border: '1px solid var(--border-color)',
+                                        borderRadius: '10px',
+                                        color: 'var(--primary-color)',
+                                        fontSize: '0.82rem',
+                                        fontWeight: '700',
+                                        textDecoration: 'none'
+                                    }}
+                                >
+                                    <FolderGit2 size={15} />
+                                    <span>Carpeta Drive Unidad</span>
+                                    <ExternalLink size={13} />
+                                </a>
                             </div>
                             <p style={{ color: 'var(--text-dim)', fontSize: '0.98rem', lineHeight: 1.6, marginBottom: '1.5rem', maxWidth: '850px' }}>
                                 {u.desc}
@@ -424,11 +761,97 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                                                 {c.name}
                                             </h3>
 
-                                            <ul style={{ margin: 0, paddingLeft: '1.2rem', color: 'var(--text-dim)', fontSize: '0.85rem', lineHeight: 1.6 }}>
+                                            <ul style={{ margin: '0 0 1rem 0', paddingLeft: '1.2rem', color: 'var(--text-dim)', fontSize: '0.85rem', lineHeight: 1.6 }}>
                                                 {c.topics.map((t, idx) => (
                                                     <li key={idx} style={{ marginBottom: '4px' }}>{t}</li>
                                                 ))}
                                             </ul>
+
+                                            {/* Materiales y Presentaciones Google Drive */}
+                                            {c.materials && c.materials.length > 0 && (
+                                                <div style={{ marginTop: '0.75rem', background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '0.85rem' }}>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.6rem', color: 'var(--primary-color)', fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                                        <BookOpen size={13} />
+                                                        <span>Lecturas y Presentaciones PDF:</span>
+                                                    </div>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                                                        {c.materials.map((m, mIdx) => (
+                                                            <div
+                                                                key={mIdx}
+                                                                style={{
+                                                                    display: 'flex',
+                                                                    flexDirection: 'column',
+                                                                    gap: '0.3rem',
+                                                                    padding: '0.5rem 0.65rem',
+                                                                    background: 'var(--card-inner-bg)',
+                                                                    border: '1px solid var(--border-color)',
+                                                                    borderRadius: '8px'
+                                                                }}
+                                                            >
+                                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
+                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flex: 1 }}>
+                                                                        <FileText size={13} color="var(--primary-color)" style={{ flexShrink: 0 }} />
+                                                                        <span style={{ fontSize: '0.79rem', fontWeight: '700', color: 'var(--text-main)', lineHeight: 1.3 }}>
+                                                                            {m.title}
+                                                                        </span>
+                                                                    </div>
+                                                                    <span style={{ fontSize: '0.68rem', fontWeight: '800', color: 'var(--text-muted)', background: 'var(--card-bg)', border: '1px solid var(--border-color)', padding: '1px 5px', borderRadius: '4px', whiteSpace: 'nowrap' }}>
+                                                                        {m.size}
+                                                                    </span>
+                                                                </div>
+
+                                                                <div style={{ fontSize: '0.73rem', color: 'var(--text-dim)', paddingLeft: '1.1rem', lineHeight: 1.3 }}>
+                                                                    <strong style={{ color: 'var(--text-main)' }}>{m.book}</strong> — {m.chapter}
+                                                                </div>
+
+                                                                <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.15rem', paddingLeft: '1.1rem', flexWrap: 'wrap' }}>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => setActivePdfViewer({ title: m.title, driveId: m.driveId, chapter: m.chapter, book: m.book })}
+                                                                        style={{
+                                                                            display: 'inline-flex',
+                                                                            alignItems: 'center',
+                                                                            gap: '0.3rem',
+                                                                            padding: '3px 8px',
+                                                                            background: 'linear-gradient(135deg, rgba(2,132,199,0.22), rgba(56,189,248,0.12))',
+                                                                            border: '1px solid var(--border-color)',
+                                                                            borderRadius: '6px',
+                                                                            color: 'var(--primary-color)',
+                                                                            fontSize: '0.72rem',
+                                                                            fontWeight: '700',
+                                                                            cursor: 'pointer'
+                                                                        }}
+                                                                    >
+                                                                        <Eye size={11} />
+                                                                        <span>Ver en Visor</span>
+                                                                    </button>
+                                                                    <a
+                                                                        href={`https://drive.google.com/file/d/${m.driveId}/view?usp=sharing`}
+                                                                        target="_blank"
+                                                                        rel="noreferrer"
+                                                                        style={{
+                                                                            display: 'inline-flex',
+                                                                            alignItems: 'center',
+                                                                            gap: '0.3rem',
+                                                                            padding: '3px 8px',
+                                                                            background: 'transparent',
+                                                                            border: '1px solid var(--border-color)',
+                                                                            borderRadius: '6px',
+                                                                            color: 'var(--text-dim)',
+                                                                            fontSize: '0.72rem',
+                                                                            fontWeight: '600',
+                                                                            textDecoration: 'none'
+                                                                        }}
+                                                                    >
+                                                                        <ExternalLink size={11} />
+                                                                        <span>Abrir Drive</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
 
                                         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', display: 'flex', justifyContent: 'flex-end' }}>
@@ -614,31 +1037,59 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                             <div key={idx} style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}>
                                 <div>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                        <span style={{ fontSize: '0.72rem', fontWeight: '800', background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', color: 'var(--primary-color)', padding: '2px 8px', borderRadius: '4px' }}>
-                                            {b.rol}
+                                        <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                                            <span style={{ fontSize: '0.72rem', fontWeight: '800', background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', color: 'var(--primary-color)', padding: '2px 8px', borderRadius: '4px' }}>
+                                                {b.rol}
+                                            </span>
+                                            <span style={{ fontSize: '0.7rem', fontWeight: '700', color: 'var(--text-muted)' }}>
+                                                {b.tipo}
+                                            </span>
+                                        </div>
+                                        <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', background: 'var(--card-inner-bg)', padding: '1px 6px', borderRadius: '4px', border: '1px solid var(--border-color)' }}>
+                                            {b.tamaño}
                                         </span>
-                                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{b.año}</span>
                                     </div>
 
                                     <h4 style={{ fontSize: '1.05rem', fontWeight: 800, margin: '0 0 0.4rem', color: 'var(--text-main)' }}>
                                         {b.titulo}
                                     </h4>
                                     <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                                        {b.autor} • {b.editorial}
+                                        {b.autor} • {b.editorial} • {b.año}
                                     </div>
                                     <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', margin: 0, lineHeight: 1.5 }}>
                                         {b.desc}
                                     </p>
                                 </div>
 
-                                <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
+                                <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                    <button
+                                        type="button"
+                                        onClick={() => setActivePdfViewer({ title: b.titulo, driveId: b.driveId, chapter: b.desc, book: b.autor })}
+                                        style={{
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: '0.35rem',
+                                            background: 'linear-gradient(135deg, rgba(2,132,199,0.2), rgba(56,189,248,0.12))',
+                                            border: '1px solid var(--border-color)',
+                                            borderRadius: '8px',
+                                            padding: '5px 10px',
+                                            color: 'var(--primary-color)',
+                                            fontWeight: '700',
+                                            fontSize: '0.8rem',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        <Eye size={13} />
+                                        <span>Leer en Visor</span>
+                                    </button>
+
                                     <a
-                                        href={b.enlace}
+                                        href={`https://drive.google.com/file/d/${b.driveId}/view?usp=sharing`}
                                         target="_blank"
                                         rel="noreferrer"
-                                        style={{ fontSize: '0.82rem', fontWeight: '700', color: 'var(--primary-color)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+                                        style={{ fontSize: '0.82rem', fontWeight: '700', color: 'var(--text-dim)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
                                     >
-                                        <span>Consultar en Google Drive</span>
+                                        <span>Abrir en Drive</span>
                                         <ExternalLink size={13} />
                                     </a>
                                 </div>
@@ -676,6 +1127,146 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     <Sparkles size={18} /> Lanzar Simulador Móvil
                 </Link>
             </div>
+
+            {/* MODAL VISOR INTERACTIVO GOOGLE DRIVE */}
+            {activePdfViewer && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        zIndex: 99999,
+                        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                        backdropFilter: 'blur(8px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '1rem'
+                    }}
+                    onClick={() => setActivePdfViewer(null)}
+                >
+                    <div
+                        style={{
+                            width: '100%',
+                            maxWidth: '1100px',
+                            height: '92vh',
+                            backgroundColor: 'var(--card-bg)',
+                            border: '1.5px solid var(--border-color)',
+                            borderRadius: '20px',
+                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            overflow: 'hidden'
+                        }}
+                        onClick={e => e.stopPropagation()}
+                    >
+                        {/* Modal Header */}
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '1rem 1.5rem',
+                                background: 'var(--card-inner-bg)',
+                                borderBottom: '1px solid var(--border-color)',
+                                gap: '1rem',
+                                flexWrap: 'wrap'
+                            }}
+                        >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: '240px', flex: 1 }}>
+                                <div style={{ padding: '0.5rem', background: 'rgba(2,132,199,0.15)', borderRadius: '10px', color: 'var(--primary-color)' }}>
+                                    <BookOpen size={20} />
+                                </div>
+                                <div>
+                                    <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: '800', color: 'var(--text-main)', lineHeight: 1.3 }}>
+                                        {activePdfViewer.title}
+                                    </h4>
+                                    <div style={{ fontSize: '0.8rem', color: 'var(--text-dim)', marginTop: '2px' }}>
+                                        {activePdfViewer.book && <span>{activePdfViewer.book} • </span>}
+                                        <span>{activePdfViewer.chapter}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                <a
+                                    href={`https://drive.google.com/file/d/${activePdfViewer.driveId}/view?usp=sharing`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.4rem',
+                                        padding: '0.5rem 1rem',
+                                        background: 'var(--primary-color)',
+                                        color: '#0f172a',
+                                        borderRadius: '10px',
+                                        fontWeight: '800',
+                                        fontSize: '0.82rem',
+                                        textDecoration: 'none'
+                                    }}
+                                >
+                                    <ExternalLink size={14} />
+                                    <span>Abrir en Google Drive</span>
+                                </a>
+                                <button
+                                    onClick={() => setActivePdfViewer(null)}
+                                    style={{
+                                        background: 'var(--card-bg)',
+                                        border: '1px solid var(--border-color)',
+                                        color: 'var(--text-dim)',
+                                        width: '36px',
+                                        height: '36px',
+                                        borderRadius: '10px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer'
+                                    }}
+                                    title="Cerrar Visor"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Modal Iframe */}
+                        <div style={{ flex: 1, position: 'relative', background: '#0f172a' }}>
+                            <iframe
+                                src={`https://drive.google.com/file/d/${activePdfViewer.driveId}/preview`}
+                                width="100%"
+                                height="100%"
+                                style={{ border: 'none', display: 'block' }}
+                                title={activePdfViewer.title}
+                                allow="autoplay"
+                            />
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div
+                            style={{
+                                padding: '0.65rem 1.5rem',
+                                background: 'var(--card-inner-bg)',
+                                borderTop: '1px solid var(--border-color)',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                fontSize: '0.78rem',
+                                color: 'var(--text-muted)'
+                            }}
+                        >
+                            <span>💡 Material digitalizado oficial de la cátedra disponible en Google Drive.</span>
+                            <a
+                                href="https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ"
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: '700' }}
+                            >
+                                Ver carpeta completa del curso &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
         </MobileAccessGate>
     );
