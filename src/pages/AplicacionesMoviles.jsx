@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import MobileAccessGate from '../components/MobileAccessGate';
+import ReactNativeExam from '../components/ReactNativeExam';
 import {
     Smartphone, BookOpen, Layers, Code, Zap, Database, Camera,
     ShieldCheck, Sparkles, Navigation, List, ExternalLink, ArrowRight,
@@ -9,8 +10,16 @@ import {
     FolderGit2, Rocket, Award, Cpu, ShieldAlert, BookMarked
 } from 'lucide-react';
 
-const AplicacionesMoviles = () => {
-    const [selectedTab, setSelectedTab] = useState('unidades'); // 'unidades' | 'proyecto' | 'evaluacion' | 'bibliografia'
+const AplicacionesMoviles = ({ defaultTab }) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [selectedTab, setSelectedTab] = useState(defaultTab || searchParams.get('tab') || 'unidades'); // 'unidades' | 'proyecto' | 'evaluacion' | 'examen' | 'bibliografia'
+
+    useEffect(() => {
+        const tab = searchParams.get('tab');
+        if (tab && ['unidades', 'proyecto', 'evaluacion', 'examen', 'bibliografia'].includes(tab)) {
+            setSelectedTab(tab);
+        }
+    }, [searchParams]);
 
     const unidades = [
         {
@@ -268,7 +277,7 @@ const AplicacionesMoviles = () => {
                     </div>
                 </div>
 
-                {/* Acceso Rápido al Simulador */}
+                {/* Acceso Rápido al Simulador y Evaluación */}
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                     <Link
                         to="/simulador-react-native"
@@ -288,6 +297,26 @@ const AplicacionesMoviles = () => {
                     >
                         <Smartphone size={20} /> Abrir Simulador Móvil en Vivo
                     </Link>
+
+                    <button
+                        onClick={() => setSelectedTab('examen')}
+                        style={{
+                            background: 'linear-gradient(135deg, #10b981, #059669)',
+                            color: '#fff',
+                            border: 'none',
+                            padding: '0.85rem 1.75rem',
+                            borderRadius: '14px',
+                            fontWeight: 800,
+                            fontSize: '1rem',
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.6rem',
+                            boxShadow: '0 10px 25px rgba(16,185,129,0.35)'
+                        }}
+                    >
+                        <Award size={20} /> Rendir Examen Teórico (100 Q)
+                    </button>
 
                     <a
                         href="https://drive.google.com/drive/folders/1hncg2yaLaeh2pYkR6XtptH_cumJroPPQ"
@@ -318,6 +347,7 @@ const AplicacionesMoviles = () => {
                     { id: 'unidades', label: 'Programa de Unidades & Clases', icon: <BookOpen size={18} /> },
                     { id: 'proyecto', label: 'Proyecto Integrador Continuo', icon: <Rocket size={18} /> },
                     { id: 'evaluacion', label: 'Régimen de Evaluación', icon: <Award size={18} /> },
+                    { id: 'examen', label: '📝 Examen Teórico (100 Q)', icon: <CheckCircle2 size={18} /> },
                     { id: 'bibliografia', label: 'Bibliografía Oficial', icon: <BookMarked size={18} /> },
                 ].map(tab => (
                     <button
@@ -498,11 +528,66 @@ const AplicacionesMoviles = () => {
                                 </ul>
                             </div>
                         </div>
+
+                        {/* Banner de Acceso a la Evaluación de 100 Preguntas */}
+                        <div
+                            style={{
+                                marginTop: '2.5rem',
+                                background: 'linear-gradient(135deg, rgba(2,132,199,0.15), rgba(56,189,248,0.06))',
+                                border: '1.5px solid var(--border-color)',
+                                borderRadius: '20px',
+                                padding: '2rem',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                flexWrap: 'wrap',
+                                gap: '1.5rem'
+                            }}
+                        >
+                            <div>
+                                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary-color)', fontWeight: 800, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>
+                                    <Sparkles size={14} /> Instancia Evaluativa Habilitada
+                                </div>
+                                <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-main)' }}>
+                                    Evaluación Teórica Integradora (100 Preguntas)
+                                </h3>
+                                <p style={{ margin: 0, color: 'var(--text-dim)', fontSize: '0.92rem', maxWidth: '620px', lineHeight: 1.5 }}>
+                                    Rinde el examen oficial de 100 preguntas con orden aleatorio de preguntas y respuestas. Al terminar recibirás tu calificación, condición académica y la justificación pedagógica de cada ítem.
+                                </p>
+                            </div>
+                            <button
+                                onClick={() => setSelectedTab('examen')}
+                                style={{
+                                    background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
+                                    color: '#fff',
+                                    border: 'none',
+                                    padding: '0.9rem 1.8rem',
+                                    borderRadius: '14px',
+                                    fontWeight: 800,
+                                    fontSize: '1rem',
+                                    cursor: 'pointer',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    boxShadow: '0 8px 20px rgba(2,132,199,0.35)'
+                                }}
+                            >
+                                <span>Rendir Evaluación Ahora</span>
+                                <ArrowRight size={18} />
+                            </button>
+                        </div>
                     </div>
                 </motion.div>
             )}
 
-            {/* TAB 4: BIBLIOGRAFÍA OFICIAL */}
+            {/* TAB 4: EXAMEN TEÓRICO (100 PREGUNTAS) */}
+            {selectedTab === 'examen' && (
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                    <ReactNativeExam onBack={() => setSelectedTab('unidades')} />
+                </motion.div>
+            )}
+
+            {/* TAB 5: BIBLIOGRAFÍA OFICIAL */}
             {selectedTab === 'bibliografia' && (
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                     <div style={{ background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>

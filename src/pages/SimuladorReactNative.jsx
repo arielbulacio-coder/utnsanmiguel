@@ -18,12 +18,33 @@ const SimuladorReactNative = () => {
             <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '1rem 1rem 4rem' }}>
             {/* Breadcrumb & Navigation */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-                <Link
-                    to="/aplicaciones-moviles"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary-color)', fontWeight: '700', fontSize: '0.9rem', textDecoration: 'none' }}
-                >
-                    <ArrowLeft size={16} /> Volver al Programa de Aplicaciones Móviles
-                </Link>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                    <Link
+                        to="/aplicaciones-moviles"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary-color)', fontWeight: '700', fontSize: '0.9rem', textDecoration: 'none' }}
+                    >
+                        <ArrowLeft size={16} /> Volver al Programa
+                    </Link>
+
+                    <Link
+                        to="/evaluacion-react-native"
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.4rem',
+                            background: 'rgba(16,185,129,0.15)',
+                            border: '1px solid rgba(16,185,129,0.35)',
+                            color: '#10b981',
+                            fontWeight: '800',
+                            fontSize: '0.85rem',
+                            padding: '5px 12px',
+                            borderRadius: '8px',
+                            textDecoration: 'none'
+                        }}
+                    >
+                        <span>📝 Examen Teórico (100 Q)</span>
+                    </Link>
+                </div>
 
                 <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--card-inner-bg)', border: '1px solid var(--border-color)', padding: '4px', borderRadius: '12px' }}>
                     <button

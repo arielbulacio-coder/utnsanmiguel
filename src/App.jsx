@@ -197,6 +197,7 @@ function App() {
             {/* React Native */}
             <Route path="/aplicaciones-moviles" element={<AplicacionesMoviles />} />
             <Route path="/simulador-react-native" element={<SimuladorReactNative />} />
+            <Route path="/evaluacion-react-native" element={<AplicacionesMoviles defaultTab="examen" />} />
 
             {/* Fundamentos de Computación */}
             <Route path="/memoria" element={<MemoriaPage />} />
