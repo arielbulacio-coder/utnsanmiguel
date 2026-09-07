@@ -239,7 +239,7 @@ export const MobileAccessModal = ({ isOpen, onClose, onUnlocked }) => {
                         color: '#94a3b8',
                         textAlign: 'center'
                     }}>
-                        💡 <strong style={{ color: '#38bdf8' }}>Pista para alumnos:</strong> La palabra clave por defecto de la cátedra es <code style={{ color: '#34d399', background: 'rgba(16, 185, 129, 0.1)', padding: '2px 6px', borderRadius: '4px' }}>UNPILAR</code>
+                        🔒 <strong style={{ color: '#38bdf8' }}>Acceso reservado:</strong> Ingresa la palabra clave provista por el docente de la cátedra para desbloquear el contenido.
                     </div>
                 </form>
             </motion.div>
@@ -410,7 +410,7 @@ export const MobileAccessGate = ({ children }) => {
                     fontSize: '0.82rem',
                     color: '#94a3b8'
                 }}>
-                    💡 <strong style={{ color: '#38bdf8' }}>Pista docente:</strong> La palabra clave institucional es <code style={{ color: '#34d399', background: 'rgba(16, 185, 129, 0.1)', padding: '2px 6px', borderRadius: '4px' }}>UNPILAR</code>
+                    🔒 <strong style={{ color: '#38bdf8' }}>Acceso exclusivo:</strong> Ingresa la palabra clave provista por la cátedra para acceder a las unidades y al simulador interactivo.
                 </div>
             </motion.div>
         </div>
