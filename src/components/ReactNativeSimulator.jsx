@@ -113,7 +113,7 @@ export default function TiendaConCarritoApp() {
               <Text style={styles.itemIcon}>{item.icono}</Text>
               <View style={styles.itemInfo}>
                 <Text style={styles.itemName}>{item.nombre}</Text>
-                <Text style={styles.itemPrice}>${item.precio.toLocaleString('es-AR')}</Text>
+                <Text style={styles.itemPrice}>\${item.precio.toLocaleString('es-AR')}</Text>
               </View>
               <TouchableOpacity style={styles.addBtn} onPress={() => agregarAlCarrito(item)}>
                 <Text style={styles.addBtnText}>+ Agregar</Text>
@@ -134,7 +134,7 @@ export default function TiendaConCarritoApp() {
                 <Text style={styles.itemIcon}>{item.icono}</Text>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.cartItemName}>{item.nombre}</Text>
-                  <Text style={styles.cartItemPrice}>${(item.precio * item.qty).toLocaleString('es-AR')}</Text>
+                  <Text style={styles.cartItemPrice}>\${(item.precio * item.qty).toLocaleString('es-AR')}</Text>
                 </View>
                 <View style={styles.stepper}>
                   <TouchableOpacity style={styles.stepperBtn} onPress={() => modificarCantidad(item.id, -1)}>
@@ -150,7 +150,7 @@ export default function TiendaConCarritoApp() {
           />
           <View style={styles.totalBox}>
             <Text style={styles.totalLabel}>Total Final (con desc. UTN):</Text>
-            <Text style={styles.totalAmount}>${total.toLocaleString('es-AR')}</Text>
+            <Text style={styles.totalAmount}>\${total.toLocaleString('es-AR')}</Text>
             <TouchableOpacity style={styles.checkoutBtn} onPress={() => setTab('checkout')}>
               <Text style={styles.checkoutBtnText}>Proceder al Pago ➔</Text>
             </TouchableOpacity>
@@ -163,7 +163,7 @@ export default function TiendaConCarritoApp() {
         <View style={styles.checkoutView}>
           <Text style={styles.checkoutTitle}>Resumen de Orden</Text>
           <Text style={styles.checkoutSummary}>Artículos: {totalItems} unidades</Text>
-          <Text style={styles.checkoutSummary}>Total a pagar: ${total.toLocaleString('es-AR')}</Text>
+          <Text style={styles.checkoutSummary}>Total a pagar: \${total.toLocaleString('es-AR')}</Text>
           <TouchableOpacity style={styles.confirmBtn} onPress={() => alert('¡Compra confirmada! Orden #UTN-2026')}>
             <Text style={styles.confirmBtnText}>Confirmar Pedido 🚀</Text>
           </TouchableOpacity>
