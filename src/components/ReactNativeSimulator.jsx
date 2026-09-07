@@ -4,7 +4,7 @@ import * as Babel from '@babel/standalone';
 import {
     Play, RotateCcw, Copy, Check, Smartphone, Terminal,
     Layers, List, Navigation, ShieldCheck, Database, Camera,
-    Zap, Sparkles, ChevronRight, ExternalLink
+    Zap, Sparkles, ChevronRight, ExternalLink, BookOpen, CheckCircle2, Lightbulb
 } from 'lucide-react';
 
 if (typeof window !== 'undefined') {
@@ -220,7 +220,66 @@ export default function CounterApp() {
       </View>
     </View>
   );
-}`,
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0a0f1d',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  badge: {
+    color: '#38bdf8',
+    fontSize: 10,
+    fontWeight: '800',
+    backgroundColor: 'rgba(56,189,248,0.1)',
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    borderRadius: 999,
+    marginBottom: 20,
+    letterSpacing: 1,
+  },
+  number: {
+    fontSize: 60,
+    fontWeight: '900',
+    color: '#ffffff',
+    lineHeight: 70,
+    marginBottom: 6,
+  },
+  label: {
+    fontSize: 12,
+    color: '#94a3b8',
+    marginBottom: 28,
+  },
+  buttonGroup: {
+    width: '100%',
+    gap: 10,
+  },
+  btnPrimary: {
+    backgroundColor: '#3b82f6',
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  btnText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+  btnSecondary: {
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  btnSecondaryText: {
+    color: '#94a3b8',
+    fontWeight: '600',
+    fontSize: 12,
+  },
+});`,
         renderSimulator: ({ log }) => {
             const [count, setCount] = useState(0);
 
@@ -1739,6 +1798,442 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
     );
 };
 
+const PRESET_EXPLANATIONS = {
+    flexbox: {
+        badge: 'Arquitectura de Layout',
+        concept: 'En React Native, TODO componente contenedor utiliza Flexbox por defecto con flexDirection: "column" y display: "flex". No existen "block", "inline" ni floats.',
+        sections: [
+            {
+                title: '1. Imports Principales de React Native',
+                desc: 'import { View, Text, StyleSheet } from "react-native";',
+                detail: '• View: El equivalente nativo a un <div> (se compila a UIView en iOS y ViewGroup/FrameLayout en Android).\n• Text: Imprescindible para renderizar cualquier texto. En React Native no puedes colocar texto libre dentro de una View sin envolverlo en <Text>.\n• StyleSheet: Módulo optimizado de estilos nativos que valida las propiedades y las envía al hilo nativo mediante identificadores numéricos.'
+            },
+            {
+                title: '2. Estructura del Componente',
+                desc: 'export default function App() { return <View style={styles.container}>...</View>; }',
+                detail: 'El componente principal debe ser exportado por defecto ("export default"). Renderiza un árbol de Views anidadas organizadas con flexbox.'
+            },
+            {
+                title: '3. Reglas de Flexbox en Móviles',
+                desc: 'flexDirection, justifyContent y alignItems',
+                detail: '• flexDirection: Por defecto es "column" (eje vertical principal). En web es "row".\n• justifyContent: "space-between" distribuye el espacio sobrante equitativamente en el eje principal.\n• gap: Espaciado automático entre elementos hijos sin recurrir a márgenes manuales.'
+            },
+            {
+                title: '4. El objeto StyleSheet.create',
+                desc: 'const styles = StyleSheet.create({ container: { flex: 1, ... } });',
+                detail: 'flex: 1 hace que el contenedor ocupe el 100% del alto y ancho disponible en la pantalla del smartphone. Las unidades no llevan "px", son píxeles independientes de la densidad (dp en Android / puntos en iOS).'
+            }
+        ],
+        webVsNative: 'En Web usas <div> y CSS tradicional con cascada. En React Native no hay cascada (no-inheritance), los estilos son scoped a cada elemento, y no existen bordes o textos directos en contenedores genéricos.',
+        tip: 'Usa siempre StyleSheet.create() en lugar de objetos literales inline en JSX para evitar que el Garbage Collector recolecte y recree objetos en cada frame.'
+    },
+    state: {
+        badge: 'Gestión Reactiva de Estado',
+        concept: 'El manejo de estado en móviles gobierna la interactividad táctil sin recargar la pantalla. Cada mutación con useState() re-renderiza el árbol de componentes a 60 FPS.',
+        sections: [
+            {
+                title: '1. Hook useState & Reactividad',
+                desc: 'const [count, setCount] = useState(0);',
+                detail: 'Define el estado local reactivo. Al invocar setCount(prev => prev + 1), React programa un re-render del componente móvil actualizando únicamente los nodos afectados.'
+            },
+            {
+                title: '2. Eventos Táctiles con TouchableOpacity',
+                desc: '<TouchableOpacity onPress={increment}>',
+                detail: 'A diferencia de la Web (onClick), los smartphones responden a gestos táctiles. TouchableOpacity proporciona retroalimentación háptica y visual reduciendo la opacidad al pulsar (feedback activo de toque).'
+            },
+            {
+                title: '3. Funciones Manejadoras (Handlers)',
+                desc: 'const increment = () => { setCount(prev => prev + 1); };',
+                detail: 'Se recomienda usar la forma funcional setCount(prev => prev + 1) para garantizar que se opera sobre el valor más reciente del estado ante múltiples toques rápidos consecutivos.'
+            },
+            {
+                title: '4. Estilos Nativos con StyleSheet',
+                desc: 'container, badge, number, buttonGroup, btnPrimary',
+                detail: 'Define un diseño móvil centrado con justifyContent: "center" y alignItems: "center". Los botones utilizan borderRadius: 12 y paddingVertical: 14 adaptados a la zona ergonómica del pulgar.'
+            }
+        ],
+        webVsNative: 'En Web usas <button onClick={...}>. En React Native usas <TouchableOpacity onPress={...}> o <Pressable> para controlar eventos touchstart, touchend y respuesta táctil.',
+        tip: 'Para listas largas o estados compartidos entre múltiples pantallas, se recomienda Zustand o Redux Toolkit en lugar de prop drilling.'
+    },
+    flatlist: {
+        badge: 'Listas Virtualizadas',
+        concept: 'FlatList es el componente estándar de React Native para renderizar colecciones de cientos o miles de elementos con mínimo consumo de memoria RAM mediante reciclaje de vistas (Windowing/Virtualization).',
+        sections: [
+            {
+                title: '1. Prop data',
+                desc: 'data={CURSOS}',
+                detail: 'Un arreglo de objetos JavaScript con la información a mostrar. FlatList observa este arreglo para determinar qué filas pintar.'
+            },
+            {
+                title: '2. Prop keyExtractor',
+                desc: 'keyExtractor={item => item.id}',
+                detail: 'Extrae una clave única de tipo string para cada elemento. Es vital para que React Native rastree los elementos agregados, eliminados o reordenados sin re-renderizar la lista completa.'
+            },
+            {
+                title: '3. Prop renderItem',
+                desc: 'renderItem={({ item }) => <View style={styles.card}>...</View>}',
+                detail: 'Función que devuelve la plantilla visual para cada fila. Recibe { item, index }. Las filas fuera de pantalla son recicladas para ahorrar memoria.'
+            },
+            {
+                title: '4. contentContainerStyle',
+                desc: 'contentContainerStyle={{ padding: 16 }}',
+                detail: 'Aplica padding interno al contenido desplazable de la lista, evitando cortar las sombras o bordes de los elementos finales al hacer scroll.'
+            }
+        ],
+        webVsNative: 'En Web solemos hacer array.map() dentro de un div con scroll. En móviles esto provocaría un "Out of Memory" (OOM) crash con listas largas. FlatList solo mantiene en memoria los elementos visibles.',
+        tip: 'Si necesitas aún más rendimiento en listas masivas (10,000+ items), la librería de Shopify llamada FlashList es hasta 10 veces más rápida que FlatList.'
+    },
+    router: {
+        badge: 'Enrutamiento Basado en Archivos',
+        concept: 'Expo Router traduce la estructura física de carpetas y archivos en rutas nativas nativamente compiladas, similar a Next.js App Router pero para iOS y Android.',
+        sections: [
+            {
+                title: '1. Contenedor de Pestañas <Tabs>',
+                desc: 'import { Tabs } from "expo-router";',
+                detail: 'Renderiza una barra de navegación inferior nativa (UITabBar en iOS / NavigationBar en Android) con animación fluida entre pestañas.'
+            },
+            {
+                title: '2. Definición de Pantallas <Tabs.Screen>',
+                desc: '<Tabs.Screen name="index" options={{ title: "Inicio" }} />',
+                detail: 'Cada Tabs.Screen mapea a un archivo físico. name="index" corresponde a app/(tabs)/index.tsx. Las opciones controlan el título, color e ícono.'
+            },
+            {
+                title: '3. Iconos Vectoriales con @expo/vector-icons',
+                desc: 'tabBarIcon: ({ color }) => <Ionicons name="home" color={color} />',
+                detail: 'Proporciona miles de iconos vectoriales optimizados (Ionicons, FontAwesome, MaterialIcons) que se adaptan dinámicamente al color activo de la pestaña.'
+            },
+            {
+                title: '4. Enrutamiento declarativo con Link y useRouter',
+                desc: 'const router = useRouter(); router.push("/detalle");',
+                detail: 'Permite transiciones entre pantallas mediante push, replace o enlaces declarativos <Link href="/perfil">.'
+            }
+        ],
+        webVsNative: 'En la Web el historial de navegación cambia la URL del navegador. En móviles, la navegación administra una pila (Stack) o pestañas (Tabs) con transiciones nativas de deslizamiento a 60 FPS.',
+        tip: 'Usa el archivo _layout.tsx en cada carpeta para envolver tus pantallas con temas, barras de navegación o contextos compartidos.'
+    },
+    form: {
+        badge: 'Validación Tipada de Esquemas',
+        concept: 'Los formularios móviles requieren validación rigurosa de datos en tiempo real antes de enviar información a la API o base de datos. Zod define esquemas de validación tipados y seguros.',
+        sections: [
+            {
+                title: '1. Esquema con Zod',
+                desc: 'const userSchema = z.object({ email: z.string().email(), password: z.string().min(6) });',
+                detail: 'Define la estructura esperada y las reglas de validación declarativas con mensajes de error personalizados.'
+            },
+            {
+                title: '2. Validación segura con safeParse()',
+                desc: 'const result = userSchema.safeParse({ email, password });',
+                detail: 'Analiza los datos sin lanzar excepciones runtime. Devuelve { success: true, data } si es válido, o { success: false, error } con el detalle de los campos fallidos.'
+            },
+            {
+                title: '3. TextInput Móvil Controlado',
+                desc: '<TextInput value={email} onChangeText={setEmail} keyboardType="email-address" />',
+                detail: 'onChangeText recibe directamente el texto tipeado (a diferencia de e.target.value en web). secureTextEntry oculta la contraseña con asteriscos.'
+            },
+            {
+                title: '4. Manejo de Errores y Feedback',
+                desc: '{error && <Text style={styles.errorText}>⚠️ {error}</Text>}',
+                detail: 'Muestra mensajes de error contextuales con estilos de alerta visual antes de proceder a la acción de submit.'
+            }
+        ],
+        webVsNative: 'En Web usas <form onSubmit={...}> con FormData. En React Native no hay etiqueta <form>; los formularios son combinaciones de estados de TextInput gestionados con hooks o librerías como React Hook Form.',
+        tip: 'Utiliza KeyboardAvoidingView para evitar que el teclado virtual del smartphone tape los inputs al escribir.'
+    },
+    firebase: {
+        badge: 'Base de Datos en Tiempo Real',
+        concept: 'Cloud Firestore permite crear aplicaciones colaborativas en tiempo real. Mediante listeners WebSocket (onSnapshot), cualquier cambio en la nube se replica instantáneamente en el smartphone.',
+        sections: [
+            {
+                title: '1. Conexión y Referencia a Colecciones',
+                desc: 'import { collection, onSnapshot, addDoc } from "firebase/firestore";',
+                detail: 'collection(db, "tareas") obtiene una referencia a la colección NoSQL en Firestore.'
+            },
+            {
+                title: '2. Escucha Reactiva con onSnapshot()',
+                desc: 'onSnapshot(collection(db, "tareas"), (snapshot) => { ... });',
+                detail: 'Abre un canal en tiempo real. Cada vez que se crea, edita o borra un documento en el servidor, Firestore dispara el callback con los documentos actualizados.'
+            },
+            {
+                title: '3. Escritura Asíncrona con addDoc()',
+                desc: 'await addDoc(collection(db, "tareas"), { titulo, done: false });',
+                detail: 'Inserta un nuevo documento con ID autogenerado único a nivel global por Firebase.'
+            },
+            {
+                title: '4. Limpieza del Listener en useEffect',
+                desc: 'useEffect(() => { const unsub = onSnapshot(...); return () => unsub(); }, []);',
+                detail: 'Es fundamental retornar la función unsubscribe para cerrar la conexión cuando el componente se desmonta y evitar fugas de memoria (memory leaks).'
+            }
+        ],
+        webVsNative: 'Firebase SDK funciona tanto en web como en móviles nativos. En React Native, además puedes integrar persistencia offline con AsyncStorage para que la app funcione sin conexión a Internet.',
+        tip: 'Configura siempre Security Rules en la consola de Firebase para asegurar que los usuarios solo puedan leer y escribir sus propios documentos.'
+    },
+    hardware: {
+        badge: 'Acceso a Sensores y Periféricos',
+        concept: 'React Native permite acceder a las APIs de hardware de iOS y Android mediante bibliotecas de Expo (Cámara, GPS, Acelerómetro, Biometría, Giroscopio).',
+        sections: [
+            {
+                title: '1. Modelo de Permisos de Sistema Operativo',
+                desc: 'Location.requestForegroundPermissionsAsync()',
+                detail: 'Tanto Apple (iOS) como Google (Android) exigen solicitar permiso explícito al usuario en tiempo de ejecución antes de acceder a la cámara o geolocalización.'
+            },
+            {
+                title: '2. Visor de Cámara con CameraView',
+                desc: 'import { CameraView } from "expo-camera";',
+                detail: 'Renderiza una superficie de video en vivo conectada al sensor óptico trasero o frontal del smartphone.'
+            },
+            {
+                title: '3. Coordenadas GPS en Alta Precisión',
+                desc: 'Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });',
+                detail: 'Consulta el chip GNSS (GPS/Glonass/Galileo) y devuelve latitud, longitud, altitud y velocidad del dispositivo.'
+            },
+            {
+                title: '4. Manejo de Estados de Hardware',
+                desc: 'const [permission, requestPermission] = useCameraPermissions();',
+                detail: 'Expo proporciona hooks dedicados para verificar si el usuario concedió, denegó o bloqueó permanentemente los permisos.'
+            }
+        ],
+        webVsNative: 'En la Web el navegador puede bloquear el acceso si no hay HTTPS. En smartphones nativos, los permisos se declaran en AndroidManifest.xml e Info.plist y son gestionados por el kernel del sistema.',
+        tip: 'Comprueba siempre el nivel de batería y la precisión deseada al usar GPS para evitar descargar rápidamente el dispositivo del usuario.'
+    },
+    animations: {
+        badge: 'Animaciones a 60/120 FPS',
+        concept: 'React Native Reanimated 3 ejecuta cálculos de física y transiciones directamente en el hilo de la interfaz de usuario (UI Thread / Render Thread) en C++, sin bloquear el hilo de JavaScript.',
+        sections: [
+            {
+                title: '1. useSharedValue',
+                desc: 'const scale = useSharedValue(1);',
+                detail: 'Almacena un valor reactivo mutable que vive en el UI Thread nativo sin disparar re-renders de React.'
+            },
+            {
+                title: '2. withSpring & withTiming',
+                desc: 'scale.value = withSpring(1.2, { damping: 15 });',
+                detail: 'Modifica el valor con simulación física de resorte (spring) o curvas bézier de tiempo, garantizando una respuesta orgánica y natural al tacto.'
+            },
+            {
+                title: '3. useAnimatedStyle',
+                desc: 'const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));',
+                detail: 'Enlaza el valor compartido con las propiedades visuales del componente (transform, opacity, backgroundColor).'
+            },
+            {
+                title: '4. Componentes <Animated.View>',
+                desc: '<Animated.View style={[styles.box, animatedStyle]}>',
+                detail: 'Variantes animables de los componentes nativos capaces de actualizar sus propiedades directamente en C++ sin intervención del JavaScript engine.'
+            }
+        ],
+        webVsNative: 'En Web usas transiciones CSS o CSS Keyframes. En React Native, usar estilos CSS provocaría saltos de frames si el hilo JS está ocupado procesando datos o peticiones de red. Reanimated garantiza fluidez absoluta.',
+        tip: 'Evita animar propiedades de layout como "width" o "height" ya que recalculan el motor Yoga; en su lugar anima "transform: [{ scale }]" y "opacity".'
+    },
+    api: {
+        badge: 'Peticiones de Red Asíncronas',
+        concept: 'Las aplicaciones móviles consumen servicios web REST y GraphQL a través del protocolo HTTPS estándar mediante fetch() o axios.',
+        sections: [
+            {
+                title: '1. API fetch() Estándar',
+                desc: 'fetch("https://api.ejemplo.com/usuarios").then(res => res.json())',
+                detail: 'React Native implementa la especificación WHATWG Fetch nativa en el motor Hermes/JSI.'
+            },
+            {
+                title: '2. Ciclo de Carga con useEffect',
+                desc: 'useEffect(() => { loadData(); }, []);',
+                detail: 'Ejecuta la petición de red cuando el componente móvil se monta en pantalla por primera vez.'
+            },
+            {
+                title: '3. Indicador Nativo ActivityIndicator',
+                desc: '<ActivityIndicator size="large" color="#0284c7" />',
+                detail: 'Muestra el spinner de carga nativo del sistema operativo (UIActivityIndicatorView en iOS y ProgressBar en Android).'
+            },
+            {
+                title: '4. Manejo de Estados: loading, error, data',
+                desc: 'const [loading, setLoading] = useState(true);',
+                detail: 'Una experiencia móvil profesional siempre contempla los 3 estados: cargando, error de red y datos listos para renderizar.'
+            }
+        ],
+        webVsNative: 'En móviles, la conectividad cambia constantemente (WiFi a 4G/5G, modo avión, túneles). Es crítico manejar timeouts y reintentos (retry) para una UX robusta.',
+        tip: 'Para caching inteligente, deduplicación de peticiones y sincronización en background en React Native, utiliza TanStack Query (React Query).'
+    },
+    eas: {
+        badge: 'DevOps & Compilación en la Nube',
+        concept: 'Expo Application Services (EAS) compila binarios de producción nativos (.apk/.aab para Android y .ipa para iOS) en granjas de servidores en la nube sin requerir una Mac física ni configurar Android Studio localmente.',
+        sections: [
+            {
+                title: '1. Configuración con eas.json',
+                desc: 'eas build -p android --profile preview',
+                detail: 'Define los perfiles de compilación (development, preview con APK instalable, y production con AAB para Google Play).'
+            },
+            {
+                title: '2. EAS Credentials & Firma Digital',
+                desc: 'Keystore en Android y Certificados de Distribución en iOS',
+                detail: 'EAS gestiona automáticamente los certificados criptográficos requeridos por las tiendas oficiales de aplicaciones.'
+            },
+            {
+                title: '3. Generación de APK vs AAB',
+                desc: 'APK: Instalación directa en smartphones de prueba. AAB: Bundle optimizado para Google Play Store.',
+                detail: 'El archivo APK generado puede ser descargado y testeado directamente en cualquier teléfono físico Android.'
+            },
+            {
+                title: '4. EAS Update (Over The Air / OTA)',
+                desc: 'Actualizaciones inmediatas sin pasar por la revisión de las tiendas',
+                detail: 'Permite corregir errores de código JavaScript al instante en los dispositivos de los usuarios sin necesidad de una nueva aprobación de Apple o Google.'
+            }
+        ],
+        webVsNative: 'En Web despliegas archivos estáticos a Vercel o Netlify en segundos. En móviles, compilar código nativo en C++, Java y Swift requiere compiladores pesados (Gradle/Xcode) que EAS resuelve en la nube.',
+        tip: 'Utiliza el perfil "preview" para generar un APK descargable por QR antes de enviar la versión definitiva a Google Play.'
+    },
+    ai: {
+        badge: 'Copilotos de IA en Desarrollo Móvil',
+        concept: 'La integración de modelos de lenguaje (LLMs) acelera la creación de interfaces, la corrección de errores de layout y la optimización de código en React Native.',
+        sections: [
+            {
+                title: '1. Generación de Interfaces Nativas',
+                desc: 'Transformar requisitos de negocio en componentes nativos JSX',
+                detail: 'La IA asiste en definir rápidamente la jerarquía de Views, textos y paletas de colores optimizadas para pantallas táctiles.'
+            },
+            {
+                title: '2. Resolución de Bugs de Layout',
+                desc: 'Diagnóstico de desbordamientos de pantalla y problemas de Flexbox',
+                detail: 'Identifica causas comunes como anchos fijos que se cortan en pantallas de distintos tamaños y sugiere soluciones con porcentajes o flex: 1.'
+            },
+            {
+                title: '3. Refactorización para Rendimiento',
+                desc: 'Optimización de listas FlatList, memoización y estilos',
+                detail: 'Sugiere mover funciones inline fuera del render y consolidar estilos duplicados en StyleSheet.create().'
+            },
+            {
+                title: '4. Internacionalización y Accesibilidad',
+                desc: 'Generación de etiquetas A11y y soporte multiidioma',
+                detail: 'Ayuda a incorporar accessibilityLabel y accessibilityHint para que personas con discapacidad visual puedan usar la app con TalkBack o VoiceOver.'
+            }
+        ],
+        webVsNative: 'Al usar IA para React Native, asegúrate de indicarle explícitamente "React Native con TypeScript y Expo", para evitar que te genere código con etiquetas HTML como <div> o <button>.',
+        tip: 'Prueba tus componentes generados directamente en el simulador interactivo de la derecha para verificar la interactividad en tiempo real.'
+    }
+};
+
+const CodeExplanationSection = ({ preset }) => {
+    const exp = PRESET_EXPLANATIONS[preset.id];
+    if (!exp) return null;
+
+    return (
+        <motion.div
+            key={preset.id}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+                marginTop: '2rem',
+                background: 'linear-gradient(180deg, #0b1120 0%, #060913 100%)',
+                border: '1px solid rgba(56, 189, 248, 0.25)',
+                borderRadius: '24px',
+                padding: '2rem',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                color: '#f8fafc',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.5rem'
+            }}
+        >
+            {/* Header del bloque explicativo */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '1.25rem' }}>
+                <div>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(56, 189, 248, 0.12)', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: '800', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '0.6rem' }}>
+                        <Lightbulb size={14} /> Explicación Pedagógica del Código • {preset.unit}
+                    </div>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#fff', margin: '0 0 0.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span>{preset.icon}</span> {preset.title}
+                    </h3>
+                    <p style={{ margin: 0, fontSize: '0.95rem', color: '#94a3b8', lineHeight: 1.6, maxWidth: '850px' }}>
+                        {exp.concept}
+                    </p>
+                </div>
+
+                <div style={{ background: '#1e293b', padding: '8px 16px', borderRadius: '12px', border: '1px solid #334155', fontSize: '0.82rem', color: '#cbd5e1', fontWeight: '700', alignSelf: 'flex-start' }}>
+                    🏷️ {exp.badge}
+                </div>
+            </div>
+
+            {/* Grid con Desglose Sección por Sección */}
+            <div>
+                <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <BookOpen size={16} color="#38bdf8" /> Desglose Técnico de la Lección
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+                    {exp.sections.map((sec, idx) => (
+                        <div
+                            key={idx}
+                            style={{
+                                background: 'rgba(15, 23, 42, 0.65)',
+                                border: '1px solid rgba(51, 65, 85, 0.7)',
+                                borderRadius: '16px',
+                                padding: '1.25rem',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '0.6rem'
+                            }}
+                        >
+                            <div style={{ fontSize: '0.92rem', fontWeight: '800', color: '#38bdf8' }}>
+                                {sec.title}
+                            </div>
+                            <div style={{
+                                background: '#020617',
+                                border: '1px solid rgba(255, 255, 255, 0.08)',
+                                borderRadius: '8px',
+                                padding: '8px 12px',
+                                fontSize: '0.8rem',
+                                fontFamily: 'monospace',
+                                color: '#a5f3fc',
+                                whiteSpace: 'pre-wrap',
+                                wordBreak: 'break-word'
+                            }}>
+                                {sec.desc}
+                            </div>
+                            <p style={{
+                                margin: 0,
+                                fontSize: '0.85rem',
+                                color: '#94a3b8',
+                                lineHeight: 1.6,
+                                whiteSpace: 'pre-line'
+                            }}>
+                                {sec.detail}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Comparativa Web vs Mobile & Tip Docente */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem', paddingTop: '0.5rem' }}>
+                <div style={{
+                    background: 'rgba(168, 85, 247, 0.08)',
+                    border: '1px solid rgba(168, 85, 247, 0.3)',
+                    borderRadius: '16px',
+                    padding: '1.25rem'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#c084fc', fontWeight: '800', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+                        <span>🌐 vs 📱</span> Diferencia Crítica: React Web vs React Native
+                    </div>
+                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#e9d5ff', lineHeight: 1.6 }}>
+                        {exp.webVsNative}
+                    </p>
+                </div>
+
+                <div style={{
+                    background: 'rgba(16, 185, 129, 0.08)',
+                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    borderRadius: '16px',
+                    padding: '1.25rem'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#34d399', fontWeight: '800', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+                        <Sparkles size={16} /> Consejo Docente & Rendimiento Móvil
+                    </div>
+                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#a7f3d0', lineHeight: 1.6 }}>
+                        {exp.tip}
+                    </p>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
 const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
     const [selectedPresetId, setSelectedPresetId] = useState(initialPreset);
     const [deviceType, setDeviceType] = useState('iphone'); // 'iphone' | 'android'
@@ -2060,6 +2555,9 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                 </div>
 
             </div>
+
+            {/* EXPLICACIÓN PEDAGÓGICA Y TÉCNICA DEL CÓDIGO */}
+            <CodeExplanationSection preset={activePreset} />
         </div>
     );
 };

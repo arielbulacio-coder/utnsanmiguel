@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import MobileAccessGate from '../components/MobileAccessGate';
 import {
     Smartphone, BookOpen, Layers, Code, Zap, Database, Camera,
     ShieldCheck, Sparkles, Navigation, List, ExternalLink, ArrowRight,
@@ -230,7 +231,8 @@ const AplicacionesMoviles = () => {
     ];
 
     return (
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem 4rem' }}>
+        <MobileAccessGate>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem 4rem' }}>
 
             {/* HERO DEL CURSO */}
             <header style={{ textAlign: 'center', padding: '3.5rem 0 2.5rem' }}>
@@ -591,6 +593,7 @@ const AplicacionesMoviles = () => {
                 </Link>
             </div>
         </div>
+        </MobileAccessGate>
     );
 };
 

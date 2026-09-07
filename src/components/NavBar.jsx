@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
 import { useAuth } from '../context/AuthContext';
+import { MobileAccessModal, isMobileUnlocked, lockMobileCourse } from './MobileAccessGate';
 
 const NavBar = () => {
     const { theme, toggleTheme } = useTheme();
     const { user, logout, isAuthenticated } = useAuth();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [openSubmenu, setOpenSubmenu] = useState(null); // 'electronics', 'math', 'physics', 'workshop', 'arduino'
+    const [openSubmenu, setOpenSubmenu] = useState(null); // 'electronics', 'math', 'physics', 'workshop', 'arduino', 'moviles'
+    const [accessModalOpen, setAccessModalOpen] = useState(false);
+    const [isMobileCourseUnlocked, setIsMobileCourseUnlocked] = useState(isMobileUnlocked());
+
+    useEffect(() => {
+        const update = () => setIsMobileCourseUnlocked(isMobileUnlocked());
+        window.addEventListener('mobile_course_unlock_changed', update);
+        return () => window.removeEventListener('mobile_course_unlock_changed', update);
+    }, []);
 
     const navStyle = {
         display: 'flex',
@@ -314,6 +323,115 @@ const NavBar = () => {
                     </div>
                 </div>
 
+                {/* 6. APLICACIONES MÓVILES (PROTEGIDO CON PALABRA CLAVE) */}
+                <div className={`dropdown ${openSubmenu === 'moviles' ? 'active' : ''}`}>
+                    <div
+                        className="dropdown-trigger"
+                        style={{
+                            ...linkStyle,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            background: isMobileCourseUnlocked ? 'rgba(2, 132, 199, 0.12)' : 'rgba(239, 68, 68, 0.08)',
+                            color: isMobileCourseUnlocked ? '#0284c7' : '#ef4444',
+                            border: `1px solid ${isMobileCourseUnlocked ? 'rgba(2, 132, 199, 0.3)' : 'rgba(239, 68, 68, 0.25)'}`,
+                            fontWeight: '700'
+                        }}
+                        onClick={() => toggleSubmenu('moviles')}
+                    >
+                        <span>📱 App Móviles</span>
+                        <span style={{ fontSize: '11px' }}>{isMobileCourseUnlocked ? '🔓' : '🔒'}</span>
+                        <span className="arrow">▼</span>
+                    </div>
+                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span>React Native & Expo</span>
+                            <span style={{ fontSize: '10px', background: isMobileCourseUnlocked ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)', color: isMobileCourseUnlocked ? '#10b981' : '#ef4444', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
+                                {isMobileCourseUnlocked ? 'Desbloqueado' : 'Requiere Clave'}
+                            </span>
+                        </div>
+
+                        <Link
+                            to="/aplicaciones-moviles"
+                            style={linkStyle}
+                            onClick={(e) => {
+                                if (!isMobileCourseUnlocked) {
+                                    e.preventDefault();
+                                    setAccessModalOpen(true);
+                                }
+                                closeAll();
+                            }}
+                        >
+                            📘 Programa & Unidades {isMobileCourseUnlocked ? '✓' : '🔒'}
+                        </Link>
+
+                        <Link
+                            to="/simulador-react-native"
+                            style={linkStyle}
+                            onClick={(e) => {
+                                if (!isMobileCourseUnlocked) {
+                                    e.preventDefault();
+                                    setAccessModalOpen(true);
+                                }
+                                closeAll();
+                            }}
+                        >
+                            ⚛️ Simulador Interactivo {isMobileCourseUnlocked ? '✓' : '🔒'}
+                        </Link>
+
+                        {!isMobileCourseUnlocked ? (
+                            <div style={{ padding: '0.5rem 0.75rem' }}>
+                                <button
+                                    onClick={() => {
+                                        closeAll();
+                                        setAccessModalOpen(true);
+                                    }}
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px 12px',
+                                        borderRadius: '8px',
+                                        background: 'linear-gradient(135deg, #0284c7, #0ea5e9)',
+                                        color: '#fff',
+                                        border: 'none',
+                                        fontWeight: '800',
+                                        fontSize: '12px',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '6px',
+                                        boxShadow: '0 4px 12px rgba(2,132,199,0.3)'
+                                    }}
+                                >
+                                    🔑 Ingresar Palabra Clave
+                                </button>
+                            </div>
+                        ) : (
+                            <div style={{ padding: '0.4rem 0.75rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                                <button
+                                    onClick={() => {
+                                        lockMobileCourse();
+                                        closeAll();
+                                    }}
+                                    style={{
+                                        width: '100%',
+                                        padding: '6px 10px',
+                                        borderRadius: '6px',
+                                        background: 'rgba(239, 68, 68, 0.08)',
+                                        color: '#ef4444',
+                                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                                        fontWeight: '600',
+                                        fontSize: '11px',
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    🔒 Bloquear Acceso
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
                 {/* Submenu Gestión Académica - Solo si está autenticado */}
                 {isAuthenticated && (
                     <div className={`dropdown ${openSubmenu === 'academic' ? 'active' : ''}`}>
@@ -527,6 +645,12 @@ const NavBar = () => {
                     }
                 }
             `}</style>
+
+            <MobileAccessModal
+                isOpen={accessModalOpen}
+                onClose={() => setAccessModalOpen(false)}
+                onUnlocked={() => setIsMobileCourseUnlocked(true)}
+            />
         </nav>
     );
 };

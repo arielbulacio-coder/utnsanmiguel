@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
+import MobileAccessGate from '../components/MobileAccessGate';
 import {
     Smartphone, Code, Cpu, Sparkles, BookOpen, ArrowLeft,
     CheckCircle2, Layers, Zap, Terminal, ExternalLink, HelpCircle
@@ -13,7 +14,8 @@ const SimuladorReactNative = () => {
     const [activeTab, setActiveTab] = useState('simulador'); // 'simulador' | 'cheatsheet' | 'arquitectura'
 
     return (
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '1rem 1rem 4rem' }}>
+        <MobileAccessGate>
+            <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '1rem 1rem 4rem' }}>
             {/* Breadcrumb & Navigation */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <Link
@@ -180,7 +182,8 @@ const SimuladorReactNative = () => {
                     ))}
                 </motion.div>
             )}
-        </div>
+            </div>
+        </MobileAccessGate>
     );
 };
 
