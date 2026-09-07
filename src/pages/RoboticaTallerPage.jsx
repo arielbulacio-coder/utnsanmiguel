@@ -1,3 +1,4 @@
+import { getAssetUrl, handleImageError } from '../utils/assetHelper';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Electricidad1roStyles.css'; // Reutilizamos los estilos premium del taller
@@ -123,7 +124,7 @@ const RoboticaTallerPage = () => {
 
               {mod.image && (
                 <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                  <img src={mod.image} alt={mod.title} style={{ width: '100%', maxWidth: '800px', borderRadius: '12px', border: '1px solid rgba(0, 242, 255, 0.2)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} />
+                  <img src={getAssetUrl(mod.image)} onError={(e) => handleImageError(e, mod.image)} alt={mod.title} style={{ width: '100%', maxWidth: '800px', borderRadius: '12px', border: '1px solid rgba(0, 242, 255, 0.2)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} />
                 </div>
               )}
 

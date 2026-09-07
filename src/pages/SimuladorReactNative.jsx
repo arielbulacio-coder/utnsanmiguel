@@ -1,3 +1,4 @@
+import { getAssetUrl, handleImageError } from '../utils/assetHelper';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -296,7 +297,7 @@ const SimuladorReactNative = () => {
                         </div>
                         <div style={{ padding: '1rem', textAlign: 'center', background: '#020617' }}>
                             <img
-                                src="/images/rn_expo_pc_setup_guide.jpg"
+                                src={getAssetUrl('/images/rn_expo_pc_setup_guide.jpg')} onError={(e) => handleImageError(e, 'images/rn_expo_pc_setup_guide.jpg')}
                                 alt="Infografía Didáctica: Setup de PC y Comandos Expo SDK"
                                 style={{ width: '100%', maxHeight: '520px', objectFit: 'contain', borderRadius: '12px' }}
                             />

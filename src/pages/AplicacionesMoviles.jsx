@@ -1,3 +1,4 @@
+import { getAssetUrl, handleImageError } from '../utils/assetHelper';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -1064,7 +1065,7 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                         </div>
                         <div style={{ padding: '1.25rem', textAlign: 'center', background: '#020617' }}>
                             <img
-                                src="/images/rn_expo_pc_setup_guide.jpg"
+                                src={getAssetUrl('/images/rn_expo_pc_setup_guide.jpg')} onError={(e) => handleImageError(e, 'images/rn_expo_pc_setup_guide.jpg')}
                                 alt="Infografía Didáctica Setup Expo PC"
                                 style={{ width: '100%', maxHeight: '560px', objectFit: 'contain', borderRadius: '14px' }}
                             />

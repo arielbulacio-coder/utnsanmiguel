@@ -1,3 +1,4 @@
+import { getAssetUrl, handleImageError } from '../utils/assetHelper';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import * as Babel from '@babel/standalone';
@@ -3326,7 +3327,7 @@ const RN_MOCKS = {
     ),
     Image: ({ source, style, ...rest }) => {
         const src = typeof source === 'string' ? source : (source?.uri || '');
-        return <img src={src} alt="rn-img" style={{ objectFit: 'cover', display: 'block', ...flattenStyle(style) }} {...rest} />;
+        return <img src={getAssetUrl(src)} onError={(e) => handleImageError(e, src)} alt="rn-img" style={{ objectFit: 'cover', display: 'block', ...flattenStyle(style) }} {...rest} />;
     },
     ActivityIndicator: ({ size = 'small', color = '#38bdf8', style }) => (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', gap: '8px', color, fontSize: size === 'large' ? '15px' : '12px', ...flattenStyle(style) }}>
@@ -4605,9 +4606,7 @@ const CodeExplanationSection = ({ preset }) => {
                     </div>
 
                     <div style={{ position: 'relative', width: '100%', overflow: 'hidden', background: '#020617' }}>
-                        <img
-                            src={exp.image}
-                            alt={exp.badge}
+                        <img src={getAssetUrl(exp.image)} onError={(e) => handleImageError(e, exp.image)} alt={exp.badge}
                             style={{
                                 width: '100%',
                                 height: 'auto',
