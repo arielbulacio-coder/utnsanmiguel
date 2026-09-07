@@ -6,7 +6,7 @@ import {
     ShoppingCart, ShoppingBag, Package, Trash2, Plus, Minus, Search, ArrowLeft,
     Layers, List, Navigation, ShieldCheck, Database, Camera,
     Zap, Sparkles, ChevronRight, ExternalLink, BookOpen, CheckCircle2, Lightbulb,
-    AlertTriangle, HelpCircle, ChevronDown, ChevronUp
+    AlertTriangle, HelpCircle, ChevronDown, ChevronUp, Server, Edit3, Filter
 } from 'lucide-react';
 
 if (typeof window !== 'undefined') {
@@ -1503,6 +1503,546 @@ const styles = StyleSheet.create({
                     </div>
                 </div>
             )
+        }
+    },
+    {
+        id: 'supabase_crud',
+        unit: 'Unidad 2.2 • APIs REST & Base de Datos',
+        title: 'CRUD PostgreSQL en la Nube con Supabase',
+        icon: <Database size={18} />,
+        summary: 'Conexión y gestión completa de inventario con PostgreSQL en Supabase: funciones select, insert, update y delete con PostgREST y SQL en vivo.',
+        code: `# =======================================================
+# CONEXIÓN A API & CRUD POSTGRESQL CON SUPABASE
+# Cátedra Creación de Aplicaciones Móviles • UNPilar / UTN
+# =======================================================
+
+import React, { useState, useEffect } from 'react';
+import {
+  View, Text, TextInput, TouchableOpacity, FlatList,
+  StyleSheet, ActivityIndicator, Alert, Modal
+} from 'react-native';
+import { createClient } from '@supabase/supabase-js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// 1. INICIALIZACIÓN DEL CLIENTE SUPABASE CON ASYNCSTORAGE
+const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://xyzcompany.supabase.co';
+const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOi...';
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: {
+    storage: AsyncStorage,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  },
+});
+
+// 2. CONTRATO DE DATOS (INTERFAZ TYPESCRIPT)
+export interface Producto {
+  id: number;
+  nombre: string;
+  categoria: string;
+  precio: number;
+  stock: number;
+  activo: boolean;
+  created_at?: string;
+}
+
+export default function SupabaseCrudScreen() {
+  const [productos, setProductos] = useState<Producto[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filtroCategoria, setFiltroCategoria] = useState('Todos');
+  const [busqueda, setBusqueda] = useState('');
+
+  // Formulario modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const [nombre, setNombre] = useState('');
+  const [categoria, setCategoria] = useState('IoT');
+  const [precio, setPrecio] = useState('');
+  const [stock, setStock] = useState('');
+
+  useEffect(() => {
+    fetchProductos();
+  }, [filtroCategoria]);
+
+  // =====================================================
+  // FUNCIÓN 1: READ (Obtener Productos de PostgreSQL)
+  // =====================================================
+  const fetchProductos = async () => {
+    try {
+      setLoading(true);
+      let query = supabase
+        .from('productos')
+        .select('*')
+        .order('id', { ascending: false });
+
+      if (filtroCategoria !== 'Todos') {
+        query = query.eq('categoria', filtroCategoria);
+      }
+
+      const { data, error } = await query;
+      if (error) throw error;
+      setProductos(data || []);
+    } catch (err: any) {
+      Alert.alert('Error READ PostgreSQL', err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // =====================================================
+  // FUNCIÓN 2: CREATE (Insertar Registro con PostgREST)
+  // =====================================================
+  const crearProducto = async () => {
+    if (!nombre.trim() || !precio || !stock) {
+      Alert.alert('Validación', 'Completa todos los campos.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const nuevo = {
+        nombre: nombre.trim(),
+        categoria,
+        precio: parseFloat(precio),
+        stock: parseInt(stock, 10),
+        activo: true
+      };
+
+      const { data, error } = await supabase
+        .from('productos')
+        .insert([nuevo])
+        .select(); // Retorna el registro con ID generado
+
+      if (error) throw error;
+      Alert.alert('Éxito', 'Registro insertado en PostgreSQL.');
+      setModalVisible(false);
+      setNombre('');
+      setPrecio('');
+      setStock('');
+      fetchProductos();
+    } catch (err: any) {
+      Alert.alert('Error INSERT', err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // =====================================================
+  // FUNCIÓN 3: UPDATE (Actualizar Stock o Precio)
+  // =====================================================
+  const actualizarStock = async (id: number, nuevoStock: number) => {
+    try {
+      const { error } = await supabase
+        .from('productos')
+        .update({ stock: nuevoStock })
+        .eq('id', id);
+
+      if (error) throw error;
+      // Actualizar estado local inmediatamente
+      setProductos(prev => prev.map(p => p.id === id ? { ...p, stock: nuevoStock } : p));
+    } catch (err: any) {
+      Alert.alert('Error UPDATE', err.message);
+    }
+  };
+
+  // =====================================================
+  // FUNCIÓN 4: DELETE (Eliminar Fila de PostgreSQL)
+  // =====================================================
+  const eliminarProducto = async (id: number) => {
+    try {
+      const { error } = await supabase
+        .from('productos')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+      setProductos(prev => prev.filter(p => p.id !== id));
+      Alert.alert('Eliminado', 'Producto borrado de PostgreSQL.');
+    } catch (err: any) {
+      Alert.alert('Error DELETE', err.message);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Lista de productos y controles */}
+    </View>
+  );
+}
+
+# =======================================================
+# SCRIPT SQL PARA SUPABASE SQL EDITOR:
+# -------------------------------------------------------
+# CREATE TABLE public.productos (
+#   id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+#   nombre TEXT NOT NULL,
+#   categoria TEXT NOT NULL DEFAULT 'General',
+#   precio NUMERIC(10,2) NOT NULL DEFAULT 0.00,
+#   stock INT NOT NULL DEFAULT 0,
+#   activo BOOLEAN DEFAULT TRUE,
+#   created_at TIMESTAMPTZ DEFAULT NOW()
+# );
+# ALTER TABLE public.productos ENABLE ROW LEVEL SECURITY;
+# CREATE POLICY "Acceso Publico" ON public.productos FOR ALL USING (true);
+# =======================================================`,
+        renderSimulator: ({ log }) => {
+            const [items, setItems] = useState([
+                { id: 101, nombre: 'ESP32 NodeMCU Wi-Fi + Bluetooth', categoria: 'IoT', precio: 12500, stock: 24, activo: true },
+                { id: 102, nombre: 'Sensor Ultrasónico HC-SR04', categoria: 'Sensores', precio: 3200, stock: 45, activo: true },
+                { id: 103, nombre: 'Kit Chasis Robot 2WD con Motores', categoria: 'Robótica', precio: 28900, stock: 8, activo: true },
+                { id: 104, nombre: 'Soldador tipo Lápiz 60W Cerámico', categoria: 'Herramientas', precio: 18400, stock: 12, activo: true },
+                { id: 105, nombre: 'Tester Multímetro Digital Auto-Rango', categoria: 'Herramientas', precio: 34500, stock: 5, activo: true }
+            ]);
+            const [selectedCategory, setSelectedCategory] = useState('Todos');
+            const [searchQuery, setSearchQuery] = useState('');
+            const [showModal, setShowModal] = useState(false);
+            const [nuevoNombre, setNuevoNombre] = useState('');
+            const [nuevaCategoria, setNuevaCategoria] = useState('IoT');
+            const [nuevoPrecio, setNuevoPrecio] = useState('');
+            const [nuevoStock, setNuevoStock] = useState('');
+            const [lastSql, setLastSql] = useState({
+                verb: 'SELECT',
+                endpoint: 'GET /rest/v1/productos?select=*&order=id.desc',
+                sql: 'SELECT * FROM public.productos ORDER BY id DESC;',
+                latency: '34ms',
+                status: '200 OK'
+            });
+            const [activeTab, setActiveTab] = useState('lista'); // 'lista' | 'sql'
+
+            const categories = ['Todos', 'IoT', 'Sensores', 'Robótica', 'Herramientas'];
+
+            const filteredItems = items.filter(it => {
+                const matchCat = selectedCategory === 'Todos' || it.categoria === selectedCategory;
+                const matchSearch = it.nombre.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchCat && matchSearch;
+            });
+
+            // CREATE
+            const handleCreate = () => {
+                if (!nuevoNombre.trim() || !nuevoPrecio || !nuevoStock) {
+                    alert('Por favor completa todos los campos del producto.');
+                    return;
+                }
+                const newId = Math.max(...items.map(i => i.id), 100) + 1;
+                const newItem = {
+                    id: newId,
+                    nombre: nuevoNombre.trim(),
+                    categoria: nuevaCategoria,
+                    precio: parseFloat(nuevoPrecio) || 0,
+                    stock: parseInt(nuevoStock, 10) || 0,
+                    activo: true
+                };
+                setItems([newItem, ...items]);
+                setLastSql({
+                    verb: 'INSERT',
+                    endpoint: 'POST /rest/v1/productos',
+                    sql: `INSERT INTO public.productos (nombre, categoria, precio, stock, activo)\nVALUES ('${newItem.nombre}', '${newItem.categoria}', ${newItem.precio}, ${newItem.stock}, true)\nRETURNING *;`,
+                    latency: '42ms',
+                    status: '201 Created'
+                });
+                log(`[PostgreSQL INSERT] ID #${newId} insertado: "${newItem.nombre}" (HTTP 201 Created)`);
+                setShowModal(false);
+                setNuevoNombre('');
+                setNuevoPrecio('');
+                setNuevoStock('');
+            };
+
+            // UPDATE (Stock)
+            const handleUpdateStock = (id, delta) => {
+                const item = items.find(i => i.id === id);
+                if (!item) return;
+                const updatedStock = Math.max(0, item.stock + delta);
+                setItems(items.map(i => i.id === id ? { ...i, stock: updatedStock } : i));
+                setLastSql({
+                    verb: 'UPDATE',
+                    endpoint: `PATCH /rest/v1/productos?id=eq.${id}`,
+                    sql: `UPDATE public.productos SET stock = ${updatedStock} WHERE id = ${id}; (delta: ${delta > 0 ? '+' + delta : delta})`,
+                    latency: '28ms',
+                    status: '200 OK'
+                });
+                log(`[PostgreSQL UPDATE] ID #${id} nuevo stock: ${updatedStock} (HTTP 200 OK)`);
+            };
+
+            // DELETE
+            const handleDelete = (id, nombre) => {
+                if (!window.confirm(`¿Eliminar de PostgreSQL el registro #${id} ("${nombre}")?`)) return;
+                setItems(items.filter(i => i.id !== id));
+                setLastSql({
+                    verb: 'DELETE',
+                    endpoint: `DELETE /rest/v1/productos?id=eq.${id}`,
+                    sql: `DELETE FROM public.productos WHERE id = ${id};`,
+                    latency: '24ms',
+                    status: '204 No Content'
+                });
+                log(`[PostgreSQL DELETE] ID #${id} eliminado de la base de datos (HTTP 204 No Content)`);
+            };
+
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0a0f1d', color: '#fff', overflow: 'hidden' }}>
+                    {/* Header Supabase */}
+                    <div style={{ padding: '12px 14px', background: '#0f172a', borderBottom: '1px solid #1e293b' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+                                <span style={{ fontSize: '12px', fontWeight: '900', color: '#38bdf8' }}>Supabase PostgreSQL</span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '4px' }}>
+                                <button
+                                    onClick={() => setActiveTab('lista')}
+                                    style={{ padding: '3px 8px', borderRadius: '6px', fontSize: '10px', fontWeight: '800', border: 'none', background: activeTab === 'lista' ? '#0284c7' : 'rgba(255,255,255,0.08)', color: '#fff', cursor: 'pointer' }}
+                                >
+                                    📱 App Móvil
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('sql')}
+                                    style={{ padding: '3px 8px', borderRadius: '6px', fontSize: '10px', fontWeight: '800', border: 'none', background: activeTab === 'sql' ? '#10b981' : 'rgba(255,255,255,0.08)', color: '#fff', cursor: 'pointer' }}
+                                >
+                                    🖥️ SQL Monitor
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Top bar search and action */}
+                        <div style={{ display: 'flex', gap: '6px' }}>
+                            <input
+                                type="text"
+                                placeholder="🔍 Buscar producto en PostgreSQL..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                style={{ flex: 1, background: '#1e293b', border: '1px solid #334155', borderRadius: '8px', padding: '6px 10px', color: '#fff', fontSize: '11px', outline: 'none' }}
+                            />
+                            <button
+                                onClick={() => setShowModal(true)}
+                                style={{ background: 'linear-gradient(135deg, #10b981, #059669)', border: 'none', borderRadius: '8px', padding: '0 10px', color: '#fff', fontSize: '11px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                            >
+                                <span>➕</span> Crear
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Category Filter Pills */}
+                    <div style={{ display: 'flex', gap: '4px', padding: '8px 12px', background: '#0a0f1d', borderBottom: '1px solid #1e293b', overflowX: 'auto' }}>
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => {
+                                    setSelectedCategory(cat);
+                                    log(`[PostgreSQL READ] Filtrar categoría = "${cat}"`);
+                                }}
+                                style={{
+                                    padding: '3px 9px',
+                                    borderRadius: '12px',
+                                    fontSize: '10px',
+                                    fontWeight: '700',
+                                    border: '1px solid',
+                                    borderColor: selectedCategory === cat ? '#38bdf8' : 'rgba(255,255,255,0.1)',
+                                    background: selectedCategory === cat ? 'rgba(56,189,248,0.15)' : 'transparent',
+                                    color: selectedCategory === cat ? '#38bdf8' : '#94a3b8',
+                                    cursor: 'pointer',
+                                    whiteSpace: 'nowrap'
+                                }}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* VISTA 1: APP MÓVIL (LISTA DE PRODUCTOS) */}
+                    {activeTab === 'lista' && (
+                        <div style={{ flex: 1, overflowY: 'auto', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {filteredItems.length === 0 ? (
+                                <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#64748b' }}>
+                                    <div style={{ fontSize: '24px', marginBottom: '4px' }}>🔍</div>
+                                    <div style={{ fontSize: '12px', fontWeight: '700' }}>No hay registros en la tabla</div>
+                                    <div style={{ fontSize: '10px' }}>Prueba con otro filtro o haz click en "Crear"</div>
+                                </div>
+                            ) : (
+                                filteredItems.map(item => (
+                                    <div
+                                        key={item.id}
+                                        style={{
+                                            background: '#111827',
+                                            border: '1px solid #1f2937',
+                                            borderRadius: '10px',
+                                            padding: '10px 12px',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '6px'
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                            <div>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+                                                    <span style={{ fontSize: '9px', background: 'rgba(56,189,248,0.15)', color: '#38bdf8', padding: '1px 5px', borderRadius: '4px', fontWeight: '800' }}>
+                                                        #{item.id}
+                                                    </span>
+                                                    <span style={{ fontSize: '9px', background: 'rgba(168,85,247,0.15)', color: '#c084fc', padding: '1px 6px', borderRadius: '4px', fontWeight: '700' }}>
+                                                        {item.categoria}
+                                                    </span>
+                                                </div>
+                                                <div style={{ fontSize: '12px', fontWeight: '800', color: '#f8fafc' }}>
+                                                    {item.nombre}
+                                                </div>
+                                            </div>
+                                            <div style={{ fontSize: '13px', fontWeight: '900', color: '#10b981' }}>
+                                                $${item.precio.toLocaleString()}
+                                            </div>
+                                        </div>
+
+                                        {/* Acciones de Edición de Stock & Delete */}
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '6px', borderTop: '1px solid #1e293b' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                <span style={{ fontSize: '10px', color: '#94a3b8' }}>Stock:</span>
+                                                <span style={{ fontSize: '11px', fontWeight: '800', color: item.stock <= 5 ? '#f43f5e' : '#fff' }}>
+                                                    {item.stock} un.
+                                                </span>
+                                                <div style={{ display: 'flex', gap: '2px', marginLeft: '4px' }}>
+                                                    <button
+                                                        onClick={() => handleUpdateStock(item.id, -1)}
+                                                        style={{ width: '20px', height: '20px', borderRadius: '4px', border: '1px solid #334155', background: '#1e293b', color: '#cbd5e1', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }}
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleUpdateStock(item.id, 1)}
+                                                        style={{ width: '20px', height: '20px', borderRadius: '4px', border: '1px solid #334155', background: '#1e293b', color: '#cbd5e1', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }}
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={() => handleDelete(item.id, item.nombre)}
+                                                style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#ef4444', borderRadius: '6px', padding: '3px 8px', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }}
+                                            >
+                                                🗑️ Borrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    )}
+
+                    {/* VISTA 2: MONITOR SQL POSTGRESQL & POSTGREST */}
+                    {activeTab === 'sql' && (
+                        <div style={{ flex: 1, overflowY: 'auto', padding: '12px', display: 'flex', flexDirection: 'column', gap: '10px', background: '#050813' }}>
+                            <div style={{ background: '#0b1120', border: '1px solid #1e293b', borderRadius: '10px', padding: '10px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                                    <span style={{ fontSize: '10px', fontWeight: '900', color: '#38bdf8' }}>Última Petición REST (PostgREST)</span>
+                                    <span style={{ fontSize: '9px', background: 'rgba(16,185,129,0.2)', color: '#10b981', padding: '1px 6px', borderRadius: '4px', fontWeight: '800' }}>
+                                        {lastSql.status} • {lastSql.latency}
+                                    </span>
+                                </div>
+                                <code style={{ fontSize: '11px', color: '#f59e0b', fontFamily: 'monospace', display: 'block' }}>
+                                    {lastSql.endpoint}
+                                </code>
+                            </div>
+
+                            <div style={{ background: '#0b1120', border: '1px solid #1e293b', borderRadius: '10px', padding: '10px' }}>
+                                <div style={{ fontSize: '10px', fontWeight: '900', color: '#10b981', marginBottom: '6px' }}>
+                                    Sentencia SQL PostgreSQL Ejecutada en Cloud
+                                </div>
+                                <pre style={{ margin: 0, fontSize: '10px', color: '#38bdf8', fontFamily: 'monospace', whiteSpace: 'pre-wrap', lineHeight: 1.4 }}>
+                                    {lastSql.sql}
+                                </pre>
+                            </div>
+
+                            <div style={{ background: '#0b1120', border: '1px solid #1e293b', borderRadius: '10px', padding: '10px' }}>
+                                <div style={{ fontSize: '10px', fontWeight: '900', color: '#c084fc', marginBottom: '4px' }}>
+                                    Esquema de Tabla en Supabase
+                                </div>
+                                <div style={{ fontSize: '9px', color: '#94a3b8', lineHeight: 1.4 }}>
+                                    • <code>id</code> (bigint primary key autoincremental)<br />
+                                    • <code>nombre</code> (text not null)<br />
+                                    • <code>categoria</code> (text not null default 'General')<br />
+                                    • <code>precio</code> (numeric(10,2) not null)<br />
+                                    • <code>stock</code> (int not null default 0)<br />
+                                    • <code>activo</code> (boolean default true)
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Modal Crear Producto */}
+                    {showModal && (
+                        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px', zIndex: 100 }}>
+                            <div style={{ background: '#111827', border: '1px solid #334155', borderRadius: '14px', padding: '14px', width: '100%', maxWidth: '280px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '12px', fontWeight: '900', color: '#38bdf8' }}>Nuevo Producto (INSERT)</span>
+                                    <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '14px', cursor: 'pointer' }}>✕</button>
+                                </div>
+                                <div>
+                                    <div style={{ fontSize: '9px', color: '#94a3b8', marginBottom: '2px' }}>Nombre:</div>
+                                    <input
+                                        type="text"
+                                        placeholder="Ej: Arduino Uno R3"
+                                        value={nuevoNombre}
+                                        onChange={e => setNuevoNombre(e.target.value)}
+                                        style={{ width: '100%', background: '#1e293b', border: '1px solid #334155', borderRadius: '6px', padding: '5px 8px', color: '#fff', fontSize: '11px' }}
+                                    />
+                                </div>
+                                <div>
+                                    <div style={{ fontSize: '9px', color: '#94a3b8', marginBottom: '2px' }}>Categoría:</div>
+                                    <select
+                                        value={nuevaCategoria}
+                                        onChange={e => setNuevaCategoria(e.target.value)}
+                                        style={{ width: '100%', background: '#1e293b', border: '1px solid #334155', borderRadius: '6px', padding: '5px 8px', color: '#fff', fontSize: '11px' }}
+                                    >
+                                        <option value="IoT">IoT</option>
+                                        <option value="Sensores">Sensores</option>
+                                        <option value="Robótica">Robótica</option>
+                                        <option value="Herramientas">Herramientas</option>
+                                    </select>
+                                </div>
+                                <div style={{ display: 'flex', gap: '6px' }}>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontSize: '9px', color: '#94a3b8', marginBottom: '2px' }}>Precio ($):</div>
+                                        <input
+                                            type="number"
+                                            placeholder="1500"
+                                            value={nuevoPrecio}
+                                            onChange={e => setNuevoPrecio(e.target.value)}
+                                            style={{ width: '100%', background: '#1e293b', border: '1px solid #334155', borderRadius: '6px', padding: '5px 8px', color: '#fff', fontSize: '11px' }}
+                                        />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontSize: '9px', color: '#94a3b8', marginBottom: '2px' }}>Stock:</div>
+                                        <input
+                                            type="number"
+                                            placeholder="10"
+                                            value={nuevoStock}
+                                            onChange={e => setNuevoStock(e.target.value)}
+                                            style={{ width: '100%', background: '#1e293b', border: '1px solid #334155', borderRadius: '6px', padding: '5px 8px', color: '#fff', fontSize: '11px' }}
+                                        />
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }}>
+                                    <button
+                                        onClick={() => setShowModal(false)}
+                                        style={{ flex: 1, padding: '6px', borderRadius: '6px', border: '1px solid #475569', background: 'transparent', color: '#cbd5e1', fontSize: '11px', cursor: 'pointer' }}
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button
+                                        onClick={handleCreate}
+                                        style={{ flex: 1, padding: '6px', borderRadius: '6px', border: 'none', background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }}
+                                    >
+                                        Guardar SQL
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Footer con estado de conexión */}
+                    <div style={{ padding: '6px 12px', background: '#0e1526', borderTop: '1px solid #1e293b', fontSize: '9px', color: '#64748b', display: 'flex', justifyContent: 'space-between' }}>
+                        <span>PostgreSQL v16 Cloud</span>
+                        <span style={{ color: '#10b981' }}>● PostgREST Conectado</span>
+                    </div>
+                </div>
+            );
         }
     },
     {
@@ -3129,6 +3669,52 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
 };
 
 const PRESET_EXPLANATIONS = {
+    supabase_crud: {
+        badge: 'Base de Datos PostgreSQL Cloud • Supabase',
+        concept: 'Supabase es la alternativa open-source a Firebase basada en PostgreSQL relacional. A través de la tecnología PostgREST, traduce automáticamente llamadas de la app móvil en consultas SQL seguras (SELECT, INSERT, UPDATE, DELETE). Permite definir esquemas relacionales estrictos, relaciones con claves foráneas y protección a nivel de fila mediante Row Level Security (RLS).',
+        image: '/images/rn_supabase_postgres_crud.jpg',
+        imageCaption: '🐘 Diagrama Didáctico con IA: Arquitectura de Conexión React Native & Supabase PostgreSQL — 1) Interfaz móvil React Native disparando operaciones CRUD. 2) Capa API PostgREST resolviendo verbos HTTP (GET, POST, PATCH, DELETE) con autenticación Bearer Token. 3) Motor PostgreSQL ejecutando sentencias SQL relacionales sobre la tabla productos protegida por Row Level Security (RLS). 4) Bus de WebSockets en tiempo real para sincronización instantánea entre múltiples dispositivos.',
+        stepByStep: [
+            'Paso 1: Crear un proyecto gratuito en supabase.com y abrir la pestaña "SQL Editor" para crear la tabla de productos.',
+            'Paso 2: Ejecutar la sentencia CREATE TABLE con campos id, nombre, categoria, precio y stock, y habilitar Row Level Security (RLS).',
+            'Paso 3: Instalar los paquetes oficiales: npx expo install @supabase/supabase-js @react-native-async-storage/async-storage',
+            'Paso 4: Crear el cliente en supabase.ts configurando EXPO_PUBLIC_SUPABASE_URL y EXPO_PUBLIC_SUPABASE_ANON_KEY con AsyncStorage.',
+            'Paso 5: Implementar las 4 funciones CRUD: select() para leer, insert() para crear, update() para modificar y delete() para eliminar.'
+        ],
+        sections: [
+            {
+                title: '1. ¿Por qué PostgreSQL con Supabase en Mobile?',
+                desc: 'Base de datos relacional sólida frente a almacenes NoSQL.',
+                detail: 'A diferencia de Firebase Firestore (NoSQL documental), PostgreSQL provee integridad referencial estricta, claves foráneas, tipos numéricos de precisión (numeric/decimal), transacciones ACID y consultas complejas con JOINs y funciones almacenadas.'
+            },
+            {
+                title: '2. Las 4 Operaciones CRUD en Código',
+                desc: 'Select (Read), Insert (Create), Update (Modificar), Delete (Borrar)',
+                detail: '• READ: supabase.from("productos").select("*").order("id", { ascending: false })\n• CREATE: supabase.from("productos").insert([{ nombre, precio, stock }]).select()\n• UPDATE: supabase.from("productos").update({ stock: 20 }).eq("id", 101)\n• DELETE: supabase.from("productos").delete().eq("id", 101)'
+            },
+            {
+                title: '3. PostgREST y Row Level Security (RLS)',
+                desc: 'Seguridad a nivel de fila directamente en el motor SQL.',
+                detail: 'PostgREST lee el esquema de PostgreSQL y expone una API REST limpia. Con Row Level Security (RLS), configuras políticas como: "CREATE POLICY on productos FOR SELECT USING (true);" para lectura pública, o restringir escrituras a usuarios autenticados.'
+            },
+            {
+                title: '4. Suscripciones en Tiempo Real (Realtime)',
+                desc: 'supabase.channel("productos-live").on("postgres_changes", ...)',
+                detail: 'Supabase escucha el Change Data Capture (WAL) de PostgreSQL y emite eventos WebSockets en tiempo real hacia React Native, permitiendo actualizar la UI automáticamente cuando otro cliente modifica la base de datos.'
+            }
+        ],
+        pitfalls: [
+            '❌ Olvidar crear una política RLS tras activar "ENABLE ROW LEVEL SECURITY" (la tabla no devolverá ningún registro porque PostgreSQL deniega todo por defecto).',
+            '❌ Usar la clave secreta "service_role" en el código móvil (nunca debe incluirse en la app; solo debe usarse la "anon public key").',
+            '❌ Enviar valores de precio o stock como cadenas de texto "1500" en lugar de parsearlos con parseFloat() o parseInt().'
+        ],
+        selfCheck: {
+            q: '¿Cuál es la diferencia fundamental entre el modelo de datos de Firebase Firestore y el de Supabase?',
+            a: 'Firestore es una base de datos NoSQL documental donde la información se almacena en colecciones y documentos semiestructurados tipo JSON sin esquema fijo. Supabase es una base de datos relacional PostgreSQL con tablas, columnas tipadas, integridad referencial (claves primarias y foráneas), sentencias SQL completas y políticas RLS nativas.'
+        },
+        webVsNative: 'En la Web el cliente de Supabase guarda la sesión en localStorage del navegador. En React Native debemos pasar explícitamente AsyncStorage en la configuración de "auth.storage" para que la sesión de login persista al cerrar la aplicación.',
+        tip: 'Crea índices en PostgreSQL para las columnas por las que tu app filtre o busque frecuentemente (ej: CREATE INDEX idx_productos_cat ON productos(categoria);) para lograr respuestas de red ultra rápidas en menos de 20ms.'
+    },
     expo_setup: {
         badge: 'Setup Inicial & Toolchain PC',
         concept: 'Comenzar un proyecto React Native moderno con Expo elimina la necesidad de configurar manualmente compiladores nativos C++, Gradle o CocoaPods. Todo el ciclo de desarrollo se orquesta mediante Node.js, Visual Studio Code y el empaquetador Metro Bundler, permitiendo ejecutar código en tiempo real en smartphones físicos vía Expo Go.',
@@ -4108,7 +4694,7 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                             label: '⚡ PASO 2: INTEGRACIÓN & SERVICIOS',
                             tag: 'Módulos Nativos',
                             color: '#a855f7',
-                            presets: SIMULATOR_PRESETS.filter(p => ['form', 'firebase', 'hardware', 'animations', 'api', 'eas', 'ai'].includes(p.id))
+                            presets: SIMULATOR_PRESETS.filter(p => ['form', 'api', 'supabase_crud', 'firebase', 'hardware', 'animations', 'eas', 'ai'].includes(p.id))
                         },
                         {
                             label: '🏆 PASO 3: PROYECTOS FINALES (APPS COMPLETAS)',
@@ -4140,6 +4726,7 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                                         : preset.id === 'hardware' ? 'Hardware'
                                         : preset.id === 'animations' ? 'Animaciones'
                                         : preset.id === 'api' ? 'API REST'
+                                        : preset.id === 'supabase_crud' ? '🐘 Supabase CRUD'
                                         : preset.id === 'eas' ? 'Builds EAS'
                                         : preset.id === 'ai' ? 'Asistente IA'
                                         : preset.title.split(' ')[0];

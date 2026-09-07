@@ -207,16 +207,17 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                 },
                 {
                     code: '2.2',
-                    name: 'Datos remotos y APIs (Preparación Firebase)',
+                    name: 'APIs REST, Datos Remotos y Supabase PostgreSQL',
                     topics: [
                         'useEffect: ciclo de vida, dependencias y función de cleanup',
-                        'Manejo de estados: loading, error y data',
-                        'Consumo de APIs REST con fetch y Axios',
-                        'Custom hooks para desacoplar lógica de datos',
-                        'Inicialización y tipado de firebase.ts'
+                        'Manejo de estados asíncronos: loading, error y data',
+                        'Consumo de APIs REST con fetch y Axios (GET, POST, PUT, DELETE)',
+                        'Bases de datos relacionales en la nube con Supabase (PostgreSQL)',
+                        'Operaciones CRUD completas: Create (insert), Read (select), Update (update), Delete (delete)',
+                        'Políticas de seguridad Row Level Security (RLS) y persistencia con AsyncStorage'
                     ],
-                    preset: 'api',
-                    simulatorTag: 'Simular Fetch',
+                    preset: 'supabase_crud',
+                    simulatorTag: 'Simular Supabase CRUD',
                     materials: [
                         {
                             title: 'Learning React Native: Peticiones de Red y APIs Asíncronas',
