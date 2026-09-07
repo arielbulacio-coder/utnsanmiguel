@@ -23,40 +23,40 @@ export const SIMULATOR_PRESETS = [
         title: 'Tutorial: Comenzar Proyecto Expo & Setup PC',
         icon: <Terminal size={18} />,
         summary: 'Guía paso a paso: instalación de Node.js, VS Code, Git, emuladores/Expo Go y comandos iniciales create-expo-app.',
-        code: `# =======================================================
-# TUTORIAL INICIAL: SETUP DE PC & COMANDOS EXPO
-# Cátedra Creación de Aplicaciones Móviles • UNPilar / UTN
-# =======================================================
+        code: `// =======================================================
+// TUTORIAL INICIAL: SETUP DE PC & COMANDOS EXPO
+// Cátedra Creación de Aplicaciones Móviles • UNPilar / UTN
+// =======================================================
 
-# 1. VERIFICAR HERRAMIENTAS PREVIAS EN TU PC
-# Asegúrate de tener Node.js (LTS v20+) y Git instalados:
+// 1. VERIFICAR HERRAMIENTAS PREVIAS EN TU PC
+// Asegúrate de tener Node.js (LTS v20+) y Git instalados:
 node -v      # Debe responder v20.x o superior
 git --version # Debe responder git version 2.x
 
-# 2. CREAR TU NUEVO PROYECTO EXPO
-# Crea una aplicación moderna con navegación por pestañas (Tabs):
+// 2. CREAR TU NUEVO PROYECTO EXPO
+// Crea una aplicación moderna con navegación por pestañas (Tabs):
 npx create-expo-app@latest mi-primera-app --template tabs
 
-# 3. ACCEDER A LA CARPETA DEL PROYECTO
+// 3. ACCEDER A LA CARPETA DEL PROYECTO
 cd mi-primera-app
 
-# 4. INSTALAR DEPENDENCIAS ADICIONALES DEL CURSO
+// 4. INSTALAR DEPENDENCIAS ADICIONALES DEL CURSO
 npx expo install @react-navigation/native zustand zod lucide-react-native
 
-# 5. INICIAR EL SERVIDOR DE DESARROLLO METRO BUNDLER
+// 5. INICIAR EL SERVIDOR DE DESARROLLO METRO BUNDLER
 npx expo start
 
-# =======================================================
-# ATAJOS DE TECLADO EN LA TERMINAL METRO:
-# -------------------------------------------------------
-#   a  -> Abrir en Emulador Android (Android Studio / AVD)
-#   i  -> Abrir en Simulador iOS (Xcode en macOS)
-#   w  -> Abrir en Navegador Web (Chrome / Edge)
-#   r  -> Recargar la app en vivo (Fast Refresh / Reload)
-#   m  -> Abrir Menú de Desarrollador en el teléfono
-#   c  -> Limpiar caché de Metro (npx expo start -c)
-#   s  -> Alternar entre Expo Go y Development Build
-# =======================================================`,
+// =======================================================
+// ATAJOS DE TECLADO EN LA TERMINAL METRO:
+// -------------------------------------------------------
+//   a  -> Abrir en Emulador Android (Android Studio / AVD)
+//   i  -> Abrir en Simulador iOS (Xcode en macOS)
+//   w  -> Abrir en Navegador Web (Chrome / Edge)
+//   r  -> Recargar la app en vivo (Fast Refresh / Reload)
+//   m  -> Abrir Menú de Desarrollador en el teléfono
+//   c  -> Limpiar caché de Metro (npx expo start -c)
+//   s  -> Alternar entre Expo Go y Development Build
+// =======================================================`,
         renderSimulator: ({ log }) => {
             const [step, setStep] = useState(1);
             const [copied, setCopied] = useState(false);
@@ -1513,10 +1513,10 @@ const styles = StyleSheet.create({
         title: 'CRUD PostgreSQL en la Nube con Supabase',
         icon: <Database size={18} />,
         summary: 'Conexión y gestión completa de inventario con PostgreSQL en Supabase: funciones select, insert, update y delete con PostgREST y SQL en vivo.',
-        code: `# =======================================================
-# CONEXIÓN A API & CRUD POSTGRESQL CON SUPABASE
-# Cátedra Creación de Aplicaciones Móviles • UNPilar / UTN
-# =======================================================
+        code: `// =======================================================
+// CONEXIÓN A API & CRUD POSTGRESQL CON SUPABASE
+// Cátedra Creación de Aplicaciones Móviles • UNPilar / UTN
+// =======================================================
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -1539,19 +1539,11 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   },
 });
 
-// 2. CONTRATO DE DATOS (INTERFAZ TYPESCRIPT)
-export interface Producto {
-  id: number;
-  nombre: string;
-  categoria: string;
-  precio: number;
-  stock: number;
-  activo: boolean;
-  created_at?: string;
-}
+// 2. MODELO DE DATOS
+// Campos: id, nombre, categoria, precio, stock, activo, created_at
 
 export default function SupabaseCrudScreen() {
-  const [productos, setProductos] = useState<Producto[]>([]);
+  const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filtroCategoria, setFiltroCategoria] = useState('Todos');
   const [busqueda, setBusqueda] = useState('');
@@ -1585,7 +1577,7 @@ export default function SupabaseCrudScreen() {
       const { data, error } = await query;
       if (error) throw error;
       setProductos(data || []);
-    } catch (err: any) {
+    } catch (err) {
       Alert.alert('Error READ PostgreSQL', err.message);
     } finally {
       setLoading(false);
@@ -1623,7 +1615,7 @@ export default function SupabaseCrudScreen() {
       setPrecio('');
       setStock('');
       fetchProductos();
-    } catch (err: any) {
+    } catch (err) {
       Alert.alert('Error INSERT', err.message);
     } finally {
       setLoading(false);
@@ -1633,7 +1625,7 @@ export default function SupabaseCrudScreen() {
   // =====================================================
   // FUNCIÓN 3: UPDATE (Actualizar Stock o Precio)
   // =====================================================
-  const actualizarStock = async (id: number, nuevoStock: number) => {
+  const actualizarStock = async (id, nuevoStock) => {
     try {
       const { error } = await supabase
         .from('productos')
@@ -1643,7 +1635,7 @@ export default function SupabaseCrudScreen() {
       if (error) throw error;
       // Actualizar estado local inmediatamente
       setProductos(prev => prev.map(p => p.id === id ? { ...p, stock: nuevoStock } : p));
-    } catch (err: any) {
+    } catch (err) {
       Alert.alert('Error UPDATE', err.message);
     }
   };
@@ -1651,7 +1643,7 @@ export default function SupabaseCrudScreen() {
   // =====================================================
   // FUNCIÓN 4: DELETE (Eliminar Fila de PostgreSQL)
   // =====================================================
-  const eliminarProducto = async (id: number) => {
+  const eliminarProducto = async (id) => {
     try {
       const { error } = await supabase
         .from('productos')
@@ -1661,7 +1653,7 @@ export default function SupabaseCrudScreen() {
       if (error) throw error;
       setProductos(prev => prev.filter(p => p.id !== id));
       Alert.alert('Eliminado', 'Producto borrado de PostgreSQL.');
-    } catch (err: any) {
+    } catch (err) {
       Alert.alert('Error DELETE', err.message);
     }
   };
@@ -1673,21 +1665,21 @@ export default function SupabaseCrudScreen() {
   );
 }
 
-# =======================================================
-# SCRIPT SQL PARA SUPABASE SQL EDITOR:
-# -------------------------------------------------------
-# CREATE TABLE public.productos (
-#   id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-#   nombre TEXT NOT NULL,
-#   categoria TEXT NOT NULL DEFAULT 'General',
-#   precio NUMERIC(10,2) NOT NULL DEFAULT 0.00,
-#   stock INT NOT NULL DEFAULT 0,
-#   activo BOOLEAN DEFAULT TRUE,
-#   created_at TIMESTAMPTZ DEFAULT NOW()
-# );
-# ALTER TABLE public.productos ENABLE ROW LEVEL SECURITY;
-# CREATE POLICY "Acceso Publico" ON public.productos FOR ALL USING (true);
-# =======================================================`,
+// =======================================================
+// SCRIPT SQL PARA SUPABASE SQL EDITOR:
+// -------------------------------------------------------
+// CREATE TABLE public.productos (
+//   id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+//   nombre TEXT NOT NULL,
+//   categoria TEXT NOT NULL DEFAULT 'General',
+//   precio NUMERIC(10,2) NOT NULL DEFAULT 0.00,
+//   stock INT NOT NULL DEFAULT 0,
+//   activo BOOLEAN DEFAULT TRUE,
+//   created_at TIMESTAMPTZ DEFAULT NOW()
+// );
+// ALTER TABLE public.productos ENABLE ROW LEVEL SECURITY;
+// CREATE POLICY "Acceso Publico" ON public.productos FOR ALL USING (true);
+// =======================================================`,
         renderSimulator: ({ log }) => {
             const [items, setItems] = useState([
                 { id: 101, nombre: 'ESP32 NodeMCU Wi-Fi + Bluetooth', categoria: 'IoT', precio: 12500, stock: 24, activo: true },
@@ -3595,7 +3587,9 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
         if (!code) return;
         const timer = setTimeout(() => {
             try {
-                const res = Babel.transform(code, {
+                // Sanitizar comentarios bash (#) para evitar errores en Babel si el usuario los pega
+                const cleanedCode = code.replace(/^#([^\n]*)/gm, '//$1');
+                const res = Babel.transform(cleanedCode, {
                     presets: [
                         ['env', { modules: 'commonjs' }],
                         ['react', { runtime: 'classic' }]
@@ -3614,6 +3608,29 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
                     if (moduleName.includes('firebaseConfig')) return { db: {}, default: { db: {} }, __esModule: true };
                     if (moduleName === 'expo-location') return { ...LOCATION_MOCKS, default: LOCATION_MOCKS, __esModule: true };
                     if (moduleName === 'expo-camera') return { ...CAMERA_MOCKS, default: CAMERA_MOCKS, __esModule: true };
+                    if (moduleName === '@supabase/supabase-js') {
+                        return {
+                            createClient: () => ({
+                                from: () => ({
+                                    select: () => ({ order: () => Promise.resolve({ data: [], error: null }), eq: () => Promise.resolve({ data: [], error: null }) }),
+                                    insert: () => ({ select: () => Promise.resolve({ data: [{ id: 999, nombre: 'Producto Creado' }], error: null }) }),
+                                    update: () => ({ eq: () => Promise.resolve({ error: null }) }),
+                                    delete: () => ({ eq: () => Promise.resolve({ error: null }) })
+                                })
+                            }),
+                            __esModule: true
+                        };
+                    }
+                    if (moduleName === '@react-native-async-storage/async-storage') {
+                        return {
+                            default: {
+                                getItem: () => Promise.resolve(null),
+                                setItem: () => Promise.resolve(),
+                                removeItem: () => Promise.resolve()
+                            },
+                            __esModule: true
+                        };
+                    }
                     return {};
                 };
 
@@ -5144,18 +5161,33 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
 
                             {/* Live App Container */}
                             <div key={keyReload} style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative', background: '#020617' }}>
-                                {customCodes[selectedPresetId] !== undefined && (
-                                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', background: '#38bdf8', color: '#000', fontSize: '9px', fontWeight: 'bold', textAlign: 'center', padding: '2px 0', zIndex: 100 }}>
-                                        ⚡ LIVE CODE ACTIVADO
+                                {customCodes[selectedPresetId] !== undefined ? (
+                                    <>
+                                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', background: '#38bdf8', color: '#000', fontSize: '9px', fontWeight: 'bold', textAlign: 'center', padding: '2px 0', zIndex: 100 }}>
+                                            ⚡ LIVE CODE ACTIVADO
+                                        </div>
+                                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginTop: '14px', overflow: 'hidden' }}>
+                                            <LiveSimulatorRunner
+                                                code={customCodes[selectedPresetId]}
+                                                log={addLog}
+                                                resetKey={`${selectedPresetId}-${keyReload}`}
+                                            />
+                                        </div>
+                                    </>
+                                ) : activePreset.renderSimulator ? (
+                                    activePreset.renderSimulator({
+                                        config: {},
+                                        log: addLog
+                                    })
+                                ) : (
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                                        <LiveSimulatorRunner
+                                            code={activePreset.code}
+                                            log={addLog}
+                                            resetKey={`${selectedPresetId}-${keyReload}`}
+                                        />
                                     </div>
                                 )}
-                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginTop: customCodes[selectedPresetId] !== undefined ? '14px' : '0', overflow: 'hidden' }}>
-                                    <LiveSimulatorRunner
-                                        code={customCodes[selectedPresetId] ?? activePreset.code}
-                                        log={addLog}
-                                        resetKey={`${selectedPresetId}-${keyReload}`}
-                                    />
-                                </div>
                             </div>
 
                             {/* Home Indicator Bar */}
