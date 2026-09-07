@@ -16,979 +16,264 @@ if (typeof window !== 'undefined') {
 // PRESETS EDUCATIVOS DEL CURSO
 export const SIMULATOR_PRESETS = [
     {
-        id: 'ecommerce_cart',
-        unit: 'Unidad 2 & 3 • App Completa',
-        title: 'Tienda Móvil con Carro de Compras',
-        icon: <ShoppingCart size={18} />,
-        summary: 'Arquitectura completa con Zustand: catálogo de productos, carrito reactivo con badge, incremento/decremento, cálculo de total y checkout.',
-        code: `import React, { useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, TextInput, StyleSheet, Modal } from 'react-native';
-// En un proyecto real: import { create } from 'zustand';
+        id: 'expo_setup',
+        unit: 'Unidad 1.1 • Setup Inicial',
+        title: 'Tutorial: Comenzar Proyecto Expo & Setup PC',
+        icon: <Terminal size={18} />,
+        summary: 'Guía paso a paso: instalación de Node.js, VS Code, Git, emuladores/Expo Go y comandos iniciales create-expo-app.',
+        code: `# =======================================================
+# TUTORIAL INICIAL: SETUP DE PC & COMANDOS EXPO
+# Cátedra Creación de Aplicaciones Móviles • UNPilar / UTN
+# =======================================================
 
-// 1. MODELO DE DATOS Y STORE GLOBAL
-// El store gestiona los items agregados, cantidades y el cálculo del total
-export const useCartStore = {
-  // Estado inicial simulado:
-  // items: [{ id: '1', nombre: 'Arduino Uno R4', precio: 28500, qty: 1 }]
-  // addItem(producto), removeItem(id), updateQty(id, delta), clearCart()
-};
+# 1. VERIFICAR HERRAMIENTAS PREVIAS EN TU PC
+# Asegúrate de tener Node.js (LTS v20+) y Git instalados:
+node -v      # Debe responder v20.x o superior
+git --version # Debe responder git version 2.x
 
-const PRODUCTOS = [
-  { id: '1', nombre: 'Arduino Uno R4 WiFi', categoria: 'Placas', precio: 28500, stock: 12, icono: '🤖' },
-  { id: '2', nombre: 'ESP32-CAM OV2640', categoria: 'IoT', precio: 14200, stock: 18, icono: '📷' },
-  { id: '3', nombre: 'Kit Chasis Robot 2WD', categoria: 'Robótica', precio: 19900, stock: 7, icono: '🏎️' },
-  { id: '4', nombre: 'Sensor Línea TCRT5000', categoria: 'Sensores', precio: 6500, stock: 25, icono: '📡' },
-  { id: '5', nombre: 'Display LCD 16x2 I2C', categoria: 'Pantallas', precio: 5800, stock: 14, icono: '📟' },
-  { id: '6', nombre: 'Módulo Relay 4 Canales', categoria: 'Actuadores', precio: 8200, stock: 9, icono: '⚡' },
-];
+# 2. CREAR TU NUEVO PROYECTO EXPO
+# Crea una aplicación moderna con navegación por pestañas (Tabs):
+npx create-expo-app@latest mi-primera-app --template tabs
 
-export default function TiendaConCarritoApp() {
-  const [tab, setTab] = useState('catalogo'); // 'catalogo' | 'carrito' | 'checkout'
-  const [categoria, setCategoria] = useState('Todos');
-  const [carrito, setCarrito] = useState([
-    { id: '1', nombre: 'Arduino Uno R4 WiFi', precio: 28500, qty: 1, icono: '🤖' }
-  ]);
+# 3. ACCEDER A LA CARPETA DEL PROYECTO
+cd mi-primera-app
 
-  // Funciones de mutación del carrito
-  const agregarAlCarrito = (producto) => {
-    setCarrito(prev => {
-      const existe = prev.find(p => p.id === producto.id);
-      if (existe) {
-        return prev.map(p => p.id === producto.id ? { ...p, qty: p.qty + 1 } : p);
-      }
-      return [...prev, { ...producto, qty: 1 }];
-    });
-  };
+# 4. INSTALAR DEPENDENCIAS ADICIONALES DEL CURSO
+npx expo install @react-navigation/native zustand zod lucide-react-native
 
-  const modificarCantidad = (id, delta) => {
-    setCarrito(prev => prev.map(p => {
-      if (p.id === id) {
-        const nuevaQty = p.qty + delta;
-        return nuevaQty > 0 ? { ...p, qty: nuevaQty } : null;
-      }
-      return p;
-    }).filter(Boolean));
-  };
+# 5. INICIAR EL SERVIDOR DE DESARROLLO METRO BUNDLER
+npx expo start
 
-  const subtotal = carrito.reduce((acc, item) => acc + (item.precio * item.qty), 0);
-  const descuento = subtotal * 0.10; // 10% descuento alumno
-  const total = subtotal - descuento;
-  const totalItems = carrito.reduce((acc, item) => acc + item.qty, 0);
-
-  return (
-    <View style={styles.container}>
-      {/* Barra superior con Badge del Carrito */}
-      <View style={styles.navbar}>
-        <Text style={styles.navTitle}>⚡ ElectroTech UTN</Text>
-        <TouchableOpacity style={styles.cartBadgeBtn} onPress={() => setTab('carrito')}>
-          <Text style={styles.cartIconText}>🛒</Text>
-          {totalItems > 0 && (
-            <View style={styles.badgePill}>
-              <Text style={styles.badgeText}>{totalItems}</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-      </View>
-
-      {/* Navegación por pestañas */}
-      <View style={styles.tabBar}>
-        <TouchableOpacity style={[styles.tabItem, tab === 'catalogo' && styles.tabActive]} onPress={() => setTab('catalogo')}>
-          <Text style={[styles.tabText, tab === 'catalogo' && styles.tabTextActive]}>Catálogo</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.tabItem, tab === 'carrito' && styles.tabActive]} onPress={() => setTab('carrito')}>
-          <Text style={[styles.tabText, tab === 'carrito' && styles.tabTextActive]}>Carrito ({totalItems})</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.tabItem, tab === 'checkout' && styles.tabActive]} onPress={() => setTab('checkout')}>
-          <Text style={[styles.tabText, tab === 'checkout' && styles.tabTextActive]}>Checkout</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Pantalla 1: Catálogo de Productos */}
-      {tab === 'catalogo' && (
-        <FlatList
-          data={PRODUCTOS.filter(p => categoria === 'Todos' || p.categoria === categoria)}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Text style={styles.itemIcon}>{item.icono}</Text>
-              <View style={styles.itemInfo}>
-                <Text style={styles.itemName}>{item.nombre}</Text>
-                <Text style={styles.itemPrice}>\${item.precio.toLocaleString('es-AR')}</Text>
-              </View>
-              <TouchableOpacity style={styles.addBtn} onPress={() => agregarAlCarrito(item)}>
-                <Text style={styles.addBtnText}>+ Agregar</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-      )}
-
-      {/* Pantalla 2: Carrito con Incremento/Decremento */}
-      {tab === 'carrito' && (
-        <View style={styles.cartView}>
-          <FlatList
-            data={carrito}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.cartRow}>
-                <Text style={styles.itemIcon}>{item.icono}</Text>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.cartItemName}>{item.nombre}</Text>
-                  <Text style={styles.cartItemPrice}>\${(item.precio * item.qty).toLocaleString('es-AR')}</Text>
-                </View>
-                <View style={styles.stepper}>
-                  <TouchableOpacity style={styles.stepperBtn} onPress={() => modificarCantidad(item.id, -1)}>
-                    <Text style={styles.stepperText}>-</Text>
-                  </TouchableOpacity>
-                  <Text style={styles.stepperVal}>{item.qty}</Text>
-                  <TouchableOpacity style={styles.stepperBtn} onPress={() => modificarCantidad(item.id, 1)}>
-                    <Text style={styles.stepperText}>+</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
-          />
-          <View style={styles.totalBox}>
-            <Text style={styles.totalLabel}>Total Final (con desc. UTN):</Text>
-            <Text style={styles.totalAmount}>\${total.toLocaleString('es-AR')}</Text>
-            <TouchableOpacity style={styles.checkoutBtn} onPress={() => setTab('checkout')}>
-              <Text style={styles.checkoutBtnText}>Proceder al Pago ➔</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-
-      {/* Pantalla 3: Checkout y Confirmación */}
-      {tab === 'checkout' && (
-        <View style={styles.checkoutView}>
-          <Text style={styles.checkoutTitle}>Resumen de Orden</Text>
-          <Text style={styles.checkoutSummary}>Artículos: {totalItems} unidades</Text>
-          <Text style={styles.checkoutSummary}>Total a pagar: \${total.toLocaleString('es-AR')}</Text>
-          <TouchableOpacity style={styles.confirmBtn} onPress={() => alert('¡Compra confirmada! Orden #UTN-2026')}>
-            <Text style={styles.confirmBtnText}>Confirmar Pedido 🚀</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0b1120', padding: 16 },
-  navbar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  navTitle: { fontSize: 18, fontWeight: 'bold', color: '#38bdf8' },
-  cartBadgeBtn: { position: 'relative', padding: 6 },
-  cartIconText: { fontSize: 20 },
-  badgePill: { position: 'absolute', top: 0, right: 0, backgroundColor: '#ef4444', borderRadius: 10, minWidth: 18, height: 18, alignItems: 'center', justifyContent: 'center' },
-  badgeText: { color: '#fff', fontSize: 10, fontWeight: 'bold' },
-  tabBar: { flexDirection: 'row', backgroundColor: '#1e293b', borderRadius: 10, padding: 4, marginBottom: 12 },
-  tabItem: { flex: 1, paddingVertical: 8, alignItems: 'center', borderRadius: 8 },
-  tabActive: { backgroundColor: '#0284c7' },
-  tabText: { color: '#94a3b8', fontSize: 12, fontWeight: '600' },
-  tabTextActive: { color: '#fff' },
-  card: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#151d30', padding: 12, borderRadius: 12, marginBottom: 8, gap: 10 },
-  itemIcon: { fontSize: 24 },
-  itemInfo: { flex: 1 },
-  itemName: { color: '#f1f5f9', fontWeight: 'bold', fontSize: 13 },
-  itemPrice: { color: '#10b981', fontSize: 12, marginTop: 2 },
-  addBtn: { backgroundColor: '#0284c7', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8 },
-  addBtnText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
-  cartView: { flex: 1, justifyContent: 'space-between' },
-  cartRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#151d30', padding: 10, borderRadius: 10, marginBottom: 8, gap: 10 },
-  cartItemName: { color: '#f1f5f9', fontSize: 12, fontWeight: 'bold' },
-  cartItemPrice: { color: '#38bdf8', fontSize: 11 },
-  stepper: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1e293b', borderRadius: 6 },
-  stepperBtn: { paddingHorizontal: 10, paddingVertical: 4 },
-  stepperText: { color: '#fff', fontSize: 14, fontWeight: 'bold' },
-  stepperVal: { color: '#fff', fontSize: 12, fontWeight: 'bold', paddingHorizontal: 4 },
-  totalBox: { backgroundColor: '#1e293b', padding: 14, borderRadius: 12, marginTop: 10 },
-  totalLabel: { color: '#94a3b8', fontSize: 12 },
-  totalAmount: { color: '#10b981', fontSize: 20, fontWeight: 'bold', marginVertical: 4 },
-  checkoutBtn: { backgroundColor: '#10b981', padding: 10, borderRadius: 8, alignItems: 'center', marginTop: 8 },
-  checkoutBtnText: { color: '#fff', fontWeight: 'bold' },
-  checkoutView: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  checkoutTitle: { fontSize: 18, fontWeight: 'bold', color: '#f1f5f9', marginBottom: 12 },
-  checkoutSummary: { color: '#94a3b8', fontSize: 14, marginBottom: 6 },
-  confirmBtn: { backgroundColor: '#0284c7', paddingVertical: 12, paddingHorizontal: 24, borderRadius: 10, marginTop: 16 },
-  confirmBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
-});`,
+# =======================================================
+# ATAJOS DE TECLADO EN LA TERMINAL METRO:
+# -------------------------------------------------------
+#   a  -> Abrir en Emulador Android (Android Studio / AVD)
+#   i  -> Abrir en Simulador iOS (Xcode en macOS)
+#   w  -> Abrir en Navegador Web (Chrome / Edge)
+#   r  -> Recargar la app en vivo (Fast Refresh / Reload)
+#   m  -> Abrir Menú de Desarrollador en el teléfono
+#   c  -> Limpiar caché de Metro (npx expo start -c)
+#   s  -> Alternar entre Expo Go y Development Build
+# =======================================================`,
         renderSimulator: ({ log }) => {
-            const [tab, setTab] = useState('catalogo');
-            const [categoria, setCategoria] = useState('Todos');
-            const [carrito, setCarrito] = useState([
-                { id: '1', nombre: 'Arduino Uno R4 WiFi', categoria: 'Placas', precio: 28500, qty: 1, icono: '🤖' }
+            const [step, setStep] = useState(1);
+            const [copied, setCopied] = useState(false);
+            const [metroLog, setMetroLog] = useState([
+                'VITE / METRO BUNDLER v51.0.0 ready in 820ms',
+                'Waiting on exp://192.168.1.45:8081',
+                'Scan the QR code with Expo Go app'
             ]);
-            const [orderSuccess, setOrderSuccess] = useState(false);
 
-            const PRODUCTOS = [
-                { id: '1', nombre: 'Arduino Uno R4 WiFi', categoria: 'Placas', precio: 28500, stock: 12, icono: '🤖' },
-                { id: '2', nombre: 'ESP32-CAM OV2640', categoria: 'IoT', precio: 14200, stock: 18, icono: '📷' },
-                { id: '3', nombre: 'Kit Chasis Robot 2WD', categoria: 'Robótica', precio: 19900, stock: 7, icono: '🏎️' },
-                { id: '4', nombre: 'Sensor Línea TCRT5000', categoria: 'Sensores', precio: 6500, stock: 25, icono: '📡' },
-                { id: '5', nombre: 'Display LCD 16x2 I2C', categoria: 'Pantallas', precio: 5800, stock: 14, icono: '📟' },
-                { id: '6', nombre: 'Módulo Relay 4 Canales', categoria: 'Actuadores', precio: 8200, stock: 9, icono: '⚡' },
-            ];
-
-            const totalItems = carrito.reduce((acc, item) => acc + item.qty, 0);
-            const subtotal = carrito.reduce((acc, item) => acc + (item.precio * item.qty), 0);
-            const descuento = Math.round(subtotal * 0.10);
-            const total = subtotal - descuento;
-
-            const agregarAlCarrito = (producto) => {
-                setCarrito(prev => {
-                    const existe = prev.find(p => p.id === producto.id);
-                    if (existe) {
-                        log(`[CartStore] ADD_ITEM: "${producto.nombre}" (ID: ${producto.id}). Cantidad incrementada a ${existe.qty + 1}`);
-                        return prev.map(p => p.id === producto.id ? { ...p, qty: p.qty + 1 } : p);
-                    }
-                    log(`[CartStore] ADD_ITEM: "${producto.nombre}" agregado al carrito por primera vez.`);
-                    return [...prev, { ...producto, qty: 1 }];
-                });
+            const triggerHotkey = (key, desc) => {
+                log(`[Metro Terminal] Presionaste '${key}' -> ${desc}`);
+                setMetroLog(prev => [...prev.slice(-4), `> Key '${key}': ${desc}`]);
             };
 
-            const modificarCantidad = (id, delta) => {
-                setCarrito(prev => {
-                    const target = prev.find(p => p.id === id);
-                    if (!target) return prev;
-                    const nuevaQty = target.qty + delta;
-                    if (nuevaQty <= 0) {
-                        log(`[CartStore] REMOVE_ITEM: "${target.nombre}" (ID: ${id}) eliminado del carrito.`);
-                        return prev.filter(p => p.id !== id);
-                    }
-                    log(`[CartStore] UPDATE_QTY: "${target.nombre}" cantidad actualizada a ${nuevaQty}`);
-                    return prev.map(p => p.id === id ? { ...p, qty: nuevaQty } : p);
-                });
-            };
-
-            const vaciarCarrito = () => {
-                setCarrito([]);
-                log('[CartStore] CLEAR_CART: Carrito vaciado.');
-            };
-
-            const confirmarPedido = () => {
-                const orderId = '#UTN-' + Math.floor(1000 + Math.random() * 9000);
-                log(`[CartStore] PLACE_ORDER: Pedido confirmado ${orderId}. Total: ${total.toLocaleString('es-AR')}. Carrito sincronizado con backend.`);
-                setOrderSuccess(orderId);
-                setCarrito([]);
-                setTab('success');
+            const copyCommand = (cmd) => {
+                navigator.clipboard?.writeText(cmd);
+                setCopied(true);
+                log(`[Clipboard] Copiado: "${cmd}"`);
+                setTimeout(() => setCopied(false), 2000);
             };
 
             return (
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0a0f1d', color: '#fff', overflow: 'hidden' }}>
-                    {/* Header de la App */}
+                    {/* Header del Tutorial */}
                     <div style={{ padding: '12px 14px', background: '#111827', borderBottom: '1px solid #1f2937', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                             <div style={{ fontSize: '13px', fontWeight: '900', color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                <span>⚡ ElectroTech UTN</span>
+                                <span>🚀 Setup Expo en PC</span>
                             </div>
-                            <div style={{ fontSize: '9px', color: '#94a3b8' }}>Tienda Móvil con Carro de Compras</div>
+                            <div style={{ fontSize: '9px', color: '#94a3b8' }}>Guía Interactiva para Alumnos</div>
                         </div>
-
-                        <button
-                            onClick={() => { setTab('carrito'); log('[Navigation] Navegando a pantalla de Carrito'); }}
-                            style={{
-                                position: 'relative',
-                                background: tab === 'carrito' ? 'rgba(56,189,248,0.2)' : '#1e293b',
-                                border: '1px solid #334155',
-                                borderRadius: '8px',
-                                padding: '6px 10px',
-                                color: '#f1f5f9',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '4px'
-                            }}
-                        >
-                            <span style={{ fontSize: '14px' }}>🛒</span>
-                            <span style={{ fontSize: '11px', fontWeight: '800' }}>Carrito</span>
-                            {totalItems > 0 && (
-                                <span style={{
-                                    position: 'absolute',
-                                    top: '-6px',
-                                    right: '-6px',
-                                    background: '#ef4444',
-                                    color: '#fff',
-                                    borderRadius: '999px',
-                                    padding: '1px 5px',
-                                    fontSize: '9px',
-                                    fontWeight: '900',
-                                    boxShadow: '0 2px 5px rgba(239,68,68,0.5)'
-                                }}>
-                                    {totalItems}
-                                </span>
-                            )}
-                        </button>
+                        <span style={{ fontSize: '9px', background: 'rgba(56,189,248,0.15)', color: '#38bdf8', padding: '2px 8px', borderRadius: '6px', fontWeight: '800' }}>
+                            Paso {step} de 4
+                        </span>
                     </div>
 
-                    {/* Barra de Pestañas de Navegación */}
-                    <div style={{ display: 'flex', background: '#131b2e', padding: '4px', borderBottom: '1px solid #1f2937' }}>
+                    {/* Selector de Pasos */}
+                    <div style={{ display: 'flex', background: '#131b2e', padding: '4px', borderBottom: '1px solid #1f2937', gap: '2px' }}>
                         {[
-                            { id: 'catalogo', label: '📱 Catálogo' },
-                            { id: 'carrito', label: `🛒 Carrito (${totalItems})` },
-                            { id: 'checkout', label: '💳 Checkout' }
-                        ].map(t => (
+                            { id: 1, label: '1. Herramientas' },
+                            { id: 2, label: '2. Crear App' },
+                            { id: 3, label: '3. Terminal' },
+                            { id: 4, label: '4. QR & Go' }
+                        ].map(s => (
                             <button
-                                key={t.id}
-                                onClick={() => { setTab(t.id); log(`[Navigation] Tab activado: ${t.id}`); }}
+                                key={s.id}
+                                onClick={() => { setStep(s.id); log(`[Tutorial] Navegando a Paso ${s.id}`); }}
                                 style={{
                                     flex: 1,
-                                    padding: '6px 4px',
+                                    padding: '5px 2px',
                                     borderRadius: '6px',
                                     border: 'none',
-                                    background: tab === t.id ? '#0284c7' : 'transparent',
-                                    color: tab === t.id ? '#fff' : '#94a3b8',
-                                    fontSize: '10px',
-                                    fontWeight: tab === t.id ? '800' : '600',
-                                    cursor: 'pointer'
+                                    background: step === s.id ? '#0284c7' : 'transparent',
+                                    color: step === s.id ? '#fff' : '#94a3b8',
+                                    fontSize: '9px',
+                                    fontWeight: step === s.id ? '800' : '600',
+                                    cursor: 'pointer',
+                                    whiteSpace: 'nowrap'
                                 }}
                             >
-                                {t.label}
+                                {s.label}
                             </button>
                         ))}
                     </div>
 
-                    {/* CONTENIDO 1: CATÁLOGO */}
-                    {tab === 'catalogo' && (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '10px' }}>
-                            {/* Filtro por Categorías */}
-                            <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
-                                {['Todos', 'Placas', 'IoT', 'Robótica', 'Sensores'].map(cat => (
-                                    <button
-                                        key={cat}
-                                        onClick={() => setCategoria(cat)}
-                                        style={{
-                                            padding: '3px 8px',
-                                            borderRadius: '6px',
-                                            border: '1px solid',
-                                            borderColor: categoria === cat ? '#38bdf8' : '#334155',
-                                            background: categoria === cat ? 'rgba(56,189,248,0.15)' : '#1e293b',
-                                            color: categoria === cat ? '#38bdf8' : '#94a3b8',
-                                            fontSize: '9px',
-                                            fontWeight: '700',
-                                            cursor: 'pointer',
-                                            whiteSpace: 'nowrap'
-                                        }}
-                                    >
-                                        {cat}
-                                    </button>
-                                ))}
+                    {/* PASO 1: HERRAMIENTAS NECESARIAS */}
+                    {step === 1 && (
+                        <div style={{ flex: 1, padding: '12px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <div style={{ fontSize: '11px', fontWeight: '800', color: '#38bdf8', marginBottom: '2px' }}>
+                                💻 Software Obligatorio en tu Computadora:
                             </div>
 
-                            {/* Lista de Productos */}
-                            <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px', paddingRight: '2px' }}>
-                                {PRODUCTOS.filter(p => categoria === 'Todos' || p.categoria === categoria).map(prod => {
-                                    const inCart = carrito.find(c => c.id === prod.id);
-                                    return (
-                                        <div
-                                            key={prod.id}
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '10px',
-                                                background: '#151d30',
-                                                border: '1px solid #23304e',
-                                                borderRadius: '10px',
-                                                padding: '8px 10px'
-                                            }}
-                                        >
-                                            <span style={{ fontSize: '22px' }}>{prod.icono}</span>
-                                            <div style={{ flex: 1, minWidth: 0 }}>
-                                                <div style={{ fontSize: '11px', fontWeight: '800', color: '#f1f5f9', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                                    {prod.nombre}
-                                                </div>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
-                                                    <span style={{ fontSize: '11px', fontWeight: '900', color: '#10b981' }}>
-                                                        ${prod.precio.toLocaleString('es-AR')}
-                                                    </span>
-                                                    <span style={{ fontSize: '8px', color: '#64748b', background: '#0e1526', padding: '1px 4px', borderRadius: '4px' }}>
-                                                        {prod.stock} disp.
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <button
-                                                onClick={() => agregarAlCarrito(prod)}
-                                                style={{
-                                                    background: inCart ? '#10b981' : '#0284c7',
-                                                    border: 'none',
-                                                    color: '#fff',
-                                                    padding: '5px 9px',
-                                                    borderRadius: '6px',
-                                                    fontSize: '10px',
-                                                    fontWeight: '800',
-                                                    cursor: 'pointer',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '3px',
-                                                    whiteSpace: 'nowrap'
-                                                }}
-                                            >
-                                                {inCart ? `✓ (${inCart.qty})` : '+ Agregar'}
-                                            </button>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* CONTENIDO 2: CARRITO */}
-                    {tab === 'carrito' && (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '10px' }}>
-                            {carrito.length === 0 ? (
-                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '20px' }}>
-                                    <span style={{ fontSize: '36px', marginBottom: '8px' }}>🛒</span>
-                                    <div style={{ fontSize: '13px', fontWeight: '800', color: '#f1f5f9' }}>Tu carrito está vacío</div>
-                                    <div style={{ fontSize: '10px', color: '#94a3b8', margin: '4px 0 12px' }}>Agrega componentes desde el catálogo para calcular tu pedido</div>
-                                    <button
-                                        onClick={() => setTab('catalogo')}
-                                        style={{ background: '#0284c7', color: '#fff', border: 'none', padding: '6px 14px', borderRadius: '8px', fontSize: '11px', fontWeight: '700', cursor: 'pointer' }}
-                                    >
-                                        Explorar Catálogo
-                                    </button>
-                                </div>
-                            ) : (
-                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden' }}>
-                                    {/* Lista de productos en carrito */}
-                                    <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '6px', paddingRight: '2px' }}>
-                                        {carrito.map(item => (
-                                            <div
-                                                key={item.id}
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '8px',
-                                                    background: '#151d30',
-                                                    border: '1px solid #23304e',
-                                                    borderRadius: '8px',
-                                                    padding: '6px 8px'
-                                                }}
-                                            >
-                                                <span style={{ fontSize: '18px' }}>{item.icono}</span>
-                                                <div style={{ flex: 1, minWidth: 0 }}>
-                                                    <div style={{ fontSize: '10px', fontWeight: '800', color: '#f1f5f9', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                                        {item.nombre}
-                                                    </div>
-                                                    <div style={{ fontSize: '10px', color: '#38bdf8', fontWeight: '700' }}>
-                                                        ${(item.precio * item.qty).toLocaleString('es-AR')}
-                                                    </div>
-                                                </div>
-
-                                                {/* Stepper (+ / -) */}
-                                                <div style={{ display: 'flex', alignItems: 'center', background: '#0e1526', border: '1px solid #334155', borderRadius: '6px' }}>
-                                                    <button
-                                                        onClick={() => modificarCantidad(item.id, -1)}
-                                                        style={{ background: 'none', border: 'none', color: '#ef4444', padding: '2px 6px', fontSize: '12px', fontWeight: '900', cursor: 'pointer' }}
-                                                    >
-                                                        -
-                                                    </button>
-                                                    <span style={{ fontSize: '10px', fontWeight: '800', color: '#fff', minWidth: '16px', textAlign: 'center' }}>
-                                                        {item.qty}
-                                                    </span>
-                                                    <button
-                                                        onClick={() => modificarCantidad(item.id, 1)}
-                                                        style={{ background: 'none', border: 'none', color: '#10b981', padding: '2px 6px', fontSize: '12px', fontWeight: '900', cursor: 'pointer' }}
-                                                    >
-                                                        +
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {/* Resumen del Carrito */}
-                                    <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: '10px', padding: '8px', marginTop: '8px' }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#94a3b8', marginBottom: '2px' }}>
-                                            <span>Subtotal:</span>
-                                            <span>${subtotal.toLocaleString('es-AR')}</span>
-                                        </div>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#10b981', marginBottom: '2px' }}>
-                                            <span>Descuento UTN (10%):</span>
-                                            <span>-${descuento.toLocaleString('es-AR')}</span>
-                                        </div>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', fontWeight: '900', color: '#fff', borderTop: '1px solid #334155', paddingTop: '4px', marginTop: '4px' }}>
-                                            <span>Total a Pagar:</span>
-                                            <span style={{ color: '#38bdf8' }}>${total.toLocaleString('es-AR')}</span>
-                                        </div>
-
-                                        <button
-                                            onClick={() => { setTab('checkout'); log('[Navigation] Procediendo a Checkout'); }}
-                                            style={{
-                                                width: '100%',
-                                                background: 'linear-gradient(135deg, #10b981, #059669)',
-                                                border: 'none',
-                                                color: '#fff',
-                                                padding: '7px',
-                                                borderRadius: '8px',
-                                                fontSize: '11px',
-                                                fontWeight: '800',
-                                                cursor: 'pointer',
-                                                marginTop: '6px',
-                                                boxShadow: '0 4px 10px rgba(16,185,129,0.3)'
-                                            }}
-                                        >
-                                            Iniciar Checkout ({totalItems} items) ➔
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {/* CONTENIDO 3: CHECKOUT */}
-                    {tab === 'checkout' && (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', overflowY: 'auto' }}>
-                            <div>
-                                <div style={{ fontSize: '13px', fontWeight: '900', color: '#38bdf8', marginBottom: '8px' }}>
-                                    💳 Finalizar Compra
-                                </div>
-                                <div style={{ background: '#151d30', border: '1px solid #23304e', borderRadius: '10px', padding: '10px', marginBottom: '10px' }}>
-                                    <div style={{ fontSize: '10px', color: '#94a3b8', marginBottom: '4px' }}>Datos de Entrega en Sede:</div>
-                                    <div style={{ fontSize: '11px', fontWeight: '700', color: '#fff' }}>Pañol / Laboratorio de Electrónica</div>
-                                    <div style={{ fontSize: '9px', color: '#64748b' }}>Sede San Miguel • Sin costo de envío</div>
-                                </div>
-
-                                <div style={{ background: '#151d30', border: '1px solid #23304e', borderRadius: '10px', padding: '10px' }}>
-                                    <div style={{ fontSize: '10px', color: '#94a3b8', marginBottom: '4px' }}>Resumen del Pago:</div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#cbd5e1' }}>
-                                        <span>Total Artículos:</span>
-                                        <span>{totalItems} unid.</span>
-                                    </div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '900', color: '#10b981', marginTop: '4px' }}>
-                                        <span>Importe Final:</span>
-                                        <span>${total.toLocaleString('es-AR')}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button
-                                onClick={confirmarPedido}
-                                disabled={carrito.length === 0}
-                                style={{
-                                    width: '100%',
-                                    background: carrito.length === 0 ? '#334155' : 'linear-gradient(135deg, #0284c7, #38bdf8)',
-                                    border: 'none',
-                                    color: '#fff',
-                                    padding: '9px',
-                                    borderRadius: '10px',
-                                    fontSize: '12px',
-                                    fontWeight: '900',
-                                    cursor: carrito.length === 0 ? 'not-allowed' : 'pointer',
-                                    marginTop: '12px'
-                                }}
-                            >
-                                Confirmar y Emitir Pedido 🚀
-                            </button>
-                        </div>
-                    )}
-
-                    {/* CONTENIDO 4: ÉXITO */}
-                    {tab === 'success' && (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '16px' }}>
-                            <div style={{ width: '48px', height: '48px', borderRadius: '999px', background: 'rgba(16,185,129,0.2)', border: '2px solid #10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', marginBottom: '10px' }}>
-                                ✓
-                            </div>
-                            <div style={{ fontSize: '14px', fontWeight: '900', color: '#10b981' }}>¡Pedido Realizado con Éxito!</div>
-                            <div style={{ fontSize: '11px', fontWeight: '800', color: '#38bdf8', marginTop: '4px' }}>{orderSuccess}</div>
-                            <div style={{ fontSize: '10px', color: '#94a3b8', margin: '6px 0 16px', maxWidth: '200px' }}>
-                                Se reservaron los componentes en el pañol. Recibirás confirmación en tu correo institucional.
-                            </div>
-                            <button
-                                onClick={() => { setTab('catalogo'); log('[Navigation] Volviendo al catálogo'); }}
-                                style={{ background: '#0284c7', color: '#fff', border: 'none', padding: '6px 14px', borderRadius: '8px', fontSize: '11px', fontWeight: '700', cursor: 'pointer' }}
-                            >
-                                Volver al Catálogo
-                            </button>
-                        </div>
-                    )}
-
-                    {/* Footer Didáctico */}
-                    <div style={{ padding: '6px 12px', background: '#0a0f1d', borderTop: '1px solid #1f2937', fontSize: '9px', color: '#64748b', display: 'flex', justifyContent: 'space-between' }}>
-                        <span>Store: Zustand Global (Memory)</span>
-                        <span style={{ color: '#10b981' }}>● Sync Activo</span>
-                    </div>
-                </div>
-            );
-        }
-    },
-    {
-        id: 'ecommerce_nocart',
-        unit: 'Unidad 1 & 2 • Arquitectura Directa',
-        title: 'Catálogo Técnico (Sin Carrito)',
-        icon: <BookOpen size={18} />,
-        summary: 'Arquitectura directa y ligera basada en navegación Stack y paso de parámetros, sin sobrecarga de estado global de carrito.',
-        code: `import React, { useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-// En Expo Router: import { useRouter, useLocalSearchParams } from 'expo-router';
-
-// ARQUITECTURA DIRECTA SIN ESTADO DE CARRITO:
-// 1. No consume memoria para un store global (Zustand/Redux).
-// 2. Navegación lineal Stack: app/catalogo/index.tsx -> app/catalogo/[id].tsx
-// 3. Paso de parámetros directo por ruta: router.push('/catalogo/' + item.id)
-
-const COMPONENTES = [
-  {
-    id: 'esp32',
-    nombre: 'ESP32-WROOM-32D',
-    modelo: 'SoC Xtensa Dual-Core 240MHz',
-    categoria: 'Microcontroladores',
-    icono: '📡',
-    voltaje: '3.3V (Regulado a 5V)',
-    interfaz: 'I2C / SPI / UART / PWM (32 GPIOs)',
-    consumo: '80mA activo / 10µA Deep Sleep',
-    disponibles: 24,
-    descripcion: 'Módulo IoT de alto rendimiento con Wi-Fi 802.11 b/g/n y Bluetooth 4.2 BLE. Ideal para proyectos de robótica conectada.'
-  },
-  {
-    id: 'hcsr04',
-    nombre: 'Sensor Ultrasónico HC-SR04',
-    modelo: 'Transductor Piezoeléctrico 40kHz',
-    categoria: 'Sensores',
-    icono: '📏',
-    voltaje: '5V DC',
-    interfaz: 'Trigger & Echo (Digital)',
-    consumo: '15mA',
-    disponibles: 38,
-    descripcion: 'Medición de distancias sin contacto de 2cm a 400cm con precisión de 3mm. Utilizado en robots evasores de obstáculos.'
-  },
-  {
-    id: 'sg90',
-    nombre: 'Micro Servomotor SG90 9g',
-    modelo: 'Actuador con Reducción de Engranajes',
-    categoria: 'Actuadores',
-    icono: '🦾',
-    voltaje: '4.8V a 6.0V',
-    interfaz: 'PWM (Pulso 1ms a 2ms a 50Hz)',
-    consumo: '100mA en movimiento / 550mA bloqueo',
-    disponibles: 42,
-    descripcion: 'Giro de 180 grados con torque de 1.8 kg-cm. Esencial para articulaciones de brazos robóticos y dirección de vehículos autónomos.'
-  },
-  {
-    id: 'mpu6050',
-    nombre: 'Sensor IMU MPU-6050',
-    modelo: 'Acelerómetro + Giroscopio 6-DoF',
-    categoria: 'Sensores',
-    icono: '🧭',
-    voltaje: '3.3V - 5V (I2C)',
-    interfaz: 'Protocolo I2C estándar (0x68)',
-    consumo: '3.9mA',
-    disponibles: 16,
-    descripcion: 'Medición de inclinación, aceleración angular y orientación espacial para robots bípedos y estabilización.'
-  }
-];
-
-export default function CatalogoTecnicoSinCarritoApp() {
-  const [selectedId, setSelectedId] = useState(null);
-  const [filtro, setFiltro] = useState('Todos');
-
-  const selectedItem = COMPONENTES.find(c => c.id === selectedId);
-
-  return (
-    <View style={styles.container}>
-      {/* Header Directo sin Carrito */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>🔬 Pañol de Electrónica UTN</Text>
-        <Text style={styles.headerSubtitle}>Catálogo Técnico Directo • Sin Estado Global</Text>
-      </View>
-
-      {/* Pantalla 1: Ficha Técnica Detallada (Si se seleccionó un item) */}
-      {selectedItem ? (
-        <ScrollView style={styles.detailCard}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => setSelectedId(null)}>
-            <Text style={styles.backBtnText}>⬅ Volver al Catálogo</Text>
-          </TouchableOpacity>
-
-          <Text style={styles.detailIcon}>{selectedItem.icono}</Text>
-          <Text style={styles.detailName}>{selectedItem.nombre}</Text>
-          <Text style={styles.detailModel}>{selectedItem.modelo}</Text>
-          <Text style={styles.detailDesc}>{selectedItem.descripcion}</Text>
-
-          <View style={styles.specsTable}>
-            <Text style={styles.tableTitle}>Especificaciones Técnicas:</Text>
-            <Text style={styles.tableRow}>• Voltaje: {selectedItem.voltaje}</Text>
-            <Text style={styles.tableRow}>• Interfaz: {selectedItem.interfaz}</Text>
-            <Text style={styles.tableRow}>• Consumo: {selectedItem.consumo}</Text>
-            <Text style={styles.tableRow}>• Stock en Pañol: {selectedItem.disponibles} unidades</Text>
-          </View>
-
-          <TouchableOpacity style={styles.actionBtn} onPress={() => alert('Datasheet descargado')}>
-            <Text style={styles.actionBtnText}>📥 Descargar Datasheet Oficial (PDF)</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      ) : (
-        /* Pantalla 2: Lista de Componentes */
-        <FlatList
-          data={COMPONENTES.filter(c => filtro === 'Todos' || c.categoria === filtro)}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <TouchableOpacity style={styles.card} onPress={() => setSelectedId(item.id)}>
-              <Text style={styles.itemIcon}>{item.icono}</Text>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.itemName}>{item.nombre}</Text>
-                <Text style={styles.itemCategory}>{item.categoria} • {item.disponibles} disp.</Text>
-              </View>
-              <Text style={styles.arrowText}>Ver Ficha ➔</Text>
-            </TouchableOpacity>
-          )}
-        />
-      )}
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0f172a', padding: 16 },
-  header: { marginBottom: 14 },
-  headerTitle: { fontSize: 18, fontWeight: 'bold', color: '#38bdf8' },
-  headerSubtitle: { fontSize: 11, color: '#94a3b8', marginTop: 2 },
-  card: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1e293b', padding: 12, borderRadius: 12, marginBottom: 8, gap: 10 },
-  itemIcon: { fontSize: 24 },
-  itemName: { color: '#f1f5f9', fontWeight: 'bold', fontSize: 13 },
-  itemCategory: { color: '#94a3b8', fontSize: 11, marginTop: 2 },
-  arrowText: { color: '#38bdf8', fontSize: 11, fontWeight: 'bold' },
-  detailCard: { backgroundColor: '#1e293b', padding: 16, borderRadius: 14 },
-  backBtn: { marginBottom: 12 },
-  backBtnText: { color: '#38bdf8', fontWeight: 'bold', fontSize: 13 },
-  detailIcon: { fontSize: 36, textAlign: 'center', marginVertical: 8 },
-  detailName: { fontSize: 18, fontWeight: 'bold', color: '#fff', textAlign: 'center' },
-  detailModel: { fontSize: 12, color: '#94a3b8', textAlign: 'center', marginBottom: 10 },
-  detailDesc: { color: '#cbd5e1', fontSize: 12, lineHeight: 18, marginBottom: 14 },
-  specsTable: { backgroundColor: '#0f172a', padding: 12, borderRadius: 10, marginBottom: 14 },
-  tableTitle: { color: '#38bdf8', fontWeight: 'bold', fontSize: 12, marginBottom: 6 },
-  tableRow: { color: '#cbd5e1', fontSize: 11, marginBottom: 4 },
-  actionBtn: { backgroundColor: '#0284c7', padding: 12, borderRadius: 8, alignItems: 'center' },
-  actionBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 12 },
-});`,
-        renderSimulator: ({ log }) => {
-            const [selectedId, setSelectedId] = useState(null);
-            const [filtro, setFiltro] = useState('Todos');
-
-            const COMPONENTES = [
-                {
-                    id: 'esp32',
-                    nombre: 'ESP32-WROOM-32D',
-                    modelo: 'SoC Xtensa Dual-Core 240MHz',
-                    categoria: 'Microcontroladores',
-                    icono: '📡',
-                    voltaje: '3.3V (Regulado a 5V)',
-                    interfaz: 'I2C / SPI / UART / PWM (32 GPIOs)',
-                    consumo: '80mA activo / 10µA Deep Sleep',
-                    disponibles: 24,
-                    descripcion: 'Módulo IoT de alto rendimiento con Wi-Fi 802.11 b/g/n y Bluetooth 4.2 BLE. Ideal para proyectos de robótica conectada.'
-                },
-                {
-                    id: 'hcsr04',
-                    nombre: 'Sensor Ultrasónico HC-SR04',
-                    modelo: 'Transductor Piezoeléctrico 40kHz',
-                    categoria: 'Sensores',
-                    icono: '📏',
-                    voltaje: '5V DC',
-                    interfaz: 'Trigger & Echo (Digital)',
-                    consumo: '15mA',
-                    disponibles: 38,
-                    descripcion: 'Medición de distancias sin contacto de 2cm a 400cm con precisión de 3mm. Utilizado en robots evasores de obstáculos.'
-                },
-                {
-                    id: 'sg90',
-                    nombre: 'Micro Servomotor SG90 9g',
-                    modelo: 'Actuador con Reducción de Engranajes',
-                    categoria: 'Actuadores',
-                    icono: '🦾',
-                    voltaje: '4.8V a 6.0V',
-                    interfaz: 'PWM (Pulso 1ms a 2ms a 50Hz)',
-                    consumo: '100mA en movimiento / 550mA bloqueo',
-                    disponibles: 42,
-                    descripcion: 'Giro de 180 grados con torque de 1.8 kg-cm. Esencial para articulaciones de brazos robóticos y dirección de vehículos autónomos.'
-                },
-                {
-                    id: 'mpu6050',
-                    nombre: 'Sensor IMU MPU-6050',
-                    modelo: 'Acelerómetro + Giroscopio 6-DoF',
-                    categoria: 'Sensores',
-                    icono: '🧭',
-                    voltaje: '3.3V - 5V (I2C)',
-                    interfaz: 'Protocolo I2C estándar (0x68)',
-                    consumo: '3.9mA',
-                    disponibles: 16,
-                    descripcion: 'Medición de inclinación, aceleración angular y orientación espacial para robots bípedos y estabilización.'
-                }
-            ];
-
-            const selectedItem = COMPONENTES.find(c => c.id === selectedId);
-
-            const abrirDetalle = (item) => {
-                setSelectedId(item.id);
-                log(`[Stack Navigation] router.push('/catalog/${item.id}'). Pantalla de Ficha Técnica abierta para: "${item.nombre}" (Sin overhead de store global).`);
-            };
-
-            const volverAtras = () => {
-                setSelectedId(null);
-                log('[Stack Navigation] router.back(). Volviendo a la lista de catálogo.');
-            };
-
-            const descargarDatasheet = (item) => {
-                log(`[Expo FileSystem] Descargando datasheet: ${item.id}_datasheet.pdf (Cache local).`);
-                alert(`Descargando ficha técnica oficial de ${item.nombre}`);
-            };
-
-            return (
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0a0f1d', color: '#fff', overflow: 'hidden' }}>
-                    {/* Header Limpio sin Carrito */}
-                    <div style={{ padding: '12px 14px', background: '#111827', borderBottom: '1px solid #1f2937', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
-                            <div style={{ fontSize: '13px', fontWeight: '900', color: '#38bdf8' }}>
-                                🔬 Pañol de Electrónica UTN
-                            </div>
-                            <div style={{ fontSize: '9px', color: '#94a3b8' }}>Catálogo Técnico • Sin Carrito</div>
-                        </div>
-                        <span style={{ fontSize: '9px', background: 'rgba(16,185,129,0.15)', color: '#10b981', padding: '2px 8px', borderRadius: '6px', fontWeight: '800' }}>
-                            Stateless (RAM 8MB)
-                        </span>
-                    </div>
-
-                    {/* VISTA 1: FICHA DETALLADA */}
-                    {selectedItem ? (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto', padding: '12px' }}>
-                            <button
-                                onClick={volverAtras}
-                                style={{
-                                    alignSelf: 'flex-start',
-                                    background: 'none',
-                                    border: 'none',
-                                    color: '#38bdf8',
-                                    fontSize: '11px',
-                                    fontWeight: '800',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '4px',
-                                    padding: '2px 0 10px 0'
-                                }}
-                            >
-                                <span>⬅ Volver al Catálogo</span>
-                            </button>
-
-                            <div style={{ background: '#151d30', border: '1px solid #23304e', borderRadius: '14px', padding: '14px', textAlign: 'center' }}>
-                                <span style={{ fontSize: '38px', display: 'block', marginBottom: '6px' }}>{selectedItem.icono}</span>
-                                <div style={{ fontSize: '14px', fontWeight: '900', color: '#f1f5f9' }}>{selectedItem.nombre}</div>
-                                <div style={{ fontSize: '10px', color: '#38bdf8', marginTop: '2px', fontWeight: '700' }}>{selectedItem.modelo}</div>
-                                <p style={{ fontSize: '10px', color: '#cbd5e1', lineHeight: '1.4', margin: '8px 0 12px', textAlign: 'left' }}>
-                                    {selectedItem.descripcion}
-                                </p>
-
-                                {/* Tabla de Especificaciones */}
-                                <div style={{ background: '#0e1526', border: '1px solid #334155', borderRadius: '10px', padding: '10px', textAlign: 'left' }}>
-                                    <div style={{ fontSize: '10px', fontWeight: '800', color: '#38bdf8', marginBottom: '6px' }}>
-                                        📋 Especificaciones Técnicas:
-                                    </div>
-                                    <div style={{ fontSize: '9px', color: '#cbd5e1', display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                                        <div>• <strong style={{ color: '#fff' }}>Voltaje:</strong> {selectedItem.voltaje}</div>
-                                        <div>• <strong style={{ color: '#fff' }}>Interfaz:</strong> {selectedItem.interfaz}</div>
-                                        <div>• <strong style={{ color: '#fff' }}>Consumo:</strong> {selectedItem.consumo}</div>
-                                        <div>• <strong style={{ color: '#10b981' }}>Disponibilidad:</strong> {selectedItem.disponibles} en pañol</div>
-                                    </div>
-                                </div>
-
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '12px' }}>
-                                    <button
-                                        onClick={() => descargarDatasheet(selectedItem)}
-                                        style={{
-                                            background: '#0284c7',
-                                            border: 'none',
-                                            color: '#fff',
-                                            padding: '8px',
-                                            borderRadius: '8px',
-                                            fontSize: '11px',
-                                            fontWeight: '800',
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        📥 Descargar Datasheet (PDF)
-                                    </button>
-                                    <button
-                                        onClick={() => { log(`[Pañol UTN] Solicitud de préstamo registrada para: ${selectedItem.nombre}`); alert('Solicitud registrada en pañol de alumnos.'); }}
-                                        style={{
-                                            background: 'transparent',
-                                            border: '1px solid #334155',
-                                            color: '#cbd5e1',
-                                            padding: '7px',
-                                            borderRadius: '8px',
-                                            fontSize: '10px',
-                                            fontWeight: '700',
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        💬 Solicitar para Práctica de Taller
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    ) : (
-                        /* VISTA 2: LISTA DE CATÁLOGO */
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '10px' }}>
-                            {/* Filtros */}
-                            <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
-                                {['Todos', 'Microcontroladores', 'Sensores', 'Actuadores'].map(cat => (
-                                    <button
-                                        key={cat}
-                                        onClick={() => setFiltro(cat)}
-                                        style={{
-                                            padding: '3px 8px',
-                                            borderRadius: '6px',
-                                            border: '1px solid',
-                                            borderColor: filtro === cat ? '#38bdf8' : '#334155',
-                                            background: filtro === cat ? 'rgba(56,189,248,0.15)' : '#1e293b',
-                                            color: filtro === cat ? '#38bdf8' : '#94a3b8',
-                                            fontSize: '9px',
-                                            fontWeight: '700',
-                                            cursor: 'pointer',
-                                            whiteSpace: 'nowrap'
-                                        }}
-                                    >
-                                        {cat}
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* Cards de componentes */}
-                            <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px', paddingRight: '2px' }}>
-                                {COMPONENTES.filter(c => filtro === 'Todos' || c.categoria === filtro).map(comp => (
-                                    <div
-                                        key={comp.id}
-                                        onClick={() => abrirDetalle(comp)}
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '10px',
-                                            background: '#151d30',
-                                            border: '1px solid #23304e',
-                                            borderRadius: '10px',
-                                            padding: '10px',
-                                            cursor: 'pointer',
-                                            transition: 'border-color 0.2s'
-                                        }}
-                                    >
-                                        <span style={{ fontSize: '22px' }}>{comp.icono}</span>
-                                        <div style={{ flex: 1, minWidth: 0 }}>
-                                            <div style={{ fontSize: '11px', fontWeight: '800', color: '#f1f5f9' }}>
-                                                {comp.nombre}
-                                            </div>
-                                            <div style={{ fontSize: '9px', color: '#94a3b8', marginTop: '2px' }}>
-                                                {comp.categoria} • <span style={{ color: '#10b981' }}>{comp.disponibles} disp.</span>
-                                            </div>
-                                        </div>
-                                        <span style={{ fontSize: '10px', color: '#38bdf8', fontWeight: '800' }}>
-                                            Ficha ➔
+                            {[
+                                { name: 'Node.js (LTS v20+)', desc: 'Runtime esencial para Metro Bundler y npm.', status: 'Instalado ✓', link: 'nodejs.org' },
+                                { name: 'Visual Studio Code', desc: 'Editor recomendado con extensión Expo Tools.', status: 'Instalado ✓', link: 'code.visualstudio.com' },
+                                { name: 'Git CLI', desc: 'Control de versiones para entregas de la cátedra.', status: 'Instalado ✓', link: 'git-scm.com' },
+                                { name: 'App Expo Go (en Teléfono)', desc: 'Descárgala gratis en Google Play o iOS App Store.', status: 'Móvil Listo ✓', link: 'expo.dev/go' }
+                            ].map((tool, idx) => (
+                                <div key={idx} style={{ background: '#151d30', border: '1px solid #23304e', borderRadius: '8px', padding: '8px 10px' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ fontSize: '11px', fontWeight: '800', color: '#f1f5f9' }}>{tool.name}</span>
+                                        <span style={{ fontSize: '8px', color: '#10b981', fontWeight: '800', background: 'rgba(16,185,129,0.15)', padding: '1px 5px', borderRadius: '4px' }}>
+                                            {tool.status}
                                         </span>
                                     </div>
-                                ))}
+                                    <div style={{ fontSize: '9px', color: '#94a3b8', marginTop: '2px' }}>{tool.desc}</div>
+                                </div>
+                            ))}
+
+                            <button
+                                onClick={() => setStep(2)}
+                                style={{ background: '#0284c7', color: '#fff', border: 'none', padding: '8px', borderRadius: '8px', fontSize: '11px', fontWeight: '800', cursor: 'pointer', marginTop: '4px' }}
+                            >
+                                Siguiente: Crear Proyecto ➔
+                            </button>
+                        </div>
+                    )}
+
+                    {/* PASO 2: CREAR PROYECTO */}
+                    {step === 2 && (
+                        <div style={{ flex: 1, padding: '12px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <div style={{ fontSize: '11px', fontWeight: '800', color: '#38bdf8' }}>
+                                📦 Comando para crear tu aplicación:
+                            </div>
+
+                            <div style={{ background: '#0e1526', border: '1px solid #334155', borderRadius: '8px', padding: '10px' }}>
+                                <div style={{ fontSize: '9px', color: '#64748b', marginBottom: '4px' }}>TERMINAL / POWERSHELL:</div>
+                                <code style={{ fontSize: '11px', color: '#38bdf8', fontWeight: '800', display: 'block', wordBreak: 'break-all' }}>
+                                    npx create-expo-app@latest mi-app --template tabs
+                                </code>
+                            </div>
+
+                            <div style={{ display: 'flex', gap: '6px' }}>
+                                <button
+                                    onClick={() => copyCommand('npx create-expo-app@latest mi-app --template tabs')}
+                                    style={{ flex: 1, background: copied ? '#10b981' : '#1e293b', border: '1px solid #334155', color: '#fff', padding: '6px', borderRadius: '6px', fontSize: '10px', fontWeight: '700', cursor: 'pointer' }}
+                                >
+                                    {copied ? '✓ Copiado al Portapapeles' : '📋 Copiar Comando'}
+                                </button>
+                                <button
+                                    onClick={() => { log('[Terminal] Ejecutando: npx create-expo-app@latest mi-app...'); alert('Creando estructura de carpetas app/ con Expo Router...'); setStep(3); }}
+                                    style={{ flex: 1, background: '#0284c7', border: 'none', color: '#fff', padding: '6px', borderRadius: '6px', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }}
+                                >
+                                    Simular Creación ➔
+                                </button>
+                            </div>
+
+                            <div style={{ background: '#151d30', border: '1px solid #23304e', borderRadius: '8px', padding: '8px', fontSize: '9px', color: '#cbd5e1', lineHeight: '1.4' }}>
+                                <strong style={{ color: '#fff' }}>¿Qué crea este comando?</strong>
+                                <br />
+                                • Carpeta <code style={{ color: '#38bdf8' }}>app/</code> con Expo Router basado en archivos.
+                                <br />
+                                • <code style={{ color: '#38bdf8' }}>app/(tabs)/index.tsx</code> y <code style={{ color: '#38bdf8' }}>_layout.tsx</code>.
+                                <br />
+                                • Archivo <code style={{ color: '#38bdf8' }}>app.json</code> de configuración nativa.
                             </div>
                         </div>
                     )}
 
-                    {/* Footer Didáctico */}
+                    {/* PASO 3: TERMINAL Y ATAJOS METRO */}
+                    {step === 3 && (
+                        <div style={{ flex: 1, padding: '10px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <div style={{ fontSize: '11px', fontWeight: '800', color: '#38bdf8' }}>
+                                ⌨️ Atajos Interactivos en Metro Bundler:
+                            </div>
+
+                            {/* Consola simulada */}
+                            <div style={{ background: '#080c16', border: '1px solid #1e293b', borderRadius: '8px', padding: '8px', fontFamily: 'monospace', fontSize: '9px', color: '#10b981', minHeight: '65px' }}>
+                                {metroLog.map((l, i) => (
+                                    <div key={i} style={{ marginBottom: '2px' }}>{l}</div>
+                                ))}
+                            </div>
+
+                            {/* Botones de atajos */}
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
+                                <button
+                                    onClick={() => triggerHotkey('a', 'Iniciando en Emulador Android (AVD)...')}
+                                    style={{ background: '#151d30', border: '1px solid #23304e', color: '#fff', padding: '6px', borderRadius: '6px', fontSize: '9px', fontWeight: '700', cursor: 'pointer', textAlign: 'left' }}
+                                >
+                                    <span style={{ color: '#38bdf8', fontWeight: '900' }}>[ a ]</span> Android Emulator
+                                </button>
+                                <button
+                                    onClick={() => triggerHotkey('w', 'Abriendo en Navegador Web (Chrome)...')}
+                                    style={{ background: '#151d30', border: '1px solid #23304e', color: '#fff', padding: '6px', borderRadius: '6px', fontSize: '9px', fontWeight: '700', cursor: 'pointer', textAlign: 'left' }}
+                                >
+                                    <span style={{ color: '#38bdf8', fontWeight: '900' }}>[ w ]</span> Abrir en Web
+                                </button>
+                                <button
+                                    onClick={() => triggerHotkey('r', 'Fast Refresh ejecutado a 60 FPS.')}
+                                    style={{ background: '#151d30', border: '1px solid #23304e', color: '#fff', padding: '6px', borderRadius: '6px', fontSize: '9px', fontWeight: '700', cursor: 'pointer', textAlign: 'left' }}
+                                >
+                                    <span style={{ color: '#10b981', fontWeight: '900' }}>[ r ]</span> Recargar (Reload)
+                                </button>
+                                <button
+                                    onClick={() => triggerHotkey('c', 'Borrando caché de Metro Bundler...')}
+                                    style={{ background: '#151d30', border: '1px solid #23304e', color: '#fff', padding: '6px', borderRadius: '6px', fontSize: '9px', fontWeight: '700', cursor: 'pointer', textAlign: 'left' }}
+                                >
+                                    <span style={{ color: '#f59e0b', fontWeight: '900' }}>[ c ]</span> Limpiar Caché
+                                </button>
+                            </div>
+
+                            <button
+                                onClick={() => setStep(4)}
+                                style={{ background: '#0284c7', color: '#fff', border: 'none', padding: '8px', borderRadius: '8px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }}
+                            >
+                                Siguiente: Escanear QR en tu Teléfono ➔
+                            </button>
+                        </div>
+                    )}
+
+                    {/* PASO 4: ESCANEAR QR Y FAST REFRESH */}
+                    {step === 4 && (
+                        <div style={{ flex: 1, padding: '12px', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '8px' }}>
+                            <div style={{ width: '64px', height: '64px', background: '#1e293b', border: '2px solid #38bdf8', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px' }}>
+                                📱
+                            </div>
+                            <div style={{ fontSize: '12px', fontWeight: '900', color: '#38bdf8' }}>
+                                ¡Listo para programar en tu smartphone!
+                            </div>
+                            <p style={{ fontSize: '9px', color: '#cbd5e1', lineHeight: '1.4', margin: 0, maxWidth: '220px' }}>
+                                1. Conecta la PC y tu celular al <strong>mismo Wi-Fi</strong>.
+                                <br />
+                                2. Abre la app <strong>Expo Go</strong> y escanea el código QR de la terminal.
+                                <br />
+                                3. Cada vez que guardes en VS Code (<code style={{ color: '#38bdf8' }}>Ctrl + S</code>), la pantalla se actualizará instantáneamente.
+                            </p>
+
+                            <button
+                                onClick={() => { log('[Tutorial] Alumno completó el tutorial de Setup inicial'); alert('¡Felicitaciones! Ahora puedes experimentar con Flexbox, Estado y los Proyectos Finales en el simulador.'); }}
+                                style={{ background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '8px', fontSize: '11px', fontWeight: '800', cursor: 'pointer', marginTop: '6px' }}
+                            >
+                                ¡Entorno Configurado con Éxito! ✓
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Footer */}
                     <div style={{ padding: '6px 12px', background: '#0e1526', borderTop: '1px solid #1e293b', fontSize: '9px', color: '#64748b', textAlign: 'center' }}>
-                        💡 Arquitectura Directa: Ideal para catálogos, portfolios y fichas técnicas sin transacciones.
+                        💡 Tip: Si la red de la facultad bloquea puertos, corre: <code style={{ color: '#38bdf8' }}>npx expo start --tunnel</code>
                     </div>
                 </div>
             );
@@ -2412,6 +1697,986 @@ const styles = StyleSheet.create({
             )
         }
     }
+,
+    {
+        id: 'ecommerce_cart',
+        unit: 'Unidad 2 & 3 • App Completa',
+        title: 'Tienda Móvil con Carro de Compras',
+        icon: <ShoppingCart size={18} />,
+        summary: 'Arquitectura completa con Zustand: catálogo de productos, carrito reactivo con badge, incremento/decremento, cálculo de total y checkout.',
+        code: `import React, { useState } from 'react';
+import { View, Text, FlatList, TouchableOpacity, TextInput, StyleSheet, Modal } from 'react-native';
+// En un proyecto real: import { create } from 'zustand';
+
+// 1. MODELO DE DATOS Y STORE GLOBAL
+// El store gestiona los items agregados, cantidades y el cálculo del total
+export const useCartStore = {
+  // Estado inicial simulado:
+  // items: [{ id: '1', nombre: 'Arduino Uno R4', precio: 28500, qty: 1 }]
+  // addItem(producto), removeItem(id), updateQty(id, delta), clearCart()
+};
+
+const PRODUCTOS = [
+  { id: '1', nombre: 'Arduino Uno R4 WiFi', categoria: 'Placas', precio: 28500, stock: 12, icono: '🤖' },
+  { id: '2', nombre: 'ESP32-CAM OV2640', categoria: 'IoT', precio: 14200, stock: 18, icono: '📷' },
+  { id: '3', nombre: 'Kit Chasis Robot 2WD', categoria: 'Robótica', precio: 19900, stock: 7, icono: '🏎️' },
+  { id: '4', nombre: 'Sensor Línea TCRT5000', categoria: 'Sensores', precio: 6500, stock: 25, icono: '📡' },
+  { id: '5', nombre: 'Display LCD 16x2 I2C', categoria: 'Pantallas', precio: 5800, stock: 14, icono: '📟' },
+  { id: '6', nombre: 'Módulo Relay 4 Canales', categoria: 'Actuadores', precio: 8200, stock: 9, icono: '⚡' },
+];
+
+export default function TiendaConCarritoApp() {
+  const [tab, setTab] = useState('catalogo'); // 'catalogo' | 'carrito' | 'checkout'
+  const [categoria, setCategoria] = useState('Todos');
+  const [carrito, setCarrito] = useState([
+    { id: '1', nombre: 'Arduino Uno R4 WiFi', precio: 28500, qty: 1, icono: '🤖' }
+  ]);
+
+  // Funciones de mutación del carrito
+  const agregarAlCarrito = (producto) => {
+    setCarrito(prev => {
+      const existe = prev.find(p => p.id === producto.id);
+      if (existe) {
+        return prev.map(p => p.id === producto.id ? { ...p, qty: p.qty + 1 } : p);
+      }
+      return [...prev, { ...producto, qty: 1 }];
+    });
+  };
+
+  const modificarCantidad = (id, delta) => {
+    setCarrito(prev => prev.map(p => {
+      if (p.id === id) {
+        const nuevaQty = p.qty + delta;
+        return nuevaQty > 0 ? { ...p, qty: nuevaQty } : null;
+      }
+      return p;
+    }).filter(Boolean));
+  };
+
+  const subtotal = carrito.reduce((acc, item) => acc + (item.precio * item.qty), 0);
+  const descuento = subtotal * 0.10; // 10% descuento alumno
+  const total = subtotal - descuento;
+  const totalItems = carrito.reduce((acc, item) => acc + item.qty, 0);
+
+  return (
+    <View style={styles.container}>
+      {/* Barra superior con Badge del Carrito */}
+      <View style={styles.navbar}>
+        <Text style={styles.navTitle}>⚡ ElectroTech UTN</Text>
+        <TouchableOpacity style={styles.cartBadgeBtn} onPress={() => setTab('carrito')}>
+          <Text style={styles.cartIconText}>🛒</Text>
+          {totalItems > 0 && (
+            <View style={styles.badgePill}>
+              <Text style={styles.badgeText}>{totalItems}</Text>
+            </View>
+          )}
+        </TouchableOpacity>
+      </View>
+
+      {/* Navegación por pestañas */}
+      <View style={styles.tabBar}>
+        <TouchableOpacity style={[styles.tabItem, tab === 'catalogo' && styles.tabActive]} onPress={() => setTab('catalogo')}>
+          <Text style={[styles.tabText, tab === 'catalogo' && styles.tabTextActive]}>Catálogo</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.tabItem, tab === 'carrito' && styles.tabActive]} onPress={() => setTab('carrito')}>
+          <Text style={[styles.tabText, tab === 'carrito' && styles.tabTextActive]}>Carrito ({totalItems})</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.tabItem, tab === 'checkout' && styles.tabActive]} onPress={() => setTab('checkout')}>
+          <Text style={[styles.tabText, tab === 'checkout' && styles.tabTextActive]}>Checkout</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Pantalla 1: Catálogo de Productos */}
+      {tab === 'catalogo' && (
+        <FlatList
+          data={PRODUCTOS.filter(p => categoria === 'Todos' || p.categoria === categoria)}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Text style={styles.itemIcon}>{item.icono}</Text>
+              <View style={styles.itemInfo}>
+                <Text style={styles.itemName}>{item.nombre}</Text>
+                <Text style={styles.itemPrice}>\${item.precio.toLocaleString('es-AR')}</Text>
+              </View>
+              <TouchableOpacity style={styles.addBtn} onPress={() => agregarAlCarrito(item)}>
+                <Text style={styles.addBtnText}>+ Agregar</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+      )}
+
+      {/* Pantalla 2: Carrito con Incremento/Decremento */}
+      {tab === 'carrito' && (
+        <View style={styles.cartView}>
+          <FlatList
+            data={carrito}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.cartRow}>
+                <Text style={styles.itemIcon}>{item.icono}</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.cartItemName}>{item.nombre}</Text>
+                  <Text style={styles.cartItemPrice}>\${(item.precio * item.qty).toLocaleString('es-AR')}</Text>
+                </View>
+                <View style={styles.stepper}>
+                  <TouchableOpacity style={styles.stepperBtn} onPress={() => modificarCantidad(item.id, -1)}>
+                    <Text style={styles.stepperText}>-</Text>
+                  </TouchableOpacity>
+                  <Text style={styles.stepperVal}>{item.qty}</Text>
+                  <TouchableOpacity style={styles.stepperBtn} onPress={() => modificarCantidad(item.id, 1)}>
+                    <Text style={styles.stepperText}>+</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          />
+          <View style={styles.totalBox}>
+            <Text style={styles.totalLabel}>Total Final (con desc. UTN):</Text>
+            <Text style={styles.totalAmount}>\${total.toLocaleString('es-AR')}</Text>
+            <TouchableOpacity style={styles.checkoutBtn} onPress={() => setTab('checkout')}>
+              <Text style={styles.checkoutBtnText}>Proceder al Pago ➔</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      {/* Pantalla 3: Checkout y Confirmación */}
+      {tab === 'checkout' && (
+        <View style={styles.checkoutView}>
+          <Text style={styles.checkoutTitle}>Resumen de Orden</Text>
+          <Text style={styles.checkoutSummary}>Artículos: {totalItems} unidades</Text>
+          <Text style={styles.checkoutSummary}>Total a pagar: \${total.toLocaleString('es-AR')}</Text>
+          <TouchableOpacity style={styles.confirmBtn} onPress={() => alert('¡Compra confirmada! Orden #UTN-2026')}>
+            <Text style={styles.confirmBtnText}>Confirmar Pedido 🚀</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0b1120', padding: 16 },
+  navbar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
+  navTitle: { fontSize: 18, fontWeight: 'bold', color: '#38bdf8' },
+  cartBadgeBtn: { position: 'relative', padding: 6 },
+  cartIconText: { fontSize: 20 },
+  badgePill: { position: 'absolute', top: 0, right: 0, backgroundColor: '#ef4444', borderRadius: 10, minWidth: 18, height: 18, alignItems: 'center', justifyContent: 'center' },
+  badgeText: { color: '#fff', fontSize: 10, fontWeight: 'bold' },
+  tabBar: { flexDirection: 'row', backgroundColor: '#1e293b', borderRadius: 10, padding: 4, marginBottom: 12 },
+  tabItem: { flex: 1, paddingVertical: 8, alignItems: 'center', borderRadius: 8 },
+  tabActive: { backgroundColor: '#0284c7' },
+  tabText: { color: '#94a3b8', fontSize: 12, fontWeight: '600' },
+  tabTextActive: { color: '#fff' },
+  card: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#151d30', padding: 12, borderRadius: 12, marginBottom: 8, gap: 10 },
+  itemIcon: { fontSize: 24 },
+  itemInfo: { flex: 1 },
+  itemName: { color: '#f1f5f9', fontWeight: 'bold', fontSize: 13 },
+  itemPrice: { color: '#10b981', fontSize: 12, marginTop: 2 },
+  addBtn: { backgroundColor: '#0284c7', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8 },
+  addBtnText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
+  cartView: { flex: 1, justifyContent: 'space-between' },
+  cartRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#151d30', padding: 10, borderRadius: 10, marginBottom: 8, gap: 10 },
+  cartItemName: { color: '#f1f5f9', fontSize: 12, fontWeight: 'bold' },
+  cartItemPrice: { color: '#38bdf8', fontSize: 11 },
+  stepper: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1e293b', borderRadius: 6 },
+  stepperBtn: { paddingHorizontal: 10, paddingVertical: 4 },
+  stepperText: { color: '#fff', fontSize: 14, fontWeight: 'bold' },
+  stepperVal: { color: '#fff', fontSize: 12, fontWeight: 'bold', paddingHorizontal: 4 },
+  totalBox: { backgroundColor: '#1e293b', padding: 14, borderRadius: 12, marginTop: 10 },
+  totalLabel: { color: '#94a3b8', fontSize: 12 },
+  totalAmount: { color: '#10b981', fontSize: 20, fontWeight: 'bold', marginVertical: 4 },
+  checkoutBtn: { backgroundColor: '#10b981', padding: 10, borderRadius: 8, alignItems: 'center', marginTop: 8 },
+  checkoutBtnText: { color: '#fff', fontWeight: 'bold' },
+  checkoutView: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
+  checkoutTitle: { fontSize: 18, fontWeight: 'bold', color: '#f1f5f9', marginBottom: 12 },
+  checkoutSummary: { color: '#94a3b8', fontSize: 14, marginBottom: 6 },
+  confirmBtn: { backgroundColor: '#0284c7', paddingVertical: 12, paddingHorizontal: 24, borderRadius: 10, marginTop: 16 },
+  confirmBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
+});`,
+        renderSimulator: ({ log }) => {
+            const [tab, setTab] = useState('catalogo');
+            const [categoria, setCategoria] = useState('Todos');
+            const [carrito, setCarrito] = useState([
+                { id: '1', nombre: 'Arduino Uno R4 WiFi', categoria: 'Placas', precio: 28500, qty: 1, icono: '🤖' }
+            ]);
+            const [orderSuccess, setOrderSuccess] = useState(false);
+
+            const PRODUCTOS = [
+                { id: '1', nombre: 'Arduino Uno R4 WiFi', categoria: 'Placas', precio: 28500, stock: 12, icono: '🤖' },
+                { id: '2', nombre: 'ESP32-CAM OV2640', categoria: 'IoT', precio: 14200, stock: 18, icono: '📷' },
+                { id: '3', nombre: 'Kit Chasis Robot 2WD', categoria: 'Robótica', precio: 19900, stock: 7, icono: '🏎️' },
+                { id: '4', nombre: 'Sensor Línea TCRT5000', categoria: 'Sensores', precio: 6500, stock: 25, icono: '📡' },
+                { id: '5', nombre: 'Display LCD 16x2 I2C', categoria: 'Pantallas', precio: 5800, stock: 14, icono: '📟' },
+                { id: '6', nombre: 'Módulo Relay 4 Canales', categoria: 'Actuadores', precio: 8200, stock: 9, icono: '⚡' },
+            ];
+
+            const totalItems = carrito.reduce((acc, item) => acc + item.qty, 0);
+            const subtotal = carrito.reduce((acc, item) => acc + (item.precio * item.qty), 0);
+            const descuento = Math.round(subtotal * 0.10);
+            const total = subtotal - descuento;
+
+            const agregarAlCarrito = (producto) => {
+                setCarrito(prev => {
+                    const existe = prev.find(p => p.id === producto.id);
+                    if (existe) {
+                        log(`[CartStore] ADD_ITEM: "${producto.nombre}" (ID: ${producto.id}). Cantidad incrementada a ${existe.qty + 1}`);
+                        return prev.map(p => p.id === producto.id ? { ...p, qty: p.qty + 1 } : p);
+                    }
+                    log(`[CartStore] ADD_ITEM: "${producto.nombre}" agregado al carrito por primera vez.`);
+                    return [...prev, { ...producto, qty: 1 }];
+                });
+            };
+
+            const modificarCantidad = (id, delta) => {
+                setCarrito(prev => {
+                    const target = prev.find(p => p.id === id);
+                    if (!target) return prev;
+                    const nuevaQty = target.qty + delta;
+                    if (nuevaQty <= 0) {
+                        log(`[CartStore] REMOVE_ITEM: "${target.nombre}" (ID: ${id}) eliminado del carrito.`);
+                        return prev.filter(p => p.id !== id);
+                    }
+                    log(`[CartStore] UPDATE_QTY: "${target.nombre}" cantidad actualizada a ${nuevaQty}`);
+                    return prev.map(p => p.id === id ? { ...p, qty: nuevaQty } : p);
+                });
+            };
+
+            const vaciarCarrito = () => {
+                setCarrito([]);
+                log('[CartStore] CLEAR_CART: Carrito vaciado.');
+            };
+
+            const confirmarPedido = () => {
+                const orderId = '#UTN-' + Math.floor(1000 + Math.random() * 9000);
+                log(`[CartStore] PLACE_ORDER: Pedido confirmado ${orderId}. Total: ${total.toLocaleString('es-AR')}. Carrito sincronizado con backend.`);
+                setOrderSuccess(orderId);
+                setCarrito([]);
+                setTab('success');
+            };
+
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0a0f1d', color: '#fff', overflow: 'hidden' }}>
+                    {/* Header de la App */}
+                    <div style={{ padding: '12px 14px', background: '#111827', borderBottom: '1px solid #1f2937', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <div style={{ fontSize: '13px', fontWeight: '900', color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                <span>⚡ ElectroTech UTN</span>
+                            </div>
+                            <div style={{ fontSize: '9px', color: '#94a3b8' }}>Tienda Móvil con Carro de Compras</div>
+                        </div>
+
+                        <button
+                            onClick={() => { setTab('carrito'); log('[Navigation] Navegando a pantalla de Carrito'); }}
+                            style={{
+                                position: 'relative',
+                                background: tab === 'carrito' ? 'rgba(56,189,248,0.2)' : '#1e293b',
+                                border: '1px solid #334155',
+                                borderRadius: '8px',
+                                padding: '6px 10px',
+                                color: '#f1f5f9',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px'
+                            }}
+                        >
+                            <span style={{ fontSize: '14px' }}>🛒</span>
+                            <span style={{ fontSize: '11px', fontWeight: '800' }}>Carrito</span>
+                            {totalItems > 0 && (
+                                <span style={{
+                                    position: 'absolute',
+                                    top: '-6px',
+                                    right: '-6px',
+                                    background: '#ef4444',
+                                    color: '#fff',
+                                    borderRadius: '999px',
+                                    padding: '1px 5px',
+                                    fontSize: '9px',
+                                    fontWeight: '900',
+                                    boxShadow: '0 2px 5px rgba(239,68,68,0.5)'
+                                }}>
+                                    {totalItems}
+                                </span>
+                            )}
+                        </button>
+                    </div>
+
+                    {/* Barra de Pestañas de Navegación */}
+                    <div style={{ display: 'flex', background: '#131b2e', padding: '4px', borderBottom: '1px solid #1f2937' }}>
+                        {[
+                            { id: 'catalogo', label: '📱 Catálogo' },
+                            { id: 'carrito', label: `🛒 Carrito (${totalItems})` },
+                            { id: 'checkout', label: '💳 Checkout' }
+                        ].map(t => (
+                            <button
+                                key={t.id}
+                                onClick={() => { setTab(t.id); log(`[Navigation] Tab activado: ${t.id}`); }}
+                                style={{
+                                    flex: 1,
+                                    padding: '6px 4px',
+                                    borderRadius: '6px',
+                                    border: 'none',
+                                    background: tab === t.id ? '#0284c7' : 'transparent',
+                                    color: tab === t.id ? '#fff' : '#94a3b8',
+                                    fontSize: '10px',
+                                    fontWeight: tab === t.id ? '800' : '600',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {t.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* CONTENIDO 1: CATÁLOGO */}
+                    {tab === 'catalogo' && (
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '10px' }}>
+                            {/* Filtro por Categorías */}
+                            <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
+                                {['Todos', 'Placas', 'IoT', 'Robótica', 'Sensores'].map(cat => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setCategoria(cat)}
+                                        style={{
+                                            padding: '3px 8px',
+                                            borderRadius: '6px',
+                                            border: '1px solid',
+                                            borderColor: categoria === cat ? '#38bdf8' : '#334155',
+                                            background: categoria === cat ? 'rgba(56,189,248,0.15)' : '#1e293b',
+                                            color: categoria === cat ? '#38bdf8' : '#94a3b8',
+                                            fontSize: '9px',
+                                            fontWeight: '700',
+                                            cursor: 'pointer',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Lista de Productos */}
+                            <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px', paddingRight: '2px' }}>
+                                {PRODUCTOS.filter(p => categoria === 'Todos' || p.categoria === categoria).map(prod => {
+                                    const inCart = carrito.find(c => c.id === prod.id);
+                                    return (
+                                        <div
+                                            key={prod.id}
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '10px',
+                                                background: '#151d30',
+                                                border: '1px solid #23304e',
+                                                borderRadius: '10px',
+                                                padding: '8px 10px'
+                                            }}
+                                        >
+                                            <span style={{ fontSize: '22px' }}>{prod.icono}</span>
+                                            <div style={{ flex: 1, minWidth: 0 }}>
+                                                <div style={{ fontSize: '11px', fontWeight: '800', color: '#f1f5f9', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                    {prod.nombre}
+                                                </div>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
+                                                    <span style={{ fontSize: '11px', fontWeight: '900', color: '#10b981' }}>
+                                                        ${prod.precio.toLocaleString('es-AR')}
+                                                    </span>
+                                                    <span style={{ fontSize: '8px', color: '#64748b', background: '#0e1526', padding: '1px 4px', borderRadius: '4px' }}>
+                                                        {prod.stock} disp.
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <button
+                                                onClick={() => agregarAlCarrito(prod)}
+                                                style={{
+                                                    background: inCart ? '#10b981' : '#0284c7',
+                                                    border: 'none',
+                                                    color: '#fff',
+                                                    padding: '5px 9px',
+                                                    borderRadius: '6px',
+                                                    fontSize: '10px',
+                                                    fontWeight: '800',
+                                                    cursor: 'pointer',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '3px',
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                            >
+                                                {inCart ? `✓ (${inCart.qty})` : '+ Agregar'}
+                                            </button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* CONTENIDO 2: CARRITO */}
+                    {tab === 'carrito' && (
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '10px' }}>
+                            {carrito.length === 0 ? (
+                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '20px' }}>
+                                    <span style={{ fontSize: '36px', marginBottom: '8px' }}>🛒</span>
+                                    <div style={{ fontSize: '13px', fontWeight: '800', color: '#f1f5f9' }}>Tu carrito está vacío</div>
+                                    <div style={{ fontSize: '10px', color: '#94a3b8', margin: '4px 0 12px' }}>Agrega componentes desde el catálogo para calcular tu pedido</div>
+                                    <button
+                                        onClick={() => setTab('catalogo')}
+                                        style={{ background: '#0284c7', color: '#fff', border: 'none', padding: '6px 14px', borderRadius: '8px', fontSize: '11px', fontWeight: '700', cursor: 'pointer' }}
+                                    >
+                                        Explorar Catálogo
+                                    </button>
+                                </div>
+                            ) : (
+                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden' }}>
+                                    {/* Lista de productos en carrito */}
+                                    <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '6px', paddingRight: '2px' }}>
+                                        {carrito.map(item => (
+                                            <div
+                                                key={item.id}
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '8px',
+                                                    background: '#151d30',
+                                                    border: '1px solid #23304e',
+                                                    borderRadius: '8px',
+                                                    padding: '6px 8px'
+                                                }}
+                                            >
+                                                <span style={{ fontSize: '18px' }}>{item.icono}</span>
+                                                <div style={{ flex: 1, minWidth: 0 }}>
+                                                    <div style={{ fontSize: '10px', fontWeight: '800', color: '#f1f5f9', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                        {item.nombre}
+                                                    </div>
+                                                    <div style={{ fontSize: '10px', color: '#38bdf8', fontWeight: '700' }}>
+                                                        ${(item.precio * item.qty).toLocaleString('es-AR')}
+                                                    </div>
+                                                </div>
+
+                                                {/* Stepper (+ / -) */}
+                                                <div style={{ display: 'flex', alignItems: 'center', background: '#0e1526', border: '1px solid #334155', borderRadius: '6px' }}>
+                                                    <button
+                                                        onClick={() => modificarCantidad(item.id, -1)}
+                                                        style={{ background: 'none', border: 'none', color: '#ef4444', padding: '2px 6px', fontSize: '12px', fontWeight: '900', cursor: 'pointer' }}
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <span style={{ fontSize: '10px', fontWeight: '800', color: '#fff', minWidth: '16px', textAlign: 'center' }}>
+                                                        {item.qty}
+                                                    </span>
+                                                    <button
+                                                        onClick={() => modificarCantidad(item.id, 1)}
+                                                        style={{ background: 'none', border: 'none', color: '#10b981', padding: '2px 6px', fontSize: '12px', fontWeight: '900', cursor: 'pointer' }}
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Resumen del Carrito */}
+                                    <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: '10px', padding: '8px', marginTop: '8px' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#94a3b8', marginBottom: '2px' }}>
+                                            <span>Subtotal:</span>
+                                            <span>${subtotal.toLocaleString('es-AR')}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#10b981', marginBottom: '2px' }}>
+                                            <span>Descuento UTN (10%):</span>
+                                            <span>-${descuento.toLocaleString('es-AR')}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', fontWeight: '900', color: '#fff', borderTop: '1px solid #334155', paddingTop: '4px', marginTop: '4px' }}>
+                                            <span>Total a Pagar:</span>
+                                            <span style={{ color: '#38bdf8' }}>${total.toLocaleString('es-AR')}</span>
+                                        </div>
+
+                                        <button
+                                            onClick={() => { setTab('checkout'); log('[Navigation] Procediendo a Checkout'); }}
+                                            style={{
+                                                width: '100%',
+                                                background: 'linear-gradient(135deg, #10b981, #059669)',
+                                                border: 'none',
+                                                color: '#fff',
+                                                padding: '7px',
+                                                borderRadius: '8px',
+                                                fontSize: '11px',
+                                                fontWeight: '800',
+                                                cursor: 'pointer',
+                                                marginTop: '6px',
+                                                boxShadow: '0 4px 10px rgba(16,185,129,0.3)'
+                                            }}
+                                        >
+                                            Iniciar Checkout ({totalItems} items) ➔
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* CONTENIDO 3: CHECKOUT */}
+                    {tab === 'checkout' && (
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', overflowY: 'auto' }}>
+                            <div>
+                                <div style={{ fontSize: '13px', fontWeight: '900', color: '#38bdf8', marginBottom: '8px' }}>
+                                    💳 Finalizar Compra
+                                </div>
+                                <div style={{ background: '#151d30', border: '1px solid #23304e', borderRadius: '10px', padding: '10px', marginBottom: '10px' }}>
+                                    <div style={{ fontSize: '10px', color: '#94a3b8', marginBottom: '4px' }}>Datos de Entrega en Sede:</div>
+                                    <div style={{ fontSize: '11px', fontWeight: '700', color: '#fff' }}>Pañol / Laboratorio de Electrónica</div>
+                                    <div style={{ fontSize: '9px', color: '#64748b' }}>Sede San Miguel • Sin costo de envío</div>
+                                </div>
+
+                                <div style={{ background: '#151d30', border: '1px solid #23304e', borderRadius: '10px', padding: '10px' }}>
+                                    <div style={{ fontSize: '10px', color: '#94a3b8', marginBottom: '4px' }}>Resumen del Pago:</div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#cbd5e1' }}>
+                                        <span>Total Artículos:</span>
+                                        <span>{totalItems} unid.</span>
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '900', color: '#10b981', marginTop: '4px' }}>
+                                        <span>Importe Final:</span>
+                                        <span>${total.toLocaleString('es-AR')}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={confirmarPedido}
+                                disabled={carrito.length === 0}
+                                style={{
+                                    width: '100%',
+                                    background: carrito.length === 0 ? '#334155' : 'linear-gradient(135deg, #0284c7, #38bdf8)',
+                                    border: 'none',
+                                    color: '#fff',
+                                    padding: '9px',
+                                    borderRadius: '10px',
+                                    fontSize: '12px',
+                                    fontWeight: '900',
+                                    cursor: carrito.length === 0 ? 'not-allowed' : 'pointer',
+                                    marginTop: '12px'
+                                }}
+                            >
+                                Confirmar y Emitir Pedido 🚀
+                            </button>
+                        </div>
+                    )}
+
+                    {/* CONTENIDO 4: ÉXITO */}
+                    {tab === 'success' && (
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '16px' }}>
+                            <div style={{ width: '48px', height: '48px', borderRadius: '999px', background: 'rgba(16,185,129,0.2)', border: '2px solid #10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', marginBottom: '10px' }}>
+                                ✓
+                            </div>
+                            <div style={{ fontSize: '14px', fontWeight: '900', color: '#10b981' }}>¡Pedido Realizado con Éxito!</div>
+                            <div style={{ fontSize: '11px', fontWeight: '800', color: '#38bdf8', marginTop: '4px' }}>{orderSuccess}</div>
+                            <div style={{ fontSize: '10px', color: '#94a3b8', margin: '6px 0 16px', maxWidth: '200px' }}>
+                                Se reservaron los componentes en el pañol. Recibirás confirmación en tu correo institucional.
+                            </div>
+                            <button
+                                onClick={() => { setTab('catalogo'); log('[Navigation] Volviendo al catálogo'); }}
+                                style={{ background: '#0284c7', color: '#fff', border: 'none', padding: '6px 14px', borderRadius: '8px', fontSize: '11px', fontWeight: '700', cursor: 'pointer' }}
+                            >
+                                Volver al Catálogo
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Footer Didáctico */}
+                    <div style={{ padding: '6px 12px', background: '#0a0f1d', borderTop: '1px solid #1f2937', fontSize: '9px', color: '#64748b', display: 'flex', justifyContent: 'space-between' }}>
+                        <span>Store: Zustand Global (Memory)</span>
+                        <span style={{ color: '#10b981' }}>● Sync Activo</span>
+                    </div>
+                </div>
+            );
+        }
+    },
+    {
+        id: 'ecommerce_nocart',
+        unit: 'Unidad 1 & 2 • Arquitectura Directa',
+        title: 'Catálogo Técnico (Sin Carrito)',
+        icon: <BookOpen size={18} />,
+        summary: 'Arquitectura directa y ligera basada en navegación Stack y paso de parámetros, sin sobrecarga de estado global de carrito.',
+        code: `import React, { useState } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+// En Expo Router: import { useRouter, useLocalSearchParams } from 'expo-router';
+
+// ARQUITECTURA DIRECTA SIN ESTADO DE CARRITO:
+// 1. No consume memoria para un store global (Zustand/Redux).
+// 2. Navegación lineal Stack: app/catalogo/index.tsx -> app/catalogo/[id].tsx
+// 3. Paso de parámetros directo por ruta: router.push('/catalogo/' + item.id)
+
+const COMPONENTES = [
+  {
+    id: 'esp32',
+    nombre: 'ESP32-WROOM-32D',
+    modelo: 'SoC Xtensa Dual-Core 240MHz',
+    categoria: 'Microcontroladores',
+    icono: '📡',
+    voltaje: '3.3V (Regulado a 5V)',
+    interfaz: 'I2C / SPI / UART / PWM (32 GPIOs)',
+    consumo: '80mA activo / 10µA Deep Sleep',
+    disponibles: 24,
+    descripcion: 'Módulo IoT de alto rendimiento con Wi-Fi 802.11 b/g/n y Bluetooth 4.2 BLE. Ideal para proyectos de robótica conectada.'
+  },
+  {
+    id: 'hcsr04',
+    nombre: 'Sensor Ultrasónico HC-SR04',
+    modelo: 'Transductor Piezoeléctrico 40kHz',
+    categoria: 'Sensores',
+    icono: '📏',
+    voltaje: '5V DC',
+    interfaz: 'Trigger & Echo (Digital)',
+    consumo: '15mA',
+    disponibles: 38,
+    descripcion: 'Medición de distancias sin contacto de 2cm a 400cm con precisión de 3mm. Utilizado en robots evasores de obstáculos.'
+  },
+  {
+    id: 'sg90',
+    nombre: 'Micro Servomotor SG90 9g',
+    modelo: 'Actuador con Reducción de Engranajes',
+    categoria: 'Actuadores',
+    icono: '🦾',
+    voltaje: '4.8V a 6.0V',
+    interfaz: 'PWM (Pulso 1ms a 2ms a 50Hz)',
+    consumo: '100mA en movimiento / 550mA bloqueo',
+    disponibles: 42,
+    descripcion: 'Giro de 180 grados con torque de 1.8 kg-cm. Esencial para articulaciones de brazos robóticos y dirección de vehículos autónomos.'
+  },
+  {
+    id: 'mpu6050',
+    nombre: 'Sensor IMU MPU-6050',
+    modelo: 'Acelerómetro + Giroscopio 6-DoF',
+    categoria: 'Sensores',
+    icono: '🧭',
+    voltaje: '3.3V - 5V (I2C)',
+    interfaz: 'Protocolo I2C estándar (0x68)',
+    consumo: '3.9mA',
+    disponibles: 16,
+    descripcion: 'Medición de inclinación, aceleración angular y orientación espacial para robots bípedos y estabilización.'
+  }
+];
+
+export default function CatalogoTecnicoSinCarritoApp() {
+  const [selectedId, setSelectedId] = useState(null);
+  const [filtro, setFiltro] = useState('Todos');
+
+  const selectedItem = COMPONENTES.find(c => c.id === selectedId);
+
+  return (
+    <View style={styles.container}>
+      {/* Header Directo sin Carrito */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>🔬 Pañol de Electrónica UTN</Text>
+        <Text style={styles.headerSubtitle}>Catálogo Técnico Directo • Sin Estado Global</Text>
+      </View>
+
+      {/* Pantalla 1: Ficha Técnica Detallada (Si se seleccionó un item) */}
+      {selectedItem ? (
+        <ScrollView style={styles.detailCard}>
+          <TouchableOpacity style={styles.backBtn} onPress={() => setSelectedId(null)}>
+            <Text style={styles.backBtnText}>⬅ Volver al Catálogo</Text>
+          </TouchableOpacity>
+
+          <Text style={styles.detailIcon}>{selectedItem.icono}</Text>
+          <Text style={styles.detailName}>{selectedItem.nombre}</Text>
+          <Text style={styles.detailModel}>{selectedItem.modelo}</Text>
+          <Text style={styles.detailDesc}>{selectedItem.descripcion}</Text>
+
+          <View style={styles.specsTable}>
+            <Text style={styles.tableTitle}>Especificaciones Técnicas:</Text>
+            <Text style={styles.tableRow}>• Voltaje: {selectedItem.voltaje}</Text>
+            <Text style={styles.tableRow}>• Interfaz: {selectedItem.interfaz}</Text>
+            <Text style={styles.tableRow}>• Consumo: {selectedItem.consumo}</Text>
+            <Text style={styles.tableRow}>• Stock en Pañol: {selectedItem.disponibles} unidades</Text>
+          </View>
+
+          <TouchableOpacity style={styles.actionBtn} onPress={() => alert('Datasheet descargado')}>
+            <Text style={styles.actionBtnText}>📥 Descargar Datasheet Oficial (PDF)</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      ) : (
+        /* Pantalla 2: Lista de Componentes */
+        <FlatList
+          data={COMPONENTES.filter(c => filtro === 'Todos' || c.categoria === filtro)}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.card} onPress={() => setSelectedId(item.id)}>
+              <Text style={styles.itemIcon}>{item.icono}</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.itemName}>{item.nombre}</Text>
+                <Text style={styles.itemCategory}>{item.categoria} • {item.disponibles} disp.</Text>
+              </View>
+              <Text style={styles.arrowText}>Ver Ficha ➔</Text>
+            </TouchableOpacity>
+          )}
+        />
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0f172a', padding: 16 },
+  header: { marginBottom: 14 },
+  headerTitle: { fontSize: 18, fontWeight: 'bold', color: '#38bdf8' },
+  headerSubtitle: { fontSize: 11, color: '#94a3b8', marginTop: 2 },
+  card: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1e293b', padding: 12, borderRadius: 12, marginBottom: 8, gap: 10 },
+  itemIcon: { fontSize: 24 },
+  itemName: { color: '#f1f5f9', fontWeight: 'bold', fontSize: 13 },
+  itemCategory: { color: '#94a3b8', fontSize: 11, marginTop: 2 },
+  arrowText: { color: '#38bdf8', fontSize: 11, fontWeight: 'bold' },
+  detailCard: { backgroundColor: '#1e293b', padding: 16, borderRadius: 14 },
+  backBtn: { marginBottom: 12 },
+  backBtnText: { color: '#38bdf8', fontWeight: 'bold', fontSize: 13 },
+  detailIcon: { fontSize: 36, textAlign: 'center', marginVertical: 8 },
+  detailName: { fontSize: 18, fontWeight: 'bold', color: '#fff', textAlign: 'center' },
+  detailModel: { fontSize: 12, color: '#94a3b8', textAlign: 'center', marginBottom: 10 },
+  detailDesc: { color: '#cbd5e1', fontSize: 12, lineHeight: 18, marginBottom: 14 },
+  specsTable: { backgroundColor: '#0f172a', padding: 12, borderRadius: 10, marginBottom: 14 },
+  tableTitle: { color: '#38bdf8', fontWeight: 'bold', fontSize: 12, marginBottom: 6 },
+  tableRow: { color: '#cbd5e1', fontSize: 11, marginBottom: 4 },
+  actionBtn: { backgroundColor: '#0284c7', padding: 12, borderRadius: 8, alignItems: 'center' },
+  actionBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 12 },
+});`,
+        renderSimulator: ({ log }) => {
+            const [selectedId, setSelectedId] = useState(null);
+            const [filtro, setFiltro] = useState('Todos');
+
+            const COMPONENTES = [
+                {
+                    id: 'esp32',
+                    nombre: 'ESP32-WROOM-32D',
+                    modelo: 'SoC Xtensa Dual-Core 240MHz',
+                    categoria: 'Microcontroladores',
+                    icono: '📡',
+                    voltaje: '3.3V (Regulado a 5V)',
+                    interfaz: 'I2C / SPI / UART / PWM (32 GPIOs)',
+                    consumo: '80mA activo / 10µA Deep Sleep',
+                    disponibles: 24,
+                    descripcion: 'Módulo IoT de alto rendimiento con Wi-Fi 802.11 b/g/n y Bluetooth 4.2 BLE. Ideal para proyectos de robótica conectada.'
+                },
+                {
+                    id: 'hcsr04',
+                    nombre: 'Sensor Ultrasónico HC-SR04',
+                    modelo: 'Transductor Piezoeléctrico 40kHz',
+                    categoria: 'Sensores',
+                    icono: '📏',
+                    voltaje: '5V DC',
+                    interfaz: 'Trigger & Echo (Digital)',
+                    consumo: '15mA',
+                    disponibles: 38,
+                    descripcion: 'Medición de distancias sin contacto de 2cm a 400cm con precisión de 3mm. Utilizado en robots evasores de obstáculos.'
+                },
+                {
+                    id: 'sg90',
+                    nombre: 'Micro Servomotor SG90 9g',
+                    modelo: 'Actuador con Reducción de Engranajes',
+                    categoria: 'Actuadores',
+                    icono: '🦾',
+                    voltaje: '4.8V a 6.0V',
+                    interfaz: 'PWM (Pulso 1ms a 2ms a 50Hz)',
+                    consumo: '100mA en movimiento / 550mA bloqueo',
+                    disponibles: 42,
+                    descripcion: 'Giro de 180 grados con torque de 1.8 kg-cm. Esencial para articulaciones de brazos robóticos y dirección de vehículos autónomos.'
+                },
+                {
+                    id: 'mpu6050',
+                    nombre: 'Sensor IMU MPU-6050',
+                    modelo: 'Acelerómetro + Giroscopio 6-DoF',
+                    categoria: 'Sensores',
+                    icono: '🧭',
+                    voltaje: '3.3V - 5V (I2C)',
+                    interfaz: 'Protocolo I2C estándar (0x68)',
+                    consumo: '3.9mA',
+                    disponibles: 16,
+                    descripcion: 'Medición de inclinación, aceleración angular y orientación espacial para robots bípedos y estabilización.'
+                }
+            ];
+
+            const selectedItem = COMPONENTES.find(c => c.id === selectedId);
+
+            const abrirDetalle = (item) => {
+                setSelectedId(item.id);
+                log(`[Stack Navigation] router.push('/catalog/${item.id}'). Pantalla de Ficha Técnica abierta para: "${item.nombre}" (Sin overhead de store global).`);
+            };
+
+            const volverAtras = () => {
+                setSelectedId(null);
+                log('[Stack Navigation] router.back(). Volviendo a la lista de catálogo.');
+            };
+
+            const descargarDatasheet = (item) => {
+                log(`[Expo FileSystem] Descargando datasheet: ${item.id}_datasheet.pdf (Cache local).`);
+                alert(`Descargando ficha técnica oficial de ${item.nombre}`);
+            };
+
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0a0f1d', color: '#fff', overflow: 'hidden' }}>
+                    {/* Header Limpio sin Carrito */}
+                    <div style={{ padding: '12px 14px', background: '#111827', borderBottom: '1px solid #1f2937', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <div style={{ fontSize: '13px', fontWeight: '900', color: '#38bdf8' }}>
+                                🔬 Pañol de Electrónica UTN
+                            </div>
+                            <div style={{ fontSize: '9px', color: '#94a3b8' }}>Catálogo Técnico • Sin Carrito</div>
+                        </div>
+                        <span style={{ fontSize: '9px', background: 'rgba(16,185,129,0.15)', color: '#10b981', padding: '2px 8px', borderRadius: '6px', fontWeight: '800' }}>
+                            Stateless (RAM 8MB)
+                        </span>
+                    </div>
+
+                    {/* VISTA 1: FICHA DETALLADA */}
+                    {selectedItem ? (
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto', padding: '12px' }}>
+                            <button
+                                onClick={volverAtras}
+                                style={{
+                                    alignSelf: 'flex-start',
+                                    background: 'none',
+                                    border: 'none',
+                                    color: '#38bdf8',
+                                    fontSize: '11px',
+                                    fontWeight: '800',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '4px',
+                                    padding: '2px 0 10px 0'
+                                }}
+                            >
+                                <span>⬅ Volver al Catálogo</span>
+                            </button>
+
+                            <div style={{ background: '#151d30', border: '1px solid #23304e', borderRadius: '14px', padding: '14px', textAlign: 'center' }}>
+                                <span style={{ fontSize: '38px', display: 'block', marginBottom: '6px' }}>{selectedItem.icono}</span>
+                                <div style={{ fontSize: '14px', fontWeight: '900', color: '#f1f5f9' }}>{selectedItem.nombre}</div>
+                                <div style={{ fontSize: '10px', color: '#38bdf8', marginTop: '2px', fontWeight: '700' }}>{selectedItem.modelo}</div>
+                                <p style={{ fontSize: '10px', color: '#cbd5e1', lineHeight: '1.4', margin: '8px 0 12px', textAlign: 'left' }}>
+                                    {selectedItem.descripcion}
+                                </p>
+
+                                {/* Tabla de Especificaciones */}
+                                <div style={{ background: '#0e1526', border: '1px solid #334155', borderRadius: '10px', padding: '10px', textAlign: 'left' }}>
+                                    <div style={{ fontSize: '10px', fontWeight: '800', color: '#38bdf8', marginBottom: '6px' }}>
+                                        📋 Especificaciones Técnicas:
+                                    </div>
+                                    <div style={{ fontSize: '9px', color: '#cbd5e1', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                                        <div>• <strong style={{ color: '#fff' }}>Voltaje:</strong> {selectedItem.voltaje}</div>
+                                        <div>• <strong style={{ color: '#fff' }}>Interfaz:</strong> {selectedItem.interfaz}</div>
+                                        <div>• <strong style={{ color: '#fff' }}>Consumo:</strong> {selectedItem.consumo}</div>
+                                        <div>• <strong style={{ color: '#10b981' }}>Disponibilidad:</strong> {selectedItem.disponibles} en pañol</div>
+                                    </div>
+                                </div>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '12px' }}>
+                                    <button
+                                        onClick={() => descargarDatasheet(selectedItem)}
+                                        style={{
+                                            background: '#0284c7',
+                                            border: 'none',
+                                            color: '#fff',
+                                            padding: '8px',
+                                            borderRadius: '8px',
+                                            fontSize: '11px',
+                                            fontWeight: '800',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        📥 Descargar Datasheet (PDF)
+                                    </button>
+                                    <button
+                                        onClick={() => { log(`[Pañol UTN] Solicitud de préstamo registrada para: ${selectedItem.nombre}`); alert('Solicitud registrada en pañol de alumnos.'); }}
+                                        style={{
+                                            background: 'transparent',
+                                            border: '1px solid #334155',
+                                            color: '#cbd5e1',
+                                            padding: '7px',
+                                            borderRadius: '8px',
+                                            fontSize: '10px',
+                                            fontWeight: '700',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        💬 Solicitar para Práctica de Taller
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        /* VISTA 2: LISTA DE CATÁLOGO */
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '10px' }}>
+                            {/* Filtros */}
+                            <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
+                                {['Todos', 'Microcontroladores', 'Sensores', 'Actuadores'].map(cat => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setFiltro(cat)}
+                                        style={{
+                                            padding: '3px 8px',
+                                            borderRadius: '6px',
+                                            border: '1px solid',
+                                            borderColor: filtro === cat ? '#38bdf8' : '#334155',
+                                            background: filtro === cat ? 'rgba(56,189,248,0.15)' : '#1e293b',
+                                            color: filtro === cat ? '#38bdf8' : '#94a3b8',
+                                            fontSize: '9px',
+                                            fontWeight: '700',
+                                            cursor: 'pointer',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Cards de componentes */}
+                            <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px', paddingRight: '2px' }}>
+                                {COMPONENTES.filter(c => filtro === 'Todos' || c.categoria === filtro).map(comp => (
+                                    <div
+                                        key={comp.id}
+                                        onClick={() => abrirDetalle(comp)}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '10px',
+                                            background: '#151d30',
+                                            border: '1px solid #23304e',
+                                            borderRadius: '10px',
+                                            padding: '10px',
+                                            cursor: 'pointer',
+                                            transition: 'border-color 0.2s'
+                                        }}
+                                    >
+                                        <span style={{ fontSize: '22px' }}>{comp.icono}</span>
+                                        <div style={{ flex: 1, minWidth: 0 }}>
+                                            <div style={{ fontSize: '11px', fontWeight: '800', color: '#f1f5f9' }}>
+                                                {comp.nombre}
+                                            </div>
+                                            <div style={{ fontSize: '9px', color: '#94a3b8', marginTop: '2px' }}>
+                                                {comp.categoria} • <span style={{ color: '#10b981' }}>{comp.disponibles} disp.</span>
+                                            </div>
+                                        </div>
+                                        <span style={{ fontSize: '10px', color: '#38bdf8', fontWeight: '800' }}>
+                                            Ficha ➔
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Footer Didáctico */}
+                    <div style={{ padding: '6px 12px', background: '#0e1526', borderTop: '1px solid #1e293b', fontSize: '9px', color: '#64748b', textAlign: 'center' }}>
+                        💡 Arquitectura Directa: Ideal para catálogos, portfolios y fichas técnicas sin transacciones.
+                    </div>
+                </div>
+            );
+        }
+    },
 ];
 
 const flattenStyle = (s) => {
@@ -2864,6 +3129,52 @@ const LiveSimulatorRunner = ({ code, log, resetKey }) => {
 };
 
 const PRESET_EXPLANATIONS = {
+    expo_setup: {
+        badge: 'Setup Inicial & Toolchain PC',
+        concept: 'Comenzar un proyecto React Native moderno con Expo elimina la necesidad de configurar manualmente compiladores nativos C++, Gradle o CocoaPods. Todo el ciclo de desarrollo se orquesta mediante Node.js, Visual Studio Code y el empaquetador Metro Bundler, permitiendo ejecutar código en tiempo real en smartphones físicos vía Expo Go.',
+        image: '/images/rn_expo_pc_setup_guide.jpg',
+        imageCaption: '🛠️ Diagrama Didáctico con IA: Entorno de Desarrollo y Setup en PC — 1) Instalación de software base en la PC (Node.js, VS Code, Git CLI). 2) Creación del proyecto con npx create-expo-app@latest. 3) Servidor Metro Bundler con atajos de terminal interactivos ([a] Android, [i] iOS, [w] Web, [r] Reload). 4) Conexión en tiempo real con Expo Go vía Wi-Fi para Fast Refresh instantáneo.',
+        stepByStep: [
+            'Paso 1: Instalar Node.js LTS (v20 o superior) desde nodejs.org marcando la opción "Add to PATH".',
+            'Paso 2: Instalar Visual Studio Code y agregar la extensión oficial "Expo Tools" para tipado y autocompletado.',
+            'Paso 3: Abrir PowerShell o la terminal de VS Code y ejecutar: npx create-expo-app@latest mi-app --template tabs',
+            'Paso 4: Entrar a la carpeta con cd mi-app e iniciar el empaquetador con npx expo start.',
+            'Paso 5: Descargar Expo Go en el smartphone (Google Play o App Store) y escanear el código QR sobre la misma red Wi-Fi.'
+        ],
+        sections: [
+            {
+                title: '1. Herramientas Necesarias en la PC',
+                desc: 'Node.js (LTS), VS Code, Git y Expo Go.',
+                detail: '• Node.js: Provee el motor V8 para ejecutar el empaquetador Metro y gestionar dependencias npm.\n• Visual Studio Code: Editor líder con soporte de TypeScript, formateador Prettier y snippets.\n• Git: Sistema de control de versiones para clonar repositorios y realizar Pull Requests en la cátedra.\n• Expo Go: Cliente móvil precompilado que ejecuta tu código JavaScript/TypeScript en tu celular sin compilar binarios.'
+            },
+            {
+                title: '2. Comando create-expo-app',
+                desc: 'npx create-expo-app@latest mi-app --template tabs',
+                detail: 'Descarga e inicializa la plantilla oficial con Expo Router (enrutamiento por carpetas en app/), TypeScript configurado, iconos vectoriales y soporte multiplataforma listo para usar.'
+            },
+            {
+                title: '3. Atajos de Teclado en Metro Bundler',
+                desc: 'a (Android), i (iOS), w (Web), r (Reload), c (Clean Cache)',
+                detail: 'Al presionar "a", Metro busca un emulador de Android Studio activo o un teléfono conectado por USB con ADB. "r" fuerza una recarga total en caliente. "c" purga la memoria caché en caso de errores de caché residual.'
+            },
+            {
+                title: '4. Modo Túnel para Redes Universitarias',
+                desc: 'npx expo start --tunnel',
+                detail: 'Si la red Wi-Fi de la universidad o de tu hogar posee aislamiento de clientes (AP Isolation) y el celular no encuentra la IP de la PC, el modificador --tunnel crea un túnel seguro en la nube para conectar ambos dispositivos.'
+            }
+        ],
+        pitfalls: [
+            '❌ Instalar Node.js sin marcar "Add to PATH", lo que provocará el error "node no se reconoce como un comando interno".',
+            '❌ Intentar conectar el celular estando en datos móviles 4G/5G mientras la PC está en Wi-Fi (deben estar en la misma red o usar --tunnel).',
+            '❌ Usar espacios o caracteres especiales en el nombre de la carpeta del proyecto (ej: "mi proyecto final!" fallará en npm).'
+        ],
+        selfCheck: {
+            q: '¿Por qué la cátedra utiliza Expo SDK en lugar de React Native CLI puro para iniciar el curso?',
+            a: 'Porque Expo permite comenzar a programar en 2 minutos sin necesidad de descargar gigabytes de Android Studio SDK, NDK ni configurar variables complejas de Gradle. Además, Expo Go permite probar en iPhones y iPads reales desde computadoras con Windows sin requerir una Mac.'
+        },
+        webVsNative: 'En desarrollo Web creas un proyecto con Vite o Create-React-App y abres localhost:5173. En móviles, Expo Metro Bundler compila tu código y lo transmite por sockets a la máquina virtual Hermes dentro de tu celular.',
+        tip: 'Usa "npx expo install <paquete>" en lugar de "npm install" cuando instales librerías con código nativo (como cámaras o sensores) para que Expo seleccione automáticamente la versión testeada compatible con tu SDK.'
+    },
     ecommerce_cart: {
         badge: 'Arquitectura Completa E-Commerce',
         concept: 'Una aplicación móvil de comercio electrónico completa requiere coordinar múltiples pantallas (Catálogo, Carrito y Checkout) mediante un Store Centralizado (Zustand). El store sincroniza el badge de la barra de navegación, actualiza cantidades de items en tiempo real y calcula subtotales y descuentos sin acoplar los componentes.',
@@ -3784,34 +4095,90 @@ const ReactNativeSimulator = ({ initialPreset = 'flexbox' }) => {
                     </div>
                 </div>
 
-                {/* Preset Selector Pill Tabs */}
-                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                    {SIMULATOR_PRESETS.map(preset => (
-                        <button
-                            key={preset.id}
-                            onClick={() => {
-                                setSelectedPresetId(preset.id);
-                                addLog(`Cargando lección: ${preset.title}`);
-                            }}
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.4rem',
-                                padding: '0.45rem 0.85rem',
-                                borderRadius: '10px',
-                                fontSize: '0.8rem',
-                                fontWeight: '700',
-                                background: selectedPresetId === preset.id ? '#0284c7' : 'rgba(255,255,255,0.05)',
-                                color: selectedPresetId === preset.id ? '#fff' : '#cbd5e1',
-                                border: '1px solid',
-                                borderColor: selectedPresetId === preset.id ? '#38bdf8' : 'transparent',
-                                transition: 'all 0.2s',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            {preset.icon}
-                            <span>{preset.title.split(' ')[0]}</span>
-                        </button>
+                {/* Preset Selector Grouped Tabs */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '100%' }}>
+                    {[
+                        {
+                            label: '🚀 PASO 1: SETUP & FUNDAMENTOS',
+                            tag: 'Comenzar Cátedra',
+                            color: '#38bdf8',
+                            presets: SIMULATOR_PRESETS.filter(p => ['expo_setup', 'flexbox', 'state', 'flatlist', 'router'].includes(p.id))
+                        },
+                        {
+                            label: '⚡ PASO 2: INTEGRACIÓN & SERVICIOS',
+                            tag: 'Módulos Nativos',
+                            color: '#a855f7',
+                            presets: SIMULATOR_PRESETS.filter(p => ['form', 'firebase', 'hardware', 'animations', 'api', 'eas', 'ai'].includes(p.id))
+                        },
+                        {
+                            label: '🏆 PASO 3: PROYECTOS FINALES (APPS COMPLETAS)',
+                            tag: 'Entrega Final Cátedra',
+                            color: '#10b981',
+                            presets: SIMULATOR_PRESETS.filter(p => ['ecommerce_cart', 'ecommerce_nocart'].includes(p.id))
+                        }
+                    ].map((group, gIdx) => (
+                        <div key={gIdx} style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.72rem', fontWeight: '800', color: group.color, letterSpacing: '0.5px' }}>
+                                <span>{group.label}</span>
+                                <span style={{ fontSize: '0.65rem', padding: '1px 6px', borderRadius: '4px', background: `${group.color}20`, border: `1px solid ${group.color}40` }}>
+                                    {group.tag}
+                                </span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '0.45rem', flexWrap: 'wrap' }}>
+                                {group.presets.map(preset => {
+                                    const isFinal = ['ecommerce_cart', 'ecommerce_nocart'].includes(preset.id);
+                                    const isSetup = preset.id === 'expo_setup';
+                                    const label = isSetup ? '🚀 Setup & Comandos PC'
+                                        : preset.id === 'ecommerce_cart' ? '🛒 App con Carrito'
+                                        : preset.id === 'ecommerce_nocart' ? '📦 App sin Carrito'
+                                        : preset.id === 'flexbox' ? 'Layouts'
+                                        : preset.id === 'state' ? 'Estado'
+                                        : preset.id === 'flatlist' ? 'FlatList'
+                                        : preset.id === 'router' ? 'Router'
+                                        : preset.id === 'form' ? 'Formularios'
+                                        : preset.id === 'firebase' ? 'Firebase'
+                                        : preset.id === 'hardware' ? 'Hardware'
+                                        : preset.id === 'animations' ? 'Animaciones'
+                                        : preset.id === 'api' ? 'API REST'
+                                        : preset.id === 'eas' ? 'Builds EAS'
+                                        : preset.id === 'ai' ? 'Asistente IA'
+                                        : preset.title.split(' ')[0];
+
+                                    return (
+                                        <button
+                                            key={preset.id}
+                                            onClick={() => {
+                                                setSelectedPresetId(preset.id);
+                                                addLog(`Cargando lección: ${preset.title}`);
+                                            }}
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.4rem',
+                                                padding: isFinal ? '0.48rem 0.95rem' : '0.42rem 0.8rem',
+                                                borderRadius: '10px',
+                                                fontSize: isFinal ? '0.82rem' : '0.78rem',
+                                                fontWeight: '700',
+                                                background: selectedPresetId === preset.id
+                                                    ? (isFinal ? 'linear-gradient(135deg, #059669, #10b981)' : isSetup ? 'linear-gradient(135deg, #0284c7, #0ea5e9)' : '#0284c7')
+                                                    : (isFinal ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.05)'),
+                                                color: selectedPresetId === preset.id ? '#fff' : (isFinal ? '#6ee7b7' : '#cbd5e1'),
+                                                border: '1px solid',
+                                                borderColor: selectedPresetId === preset.id
+                                                    ? (isFinal ? '#34d399' : '#38bdf8')
+                                                    : (isFinal ? 'rgba(16,185,129,0.3)' : 'transparent'),
+                                                transition: 'all 0.2s',
+                                                cursor: 'pointer',
+                                                boxShadow: selectedPresetId === preset.id && isFinal ? '0 4px 14px rgba(16,185,129,0.35)' : 'none'
+                                            }}
+                                        >
+                                            {preset.icon}
+                                            <span>{label}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>

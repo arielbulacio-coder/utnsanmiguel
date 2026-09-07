@@ -7,17 +7,25 @@ import {
     Smartphone, BookOpen, Layers, Code, Zap, Database, Camera,
     ShieldCheck, Sparkles, Navigation, List, ExternalLink, ArrowRight,
     GraduationCap, Calendar, Users, CheckCircle2, FileText, Download,
-    FolderGit2, Rocket, Award, Cpu, ShieldAlert, BookMarked, Eye, X
+    FolderGit2, Rocket, Award, Cpu, ShieldAlert, BookMarked, Eye, X,
+    Terminal, Copy, Check, Laptop
 } from 'lucide-react';
 
 const AplicacionesMoviles = ({ defaultTab }) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [selectedTab, setSelectedTab] = useState(defaultTab || searchParams.get('tab') || 'unidades'); // 'unidades' | 'proyecto' | 'evaluacion' | 'examen' | 'bibliografia'
+    const [selectedTab, setSelectedTab] = useState(defaultTab || searchParams.get('tab') || 'unidades'); // 'unidades' | 'instalacion' | 'proyecto' | 'evaluacion' | 'examen' | 'bibliografia'
     const [activePdfViewer, setActivePdfViewer] = useState(null); // { title, driveId, chapter }
+    const [copiedCmd, setCopiedCmd] = useState(null);
+
+    const handleCopy = (text, id) => {
+        navigator.clipboard?.writeText(text);
+        setCopiedCmd(id);
+        setTimeout(() => setCopiedCmd(null), 2000);
+    };
 
     useEffect(() => {
         const tab = searchParams.get('tab');
-        if (tab && ['unidades', 'proyecto', 'evaluacion', 'examen', 'bibliografia'].includes(tab)) {
+        if (tab && ['unidades', 'instalacion', 'proyecto', 'evaluacion', 'examen', 'bibliografia'].includes(tab)) {
             setSelectedTab(tab);
         }
     }, [searchParams]);
@@ -612,6 +620,26 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                     </Link>
 
                     <button
+                        onClick={() => setSelectedTab('instalacion')}
+                        style={{
+                            background: 'linear-gradient(135deg, #0284c7, #0ea5e9)',
+                            color: '#fff',
+                            border: 'none',
+                            padding: '0.85rem 1.75rem',
+                            borderRadius: '14px',
+                            fontWeight: 800,
+                            fontSize: '1rem',
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.6rem',
+                            boxShadow: '0 10px 25px rgba(2,132,199,0.35)'
+                        }}
+                    >
+                        <Terminal size={20} /> 🚀 Tutorial Setup PC & Expo
+                    </button>
+
+                    <button
                         onClick={() => setSelectedTab('examen')}
                         style={{
                             background: 'linear-gradient(135deg, #10b981, #059669)',
@@ -658,6 +686,7 @@ const AplicacionesMoviles = ({ defaultTab }) => {
             <div style={{ display: 'flex', justifyContent: 'center', borderBottom: '1px solid var(--border-color)', marginBottom: '2.5rem', gap: '0.5rem', flexWrap: 'wrap' }}>
                 {[
                     { id: 'unidades', label: 'Programa de Unidades & Clases', icon: <BookOpen size={18} /> },
+                    { id: 'instalacion', label: '🛠️ Setup PC & Expo', icon: <Terminal size={18} /> },
                     { id: 'proyecto', label: 'Proyecto Integrador Continuo', icon: <Rocket size={18} /> },
                     { id: 'evaluacion', label: 'Régimen de Evaluación', icon: <Award size={18} /> },
                     { id: 'examen', label: '📝 Examen Teórico (100 Q)', icon: <CheckCircle2 size={18} /> },
@@ -868,6 +897,431 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                             </div>
                         </section>
                     ))}
+                </motion.div>
+            )}
+
+            {/* TAB: TUTORIAL SETUP PC & EXPO */}
+            {selectedTab === 'instalacion' && (
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                    {/* Header Banner */}
+                    <div style={{ background: 'linear-gradient(135deg, rgba(2,132,199,0.18), rgba(14,165,233,0.06))', border: '1.5px solid rgba(56,189,248,0.3)', borderRadius: '24px', padding: '2.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+                        <div style={{ maxWidth: '780px' }}>
+                            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '4px 12px', borderRadius: '8px', background: 'rgba(56,189,248,0.2)', color: '#38bdf8', fontSize: '0.8rem', fontWeight: '800', marginBottom: '0.75rem' }}>
+                                <Terminal size={15} /> CÁTEDRA CREACIÓN DE APLICACIONES MÓVILES • UNPILAR / UTN
+                            </div>
+                            <h2 style={{ margin: '0 0 0.6rem', fontSize: '2rem', fontWeight: '900', color: 'var(--text-main)' }}>
+                                Tutorial Inicial: Setup de PC & Comandos Expo
+                            </h2>
+                            <p style={{ margin: 0, fontSize: '0.98rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
+                                Guía oficial para preparar tu entorno de desarrollo en tu computadora personal, inicializar tu proyecto móvil con Expo SDK 51+ y ejecutar tu código en tiempo real en tu teléfono físico o emulador.
+                            </p>
+                        </div>
+                        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                            <Link
+                                to="/simulador-react-native?preset=expo_setup"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    background: 'linear-gradient(135deg, #0284c7, #0ea5e9)',
+                                    color: '#fff',
+                                    padding: '0.85rem 1.4rem',
+                                    borderRadius: '12px',
+                                    fontWeight: '800',
+                                    fontSize: '0.92rem',
+                                    textDecoration: 'none',
+                                    boxShadow: '0 8px 20px rgba(2,132,199,0.35)'
+                                }}
+                            >
+                                <Smartphone size={18} /> Probar Setup en Simulador
+                            </Link>
+                            <Link
+                                to="/simulador-react-native?preset=ecommerce_cart"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    background: 'rgba(16,185,129,0.15)',
+                                    border: '1px solid rgba(16,185,129,0.4)',
+                                    color: '#10b981',
+                                    padding: '0.85rem 1.4rem',
+                                    borderRadius: '12px',
+                                    fontWeight: '800',
+                                    fontSize: '0.92rem',
+                                    textDecoration: 'none'
+                                }}
+                            >
+                                <span>🛒 Ver Proyecto Final Integrador</span>
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Infografía Didáctica con IA */}
+                    <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '20px', overflow: 'hidden' }}>
+                        <div style={{ padding: '1.25rem 1.5rem', background: 'var(--card-inner-bg)', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                                <Sparkles size={18} color="var(--primary-color)" />
+                                <span style={{ fontWeight: '800', fontSize: '1rem', color: 'var(--text-main)' }}>
+                                    Infografía Didáctica con IA: Flujo Completo de Setup en PC & Conexión Móvil
+                                </span>
+                            </div>
+                            <span style={{ fontSize: '0.78rem', padding: '3px 10px', borderRadius: '6px', background: 'rgba(56,189,248,0.15)', color: 'var(--primary-color)', fontWeight: '800' }}>
+                                Cátedra UNPilar / UTN
+                            </span>
+                        </div>
+                        <div style={{ padding: '1.25rem', textAlign: 'center', background: '#020617' }}>
+                            <img
+                                src="/images/rn_expo_pc_setup_guide.jpg"
+                                alt="Infografía Didáctica Setup Expo PC"
+                                style={{ width: '100%', maxHeight: '560px', objectFit: 'contain', borderRadius: '14px' }}
+                            />
+                        </div>
+                        <div style={{ padding: '1.25rem 1.5rem', fontSize: '0.88rem', color: 'var(--text-dim)', background: 'var(--card-inner-bg)', borderTop: '1px solid var(--border-color)', lineHeight: 1.6 }}>
+                            📌 <strong>Explicación del Flujo Técnico:</strong> <strong>1) Herramientas de PC:</strong> Node.js provee el motor V8 para el empaquetador Metro y npm; VS Code actúa como IDE con tipado estricto; Git gestiona el repositorio de cátedra. <strong>2) create-expo-app:</strong> Descarga la plantilla oficial con enrutamiento de archivos (Tabs). <strong>3) Metro Bundler:</strong> Transpila en vivo y expone un servidor WebSocket en el puerto 8081. <strong>4) Expo Go:</strong> La app nativa en tu celular interpreta el bundle sin requerir compilación pesada en Android Studio ni Xcode.
+                        </div>
+                    </div>
+
+                    {/* FASE 1: Herramientas Necesarias en la PC */}
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+                            <Laptop size={24} color="var(--primary-color)" />
+                            <div>
+                                <h3 style={{ margin: 0, fontSize: '1.35rem', fontWeight: '800', color: 'var(--text-main)' }}>
+                                    1. Instalación de Herramientas Previas en tu Computadora (PC)
+                                </h3>
+                                <div style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginTop: '2px' }}>
+                                    Instala estos programas antes de comenzar la primera clase práctica del cuatrimestre.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+                            {/* Node.js */}
+                            <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                                    <span style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--text-main)' }}>🟢 Node.js (LTS)</span>
+                                    <span style={{ fontSize: '0.72rem', background: 'rgba(34,197,94,0.15)', color: '#22c55e', padding: '2px 8px', borderRadius: '6px', fontWeight: '800' }}>v20+ Requerido</span>
+                                </div>
+                                <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', margin: '0 0 1rem', lineHeight: 1.5, flex: 1 }}>
+                                    Motor de JavaScript para ejecutar Metro Bundler y el gestor de paquetes npm. En el instalador de Windows, asegúrate de marcar la casilla <strong>"Add to PATH"</strong>.
+                                </p>
+                                <div style={{ background: 'var(--card-inner-bg)', padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <code style={{ fontSize: '0.82rem', color: 'var(--primary-color)', fontFamily: 'monospace' }}>node -v && npm -v</code>
+                                    <button
+                                        onClick={() => handleCopy('node -v && npm -v', 'node-am')}
+                                        style={{ background: 'none', border: 'none', color: copiedCmd === 'node-am' ? '#10b981' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.72rem' }}
+                                    >
+                                        {copiedCmd === 'node-am' ? <Check size={14} /> : <Copy size={14} />}
+                                    </button>
+                                </div>
+                                <a
+                                    href="https://nodejs.org/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', background: 'rgba(56,189,248,0.1)', color: 'var(--primary-color)', border: '1px solid var(--border-color)', padding: '8px 12px', borderRadius: '10px', fontSize: '0.85rem', fontWeight: '700', textDecoration: 'none' }}
+                                >
+                                    <span>Descargar Node.js LTS</span>
+                                    <ExternalLink size={13} />
+                                </a>
+                            </div>
+
+                            {/* Visual Studio Code */}
+                            <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                                    <span style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--text-main)' }}>🔵 VS Code</span>
+                                    <span style={{ fontSize: '0.72rem', background: 'rgba(56,189,248,0.15)', color: '#38bdf8', padding: '2px 8px', borderRadius: '6px', fontWeight: '800' }}>Editor Recomendado</span>
+                                </div>
+                                <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', margin: '0 0 1rem', lineHeight: 1.5, flex: 1 }}>
+                                    Editor oficial de la cátedra con soporte para JSX/TSX. Recomendamos instalar las extensiones <strong>Expo Tools</strong>, <strong>Prettier</strong> y <strong>ESLint</strong>.
+                                </p>
+                                <div style={{ background: 'var(--card-inner-bg)', padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '1rem', fontSize: '0.78rem', color: 'var(--text-dim)' }}>
+                                    Extensión clave: <code>expo.vscode-expo-tools</code>
+                                </div>
+                                <a
+                                    href="https://code.visualstudio.com/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', background: 'rgba(56,189,248,0.1)', color: 'var(--primary-color)', border: '1px solid var(--border-color)', padding: '8px 12px', borderRadius: '10px', fontSize: '0.85rem', fontWeight: '700', textDecoration: 'none' }}
+                                >
+                                    <span>Descargar VS Code</span>
+                                    <ExternalLink size={13} />
+                                </a>
+                            </div>
+
+                            {/* Git CLI */}
+                            <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                                    <span style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--text-main)' }}>🟠 Git CLI</span>
+                                    <span style={{ fontSize: '0.72rem', background: 'rgba(249,115,22,0.15)', color: '#f97316', padding: '2px 8px', borderRadius: '6px', fontWeight: '800' }}>Control de Versiones</span>
+                                </div>
+                                <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', margin: '0 0 1rem', lineHeight: 1.5, flex: 1 }}>
+                                    Necesario para clonar el repositorio de las clases, trabajar en equipo en ramas (branches) y presentar el proyecto integrador mediante Pull Requests.
+                                </p>
+                                <div style={{ background: 'var(--card-inner-bg)', padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <code style={{ fontSize: '0.82rem', color: 'var(--primary-color)', fontFamily: 'monospace' }}>git --version</code>
+                                    <button
+                                        onClick={() => handleCopy('git --version', 'git-am')}
+                                        style={{ background: 'none', border: 'none', color: copiedCmd === 'git-am' ? '#10b981' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.72rem' }}
+                                    >
+                                        {copiedCmd === 'git-am' ? <Check size={14} /> : <Copy size={14} />}
+                                    </button>
+                                </div>
+                                <a
+                                    href="https://git-scm.com/downloads"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', background: 'rgba(56,189,248,0.1)', color: 'var(--primary-color)', border: '1px solid var(--border-color)', padding: '8px 12px', borderRadius: '10px', fontSize: '0.85rem', fontWeight: '700', textDecoration: 'none' }}
+                                >
+                                    <span>Descargar Git Windows</span>
+                                    <ExternalLink size={13} />
+                                </a>
+                            </div>
+
+                            {/* Expo Go en Celular */}
+                            <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                                    <span style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--text-main)' }}>📱 App Expo Go</span>
+                                    <span style={{ fontSize: '0.72rem', background: 'rgba(168,85,247,0.15)', color: '#a855f7', padding: '2px 8px', borderRadius: '6px', fontWeight: '800' }}>Android & iOS</span>
+                                </div>
+                                <p style={{ fontSize: '0.88rem', color: 'var(--text-dim)', margin: '0 0 1rem', lineHeight: 1.5, flex: 1 }}>
+                                    Instálala en tu celular físico. Escanea el código QR de la terminal y tu aplicación correrá inmediatamente en tu dispositivo sin necesidad de cables ni emuladores pesados.
+                                </p>
+                                <div style={{ background: 'var(--card-inner-bg)', padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '1rem', fontSize: '0.78rem', color: 'var(--text-dim)' }}>
+                                    Gratis en Google Play y App Store
+                                </div>
+                                <a
+                                    href="https://expo.dev/go"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', background: 'rgba(56,189,248,0.1)', color: 'var(--primary-color)', border: '1px solid var(--border-color)', padding: '8px 12px', borderRadius: '10px', fontSize: '0.85rem', fontWeight: '700', textDecoration: 'none' }}
+                                >
+                                    <span>Obtener Expo Go</span>
+                                    <ExternalLink size={13} />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* FASE 2: Comandos Iniciales para Comenzar el Proyecto */}
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+                            <Terminal size={24} color="var(--primary-color)" />
+                            <div>
+                                <h3 style={{ margin: 0, fontSize: '1.35rem', fontWeight: '800', color: 'var(--text-main)' }}>
+                                    2. Comandos Iniciales de Terminal (Paso a Paso)
+                                </h3>
+                                <div style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginTop: '2px' }}>
+                                    Ejecuta estos comandos en tu PowerShell o en la terminal integrada de Visual Studio Code.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {[
+                                {
+                                    step: '1',
+                                    title: 'Crear el proyecto con plantilla oficial de Pestañas (Tabs)',
+                                    desc: 'Genera un proyecto listo con Expo Router, TypeScript, esquemas de navegación y pestañas inferiores configuradas.',
+                                    cmd: 'npx create-expo-app@latest mi-primera-app --template tabs',
+                                    id: 'am-cmd-1'
+                                },
+                                {
+                                    step: '2',
+                                    title: 'Navegar a la carpeta creada',
+                                    desc: 'Posiciona tu terminal en el directorio raíz del nuevo proyecto móvil.',
+                                    cmd: 'cd mi-primera-app',
+                                    id: 'am-cmd-2'
+                                },
+                                {
+                                    step: '3',
+                                    title: 'Instalar librerías complementarias del cuatrimestre',
+                                    desc: 'Instala dependencias esenciales con compatibilidad de versión asegurada por Expo CLI.',
+                                    cmd: 'npx expo install @react-navigation/native zustand zod lucide-react-native',
+                                    id: 'am-cmd-3'
+                                },
+                                {
+                                    step: '4',
+                                    title: 'Iniciar el empaquetador Metro Bundler en tu PC',
+                                    desc: 'Inicia el servidor local. Abre la cámara de tu smartphone o la app Expo Go para escanear el QR.',
+                                    cmd: 'npx expo start',
+                                    id: 'am-cmd-4'
+                                },
+                                {
+                                    step: '5',
+                                    title: 'Modo Túnel para Redes de Facultades o Universidades',
+                                    desc: 'Si la red Wi-Fi universitaria tiene cortafuegos o aislamiento de clientes (AP Isolation) que impide la conexión IP directa, corre este comando para conectar a través del túnel cloud de Expo.',
+                                    cmd: 'npx expo start --tunnel',
+                                    id: 'am-cmd-5'
+                                }
+                            ].map(item => (
+                                <div key={item.step} style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1.25rem 1.5rem', display: 'flex', gap: '1.25rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                                    <div style={{ width: '36px', height: '36px', borderRadius: '12px', background: 'rgba(56,189,248,0.15)', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.05rem', flexShrink: 0 }}>
+                                        {item.step}
+                                    </div>
+                                    <div style={{ flex: 1, minWidth: '260px' }}>
+                                        <div style={{ fontWeight: '800', fontSize: '1.02rem', color: 'var(--text-main)', marginBottom: '0.3rem' }}>
+                                            {item.title}
+                                        </div>
+                                        <p style={{ margin: '0 0 0.75rem', fontSize: '0.88rem', color: 'var(--text-dim)', lineHeight: 1.5 }}>
+                                            {item.desc}
+                                        </p>
+                                        <div style={{ background: '#050914', border: '1px solid #1e293b', borderRadius: '10px', padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
+                                            <code style={{ fontSize: '0.88rem', color: '#38bdf8', fontFamily: 'monospace', wordBreak: 'break-all' }}>
+                                                {item.cmd}
+                                            </code>
+                                            <button
+                                                onClick={() => handleCopy(item.cmd, item.id)}
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.4rem',
+                                                    background: copiedCmd === item.id ? '#10b981' : 'rgba(56,189,248,0.15)',
+                                                    color: copiedCmd === item.id ? '#fff' : '#38bdf8',
+                                                    border: 'none',
+                                                    padding: '6px 12px',
+                                                    borderRadius: '8px',
+                                                    fontSize: '0.8rem',
+                                                    fontWeight: '700',
+                                                    cursor: 'pointer',
+                                                    flexShrink: 0
+                                                }}
+                                            >
+                                                {copiedCmd === item.id ? <Check size={14} /> : <Copy size={14} />}
+                                                <span>{copiedCmd === item.id ? '¡Copiado!' : 'Copiar'}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* FASE 3: Atajos de Teclado en Metro Bundler */}
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+                            <Zap size={24} color="var(--primary-color)" />
+                            <div>
+                                <h3 style={{ margin: 0, fontSize: '1.35rem', fontWeight: '800', color: 'var(--text-main)' }}>
+                                    3. Atajos de Teclado en la Terminal Metro (Hotkeys)
+                                </h3>
+                                <div style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginTop: '2px' }}>
+                                    Una vez que ejecutaste <code>npx expo start</code>, presiona estas teclas directamente en la terminal sin presionar Enter.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem' }}>
+                            {[
+                                { key: 'a', title: 'Abrir en Android', desc: 'Conecta con un emulador abierto en Android Studio o con un smartphone conectado por cable USB con depuración ADB activada.' },
+                                { key: 'i', title: 'Abrir en Simulador iOS', desc: 'Inicia el simulador de iPhone en Xcode (disponible en entornos macOS).' },
+                                { key: 'w', title: 'Abrir en Navegador Web', desc: 'Abre la versión web de la app en Chrome / Edge para pruebas ultrarrápidas de diseño y layout.' },
+                                { key: 'r', title: 'Recargar App (Reload)', desc: 'Fuerza una recarga total en caliente (Full Reload) sincronizada en todos los clientes conectados.' },
+                                { key: 'm', title: 'Menú de Desarrollador', desc: 'Despliega el Developer Menu en tu teléfono físico (permite inspeccionar elementos, activar depuración remota y rendimiento).' },
+                                { key: 'c', title: 'Limpiar Caché de Metro', desc: 'Purga la memoria caché del empaquetador en caso de inconsistencias o cambios en package.json.' },
+                                { key: 's', title: 'Alternar Modo de Build', desc: 'Alterna entre el entorno de Expo Go y Development Build compilado.' }
+                            ].map(hk => (
+                                <div key={hk.key} style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '14px', padding: '1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#0284c7', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.15rem', flexShrink: 0, boxShadow: '0 4px 12px rgba(2,132,199,0.35)' }}>
+                                        {hk.key}
+                                    </div>
+                                    <div>
+                                        <div style={{ fontWeight: '800', fontSize: '0.98rem', color: 'var(--text-main)', marginBottom: '0.25rem' }}>
+                                            {hk.title}
+                                        </div>
+                                        <div style={{ fontSize: '0.82rem', color: 'var(--text-dim)', lineHeight: 1.45 }}>
+                                            {hk.desc}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* FASE 4: Solución de Problemas Comunes */}
+                    <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '1.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+                            <ShieldAlert size={22} color="#f59e0b" />
+                            <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: '800', color: 'var(--text-main)' }}>
+                                Solución de Errores Frecuentes en el Setup de Windows
+                            </h3>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            <div style={{ padding: '1rem 1.25rem', background: 'var(--card-inner-bg)', borderLeft: '4px solid #ef4444', borderRadius: '10px' }}>
+                                <strong style={{ color: '#ef4444', fontSize: '0.95rem' }}>❌ Error: "node no se reconoce como un comando interno o externo":</strong>
+                                <p style={{ margin: '6px 0 0', color: 'var(--text-dim)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                                    Durante la instalación de Node.js en Windows no se tildó la opción "Add to PATH". Solución: Desinstala e instala nuevamente Node.js LTS, asegurándote de tildar la casilla de variables de entorno, y reinicia la ventana de la terminal.
+                                </p>
+                            </div>
+
+                            <div style={{ padding: '1rem 1.25rem', background: 'var(--card-inner-bg)', borderLeft: '4px solid #f59e0b', borderRadius: '10px' }}>
+                                <strong style={{ color: '#f59e0b', fontSize: '0.95rem' }}>⚠️ El celular no conecta al escanear el QR ("Could not connect to Metro"):</strong>
+                                <p style={{ margin: '6px 0 0', color: 'var(--text-dim)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                                    Verifica que tu celular y tu PC estén en la misma red Wi-Fi (no en datos móviles 4G/5G). Si la red posee aislamiento de clientes (habitual en facultades o cafeterías), ejecuta: <code style={{ color: 'var(--primary-color)' }}>npx expo start --tunnel</code>.
+                                </p>
+                            </div>
+
+                            <div style={{ padding: '1rem 1.25rem', background: 'var(--card-inner-bg)', borderLeft: '4px solid #38bdf8', borderRadius: '10px' }}>
+                                <strong style={{ color: '#38bdf8', fontSize: '0.95rem' }}>💡 Error de Políticas en PowerShell ("scripts disabled on this system"):</strong>
+                                <p style={{ margin: '6px 0 0', color: 'var(--text-dim)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                                    Abre PowerShell con clic derecho "Ejecutar como Administrador" y ejecuta: <code style={{ color: 'var(--primary-color)' }}>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code>. Luego presiona "Y" (Sí).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* FASE 5: Proyectos Finales Integradores */}
+                    <div style={{ background: 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.04))', border: '1.5px solid rgba(16,185,129,0.35)', borderRadius: '20px', padding: '1.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+                        <div>
+                            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#10b981', fontWeight: 800, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem' }}>
+                                <Rocket size={15} /> PROYECTOS FINALES INTEGRADORES DE LA CÁTEDRA
+                            </div>
+                            <h3 style={{ margin: '0 0 0.4rem', fontSize: '1.35rem', fontWeight: 900, color: 'var(--text-main)' }}>
+                                Explora las Dos Versiones del Proyecto Final
+                            </h3>
+                            <p style={{ margin: 0, color: 'var(--text-dim)', fontSize: '0.9rem', maxWidth: '650px', lineHeight: 1.5 }}>
+                                Al final de la lista de presets del simulador interactivo encontrarás las dos arquitecturas completas listas para estudiar: la versión completa con Carrito de Compras (gestión de stock y checkout) y la versión Vitrina sin carrito.
+                            </p>
+                        </div>
+                        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                            <Link
+                                to="/simulador-react-native?preset=ecommerce_cart"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.4rem',
+                                    background: 'linear-gradient(135deg, #059669, #10b981)',
+                                    color: '#fff',
+                                    padding: '0.8rem 1.4rem',
+                                    borderRadius: '12px',
+                                    fontWeight: '800',
+                                    fontSize: '0.9rem',
+                                    textDecoration: 'none',
+                                    boxShadow: '0 6px 18px rgba(16,185,129,0.35)'
+                                }}
+                            >
+                                <span>🛒 App con Carro</span>
+                            </Link>
+                            <Link
+                                to="/simulador-react-native?preset=ecommerce_nocart"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.4rem',
+                                    background: 'rgba(255,255,255,0.08)',
+                                    border: '1px solid rgba(255,255,255,0.15)',
+                                    color: 'var(--text-main)',
+                                    padding: '0.8rem 1.4rem',
+                                    borderRadius: '12px',
+                                    fontWeight: '700',
+                                    fontSize: '0.9rem',
+                                    textDecoration: 'none'
+                                }}
+                            >
+                                <span>📦 App sin Carro (Vitrina)</span>
+                            </Link>
+                        </div>
+                    </div>
                 </motion.div>
             )}
 
