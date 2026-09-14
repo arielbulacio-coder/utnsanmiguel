@@ -1,1317 +1,1315 @@
-/**
- * Banco oficial de 100 Preguntas de Evaluación Teórica Integral
- * Curso: Creación de Aplicaciones Móviles con React Native & Expo
- * Universidad Nacional de Pilar - Tecnicatura Universitaria en Desarrollo de Software
- * Cátedra: Lic. Ariel Bulacio
- *
- * Estructura de cada ítem:
- * - id: Identificador único (1 al 100)
- * - unit: Unidad temática del programa analítico (Unidad 1 y Unidad 2)
- * - q: Enunciado de la pregunta teórica
- * - opts: Array con las 4 opciones de respuesta
- * - a: Índice de la opción correcta (0-3) en el array base (se desordena dinámicamente)
- * - exp: Justificación pedagógica profunda con cita bibliográfica de los apuntes y libros oficiales (Unidad 1 y 2)
- */
-
 export const reactNativeExamQuestions = [
+  // --- CLASE 1: Fundamentos y Expo (14) ---
   {
-    "id": 1,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "¿Cuál es la diferencia fundamental entre el flujo administrado (Managed Workflow) de Expo y React Native CLI tradicional?",
-    "opts": [
-      "Expo Managed gestiona el código nativo (Android/iOS) automáticamente sin necesidad de configurar compiladores nativos manuales, mientras que RN CLI exige configurar carpetas nativas en Xcode y Android Studio.",
-      "React Native CLI compila a HTML5 y CSS3 nativo mientras que Expo solo funciona dentro de un WebView simulado.",
-      "Expo Managed no permite escribir código JavaScript ni TypeScript, obligando a programar exclusivamente en Kotlin y Swift.",
-      "RN CLI solo permite desplegar aplicaciones en Android, mientras que Expo está restringido únicamente al sistema operativo iOS."
+    id: 1,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué es React Native?",
+    opts: [
+      "Un framework para crear apps móviles nativas con JS",
+      "Un navegador web para móviles",
+      "Un compilador de Java a Swift",
+      "Una base de datos móvil"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf & O'Reilly Cap. 1-2] El flujo administrado de Expo abstrae las carpetas nativas /android y /ios, permitiendo desarrollar con JavaScript/TypeScript puro y compilar en la nube con EAS Build, mientras que RN CLI requiere administrar directamente los compiladores nativos."
+    a: 0,
+    exp: "React Native usa JS y React para renderizar interfaces nativas en iOS y Android."
   },
   {
-    "id": 2,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "En la arquitectura tradicional de React Native, ¿cómo se comunican el hilo de JavaScript y el hilo nativo de la plataforma?",
-    "opts": [
-      "A través del \"Bridge\" (Puente), un canal asíncrono que serializa y deserializa mensajes estructurados en formato JSON.",
-      "Mediante acceso directo a memoria compartida a través de punteros de C++ sin serialización.",
-      "A través de llamadas síncronas HTTP REST ejecutadas en el puerto local 8080 del dispositivo.",
-      "Utilizando un WebSocket bidireccional constante conectado a servidores externos."
+    id: 2,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué ventaja principal ofrece Expo?",
+    opts: [
+      "Facilita la configuración y prueba rápida sin Android Studio ni Xcode",
+      "Es obligatorio para programar en iOS",
+      "Mejora el rendimiento un 500%",
+      "Genera aplicaciones que ocupan menos de 1 MB"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] El Bridge clásico comunica JavaScript y Native mediante un bus asíncrono por lotes serializado en cadenas JSON, lo que en animaciones complejas o desplazamientos de listas de alta velocidad generaba cuellos de botella."
+    a: 0,
+    exp: "Expo agiliza el desarrollo abstrayendo la configuración nativa compleja."
   },
   {
-    "id": 3,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "¿Qué componente clave introduce la Nueva Arquitectura (New Architecture) de React Native para eliminar el cuello de botella del Bridge?",
-    "opts": [
-      "JavaScript Interface (JSI), que permite a JavaScript mantener referencias directas a objetos de C++ nativos e invocar sus métodos sincrónicamente.",
-      "Un servidor Node.js embebido dentro del chip de la tarjeta gráfica (GPU).",
-      "Un transpilador que convierte el código JSX en archivos binarios ensamblador x86_64 en tiempo real.",
-      "La sustitución del motor nativo de Android por una máquina virtual Java exclusiva de Google Chrome."
+    id: 3,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué herramienta permite probar apps de Expo en un celular real al instante?",
+    opts: [
+      "Expo Go",
+      "Android Emulator",
+      "TestFlight",
+      "React Inspector"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] JSI (JavaScript Interface) desacopla a React Native del Bridge tradicional al permitir llamadas síncronas directas de JS a C++ nativo sin sobrecarga de serialización JSON."
+    a: 0,
+    exp: "Expo Go ejecuta la app directamente en el dispositivo móvil leyendo un código QR."
   },
   {
-    "id": 4,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "¿Qué función cumple \"Fabric\" en la Nueva Arquitectura de React Native?",
-    "opts": [
-      "Es el nuevo motor de renderizado que unifica la creación de interfaces nativas calculando árboles de sombras (Shadow Trees) directamente en C++ con soporte de renderizado concurrente.",
-      "Es una herramienta para diseñar logotipos e íconos en formato vectorial SVG.",
-      "Es un protocolo de base de datos relacional para guardar contraseñas en el dispositivo.",
-      "Es el emulador oficial de iOS para sistemas operativos Windows."
+    id: 4,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué motor de JavaScript se recomienda en React Native por su optimización?",
+    opts: [
+      "Hermes",
+      "V8",
+      "SpiderMonkey",
+      "JavaScriptCore"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] Fabric es el sistema de renderizado concurrente de la New Architecture: genera la interfaz de usuario en C++ comunicándose directamente con las vistas nativas sin pasar por el Bridge."
+    a: 0,
+    exp: "Hermes está optimizado para dispositivos móviles, reduciendo tiempos de carga y uso de memoria."
   },
   {
-    "id": 5,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "¿Cuál es la ventaja de \"TurboModules\" frente a los módulos nativos tradicionales de React Native?",
-    "opts": [
-      "Permiten la carga perezosa (Lazy Loading) de módulos nativos bajo demanda solo cuando la aplicación realmente los necesita, acelerando el tiempo de inicio (TTV).",
-      "Multiplican por 10 la velocidad de descarga de la conexión Wi-Fi del celular.",
-      "Permiten ejecutar código PHP directamente en el microprocesador del teléfono.",
-      "Eliminan la necesidad de solicitar permisos de cámara y ubicación."
+    id: 5,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué comando crea un nuevo proyecto de Expo desde cero?",
+    opts: [
+      "npx create-expo-app",
+      "npm init react-native",
+      "expo build start",
+      "npx create-react-app"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] A diferencia del Bridge tradicional donde todos los módulos nativos se cargaban en el inicio de la app, TurboModules se instancian únicamente en el momento en que se invocan por primera vez."
+    a: 0,
+    exp: "npx create-expo-app genera la estructura inicial de una aplicación Expo moderna."
   },
   {
-    "id": 6,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "¿Cuál es el rol del empaquetador Metro Bundler en el flujo de desarrollo de React Native?",
-    "opts": [
-      "Transpilar y unificar todos los archivos JavaScript, TypeScript y recursos estáticos en un único paquete optimizado (bundle) que transmite al dispositivo en tiempo real.",
-      "Publicar la aplicación automáticamente en Google Play y Apple App Store.",
-      "Convertir el código JavaScript en sentencias de bases de datos PostgreSQL.",
-      "Configurar el chip Bluetooth del teléfono para transferir archivos."
+    id: 6,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué servidor de desarrollo empaqueta los archivos JS en React Native?",
+    opts: [
+      "Metro Bundler",
+      "Webpack",
+      "Vite",
+      "Babel"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] Metro Bundler es el servidor de desarrollo que corre en la PC (puerto 8081); compila el árbol de dependencias y envía el bundle por sockets al dispositivo con soporte de Fast Refresh."
+    a: 0,
+    exp: "Metro es el bundler oficial de React Native que provee recarga rápida y empaquetado."
   },
   {
-    "id": 7,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "¿Por qué la cátedra recomienda utilizar el motor JavaScript Hermes en lugar de JavaScriptCore (JSC) en Expo y React Native?",
-    "opts": [
-      "Porque precompila el código JavaScript en bytecode antes de la ejecución (AOT), logrando menor tiempo de inicio, menor consumo de memoria RAM y menor tamaño del APK.",
-      "Porque Hermes permite conectar periféricos USB sin necesidad de drivers.",
-      "Porque convierte automáticamente aplicaciones de React Native en videojuegos 3D.",
-      "Porque elimina la necesidad de escribir hojas de estilos StyleSheet."
+    id: 7,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Cómo se llama el componente que renderiza texto en React Native?",
+    opts: [
+      "<Text>",
+      "<p>",
+      "<span>",
+      "<Label>"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 1: Setup, Expo Go y JSX (Lic. Ariel Bulacio) • Ref: Clase_1_Código.pdf] Hermes es el motor JS optimizado por Meta para mobile: compila el código en bytecode durante la etapa de construcción, evitando la sobrecarga de compilación JIT en el dispositivo."
+    a: 0,
+    exp: "En React Native no existe <p>, todo texto debe ir envuelto en el componente Core <Text>."
   },
   {
-    "id": 8,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "¿Qué ventaja didáctica y técnica ofrece la aplicación \"Expo Go\" a los estudiantes durante las clases prácticas?",
-    "opts": [
-      "Permite ejecutar y depurar la aplicación en un smartphone físico de inmediato escaneando un código QR, sin requerir instalar Android Studio SDK ni Xcode en la computadora.",
-      "Permite publicar aplicaciones comerciales en las tiendas oficiales sin pagar la cuenta de desarrollador.",
-      "Convierte el teléfono del estudiante en un servidor web Apache de acceso público.",
-      "Elimina todos los errores sintácticos de JavaScript de manera automática."
+    id: 8,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué componente equivale a un <div> web en React Native?",
+    opts: [
+      "<View>",
+      "<Container>",
+      "<Box>",
+      "<Section>"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] Expo Go incluye el runtime y módulos nativos precompilados de Expo SDK; los estudiantes prueban en celulares reales sin lidiar con la configuración pesada de Android SDK o Gradle."
+    a: 0,
+    exp: "<View> es el bloque de construcción fundamental para agrupar elementos."
   },
   {
-    "id": 9,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "¿Qué precaución indispensable debe tomarse al instalar Node.js en una computadora con Windows para comenzar el curso de React Native?",
-    "opts": [
-      "Asegurarse de que la casilla \"Add to PATH\" esté marcada en el asistente de instalación para poder invocar comandos como `node`, `npm` y `npx` desde la terminal.",
-      "Desactivar por completo la tarjeta de red de la PC.",
-      "Instalar una versión de Node.js de 32 bits obligatoriamente.",
-      "Configurar la PC para que no use contraseñas de administrador."
+    id: 9,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué ocurre si no usas <View> y devuelves varios componentes sueltos en React?",
+    opts: [
+      "Dará error sintáctico, a menos que uses un Fragmento (<>...</>)",
+      "Los renderiza todos en la misma línea",
+      "Solo muestra el primer componente",
+      "React Native creará automáticamente un contenedor"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] Si no se agrega Node.js a la variable de entorno PATH, Windows no reconocerá las herramientas de terminal arrojando el error \"node no se reconoce como un comando interno o externo\"."
+    a: 0,
+    exp: "JSX requiere devolver un único elemento padre o envolverlos en un Fragmento."
   },
   {
-    "id": 10,
-    "unit": "Unidad 1.1: Fundamentos & Arquitectura",
-    "q": "Si la red Wi-Fi de la universidad tiene aislamiento de clientes (AP Isolation) e impide que el celular se conecte a la IP local de la PC, ¿qué comando de Expo resuelve este problema?",
-    "opts": [
-      "npx expo start --tunnel",
-      "npx expo start --offline-only",
-      "npx expo install wifi-bypass",
-      "npx expo run:server --disable-network"
+    id: 10,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué sintaxis de JS se usa para mezclar lógica y UI en React Native?",
+    opts: [
+      "JSX",
+      "TypeScript",
+      "JSON",
+      "HTML5"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] El modificador `--tunnel` crea un túnel seguro en la nube de Expo que interconecta la PC y el smartphone mediante URLs seguras, sin importar cortafuegos o aislamiento de clientes en la red local."
+    a: 0,
+    exp: "JSX (JavaScript XML) permite escribir etiquetas similares a HTML dentro de JavaScript."
   },
   {
-    "id": 11,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "¿Por qué en React Native no es posible utilizar etiquetas estándar del DOM web como `<div>` o `<p>`?",
-    "opts": [
-      "Porque React Native no renderiza sobre un navegador web; utiliza componentes puente (`<View>`, `<Text>`) que mapean a widgets nativos (ViewGroup/TextView en Android, UIView/UILabel en iOS).",
-      "Porque React Native está escrito en Python y no reconoce lenguajes de etiquetas.",
-      "Porque el consorcio W3C prohibió el uso de etiquetas HTML en teléfonos móviles.",
-      "Porque las etiquetas `<div>` consumen el doble de batería que los componentes nativos."
+    id: 11,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué método se usa para aplicar estilos en React Native de forma óptima?",
+    opts: [
+      "StyleSheet.create({})",
+      "CSS externo (styles.css)",
+      "Bootstrap",
+      "Inline styles como cadenas de texto"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] React Native prescinde del DOM del navegador; `<View>` mapea a un contenedor nativo de plataforma y `<Text>` es el único componente válido para envolver texto en pantalla."
+    a: 0,
+    exp: "StyleSheet.create optimiza los estilos pasándolos al motor nativo eficientemente."
   },
   {
-    "id": 12,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "¿Cuál es la orientación por defecto del eje principal (`flexDirection`) en un contenedor `<View>` en React Native?",
-    "opts": [
-      "'column' (de arriba hacia abajo), adaptado a la lectura vertical de las pantallas de smartphones.",
-      "'row' (horizontal de izquierda a derecha), idéntico al estándar CSS de la web.",
-      "'grid-matrix', distribuyendo los elementos en 4 cuadrantes iguales.",
-      "'diagonal-right', alineando los componentes a 45 grados."
+    id: 12,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué bandera de expo start permite saltear bloqueos de red local?",
+    opts: [
+      "--tunnel",
+      "--offline",
+      "--bypass",
+      "--network"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] A diferencia de la Web donde el valor predeterminado es `row`, en React Native `flexDirection` es `column` por defecto para optimizar la jerarquía vertical natural de los dispositivos móviles."
+    a: 0,
+    exp: "El modo --tunnel crea una URL pública para acceder a la app sin compartir la misma WiFi local."
   },
   {
-    "id": 13,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "¿Cuál es el beneficio técnico de declarar estilos mediante `StyleSheet.create({...})` en lugar de pasar objetos literales inline en la propiedad `style`?",
-    "opts": [
-      "Valida sintaxis en tiempo de desarrollo, genera IDs numéricos optimizados para el motor nativo y evita recrear nuevos objetos en memoria en cada renderizado.",
-      "Traduce automáticamente las fuentes a tipografías de Apple sin permiso.",
-      "Permite usar selectores CSS complejos como `:hover`, `:nth-child` y pseudoelementos.",
-      "Comprime las imágenes asociadas al 50% de su peso original."
+    id: 13,
+    unit: "Clase 1: Fundamentos",
+    q: "¿Qué pasa si ejecutas una app nativa con un error fatal no capturado?",
+    opts: [
+      "La aplicación se cierra abruptamente (Crash)",
+      "Muestra una alerta en pantalla pero sigue funcionando",
+      "Se reinicia el celular",
+      "No se puede compilar el código"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `StyleSheet.create` congela los estilos y asigna identificadores numéricos estables, optimizando el paso de propiedades al árbol nativo y evitando la recolección de basura innecesaria."
+    a: 0,
+    exp: "Los errores fatales (Unhandled Exceptions) provocan el cierre inmediato de la app nativa."
   },
   {
-    "id": 14,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "¿En qué unidad de medida se expresan los valores numéricos de tamaño (ancho, alto, fuentes) en React Native (`width: 50`)?",
-    "opts": [
-      "Píxeles independientes de densidad (dp en Android, pt en iOS), escalados proporcionalmente según la densidad de píxeles (DPI) de la pantalla física.",
-      "Centímetros físicos reales medidos sobre el cristal del dispositivo.",
-      "Píxeles físicos absolutos de hardware sin escala (px).",
-      "Porcentajes fijos del tamaño de la batería."
+    id: 14,
+    unit: "Clase 1: Fundamentos",
+    q: "¿React Native y ReactJS son exactamente lo mismo?",
+    opts: [
+      "No, RN es para móviles y usa componentes nativos, ReactJS es para web y usa el DOM",
+      "Sí, el código funciona al 100% igual en ambos",
+      "No, React Native no usa JavaScript",
+      "Sí, pero React Native solo funciona en Apple"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Los tamaños en React Native son adimensionales y representan puntos lógicos (pt/dp), permitiendo que un botón de tamaño 50 se perciba visualmente igual en pantallas de baja o alta densidad (Retina / xxhdpi)."
+    a: 0,
+    exp: "Comparten el motor de React, pero los componentes (View, Text) son distintos de HTML (div, p)."
+  },
+
+  // --- CLASE 2: Componentes Core y Estilos (15) ---
+  {
+    id: 15,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Cuál es la orientación por defecto de Flexbox en React Native?",
+    opts: [
+      "column (vertical)",
+      "row (horizontal)",
+      "grid",
+      "absolute"
+    ],
+    a: 0,
+    exp: "A diferencia de la web, en móviles el flujo principal por defecto es vertical (column)."
   },
   {
-    "id": 15,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "Según la ergonomía de interfaces móviles analizada por Cuello & Vittone, ¿qué es la \"Zona del Pulgar\" (Thumb Zone)?",
-    "opts": [
-      "El área de la pantalla del smartphone que el usuario puede alcanzar cómodamente con el dedo pulgar utilizando una sola mano, concentrada en el tercio inferior y central.",
-      "La zona del lector de huellas dactilares ubicado en el dorso del teléfono.",
-      "El borde superior izquierdo de la pantalla donde se ubica el botón de retroceso nativo.",
-      "Una advertencia de ergonomía médica para no usar el teléfono más de 10 minutos continuos."
+    id: 16,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué valor de estilo hace que un elemento ocupe todo el espacio disponible?",
+    opts: [
+      "flex: 1",
+      "width: '100%'",
+      "expand: true",
+      "fill: all"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Zonas del Pulgar y Ergonomía Táctil • Ref: Clase_2 & Cuello/Vittone Cap. 3] La \"Thumb Zone\" clasifica la pantalla en zonas de acceso cómodo, alcanzable y difícil; las acciones primarias y pestañas principales deben ubicarse en la zona cómoda inferior."
+    a: 0,
+    exp: "flex: 1 le dice al elemento que crezca y ocupe el espacio residual de su contenedor padre."
   },
   {
-    "id": 16,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "¿Cuál es el tamaño mínimo de objetivo táctil (Touch Target) recomendado por las guías de diseño móvil (Apple HIG y Google Material Design) para evitar toques erróneos?",
-    "opts": [
-      "Entre 44x44 pt y 48x48 dp para garantizar un área táctil cómoda para la yema del dedo humano.",
-      "Exactamente 10x10 píxeles para aprovechar el espacio de pantalla al máximo.",
-      "Al menos 150x150 dp ocupando la mitad del ancho del teléfono.",
-      "No existen recomendaciones de tamaño táctil en sistemas operativos móviles."
+    id: 17,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué propiedad centra elementos a lo largo del eje principal?",
+    opts: [
+      "justifyContent",
+      "alignItems",
+      "textAlign",
+      "alignSelf"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Zonas del Pulgar y Ergonomía Táctil • Ref: Clase_2 & Cuello/Vittone Cap. 3] Un touch target inferior a 44x44 pt o 48x48 dp provoca frustración y toques accidentales debido a la imprecisión de la yema del dedo frente a un cursor de mouse de escritorio."
+    a: 0,
+    exp: "justifyContent alinea los elementos en el eje principal (vertical por defecto en RN)."
   },
   {
-    "id": 17,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "En un contenedor con `flexDirection: \"column\"`, ¿qué propiedad de Flexbox controla la alineación de los elementos en el eje horizontal (eje cruzado)?",
-    "opts": [
+    id: 18,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué componente permite a la pantalla ser desplazable si el contenido excede el alto?",
+    opts: [
+      "<ScrollView>",
+      "<ViewScroll>",
+      "<Container scroll={true}>",
+      "<List>"
+    ],
+    a: 0,
+    exp: "ScrollView envuelve su contenido para hacerlo deslizable cuando supera la pantalla."
+  },
+  {
+    id: 19,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué componente es mucho más eficiente que ScrollView para listas muy largas?",
+    opts: [
+      "<FlatList>",
+      "<LongList>",
+      "<RecyclerListView>",
+      "<VirtualView>"
+    ],
+    a: 0,
+    exp: "FlatList solo renderiza en memoria los elementos visibles, ahorrando RAM y CPU."
+  },
+  {
+    id: 20,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué propiedad es obligatoria en <FlatList> para renderizar cada fila?",
+    opts: [
+      "renderItem",
+      "rowComponent",
+      "dataItem",
+      "viewItem"
+    ],
+    a: 0,
+    exp: "renderItem recibe una función que indica cómo dibujar cada elemento individual."
+  },
+  {
+    id: 21,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Para qué sirve keyExtractor en una FlatList?",
+    opts: [
+      "Asigna un identificador único a cada fila para optimizar actualizaciones",
+      "Desencripta los datos de la lista",
+      "Extrae la primera fila como cabecera",
+      "Define la clave de búsqueda de la lista"
+    ],
+    a: 0,
+    exp: "React usa la clave única para saber exactamente qué filas cambiar sin re-renderizar todas."
+  },
+  {
+    id: 22,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Cuál es el tamaño mínimo recomendado para un botón táctil móvil?",
+    opts: [
+      "44x44 puntos",
+      "10x10 puntos",
+      "100x100 puntos",
+      "Cualquier tamaño que quepa en pantalla"
+    ],
+    a: 0,
+    exp: "El estándar de diseño indica 44pt o 48dp para evitar que el dedo pulse otros elementos por error."
+  },
+  {
+    id: 23,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué componente táctil moderno se recomienda sobre TouchableOpacity?",
+    opts: [
+      "<Pressable>",
+      "<Button>",
+      "<Touchable>",
+      "<ClickView>"
+    ],
+    a: 0,
+    exp: "Pressable es más flexible, permite estilos basados en su estado (pressed) y detecta toques largos."
+  },
+  {
+    id: 24,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué unidad de medida usan los estilos en React Native?",
+    opts: [
+      "Puntos independientes de densidad (dp/pt)",
+      "Píxeles físicos",
+      "Rem y Em",
+      "Centímetros"
+    ],
+    a: 0,
+    exp: "Los tamaños son adimensionales y se escalan automáticamente según la densidad de la pantalla."
+  },
+  {
+    id: 25,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Cómo se aplica un arreglo de varios estilos a un mismo componente?",
+    opts: [
+      "style={[ styles.caja, styles.activa ]}",
+      "style=\"styles.caja styles.activa\"",
+      "style={{styles.caja, styles.activa}}",
+      "style={styles.caja + styles.activa}"
+    ],
+    a: 0,
+    exp: "En React Native se pasa un array [] de objetos de estilo, y el de la derecha tiene prioridad."
+  },
+  {
+    id: 26,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué propiedad alinea elementos a lo ancho del eje transversal?",
+    opts: [
       "alignItems",
       "justifyContent",
-      "flexWrap",
-      "alignContent"
+      "alignSelf",
+      "marginHorizontal"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `justifyContent` siempre alinea en el eje principal (vertical cuando es column), mientras que `alignItems` alinea en el eje cruzado perpendicular (horizontal)."
+    a: 0,
+    exp: "alignItems alinea los hijos en el eje perpendicular (horizontal si la dirección es column)."
   },
   {
-    "id": 18,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "¿Cuál es la ventaja de utilizar `<Pressable>` en lugar del componente tradicional `<TouchableOpacity>` en interfaces modernas de React Native?",
-    "opts": [
-      "Ofrece una API flexible con acceso directo al estado táctil `{ pressed }`, retardos configurables, efectos ripple en Android y mejor rendimiento.",
-      "Garantiza que el botón nunca pueda ser presionado por error.",
-      "Transforma cualquier texto en un archivo de audio audible.",
-      "Obliga al usuario a ingresar su código PIN antes de ejecutar el toque."
+    id: 27,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué hace la prop ListEmptyComponent en FlatList?",
+    opts: [
+      "Muestra una vista alternativa si la lista de datos está vacía",
+      "Vacia la memoria de la lista",
+      "Elimina todos los estilos del componente",
+      "Oculta la lista completa temporalmente"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `<Pressable>` es el reemplazo moderno de los Touchable*: permite estilar dinámicamente según `({ pressed }) => [...]`, soporta hitSlop y eventos avanzados como `onLongPress`."
+    a: 0,
+    exp: "Permite renderizar fácilmente un mensaje de 'No hay resultados' o similar."
   },
   {
-    "id": 19,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "Si un componente hijo dentro de una `<View>` padre tiene la propiedad `flex: 1`, ¿qué comportamiento adopta en pantalla?",
-    "opts": [
-      "Se expande para ocupar todo el espacio disponible residual del contenedor padre en el eje principal.",
-      "Se comprime a un tamaño de 1 píxel de ancho.",
-      "Se oculta de la pantalla haciéndose invisible.",
-      "Fija su tamaño exactamente al 1% del ancho del teléfono."
+    id: 28,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Cómo se añade una imagen local en React Native?",
+    opts: [
+      "<Image source={require('./foto.png')} />",
+      "<img src='./foto.png' />",
+      "<Image source='./foto.png' />",
+      "<Image src={require('./foto.png')} />"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `flex: 1` indica al algoritmo de Yoga que el componente debe crecer de forma proporcional para llenar el espacio libre disponible en su contenedor contenedor."
+    a: 0,
+    exp: "Las imágenes estáticas locales requieren la función require() dentro del prop source."
   },
   {
-    "id": 20,
-    "unit": "Unidad 1.2: Componentes Core & Estilos",
-    "q": "Según los principios de diseño de interfaces de Ian Sommerville (Capítulo 16), ¿por qué es crítico proveer retroalimentación visual inmediata ante un toque táctil?",
-    "opts": [
-      "Porque confirma al usuario que el sistema ha detectado su acción, reduciendo la incertidumbre y evitando toques duplicados accidentales durante operaciones lentas.",
-      "Porque de lo contrario el teléfono se bloquea automáticamente por seguridad.",
-      "Para que la pantalla consuma menos batería durante la interacción.",
-      "Porque los estándares de software prohíben interfaces con respuestas mayores a 1 milisegundo."
+    id: 29,
+    unit: "Clase 2: Componentes y Estilos",
+    q: "¿Qué indica la prop resizeMode en una <Image>?",
+    opts: [
+      "Cómo se ajusta la imagen si sus dimensiones no coinciden con las del contenedor",
+      "La calidad de compresión de la imagen",
+      "El filtro de color aplicado",
+      "Si la imagen admite zoom táctil"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Consistencia Visual y Navegación • Ref: Clase_3.pdf & Sommerville Cap. 16] El principio de retroalimentación establece que el usuario debe ser informado oportunamente del estado del sistema; un cambio de opacidad o spinner previene toques múltiples repetidos."
+    a: 0,
+    exp: "Admite valores como 'cover', 'contain' o 'stretch' para adaptar la imagen."
+  },
+
+  // --- CLASE 3: Navegación (Expo Router) (14) ---
+  {
+    id: 30,
+    unit: "Clase 3: Navegación",
+    q: "¿En Expo Router, cómo se definen las rutas de navegación de la app?",
+    opts: [
+      "Por la estructura de archivos en la carpeta /app",
+      "Mediante un archivo routes.xml",
+      "Con componentes <Route> en App.js",
+      "Configurando el archivo app.json"
+    ],
+    a: 0,
+    exp: "Expo Router usa 'File-based Routing': cada archivo en /app es automáticamente una pantalla."
   },
   {
-    "id": 21,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "¿Qué sucede internamente cuando se invoca la función modificadora de un hook `useState` (ej: `setContador(5)`) con un valor diferente al actual?",
-    "opts": [
-      "React programa un re-renderizado del componente para calcular el nuevo árbol virtual y sincronizar los cambios en la interfaz nativa.",
-      "Se reinicia toda la aplicación móvil desde la pantalla de bienvenida.",
-      "Se sobrescribe el código fuente del archivo en el disco de la computadora.",
-      "El sistema operativo bloquea la ejecución de JavaScript hasta el siguiente día."
+    id: 31,
+    unit: "Clase 3: Navegación",
+    q: "¿Cuál es el componente de Expo Router que permite navegar al hacer click (similar a <a>)?",
+    opts: [
+      "<Link>",
+      "<Href>",
+      "<Navigate>",
+      "<Anchor>"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `useState` notifica a React que el estado cambió, lo que desencadena un nuevo ciclo de renderizado para calcular las diferencias (reconciliación) y actualizar las vistas nativas."
+    a: 0,
+    exp: "El componente <Link href='/perfil'> envuelve un texto o botón para navegar a otra ruta."
   },
   {
-    "id": 22,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "En React Native, ¿por qué está terminantemente prohibido mutar un array de estado directamente con métodos como `items.push(nuevoItem)`?",
-    "opts": [
-      "Porque mutar el array no cambia su referencia en memoria, impidiendo que React detecte el cambio y provocando que la interfaz de usuario no se actualice.",
-      "Porque el compilador de TypeScript borra los elementos del array de forma automática.",
-      "Porque el método `push()` solo existe en el lenguaje C++ y no en JavaScript.",
-      "Porque los teléfonos Android arrojan una excepción de hardware al mutar arrays."
+    id: 32,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué archivo define el contenedor o menú común para un grupo de rutas en Expo Router?",
+    opts: [
+      "_layout.tsx",
+      "index.tsx",
+      "_app.tsx",
+      "layout.json"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] React compara referencias mediante igualdad estricta (`Object.is`). Si se muta el array con `push()`, la referencia sigue siendo la misma y React asume que no hubo cambios, omitiendo el re-render."
+    a: 0,
+    exp: "El _layout.tsx engloba a las demás pantallas de la carpeta para aplicar menú o Stack común."
   },
   {
-    "id": 23,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "¿Cuál es la forma correcta e inmutable de agregar un nuevo elemento a un array en un estado `const [lista, setLista] = useState([])`?",
-    "opts": [
-      "setLista(prevLista => [...prevLista, nuevoElemento]) utilizando el operador spread (...) para generar un nuevo array.",
-      "lista.push(nuevoElemento); setLista(lista);",
-      "setLista(lista = lista + nuevoElemento);",
-      "setLista(Object.assign(nuevoElemento, lista));"
+    id: 33,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué patrón de navegación apila pantallas, útil para el flujo 'Ver Lista -> Ver Detalle'?",
+    opts: [
+      "Stack",
+      "Tabs",
+      "Drawer",
+      "Modal"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Crear un nuevo array con el operador spread `[...prevLista, nuevoElemento]` asegura una nueva referencia de memoria y garantiza inmutabilidad estricta."
+    a: 0,
+    exp: "Stack navigation apila las vistas permitiendo volver atrás con la flecha de retroceso."
   },
   {
-    "id": 24,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "Si se ejecutan tres llamadas seguidas a `setContador(contador + 1)` dentro del mismo manejador de evento, ¿cuál será el incremento real del valor si `contador` valía 0?",
-    "opts": [
-      "El contador quedará en 1, porque las tres llamadas leyeron el mismo valor de `contador` capturado en la clausura (closure) del render actual.",
-      "El contador aumentará a 3 de forma garantizada.",
-      "El contador se multiplicará por 9.",
-      "React arrojará un error de desbordamiento de pila (Stack Overflow)."
+    id: 34,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué patrón de navegación muestra íconos en la parte inferior para saltar entre secciones principales?",
+    opts: [
+      "Tabs",
+      "Stack",
+      "Drawer",
+      "Accordion"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] En un mismo ciclo de renderizado, `contador` mantiene el valor 0 en su clausura. Para encadenar incrementos acumulativos se debe usar la forma funcional: `setContador(c => c + 1)`."
+    a: 0,
+    exp: "Las Bottom Tabs son el estándar móvil para secciones primarias (Inicio, Buscar, Perfil)."
   },
   {
-    "id": 25,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "¿En qué momento se ejecuta la función de efecto de `useEffect(..., [])` cuando su array de dependencias está completamente vacío?",
-    "opts": [
-      "Únicamente una sola vez, justo después de que el componente se monta por primera vez en la pantalla.",
-      "En cada milisegundo de manera ininterrumpida.",
-      "Antes de que el archivo JSX sea leído por el compilador.",
-      "Solo cuando el usuario apaga la pantalla de su teléfono."
+    id: 35,
+    unit: "Clase 3: Navegación",
+    q: "¿Cómo se llama el hook de Expo Router para navegar programáticamente (ej: tras un login)?",
+    opts: [
+      "useRouter()",
+      "useNavigation()",
+      "useNavigate()",
+      "useLink()"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Un array de dependencias vacío `[]` indica que el efecto no depende de ninguna prop ni estado, ejecutándose únicamente tras el primer montaje del componente (ideal para peticiones iniciales)."
+    a: 0,
+    exp: "useRouter expone funciones como router.push() o router.replace()."
   },
   {
-    "id": 26,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "¿Para qué sirve la función de limpieza (cleanup function) que puede retornar un `useEffect` (`return () => { clearInterval(timer); }`)?",
-    "opts": [
-      "Para cancelar suscripciones, detener temporizadores o liberar listeners antes de que el componente se desmonte, evitando fugas de memoria (memory leaks).",
-      "Para borrar el caché de la aplicación en el almacenamiento del dispositivo.",
-      "Para reiniciar el teléfono celular al salir de la pantalla.",
-      "Para formatear el código fuente aplicando reglas de Prettier."
+    id: 36,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué nombre debe tener un archivo para capturar rutas dinámicas (ej: /user/42)?",
+    opts: [
+      "[id].tsx",
+      "id.tsx",
+      "_id.tsx",
+      "{id}.tsx"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] La función de limpieza se ejecuta al desmontarse el componente o antes de re-ejecutar el efecto si las dependencias cambiaron, evitando fugas de memoria por listeners huérfanos."
+    a: 0,
+    exp: "Los corchetes en el nombre del archivo indican que es un segmento de ruta dinámica."
   },
   {
-    "id": 27,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "¿Qué es el \"Estado Derivado\" y por qué se desaconseja duplicarlo en un `useState` adicional?",
-    "opts": [
-      "Es un valor que puede calcularse directamente a partir del estado existente (ej: total = items.reduce(...)); duplicarlo en otro estado genera desincronización y renders redundantes.",
-      "Es un estado que solo funciona en componentes de clase antiguos.",
-      "Es una función nativa de Android para calcular la carga de la batería.",
-      "Es un tipo de base de datos relacional para guardar contraseñas."
+    id: 37,
+    unit: "Clase 3: Navegación",
+    q: "¿Con qué hook obtenemos el parámetro dinámico recibido en la URL (ej: el id)?",
+    opts: [
+      "useLocalSearchParams()",
+      "useParams()",
+      "useRoute()",
+      "useID()"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Si un valor puede computarse a partir de props o estados existentes, debe calcularse durante el render o memorizarse con `useMemo`, nunca almacenarse en un estado duplicado que pueda quedar desfasado."
+    a: 0,
+    exp: "useLocalSearchParams() devuelve un objeto con los parámetros, ej: { id: 42 }."
   },
   {
-    "id": 28,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "¿Por qué ejecutar `setEstado(nuevoValor)` directamente dentro del cuerpo principal de un componente funcional provoca un error de bucle infinito (\"Too many re-renders\")?",
-    "opts": [
-      "Porque cada ejecución del render dispara `setEstado`, el cual provoca un nuevo render, entrando en un ciclo infinito inmediato.",
-      "Porque React Native limita las llamadas de estado a 10 por día.",
-      "Porque el compilador de Babel bloquea las funciones que tienen más de 5 líneas.",
-      "Porque se agota la memoria del emulador al primer intento."
+    id: 38,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué significa poner una carpeta entre paréntesis, como (tabs)?",
+    opts: [
+      "Es un grupo lógico que no altera la URL final de la ruta",
+      "Es una carpeta que se ignora al compilar",
+      "Es una ruta secreta protegida por contraseña",
+      "Es un componente nativo de Android"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Las llamadas a actualización de estado dentro del cuerpo de render provocan un nuevo render inmediatamente. Deben estar dentro de manejadores de eventos o de `useEffect` condicionados."
+    a: 0,
+    exp: "Los paréntesis permiten organizar _layouts (ej. (auth) o (tabs)) sin que figuren en el path."
   },
   {
-    "id": 29,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "¿Cuál es la diferencia primordial entre el hook `useRef` y el hook `useState`?",
-    "opts": [
-      "Modificar la propiedad `.current` de `useRef` NO provoca un re-renderizado del componente, mientras que modificar un estado con `useState` sí lo provoca.",
-      "`useRef` solo permite guardar números y `useState` solo guarda textos.",
-      "`useRef` borra su valor cada vez que la pantalla cambia de orientación.",
-      "No existe diferencia técnica; son alias del mismo método en React."
+    id: 39,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué hace la función router.replace() a diferencia de router.push()?",
+    opts: [
+      "Reemplaza la pantalla actual, impidiendo volver atrás con la flecha",
+      "Borra toda la base de datos de la app",
+      "Navega más lento pero de forma más segura",
+      "Cambia el idioma de la aplicación"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core y Estilos (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `useRef` persiste un valor mutable a lo largo de los renders sin desencadenar una nueva renderización visual al cambiar `.current`, ideal para referencias a componentes o contadores de control."
+    a: 0,
+    exp: "replace() sustituye el historial, ideal tras un Login para que 'Atrás' no regrese a la pantalla de login."
   },
   {
-    "id": 30,
-    "unit": "Unidad 1.2: Estado & Inmutabilidad",
-    "q": "En el diseño de interfaces según Sommerville, ¿qué principio de interacción se aplica al deshabilitar el botón de envío mientras un estado `isSubmitting` es verdadero?",
-    "opts": [
-      "Prevención y tolerancia a fallos: evita que el usuario envíe formularios duplicados o genere peticiones concurrentes conflictivas ante lentitud de red.",
-      "Principio de sorpresa mínima al obligar al usuario a reiniciar la app.",
-      "Principio de diversidad de usuarios permitiendo accesos sin contraseña.",
-      "Principio de recuperación rápida cerrando la conexión Wi-Fi."
+    id: 40,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué componente define opciones de cabecera como título o colores dentro de una pantalla?",
+    opts: [
+      "<Stack.Screen options={{ title: 'Home' }} />",
+      "<Header title='Home' />",
+      "<NavBar name='Home' />",
+      "<Title>Home</Title>"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Consistencia Visual y Navegación • Ref: Clase_3.pdf & Sommerville Cap. 16] La prevención de errores de interacción es una directriz básica: deshabilitar controles y mostrar estado de carga previene transacciones duplicadas del usuario."
+    a: 0,
+    exp: "Se puede usar Stack.Screen o Tabs.Screen dinámicamente para cambiar opciones del menú superior."
   },
   {
-    "id": 31,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Por qué `<FlatList>` es enormemente superior a `<ScrollView>` al renderizar colecciones de cientos o miles de elementos?",
-    "opts": [
-      "Porque `<FlatList>` implementa virtualización: solo monta en memoria las celdas que están visibles en la pantalla, reciclando nodos nativos a medida que el usuario hace scroll.",
-      "Porque `<FlatList>` comprime las imágenes a blanco y negro para ahorrar batería.",
-      "Porque `<ScrollView>` solo permite mostrar un máximo de 5 elementos en Android.",
-      "Porque `<FlatList>` envía los datos al navegador web antes de dibujarlos en pantalla."
+    id: 41,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué patrón de navegación abre un menú lateral oculto al deslizar desde el borde?",
+    opts: [
+      "Drawer",
+      "Tabs",
+      "Modal",
+      "BottomSheet"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `<ScrollView>` renderiza todos sus hijos simultáneamente agotando la memoria RAM con listas largas. `<FlatList>` virtualiza y desmonta celdas fuera del viewport para mantener 60 FPS estables."
+    a: 0,
+    exp: "El Drawer o Menú Hamburguesa oculta opciones secundarias en un panel lateral."
   },
   {
-    "id": 32,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Cuál es la función crítica de la propiedad `keyExtractor` en una `<FlatList>`?",
-    "opts": [
-      "Asignar una clave única y estable a cada elemento para que el algoritmo de reconciliación de React identifique con precisión qué elementos se agregaron, cambiaron o eliminaron.",
-      "Cifrar los datos bancarios del usuario utilizando una clave pública RSA.",
-      "Establecer el orden alfabético de la lista de forma obligatoria.",
-      "Determinar el color de fondo de cada fila en modo nocturno."
+    id: 42,
+    unit: "Clase 3: Navegación",
+    q: "¿Cuál es la URL de la pantalla de inicio principal (`app/index.tsx`)?",
+    opts: [
+      "/",
+      "/home",
+      "/index",
+      "/main"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Proporcionar claves estables con `keyExtractor={(item) => item.id}` permite a React reutilizar componentes sin re-renderizar toda la lista ante cambios menores."
+    a: 0,
+    exp: "El archivo index.tsx en la raíz de app corresponde a la ruta principal '/'"
   },
   {
-    "id": 33,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Por qué nunca se debe utilizar el índice del array (`(item, index) => index.toString()`) como clave en `keyExtractor` si la lista permite filtrar, ordenar o eliminar elementos?",
-    "opts": [
-      "Porque si el orden de los elementos cambia, los índices cambian de posición, confundiendo a React y provocando animaciones erróneas o pérdida de estado en las celdas.",
-      "Porque los índices solo admiten números negativos en teléfonos móviles.",
-      "Porque React Native prohíbe el uso de números enteros como claves.",
-      "Porque el índice del array ocupa 10 veces más memoria que un string UUID."
+    id: 43,
+    unit: "Clase 3: Navegación",
+    q: "¿Qué es el 'Deep Linking' soportado nativamente por Expo Router?",
+    opts: [
+      "Permite abrir enlaces web directamente dentro de una pantalla específica de la app nativa",
+      "Escanear códigos QR en sitios profundos",
+      "Un cifrado de datos profundo",
+      "Conectar la base de datos con Firebase"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Usar el índice como key causa desajustes visuales graves en listas mutables: al eliminar el primer elemento, el segundo hereda la clave 0 y mantiene el estado interno del anterior."
+    a: 0,
+    exp: "Expo Router maneja enlaces entrantes y abre automáticamente la ruta solicitada en la app."
+  },
+
+  // --- CLASE 4: Estado Global y Contexto (14) ---
+  {
+    id: 44,
+    unit: "Clase 4: Estado Global",
+    q: "¿Para qué se utiliza useState() en React?",
+    opts: [
+      "Para manejar el estado local dentro de un solo componente",
+      "Para guardar datos permanentemente en la base de datos",
+      "Para comunicar componentes hermanos sin relación",
+      "Para crear rutas de navegación"
+    ],
+    a: 0,
+    exp: "useState mantiene memoria de variables internas que al cambiar re-renderizan el componente."
   },
   {
-    "id": 34,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Qué impacto de rendimiento tiene configurar la prop `initialNumToRender={10}` en una `<FlatList>`?",
-    "opts": [
-      "Define cuántos elementos iniciales se renderizan en el primer lote, reduciendo drásticamente el tiempo de carga visual de la pantalla.",
-      "Limita la lista a solo 10 elementos bloqueando permanentemente el scroll.",
-      "Obliga a descargar 10 megabytes de datos por segundo.",
-      "Borra los primeros 10 elementos si la batería del celular está baja."
+    id: 45,
+    unit: "Clase 4: Estado Global",
+    q: "¿Qué problema genera el 'Prop Drilling'?",
+    opts: [
+      "Pasar props a través de muchos componentes intermedios que no las usan, solo para dárselas a un hijo profundo",
+      "El celular vibra cada vez que se envía una propiedad",
+      "La base de datos se corrompe por exceso de peticiones",
+      "Se detiene la animación de las listas FlatList"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `initialNumToRender` controla el tamaño del primer lote de montaje. Un valor ajustado a la pantalla acelera la respuesta inicial visual (First Contentful Paint)."
+    a: 0,
+    exp: "El prop drilling complica el código pasando estados manualmente por niveles intermedios (abuelo->padre->hijo)."
   },
   {
-    "id": 35,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "En el análisis de usabilidad de Dialnet (Capítulo 2), ¿qué riesgo ergonómico se detecta al diseñar listas móviles con alta densidad de información y celdas muy pequeñas?",
-    "opts": [
-      "Disminuye la precisión táctil, aumenta la carga cognitiva del usuario y eleva la tasa de pulsaciones erróneas en botones adyacentes.",
-      "El teléfono se recalienta provocando reinicios espontáneos.",
-      "La pantalla del celular pierde brillo progresivamente.",
-      "El sistema operativo Android suspende el proceso por falta de memoria."
+    id: 46,
+    unit: "Clase 4: Estado Global",
+    q: "¿Qué herramienta nativa de React resuelve el problema del Prop Drilling?",
+    opts: [
+      "Context API",
+      "useReducer",
+      "useEffect",
+      "AsyncStorage"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Densidad Perceptiva y Listas Móviles • Ref: Clase_2 & Dialnet Cap. 2] La sobrecarga informativa y la falta de espaciado táctil reducen la velocidad de escaneo del ojo y generan errores de selección con los dedos."
+    a: 0,
+    exp: "React Context provee variables a nivel global a cualquier componente suscrito sin pasarlas por props."
   },
   {
-    "id": 36,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Qué propiedad de `<FlatList>` permite renderizar una interfaz personalizada cuando el array de datos está vacío (`data={[]}`)?",
-    "opts": [
-      "ListEmptyComponent",
-      "renderEmptyFallback",
-      "emptyViewPlaceholder",
-      "fallbackWhenZero"
+    id: 47,
+    unit: "Clase 4: Estado Global",
+    q: "¿Qué se debe crear primero para usar Context API?",
+    opts: [
+      "Un objeto Context usando createContext()",
+      "Un archivo SQL",
+      "Un hook useReducer",
+      "Una constante de Redux"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `ListEmptyComponent` renderiza un componente visual (icono, mensaje explicativo o botón de reintentar) cuando el array proporcionado en `data` no contiene elementos."
+    a: 0,
+    exp: "Se importa createContext de React y se genera el contenedor que mantendrá el estado global."
   },
   {
-    "id": 37,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Cómo se implementa el patrón de desplazamiento infinito (Infinite Scrolling) para paginación de datos en una `<FlatList>`?",
-    "opts": [
-      "Utilizando la propiedad `onEndReached` combinada con `onEndReachedThreshold` para disparar la carga de la siguiente página al acercarse al final del scroll.",
-      "Creando un bucle infinito `while(true)` dentro de un componente `<View>`.",
-      "Aumentando el tamaño de la pantalla física del teléfono con CSS.",
-      "Descargando toda la base de datos completa de un solo intento al iniciar."
+    id: 48,
+    unit: "Clase 4: Estado Global",
+    q: "¿Qué componente debe envolver (wrapear) a los hijos para proveerles el contexto?",
+    opts: [
+      "<Context.Provider>",
+      "<Context.Consumer>",
+      "<ProviderContext>",
+      "<GlobalWrapper>"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `onEndReached` detecta cuando el usuario se encuentra a cierta distancia del pie de la lista (definida por `onEndReachedThreshold`), permitiendo encadenar peticiones paginadas."
+    a: 0,
+    exp: "El Provider expone la propiedad `value` con los datos o funciones a todos sus descendientes."
   },
   {
-    "id": 38,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Qué optimización de rendimiento permite la propiedad `getItemLayout` en una `<FlatList>`?",
-    "opts": [
-      "Permite omitir el cálculo dinámico de dimensiones si los elementos tienen una altura fija conocida, acelerando el salto inmediato a índices lejanos (`scrollToIndex`).",
-      "Convierte automáticamente las listas verticales en círculos tridimensionales.",
-      "Permite renderizar elementos sin definir un componente visual.",
-      "Calcula el precio total de una lista de compras sin usar JavaScript."
+    id: 49,
+    unit: "Clase 4: Estado Global",
+    q: "¿Qué hook se usa dentro de un componente hijo para leer los valores de un contexto?",
+    opts: [
+      "useContext()",
+      "useState()",
+      "useGlobal()",
+      "useContextData()"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] Al proveer `getItemLayout: (data, index) => ({ length, offset, index })`, FlatList no necesita medir en tiempo de ejecución cada celda, permitiendo scroll instantáneo de alto rendimiento."
+    a: 0,
+    exp: "useContext() recibe el objeto Context y retorna el valor provisto por el Provider más cercano."
   },
   {
-    "id": 39,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Cómo se agrega el gesto de \"deslizar para actualizar\" (Pull-to-Refresh) en una `<FlatList>`?",
-    "opts": [
-      "Mediante las propiedades `refreshing={isRefreshing}` y `onRefresh={cargarNuevosDatos}`, o pasando un componente `<RefreshControl>` en `refreshControl`.",
-      "Configurando el acelerómetro para que detecte sacudidas del teléfono.",
-      "Presionando dos veces el botón físico de encendido del dispositivo.",
-      "Escribiendo `style={{ refresh: \"pull-down\" }}` en el contenedor."
+    id: 50,
+    unit: "Clase 4: Estado Global",
+    q: "¿En Expo Router, dónde es el lugar ideal para colocar los Context.Provider globales?",
+    opts: [
+      "En el archivo _layout.tsx raíz de la aplicación",
+      "En el archivo app.json",
+      "En cada pantalla individual",
+      "Dentro de los archivos de estilos CSS"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `<RefreshControl>` provee el indicador nativo giratorio de recarga al estirar la lista desde el tope, sincronizándose con el estado booleano de actualización."
+    a: 0,
+    exp: "Al envolver el layout principal, todas las pantallas de la app comparten el estado global."
   },
   {
-    "id": 40,
-    "unit": "Unidad 1.2: Listas Optimizadas & FlatList",
-    "q": "¿Cuál es la mejor práctica para separar celdas en una lista sin añadir márgenes que provoquen espacios vacíos indeseados al principio o al final?",
-    "opts": [
-      "Utilizar la propiedad `ItemSeparatorComponent={() => <View style={styles.separador} />}`.",
-      "Agregar `marginBottom: 20` a todos los elementos del array de datos.",
-      "Poner un elemento de texto `<Text>---</Text>` manual en cada fila.",
-      "Usar un `setTimeout` que pause el renderizado entre cada celda."
+    id: 51,
+    unit: "Clase 4: Estado Global",
+    q: "¿En un Carrito de compras, qué método de array se usa típicamente para calcular el precio total sin usar un estado extra?",
+    opts: [
+      "reduce()",
+      "map()",
+      "filter()",
+      "forEach()"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 2: Componentes Core, Flexbox y Listas (Lic. Ariel Bulacio) • Ref: Clase_2 & clase2.pptx] `ItemSeparatorComponent` se dibuja exclusivamente entre elementos adyacentes, omitiendo el separador antes del primer elemento y después del último."
+    a: 0,
+    exp: "reduce acumula los valores (precio * cantidad) devolviendo un total único derivado del carrito."
   },
   {
-    "id": 41,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "¿En qué consiste el paradigma de \"File-based Routing\" adoptado por Expo Router v3+?",
-    "opts": [
-      "La estructura de archivos y carpetas dentro del directorio `app/` define automáticamente las rutas, pantallas y jerarquías de navegación de la aplicación móvil.",
-      "Obliga al usuario a navegar abriendo archivos de texto desde el explorador de archivos del teléfono.",
-      "Requiere declarar manualmente todas las rutas en un archivo XML externo.",
-      "Convierte cada archivo JavaScript en una aplicación independiente separada."
+    id: 52,
+    unit: "Clase 4: Estado Global",
+    q: "¿Por qué el estado en React debe tratarse siempre como Inmutable?",
+    opts: [
+      "Para que React detecte cambios de referencia y sepa que debe re-dibujar la pantalla",
+      "Por seguridad contra ataques de inyección SQL",
+      "Porque JavaScript no permite modificar variables",
+      "Para ahorrar espacio en el disco duro del celular"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Expo Router & Navegación] Inspirado en la web moderna, Expo Router mapea la estructura de carpetas de `app/` directamente a pantallas nativas, sincronizando URLs profundas (Deep Linking) automáticamente."
+    a: 0,
+    exp: "Si mutas un estado directamente (ej: array.push), React no nota el cambio y no re-renderiza."
   },
   {
-    "id": 42,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "¿Cuál es el rol del archivo especial `_layout.tsx` en una carpeta dentro de Expo Router?",
-    "opts": [
-      "Define el contenedor de navegación compartido (Stack, Tabs o Drawer) que envuelve a todas las pantallas hijas ubicadas en ese nivel de la estructura.",
-      "Es un archivo para definir los colores primarios del CSS global exclusivamente.",
-      "Es el archivo donde se guardan las contraseñas de la base de datos de usuarios.",
-      "Es un archivo de respaldo que se crea cuando la app se cuelga."
+    id: 53,
+    unit: "Clase 4: Estado Global",
+    q: "¿Qué sintaxis es correcta para agregar un nuevo elemento a un estado de array (carrito)?",
+    opts: [
+      "setCarrito([...carrito, nuevoElemento])",
+      "carrito.push(nuevoElemento)",
+      "carrito.add(nuevoElemento)",
+      "setCarrito(nuevoElemento)"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Expo Router & Navegación] `_layout.tsx` actúa como el layout común de un grupo o carpeta: define cabeceras, pestañas `<Tabs>`, animaciones de transición y mantiene la coherencia de estado entre pantallas hijas."
+    a: 0,
+    exp: "El operador spread (...) crea un nuevo array fusionando los elementos previos con el nuevo."
   },
   {
-    "id": 43,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "Según Cuello & Vittone (Capítulo 4), ¿cuándo es recomendable utilizar un patrón de pestañas inferiores (Bottom Tabs) en una aplicación móvil?",
-    "opts": [
-      "Para las secciones principales e independientes de la aplicación (entre 3 y 5 destinos) que el usuario necesita alternar con un solo toque ergonómico en la pantalla.",
-      "Solo cuando la aplicación tenga más de 50 secciones diferentes.",
-      "Para formularios de pago donde se debe ocultar el botón de confirmación.",
-      "Exclusivamente en tabletas de más de 12 pulgadas."
+    id: 54,
+    unit: "Clase 4: Estado Global",
+    q: "¿Qué alternativa más compleja a Context API existe para manejo de estado global (muy popular en empresas grandes)?",
+    opts: [
+      "Zustand o Redux",
+      "Axios",
+      "MongoDB",
+      "Express"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Patrones de Navegación Móvil (Stack y Tabs) • Ref: Clase_3.pdf & clase3.pptx] Las pestañas inferiores son el patrón móvil por excelencia para los destinos de nivel superior: ofrecen visibilidad permanente de ubicación y acceso directo con el pulgar."
+    a: 0,
+    exp: "Librerías como Redux o Zustand optimizan el estado a gran escala fuera del árbol de React."
   },
   {
-    "id": 44,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "¿Cómo se define una ruta dinámica en Expo Router para capturar un parámetro como el identificador de un producto (`/producto/45`)?",
-    "opts": [
-      "Nombrando el archivo con corchetes: `app/producto/[id].tsx` y recuperando el valor mediante `useLocalSearchParams()`.",
-      "Creando 100 archivos estáticos llamados `producto1.tsx`, `producto2.tsx`, etc.",
-      "Escribiendo `producto{id}.tsx` con llaves cuadradas.",
-      "Declarando una variable global en el archivo `index.html`."
+    id: 55,
+    unit: "Clase 4: Estado Global",
+    q: "¿Es necesario meter todo el estado de la app en Context API?",
+    opts: [
+      "No, el estado local de UI (ej: inputs, modales) debe quedarse en useState() local",
+      "Sí, centralizar todo mejora la seguridad",
+      "No, React prohibe usar Context en componentes de más de 50 líneas",
+      "Sí, useState local fue deprecado en 2021"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Expo Router & Navegación] La convención de corchetes `[id].tsx` marca una ruta parametrizada; `useLocalSearchParams()` expone el valor capturado (`{ id }`) dentro del componente."
+    a: 0,
+    exp: "Solo debe globalizarse lo que realmente comparten pantallas lejanas (ej: Sesión, Tema, Carrito)."
   },
   {
-    "id": 45,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "¿Qué significa que una carpeta en Expo Router esté nombrada entre paréntesis, como `app/(auth)/` o `app/(tabs)/`?",
-    "opts": [
-      "Es un grupo de rutas que permite organizar la estructura y layouts sin que el nombre del grupo figure en la URL de navegación final.",
-      "Indica que la carpeta está oculta y no se incluirá en el compilado final del APK.",
-      "Es una carpeta experimental que se borrará en la siguiente versión de Expo.",
-      "Indica que todas las pantallas de esa carpeta solo funcionan en modo avión."
+    id: 56,
+    unit: "Clase 4: Estado Global",
+    q: "¿Qué hook memoriza funciones complejas para no volver a ejecutarlas en cada re-render?",
+    opts: [
+      "useMemo / useCallback",
+      "useEffect",
+      "useRef",
+      "useContext"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Expo Router & Navegación] Los nombres entre paréntesis son grupos lógicos organizacionales: agrupan pantallas bajo un `_layout` propio (ej: auth o tabs) sin alterar el path de las rutas resultantes."
+    a: 0,
+    exp: "useMemo guarda el resultado de cálculos pesados si las dependencias no han cambiado."
   },
   {
-    "id": 46,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "¿Cómo funciona la navegación de tipo Pila (`<Stack>`) en aplicaciones móviles según los patrones de Cuello & Vittone?",
-    "opts": [
-      "Funciona como una pila LIFO (Last In, First Out): cada nueva pantalla se apila sobre la anterior, y al retroceder se desapila revelando la pantalla previa.",
-      "Muestra todas las pantallas de la aplicación abiertas en mosaico simultáneamente.",
-      "Obliga al usuario a reiniciar la aplicación para ver la pantalla anterior.",
-      "Solo permite moverse de derecha a izquierda en un carrusel infinito."
+    id: 57,
+    unit: "Clase 4: Estado Global",
+    q: "Si necesitas acceder al Contexto pero no quieres importar createContext cada vez, ¿qué patrón se usa?",
+    opts: [
+      "Crear un Custom Hook (ej: useCart()) que envuelva a useContext",
+      "Escribir una función asíncrona global",
+      "Crear un archivo TXT con variables de entorno",
+      "Heredar de una clase abstracta de Java"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Patrones de Navegación Móvil (Stack y Tabs) • Ref: Clase_3.pdf & clase3.pptx] El patrón Stack modela la navegación jerárquica: al hacer click en un detalle se apila la nueva vista, y el botón \"Atrás\" desapila volviendo al estado anterior intacto."
+    a: 0,
+    exp: "Los hooks personalizados abstraen la lógica y facilitan el uso del contexto de forma limpia."
+  },
+
+  // --- CLASE 5: Datos Remotos y APIs (14) ---
+  {
+    id: 58,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué es una API REST?",
+    opts: [
+      "Una interfaz que permite comunicación entre cliente (app) y servidor mediante peticiones HTTP",
+      "Una base de datos local del teléfono",
+      "Un compilador de código nativo",
+      "Una librería de componentes de interfaz"
+    ],
+    a: 0,
+    exp: "API REST establece cómo pedir o enviar datos a un backend usando JSON y HTTP (GET, POST, etc)."
   },
   {
-    "id": 47,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "¿Qué diferencia visual y funcional introduce una pantalla configurada con `options={{ presentation: \"modal\" }}` en un Stack?",
-    "opts": [
-      "Se desliza desde la parte inferior cubriendo parcial o totalmente la pantalla, orientada a tareas breves y autocontenidas que el usuario puede descartar hacia abajo.",
-      "Borra el historial de navegación para que el usuario no pueda volver.",
-      "Bloquea la pantalla con una alerta sonora que no se puede apagar.",
-      "Convierte el texto de la pantalla en un mensaje de voz en segundo plano."
+    id: 59,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué función nativa de JavaScript se utiliza para hacer peticiones a servidores remotos?",
+    opts: [
+      "fetch()",
+      "getHTTP()",
+      "requestData()",
+      "pullServer()"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Patrones de Navegación Móvil (Stack y Tabs) • Ref: Clase_3.pdf & clase3.pptx] Las vistas modales interrumpen el flujo principal para una subtarea puntual (ej: filtros, confirmación, nuevo ítem); se cierran con una acción explícita de \"Cancelar\" o deslizamiento."
+    a: 0,
+    exp: "fetch() es la API estándar asíncrona para solicitar y enviar recursos por red."
   },
   {
-    "id": 48,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "¿Cómo se implementa una redirección declarativa y segura en Expo Router si el usuario no tiene una sesión activa?",
-    "opts": [
-      "Renderizando el componente `<Redirect href=\"/login\" />` dentro del layout o de la pantalla protegida.",
-      "Llamando a `window.location.reload()` repetidamente.",
-      "Cerrando el proceso de la aplicación con `exit(0)`.",
-      "Mostrando un texto que le pida al usuario que escriba la URL a mano."
+    id: 60,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué palabras clave de JS se usan para esperar a que fetch() responda sin bloquear la app?",
+    opts: [
+      "async / await",
+      "try / catch",
+      "if / else",
+      "let / const"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Expo Router & Navegación] `<Redirect href=\"...\" />` redirige de forma declarativa y segura antes de que se monte la pantalla protegida, garantizando que usuarios no autenticados no visualicen datos privados."
+    a: 0,
+    exp: "Al marcar una función como async, await detiene temporalmente esa función hasta que la red responda."
   },
   {
-    "id": 49,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "¿Cuál es la diferencia entre navegar con `router.push(\"/perfil\")` y navegar con `router.replace(\"/perfil\")`?",
-    "opts": [
-      "`push` agrega la nueva pantalla sobre la pila permitiendo volver atrás, mientras que `replace` sustituye la pantalla actual en el historial sin permitir retroceder a ella.",
-      "`push` solo funciona en iOS y `replace` solo funciona en Android.",
-      "`replace` reinicia la base de datos y `push` la guarda.",
-      "No existe ninguna diferencia; son métodos sinónimos."
+    id: 61,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué hace la función .json() al recibir una respuesta de fetch?",
+    opts: [
+      "Deserializa la cadena de texto JSON a objetos JavaScript utilizables",
+      "Convierte la respuesta a formato de imagen JPEG",
+      "Envia los datos a la consola de Google Chrome",
+      "Cifra los datos por seguridad"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Apuntes de Cátedra - Expo Router & Navegación] `router.replace` se utiliza comúnmente tras un Login o Logout exitoso para evitar que el usuario vuelva a la pantalla anterior al presionar el botón de retroceso nativo."
+    a: 0,
+    exp: "El body HTTP es texto; response.json() lo parsea asíncronamente a estructuras de JS (arreglos/objetos)."
   },
   {
-    "id": 50,
-    "unit": "Unidad 1.3: Expo Router & Navegación",
-    "q": "Según Ian Sommerville (Capítulo 16), ¿por qué es fundamental mantener la coherencia y orientación del usuario en la navegación de un sistema?",
-    "opts": [
-      "Porque si la navegación es impredecible o carece de indicadores de ubicación actual, el usuario experimenta desorientación espacial, incrementando la tasa de abandono.",
-      "Porque los procesadores móviles consumen más energía al procesar rutas inconsistentes.",
-      "Para que la aplicación ocupe menos espacio en la memoria interna del teléfono.",
-      "Porque las tiendas de aplicaciones exigen que todas las pantallas tengan exactamente el mismo título."
+    id: 62,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿En qué hook se dispara normalmente la llamada inicial a una API al abrir una pantalla?",
+    opts: [
+      "useEffect() con array de dependencias vacío []",
+      "useState() con un array vacío",
+      "En el cuerpo principal del componente directamente",
+      "En un hook useRef()"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Consistencia Visual y Navegación • Ref: Clase_3.pdf & Sommerville Cap. 16] El principio de modelo mental establece que el usuario debe saber en todo momento \"dónde está\", \"cómo llegó allí\" y \"cómo regresar\" con facilidad."
+    a: 0,
+    exp: "El useEffect con array vacío asegura que la petición (efecto secundario) solo se dispare al montar el componente."
   },
   {
-    "id": 51,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "¿Cuál es la principal ventaja de Zustand como gestor de estado global frente a Redux tradicional en React Native?",
-    "opts": [
-      "Es sumamente ligero, tiene una API minimalista basada en hooks, no requiere configurar reducers/actions complejos ni envolver la aplicación en múltiples `<Provider>`.",
-      "Está programado en lenguaje ensamblador para ejecutarse 100 veces más rápido.",
-      "Permite omitir la creación de componentes visuales en la app.",
-      "Descarga los productos del servidor sin necesidad de tener internet."
+    id: 63,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué ocurre si ejecutas fetch() directamente dentro del render (sin useEffect)?",
+    opts: [
+      "Provoca un bucle infinito porque fetch actualiza estado y vuelve a renderizar",
+      "No compila",
+      "Funciona más rápido",
+      "La base de datos rechaza la conexión"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Estado Global con Zustand] Zustand elimina el boilerplate excesivo de Redux (actions, reducers, dispatchers) permitiendo crear almacenes globales mediante una función simple `create()` consumible directamente con hooks."
+    a: 0,
+    exp: "Cada render hace fetch, el fetch cambia estado (setDatos), eso lanza un nuevo render, repitiendo sin fin."
   },
   {
-    "id": 52,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "¿Cómo se define un store básico de carrito de compras utilizando la función `create` de Zustand?",
-    "opts": [
-      "const useCartStore = create((set) => ({ items: [], addItem: (item) => set((state) => ({ items: [...state.items, item] })) }));",
-      "const useCartStore = new DatabaseStore({ tables: [\"items\"] });",
-      "const useCartStore = useState([]);",
-      "const useCartStore = createStore(item => item.save());"
+    id: 64,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué se debe mostrar en pantalla mientras await fetch() está cargando?",
+    opts: [
+      "Un componente de carga, como <ActivityIndicator>",
+      "Una pantalla en blanco o color rojo",
+      "Un video musical temporal",
+      "Nada, la pantalla se congela hasta que cargue"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Estado Global con Zustand] Zustand recibe una función que inyecta `set`. Las funciones modificadoras usan `set(state => ({ ... }))` combinando el nuevo estado inmutable de forma concisa."
+    a: 0,
+    exp: "La retroalimentación visual (spinner o skeleton) es vital para indicar que la app está descargando datos."
   },
   {
-    "id": 53,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "¿Por qué en Zustand es una buena práctica utilizar selectores al consumir un valor (`const total = useCartStore(state => state.total)`) en lugar de extraer todo el store?",
-    "opts": [
-      "Porque el selector suscribe al componente únicamente a los cambios de esa propiedad específica, evitando re-renderizados innecesarios cuando otras propiedades cambian.",
-      "Porque sin un selector el store se borra de la memoria del teléfono.",
-      "Porque los selectores convierten los números en palabras automáticamente.",
-      "Porque React Native arroja un error si se extraen más de dos variables a la vez."
+    id: 65,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Cómo se capturan fallos de red (sin internet o error 500) al usar async/await?",
+    opts: [
+      "Envolviendo el código con un bloque try...catch",
+      "Con un if (network === false)",
+      "El propio React ignora los errores de red",
+      "Reiniciando automáticamente la aplicación"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Estado Global con Zustand] Los selectores atómicos previenen renders masivos: si cambia el nombre de un ítem, un componente que solo lee `total` no se re-renderiza gracias a la igualdad de selector."
+    a: 0,
+    exp: "Si el servidor falla o no hay conexión, fetch lanza un error que debe ser atrapado en el bloque catch."
   },
   {
-    "id": 54,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "¿Por qué el Context API nativo de React puede provocar problemas de rendimiento en aplicaciones con actualizaciones de estado frecuentes (como carritos o contadores)?",
-    "opts": [
-      "Porque cualquier cambio en el valor del Context re-renderiza a TODOS los componentes que consumen dicho Contexto, sin importar si usan o no la propiedad modificada.",
-      "Porque Context API solo funciona en computadoras de escritorio y no en celulares.",
-      "Porque Context API borra los datos cada vez que la app pasa a segundo plano.",
-      "Porque no permite guardar arrays ni objetos complejos en su valor."
-    ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Estado Global con Zustand] React Context no tiene mecanismos nativos de suscripción granular fina; cualquier mutación en el Provider dispara el renderizado de todos los consumidores suscritos al contexto."
-  },
-  {
-    "id": 55,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "¿Cómo se logra que el estado de Zustand persista al cerrar y reabrir la app móvil en el dispositivo?",
-    "opts": [
-      "Utilizando el middleware `persist` de Zustand configurado con `@react-native-async-storage/async-storage` como motor de almacenamiento.",
-      "Dejando la aplicación abierta permanentemente en segundo plano.",
-      "Enviando los datos por correo electrónico al usuario antes de salir.",
-      "Activando el modo nocturno del sistema operativo."
-    ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Estado Global con Zustand] El middleware `persist` intercepta las mutaciones del store y las serializa automáticamente en AsyncStorage, restaurándolas de forma transparente durante el arranque de la app."
-  },
-  {
-    "id": 56,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "¿Es posible ejecutar operaciones asíncronas (como llamadas a una API REST) directamente dentro de las acciones de un store de Zustand?",
-    "opts": [
-      "Sí, las acciones de Zustand pueden ser funciones `async` que realizan peticiones con `fetch` o `axios` y luego invocan `set({ data })` al completar.",
-      "No, Zustand prohíbe terminantemente el uso de promesas o código asíncrono.",
-      "Solo si se instala un middleware adicional complejo como Redux-Saga.",
-      "Únicamente si la llamada tarda menos de 10 milisegundos."
-    ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Estado Global con Zustand] A diferencia de Redux que requería thunks externos, en Zustand las acciones son funciones JavaScript ordinarias que soportan `async/await` de forma nativa y directa."
-  },
-  {
-    "id": 57,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "En un store de Zustand, ¿cómo se elimina un producto del carrito respetando la inmutabilidad?",
-    "opts": [
-      "set((state) => ({ items: state.items.filter(item => item.id !== idEliminar) }))",
-      "set((state) => { delete state.items[idEliminar]; return state; })",
-      "state.items.splice(idEliminar, 1);",
-      "set((state) => { state.items = null; })"
-    ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Estado Global con Zustand] `Array.prototype.filter()` produce un nuevo array con una nueva referencia que excluye el elemento seleccionado, cumpliendo el principio de inmutabilidad de React."
-  },
-  {
-    "id": 58,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "Según Sommerville (Capítulo 16), ¿qué problema de interacción resuelve contar con una única fuente de verdad (Single Source of Truth) en el estado global?",
-    "opts": [
-      "Garantiza consistencia visual y de datos en toda la interfaz: si el usuario añade un ítem, el contador del encabezado y la lista del carrito se sincronizan sin desfasajes.",
-      "Evita que el usuario tenga que recordar su contraseña de ingreso.",
-      "Permite que la app funcione sin batería conectada a un cargador.",
-      "Hace que las imágenes se descarguen en menos de 1 segundo."
-    ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 3: Consistencia Visual y Navegación • Ref: Clase_3.pdf & Sommerville Cap. 16] La consistencia del sistema exige que dos vistas de un mismo modelo reflejen la misma información; un store global centralizado garantiza sincronización total en tiempo real."
-  },
-  {
-    "id": 59,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "¿Cómo se puede leer el valor actual de un store de Zustand fuera del árbol de componentes de React (por ejemplo, en un interceptor de red o función utilitaria)?",
-    "opts": [
-      "Invocando `useCartStore.getState()`.",
-      "Escribiendo `window.store.data` en la consola.",
-      "Importando el archivo `.env` de nuevo.",
-      "No es posible leer un store de Zustand fuera de componentes de React."
-    ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Estado Global con Zustand] Zustand expone `useStore.getState()` y `useStore.setState()`, permitiendo acceder o actualizar el estado desde interceptores de Axios, servicios o eventos nativos sin hooks."
-  },
-  {
-    "id": 60,
-    "unit": "Unidad 2.1: Estado Global & Zustand",
-    "q": "En el modelado de requisitos del sistema de carrito según Kendall & Kendall, ¿qué validación de negocio debe realizar el store antes de incrementar la cantidad de un ítem?",
-    "opts": [
-      "Verificar que la cantidad solicitada no supere el stock disponible del producto en la base de datos.",
-      "Comprobar que el usuario tenga saldo positivo en su cuenta de Spotify.",
-      "Verificar que el teléfono móvil esté cargado al 100%.",
-      "Exigir que el producto tenga un número par de caracteres en su nombre."
-    ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Análisis y Diseño de Sistemas - Kendall & Kendall, Cap. 13] Las reglas de negocio de integridad de datos exigen validar límites de stock en el cliente y en el servidor antes de comprometer la orden de compra."
-  },
-  {
-    "id": 61,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "¿Cuál es el flujo estándar para realizar una petición HTTP GET y procesar su respuesta JSON con `fetch` en React Native?",
-    "opts": [
-      "const res = await fetch(url); if (!res.ok) throw new Error(); const data = await res.json();",
-      "const data = fetch(url).parseXml();",
-      "const data = await fetch(url).toDatabase();",
-      "const res = fetch.get(url); const data = res.data;"
-    ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] `fetch` retorna una promesa con el objeto `Response`. Se debe validar `res.ok` (códigos 200-299) y luego invocar `await res.json()` para parsear el flujo asíncrono."
-  },
-  {
-    "id": 62,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "¿Por qué una llamada con `fetch()` NO entra al bloque `catch` cuando el servidor responde con un código de error HTTP 404 (Not Found) o 500 (Internal Server Error)?",
-    "opts": [
-      "Porque `fetch` solo rechaza la promesa si ocurre un error de red a nivel físico o DNS; para errores HTTP el servidor sí respondió, requiriendo verificar `res.ok === false`.",
-      "Porque los errores 404 y 500 son considerados respuestas exitosas por el navegador.",
-      "Porque el bloque `catch` solo funciona con peticiones de tipo POST.",
-      "Porque React Native oculta los errores del servidor para que el usuario no se asuste."
-    ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] A diferencia de Axios, `fetch` resuelve la promesa positivamente ante cualquier respuesta HTTP válida del servidor. Se debe verificar explícitamente `if (!res.ok)` para lanzar el error."
-  },
-  {
-    "id": 63,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "¿Cuáles son los tres estados esenciales que deben gestionarse en la interfaz móvil durante una consulta asíncrona a un backend?",
-    "opts": [
-      "Carga (loading = true con spinner/skeleton), Éxito (data con la lista de datos) y Error (error con mensaje claro y botón de reintentar).",
-      "Inicio, Pausa y Apagado.",
-      "Descargando, Instalando y Reiniciando.",
-      "Solo se debe gestionar el estado de éxito; los errores nunca deben mostrarse."
-    ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] El manejo de los tres estados asíncronos (`loading`, `data`, `error`) es la base del diseño robusto en mobile: guía al usuario durante la espera y ofrece recuperación ante fallas."
-  },
-  {
-    "id": 64,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "Según la arquitectura REST descrita en Kendall & Kendall, ¿qué método HTTP se debe emplear para actualizar parcialmente los campos de un recurso existente?",
-    "opts": [
-      "PATCH",
+    id: 66,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué método HTTP se utiliza por defecto en fetch() si no se especifica ninguno?",
+    opts: [
       "GET",
       "POST",
+      "PUT",
       "DELETE"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Análisis y Diseño de Sistemas - Kendall & Kendall, Cap. 13] `PATCH` está diseñado para modificaciones parciales (ej: actualizar solo el precio o stock), mientras que `PUT` reemplaza el documento completo y `POST` crea un recurso nuevo."
+    a: 0,
+    exp: "GET es el método para lectura/obtención de información desde un servidor."
   },
   {
-    "id": 65,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "¿Qué código de estado HTTP indica que una creación de un nuevo producto se completó con éxito en el servidor?",
-    "opts": [
-      "201 (Created)",
-      "200 (OK)",
-      "404 (Not Found)",
-      "503 (Service Unavailable)"
+    id: 67,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué método HTTP se usa convencionalmente para crear o enviar nueva información al servidor?",
+    opts: [
+      "POST",
+      "GET",
+      "OPTIONS",
+      "HEAD"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Análisis y Diseño de Sistemas - Kendall & Kendall, Cap. 13] El estándar HTTP reserva `201 Created` para responder a peticiones POST que dieron origen a un nuevo registro persistente con identificador propio."
+    a: 0,
+    exp: "POST envía datos (como credenciales de login o un nuevo artículo) en el cuerpo (body) de la solicitud."
   },
   {
-    "id": 66,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "¿Cuál es la cabecera (Header) obligatoria que debe enviarse en una petición POST con `fetch` cuando el cuerpo transporta datos serializados en formato JSON?",
-    "opts": [
-      "'Content-Type': 'application/json'",
-      "'Content-Type': 'text/plain'",
-      "'Accept-Encoding': 'gzip-only'",
-      "'Authorization': 'allow-all'"
+    id: 68,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué popular librería de NPM se usa a menudo como alternativa a fetch por su sintaxis reducida y autoconversión JSON?",
+    opts: [
+      "Axios",
+      "Mongoose",
+      "Express",
+      "Nodemailer"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] La cabecera 'Content-Type': 'application/json' informa al parser del backend que el cuerpo debe interpretarse y deserializarse como un objeto JSON estructurado."
+    a: 0,
+    exp: "Axios es un cliente HTTP muy usado que intercepta requests, lanza errores automáticos y ahorra líneas."
   },
   {
-    "id": 67,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "¿Cómo se cancela una petición de red con `fetch` para evitar fugas de memoria o actualizar componentes desmontados si el usuario sale de la pantalla rápidamente?",
-    "opts": [
-      "Utilizando la API estándar `AbortController` y pasando su señal en `fetch(url, { signal: controller.signal })`.",
-      "Desconectando el cable de red de la computadora.",
-      "Llamando a `fetch.cancelAllNow()`.",
-      "Escribiendo `return false` en el componente."
+    id: 69,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Qué propiedad de FlatList provee recarga natural cuando los usuarios estiran la lista hacia abajo?",
+    opts: [
+      "onRefresh y refreshing",
+      "onPull y pulling",
+      "swipeToLoad={true}",
+      "autoRefresh={1000}"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] `AbortController` permite cancelar peticiones en vuelo invocando `controller.abort()` dentro de la función de limpieza del `useEffect` al desmontar la vista."
+    a: 0,
+    exp: "Integran la funcionalidad de Pull-to-refresh nativa para pedir a la API la última versión de los datos."
   },
   {
-    "id": 68,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "¿Por qué es fundamental tipar con TypeScript las respuestas esperadas de un endpoint API (`interface Producto { id: number; nombre: string; }`)?",
-    "opts": [
-      "Porque provee autocompletado en el editor, valida en tiempo de compilación y previene errores críticos al acceder a propiedades inexistentes o mal nombradas.",
-      "Porque TypeScript cifra los datos para que el proveedor de internet no los lea.",
-      "Porque los celulares Android no admiten código JavaScript sin tipar.",
-      "Porque reduce el peso de la base de datos remota a la mitad."
+    id: 70,
+    unit: "Clase 5: Datos Remotos",
+    q: "Si la petición devuelve datos estáticos paginados, ¿qué evento de FlatList gatilla la descarga de la siguiente página?",
+    opts: [
+      "onEndReached",
+      "onScrollDown",
+      "onPageChange",
+      "onListEnd"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 5: Datos Remotos y Firebase BaaS (Lic. Ariel Bulacio) • Ref: Clase_5_DatosRemotos_Firebase_UNP_V2.pdf] El tipado de contratos API previene errores de ejecución tipo `Cannot read properties of undefined` y documenta de forma explícita el esquema de intercambio entre frontend y backend."
+    a: 0,
+    exp: "onEndReached avisa cuando el scroll se acerca al final de la lista, activando el 'scroll infinito'."
   },
   {
-    "id": 69,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "En el estudio de usabilidad móvil de Dialnet (Capítulo 3), ¿qué técnica visual se recomienda para reducir la percepción de latencia de red durante la carga de datos?",
-    "opts": [
-      "Utilizar pantallas esqueleto (Skeleton Screens) que simulan la estructura del contenido antes de su llegada, en lugar de pantallas en blanco o spinners estáticos aislados.",
-      "Ocultar la barra de estado del teléfono.",
-      "Aumentar el tamaño de las fuentes al triple.",
-      "Reproducir música de fondo mientras se espera la respuesta."
+    id: 71,
+    unit: "Clase 5: Datos Remotos",
+    q: "¿Cómo simulas peticiones lentas o Mock APIs cuando el backend real aún no existe?",
+    opts: [
+      "Usando servicios como JSONPlaceholder o setTimeout y datos falsos (Mocks)",
+      "Creando bases de datos reales en AWS temporalmente",
+      "Subiendo fotos gigantes a internet",
+      "Configurando el teléfono en Modo Avión"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 1: Usabilidad en Aplicaciones Móviles - Dialnet / Univ. de Zaragoza, Cap. 3] Las Skeleton Screens reducen la carga de espera percibida al anticipar el layout visual del contenido final, manteniendo al usuario entretenido cognitivamente."
+    a: 0,
+    exp: "Servicios Mock como JSONPlaceholder permiten desarrollar la UI sin depender del backend real."
   },
+
+  // --- CLASE 6: Formularios y CRUD (15) ---
   {
-    "id": 70,
-    "unit": "Unidad 2.2: Peticiones de Red & APIs",
-    "q": "¿Cómo deben definirse las URLs base de los servidores y llaves públicas de servicios en Expo para que estén disponibles en el código de forma segura?",
-    "opts": [
-      "En un archivo `.env` utilizando el prefijo oficial `EXPO_PUBLIC_` (ej: `EXPO_PUBLIC_API_URL=https://api.com`).",
-      "Escritas a mano dentro de los estilos CSS de los componentes.",
-      "Publicadas en el archivo `package.json` en la sección de dependencias.",
-      "Dentro del código de un comentario en el archivo `App.tsx`."
+    id: 72,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué componente de React Native se utiliza para permitir al usuario escribir texto en pantalla?",
+    opts: [
+      "<TextInput>",
+      "<Input>",
+      "<TextField>",
+      "<input type='text'>"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 1 - Clase 0 & 1: Entorno de Desarrollo y Configuración PC • Ref: entorno_desarrollo_configuración.pptx] Expo soporta variables de entorno embebidas en el bundle mediante el prefijo `EXPO_PUBLIC_`, permitiendo alternar entornos de desarrollo y producción con total prolijidad."
+    a: 0,
+    exp: "TextInput es el equivalente móvil al <input> HTML nativo."
   },
   {
-    "id": 71,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Qué es Supabase y cuál es su motor de base de datos principal para aplicaciones React Native?",
-    "opts": [
-      "Una plataforma BaaS (Backend as a Service) de código abierto basada en PostgreSQL que expone automáticamente APIs REST instantáneas vía PostgREST y soporte en tiempo real.",
-      "Un motor de base de datos NoSQL exclusivo de Google basado en MongoDB.",
-      "Un emulador de teléfonos Android desarrollado para correr en terminales Linux.",
-      "Un compilador de código Swift para teléfonos con sistema operativo Windows."
+    id: 73,
+    unit: "Clase 6: Formularios",
+    q: "¿A qué prop se vincula el estado actual en un <TextInput> (Formularios Controlados)?",
+    opts: [
+      "value={estado}",
+      "text={estado}",
+      "val={estado}",
+      "inputData={estado}"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Supabase PostgreSQL & APIs REST] Supabase proporciona una base de datos relacional PostgreSQL completa en la nube y genera automáticamente endpoints REST seguros a partir de las tablas creadas mediante la tecnología PostgREST."
+    a: 0,
+    exp: "Vincular `value` con un estado asegura que React sea la única fuente de verdad (Controlled Component)."
   },
   {
-    "id": 72,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Cómo se inicializa el cliente de Supabase en un proyecto React Native / Expo?",
-    "opts": [
-      "import { createClient } from \"@supabase/supabase-js\"; export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);",
-      "const supabase = new PostgresDriver(\"localhost:5432\");",
-      "const supabase = importSupabasePackage();",
-      "const supabase = createDatabaseConnection(\"sqlite://database.db\");"
+    id: 74,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué evento actualiza el estado cada vez que se presiona una tecla en un <TextInput>?",
+    opts: [
+      "onChangeText={(texto) => setEstado(texto)}",
+      "onKeyPress",
+      "onType",
+      "onChangeData"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Supabase PostgreSQL & APIs REST] El SDK oficial `@supabase/supabase-js` se inicializa invocando `createClient` con la URL del proyecto y la anon key pública, configurando opcionalmente AsyncStorage para la persistencia."
+    a: 0,
+    exp: "onChangeText recibe directamente el texto tipeado (string), simplificando la actualización en RN."
   },
   {
-    "id": 73,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Cuál es la sintaxis correcta para realizar una consulta de lectura (READ) ordenada en la tabla `productos` con Supabase?",
-    "opts": [
-      "const { data, error } = await supabase.from('productos').select('*').order('id', { ascending: false });",
-      "const data = await supabase.query('SELECT ALL FROM productos');",
-      "const res = await supabase.readTable('productos');",
-      "const { data } = await supabase.get('productos').reverse();"
+    id: 75,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué hace la propiedad keyboardType='email-address' en <TextInput>?",
+    opts: [
+      "Muestra el teclado numérico/alfabético especializado que incluye la '@' y '.com' a primera vista",
+      "Valida que el correo exista usando inteligencia artificial",
+      "Impide que el usuario escriba letras",
+      "Abre el cliente de correo automáticamente"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Supabase PostgreSQL & APIs REST] En Supabase se usa la sintaxis fluida `.from(\"tabla\").select(\"columnas\").order(...)`. Esto genera internamente la consulta SQL en PostgreSQL y retorna `{ data, error }`."
+    a: 0,
+    exp: "Ajustar el teclado según el tipo de dato ahorra tiempo y mejora fuertemente la usabilidad."
   },
   {
-    "id": 74,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Cómo se inserta un nuevo registro (CREATE) en Supabase y se recupera el objeto recién creado con su ID asignado?",
-    "opts": [
-      "const { data, error } = await supabase.from('productos').insert([{ nombre: 'Multímetro', precio: 4500 }]).select();",
-      "const data = await supabase.createRow('productos', { nombre: 'Multímetro' });",
-      "const res = await supabase.push('productos', ['Multímetro', 4500]);",
-      "supabase.from('productos').add({ nombre: 'Multímetro' });"
+    id: 76,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué hace la propiedad secureTextEntry={true}?",
+    opts: [
+      "Oculta los caracteres tipeados (asteriscos/puntos) para contraseñas",
+      "Cifra el texto con algoritmos bancarios en disco",
+      "Evita que el texto sea leído por hackers por wifi",
+      "Bloquea la edición del campo de texto"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Supabase PostgreSQL & APIs REST] `.insert([...])` inserta una o varias filas en la tabla SQL. Encadenar `.select()` al final le indica al motor de PostgreSQL que ejecute `RETURNING *`, devolviendo la fila creada con su ID generado."
+    a: 0,
+    exp: "Es indispensable para campos sensibles como Password o PIN."
   },
   {
-    "id": 75,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Cómo se ejecuta una actualización (UPDATE) de precio y stock de un producto específico por su ID en Supabase?",
-    "opts": [
-      "const { data, error } = await supabase.from('productos').update({ precio: 5200, stock: 15 }).eq('id', productoId);",
-      "const res = await supabase.modify('productos').where('id', productoId).set({ precio: 5200 });",
-      "supabase.from('productos').patch(productoId, { precio: 5200 });",
-      "const data = await supabase.from('productos').change({ precio: 5200 });"
+    id: 77,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué componente previene que el teclado nativo oculte el TextInput que el usuario está editando?",
+    opts: [
+      "<KeyboardAvoidingView>",
+      "<AutoScrollForm>",
+      "<KeyboardSafeView>",
+      "<ScrollToInputView>"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Supabase PostgreSQL & APIs REST] `.update({ ... }).eq(\"id\", productoId)` aplica los cambios exclusivamente a las filas que coincidan con la condición de igualdad `.eq()`, equivalente a `UPDATE productos SET ... WHERE id = ...`."
+    a: 0,
+    exp: "KeyboardAvoidingView ajusta automáticamente el relleno (padding) inferior al aparecer el teclado."
   },
   {
-    "id": 76,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Cuál es la función para eliminar un registro (DELETE) por su identificador primario en Supabase?",
-    "opts": [
-      "const { error } = await supabase.from('productos').delete().eq('id', productoId);",
-      "supabase.from('productos').remove(productoId);",
-      "const { data } = await supabase.dropRow('productos', productoId);",
-      "supabase.truncate('productos').where('id', productoId);"
+    id: 78,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué hace el componente utilitario TouchableWithoutFeedback con Keyboard.dismiss()?",
+    opts: [
+      "Oculta el teclado automáticamente si el usuario toca cualquier zona vacía fuera del formulario",
+      "Bloquea el botón de apagado",
+      "Impide todo tipo de interacción táctil en la pantalla",
+      "Elimina todo el texto escrito hasta el momento"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Supabase PostgreSQL & APIs REST] `.delete().eq(\"id\", productoId)` elimina las filas que cumplen la condición. Si no hubo errores, `error` será `null` y la fila desaparecerá de la base de datos PostgreSQL."
+    a: 0,
+    exp: "Añadirlo como fondo mejora la experiencia, permitiendo salir de la edición al tocar el fondo vacío."
   },
   {
-    "id": 77,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Qué es \"Row Level Security\" (RLS) en PostgreSQL Supabase y por qué debe habilitarse en las tablas de producción?",
-    "opts": [
-      "Es un mecanismo de seguridad a nivel de motor SQL que controla qué filas puede leer, insertar o modificar cada usuario según políticas (Policies) basadas en roles o su UID.",
-      "Es un algoritmo que apaga la pantalla del celular si alguien mira de reojo.",
-      "Es una función para encriptar los cables de red de la universidad.",
-      "Es un plugin para que los botones de la interfaz se dibujen con bordes redondeados."
+    id: 79,
+    unit: "Clase 6: Formularios",
+    q: "En el patrón C.R.U.D, ¿qué operación asienta los cambios sobre un registro ya existente?",
+    opts: [
+      "Update (Actualizar - PUT/PATCH)",
+      "Create (Crear)",
+      "Read (Leer)",
+      "Delete (Eliminar)"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Supabase PostgreSQL & APIs REST] Row Level Security (RLS) aplica reglas granulares a nivel de fila en la base de datos SQL. Si una tabla no tiene políticas RLS configuradas, ningún usuario no autorizado podrá leer o escribir desde el cliente."
+    a: 0,
+    exp: "Update modifica la entidad. En APIs REST suele usarse el método PUT (todo) o PATCH (parcial)."
   },
   {
-    "id": 78,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Cómo traduce PostgREST las consultas de la aplicación móvil hacia la base de datos PostgreSQL en Supabase?",
-    "opts": [
-      "Transforma las peticiones HTTP REST recibidas en consultas SQL parametrizadas nativas ejecutadas directamente por PostgreSQL, serializando la respuesta en JSON de alto rendimiento.",
-      "Convierte cada consulta en un archivo de texto en disco y lo lee con Python.",
-      "Envía las consultas por correo electrónico al administrador del sistema.",
-      "Guarda los datos en la memoria RAM del celular y nunca los envía a internet."
+    id: 80,
+    unit: "Clase 6: Formularios",
+    q: "¿Para qué sirve el hook de Expo 'useLocalSearchParams()' al editar un registro (Update)?",
+    opts: [
+      "Recibir el ID del registro seleccionado para hacer el fetch específico o saber qué ítem actualizar",
+      "Crear campos locales temporales",
+      "Generar IDs aleatorios para bases de datos",
+      "Ocultar la URL de la barra de direcciones"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Supabase PostgreSQL & APIs REST] PostgREST es el servidor web que expone PostgreSQL directamente como una API RESTful limpia, convirtiendo verbos HTTP en sentencias SQL eficientes y seguras."
+    a: 0,
+    exp: "Permite leer el parámetro que llega en la navegación, por ejemplo router.push(`/edit/${id}`)."
   },
   {
-    "id": 79,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "¿Para qué se utiliza la biblioteca `@react-native-async-storage/async-storage` en el desarrollo móvil con React Native?",
-    "opts": [
-      "Para persistir datos de manera local en el almacenamiento interno del dispositivo en formato clave-valor de forma asíncrona (ej: tokens, preferencias, caché offline).",
-      "Para formatear discos duros externos conectados por USB.",
-      "Para aumentar la velocidad del reloj del microprocesador móvil.",
-      "Para compilar aplicaciones de React Native a archivos binarios de Windows."
+    id: 81,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué librerías populares se usan para no manejar validaciones de formularios a mano en React?",
+    opts: [
+      "React Hook Form o Formik",
+      "Redux Toolkit",
+      "Axios y Fetch",
+      "SQLite y AsyncStorage"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] AsyncStorage es el almacenamiento clave-valor persistente estándar en React Native; los datos sobreviven al cierre de la app y reinicio del dispositivo."
+    a: 0,
+    exp: "Formik o RHF simplifican la validación, errores y manejo de envíos pesados con menos re-renders."
   },
   {
-    "id": 80,
-    "unit": "Unidad 2.2: Supabase PostgreSQL & CRUD",
-    "q": "En el diseño de modelos de bases de datos según Kendall & Kendall, ¿por qué es fundamental definir claves primarias (Primary Keys) autoincrementales o UUIDs en las tablas relacionales?",
-    "opts": [
-      "Para garantizar la unicidad de cada entidad, facilitar relaciones con claves foráneas y permitir operaciones de actualización y borrado inequívocas.",
-      "Para que la base de datos sea compatible con teléfonos de pantalla pequeña.",
-      "Para que los usuarios puedan iniciar sesión sin ingresar su correo.",
-      "Para que las tablas no tengan más de 10 columnas."
+    id: 82,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué es Yup o Zod?",
+    opts: [
+      "Librerías de validación de esquemas (ej: que la edad sea mayor a 18 y el mail válido)",
+      "Servidores web rápidos para NodeJS",
+      "Herramientas de animación 3D nativa",
+      "Módulos para controlar el Bluetooth"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Análisis y Diseño de Sistemas - Kendall & Kendall, Cap. 13] Toda tabla relacional en PostgreSQL debe contar con una clave primaria única que distinga cada registro e impida inconsistencias y duplicaciones en operaciones CRUD."
+    a: 0,
+    exp: "Zod o Yup definen reglas de validación encadenadas que se integran fácil con React Hook Form."
   },
   {
-    "id": 81,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "¿Qué diferencia a un componente `<TextInput>` controlado de uno no controlado en React Native?",
-    "opts": [
-      "En el controlado, el texto mostrado está determinado por la prop `value` vinculada al estado, y cualquier cambio dispara `onChangeText` para actualizar dicho estado.",
-      "En el controlado, el usuario no puede escribir porque el teclado permanece bloqueado.",
-      "En el no controlado, el teclado siempre muestra exclusivamente números de teléfono.",
-      "No existe diferencia técnica; todos los inputs en React Native son forzosamente no controlados."
+    id: 83,
+    unit: "Clase 6: Formularios",
+    q: "¿Cómo indicas a fetch() que el body lleva información en formato JSON al hacer un POST?",
+    opts: [
+      "Enviando el header 'Content-Type': 'application/json'",
+      "Renombrando el archivo a datos.json",
+      "Pasando un parámetro booleano isJSON={true}",
+      "El navegador lo detecta mágicamente analizando el texto"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 4: Estado Global y Contexto (Lic. Ariel Bulacio) • Ref: Clase_4_Estado_Global_UNP_Reescrita.pdf] Un input controlado tiene una única fuente de verdad: el estado de React. Su valor visual se deriva de `value={texto}` y se sincroniza en cada pulsación con `onChangeText`."
+    a: 0,
+    exp: "El backend solo entenderá que le llega JSON si lo indicas explícitamente en las cabeceras HTTP."
   },
   {
-    "id": 82,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "Según las pautas de diseño de formularios móviles de Cuello & Vittone (Capítulo 5), ¿por qué es crucial configurar la propiedad `keyboardType` adecuada (ej: \"email-address\", \"numeric\")?",
-    "opts": [
-      "Porque despliega el teclado nativo con los caracteres pertinentes directamente accesibles (arroba para emails o teclado numérico para precios), agilizando la entrada y reduciendo errores.",
-      "Porque si no se define, el celular cobra un recargo monetario por cada letra escrita.",
-      "Porque el teclado por defecto no permite escribir vocales con acento.",
-      "Para evitar que el usuario use emojis en el formulario."
+    id: 84,
+    unit: "Clase 6: Formularios",
+    q: "¿Por qué el objeto JS debe pasarse por JSON.stringify() antes de enviar un POST?",
+    opts: [
+      "Porque HTTP es un protocolo de texto, no transporta objetos JS nativos directamente",
+      "Para que el código quede ofuscado y seguro",
+      "Para evitar alertas de virus del navegador",
+      "Para transformar el JSON a sintaxis XML"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 6: Formularios Móviles, Teclados y Validación • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf] Adaptar el teclado al tipo de dato esperado (`keyboardType=\"numeric\"`, `\"email-address\"`, `\"phone-pad\"`) reduce drásticamente la fricción y el tiempo de completado del formulario."
+    a: 0,
+    exp: "stringify serializa la memoria JS en una cadena de texto plana transferible por red."
   },
   {
-    "id": 83,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "¿Qué problema resuelve el componente `<KeyboardAvoidingView>` en pantallas con formularios en React Native?",
-    "opts": [
-      "Ajusta automáticamente la posición o padding de la pantalla cuando el teclado virtual del dispositivo se abre, impidiendo que el teclado tape los campos de texto inferiores.",
-      "Bloquea el teclado para que no aparezca en pantalla.",
-      "Traduce el texto escrito al idioma inglés en tiempo real.",
-      "Corrige automáticamente las faltas de ortografía del usuario."
+    id: 85,
+    unit: "Clase 6: Formularios",
+    q: "¿Cuál de estos es un buen ejemplo de prevención de errores al hacer Delete (Eliminar)?",
+    opts: [
+      "Mostrar una ventana de Alerta (`Alert.alert`) de confirmación antes de eliminar permanentemente",
+      "Borrar sin preguntar para hacer la app más ágil",
+      "Ocultar el botón Delete bajo 4 submenús diferentes",
+      "Forzar al usuario a apagar el teléfono"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 4: Estado Global y Contexto (Lic. Ariel Bulacio) • Ref: Clase_4_Estado_Global_UNP_Reescrita.pdf] Al abrirse el teclado virtual, la pantalla física pierde hasta el 50% de su espacio visible. `<KeyboardAvoidingView behavior=\"padding\">` desplaza la vista para mantener el input enfocado a la vista."
+    a: 0,
+    exp: "Las acciones destructivas requieren una confirmación explícita (Principio de prevención de errores)."
   },
   {
-    "id": 84,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "¿Por qué en React Native es necesario utilizar el componente `<Controller>` de React Hook Form en lugar de la función `register()` habitual de la web?",
-    "opts": [
-      "Porque los componentes móviles nativos manejan eventos propios (`onChangeText` en lugar de `onChange`) y no admiten referencias ref directas del DOM HTML.",
-      "Porque `<Controller>` es el único componente que permite cambiar el color del cursor.",
-      "Porque la función `register()` consume el 90% de la CPU en dispositivos móviles.",
-      "Porque React Native exige programar todos los formularios con clases de ES5."
+    id: 86,
+    unit: "Clase 6: Formularios",
+    q: "¿Qué método HTTP se usa para Delete?",
+    opts: [
+      "DELETE",
+      "POST",
+      "REMOVE",
+      "KILL"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Formularios & Validación con Zod] En la web, `register()` se enlaza a elementos nativos del DOM. En React Native, los componentes nativos no tienen DOM HTML, requiriendo `<Controller>` como adaptador puente reactivo."
+    a: 0,
+    exp: "El verbo estándar para eliminar recursos en arquitectura REST es DELETE."
   },
+
+  // --- CLASE 7: Hardware y Permisos (14) ---
   {
-    "id": 85,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "¿Qué es Zod y qué ventaja diferencial ofrece en aplicaciones React Native con TypeScript?",
-    "opts": [
-      "Una biblioteca de declaración y validación de esquemas que valida datos en tiempo de ejecución (runtime) e infiere automáticamente los tipos estáticos de TypeScript (`z.infer<typeof Schema>`).",
-      "Un plugin de compilación para generar binarios de Android más pequeños.",
-      "Un emulador de dispositivos móviles desarrollado por Apple para Windows.",
-      "Un gestor de bases de datos relacionales SQLite local."
+    id: 87,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué implica solicitar un 'Permiso en tiempo de ejecución' en móviles modernos?",
+    opts: [
+      "Mostrar un cuadro de diálogo al usuario (Aceptar/Denegar) justo cuando la app intenta usar la Cámara, GPS, etc.",
+      "Comprar una licencia de Android en Google Play",
+      "Ingresar un código PIN de administrador",
+      "Pedir autorización al operador de telefonía (Claro/Personal)"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Formularios & Validación con Zod] Zod permite definir reglas de validación en tiempo de ejecución (mínimo de caracteres, emails válidos, números positivos) y generar automáticamente los tipos de TypeScript sin duplicar código."
+    a: 0,
+    exp: "Los permisos sensibles no se conceden al instalar; se piden al momento exacto de uso para proteger la privacidad."
   },
   {
-    "id": 86,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "¿Cómo se conecta un esquema de validación Zod con React Hook Form?",
-    "opts": [
-      "Mediante el resolvedor `zodResolver(miEsquemaZod)` pasado en la propiedad `resolver` de `useForm({ resolver: zodResolver(...) })`.",
-      "Escribiendo `import ZodFromHookForm` en el archivo `index.js`.",
-      "Guardando el esquema en una variable global en el teléfono.",
-      "No se pueden conectar; son herramientas incompatibles."
+    id: 88,
+    unit: "Clase 7: Hardware",
+    q: "¿En Expo, cómo instalas módulos de hardware (ej: cámara, ubicación)?",
+    opts: [
+      "npx expo install expo-camera expo-location",
+      "npm install android-camera-native",
+      "Vienen todos instalados por defecto pesando 2GB",
+      "Deben descargarse de foros externos a mano"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Apuntes de Cátedra - Formularios & Validación con Zod] `@hookform/resolvers/zod` provee el adaptador oficial `zodResolver`, interceptando el submit y validando el formulario antes de ejecutar la función de guardado."
+    a: 0,
+    exp: "Expo modulariza el hardware: instalas y sumas al peso de la app solo lo que usas."
   },
   {
-    "id": 87,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "¿Qué propiedad de `<TextInput>` debe activarse para ocultar los caracteres ingresados en un campo de contraseña bancaria o PIN de seguridad?",
-    "opts": [
-      "secureTextEntry={true}",
-      "passwordMask=\"asterisk\"",
-      "hideCharactersMode={true}",
-      "privacyProtect=\"enable\""
+    id: 89,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué indica la respuesta de la función useCameraPermissions() cuando 'status' es 'granted'?",
+    opts: [
+      "El usuario aprobó usar la cámara y el componente puede renderizarse libremente",
+      "El dispositivo no posee cámara física",
+      "La batería está demasiado baja para la cámara",
+      "El usuario rechazó permanentemente el uso de cámara"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 4: Estado Global y Contexto (Lic. Ariel Bulacio) • Ref: Clase_4_Estado_Global_UNP_Reescrita.pdf] `secureTextEntry={true}` enmascara los caracteres ingresados sustituyéndolos por puntos o asteriscos nativos en iOS y Android para proteger la privacidad."
+    a: 0,
+    exp: "granted (concedido) es el estado feliz que habilita el renderizado visual de <CameraView>."
   },
   {
-    "id": 88,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "¿Cómo se puede cerrar el teclado virtual cuando el usuario toca cualquier área vacía de la pantalla fuera del formulario?",
-    "opts": [
-      "Envolviendo la pantalla en un `<TouchableWithoutFeedback onPress={Keyboard.dismiss}>`.",
-      "Presionando tres veces la tecla de volumen hacia abajo.",
-      "Apagando la pantalla del dispositivo.",
-      "Ejecutando un bucle infinito en JavaScript."
+    id: 90,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué debe hacer la app si el permiso de cámara fue denegado (status === 'denied')?",
+    opts: [
+      "Mostrar una pantalla con texto explicativo y un botón que sugiera abrir la Configuración del teléfono",
+      "Iniciar la cámara a la fuerza mediante trucos de JavaScript",
+      "Cerrar la aplicación instantáneamente por la fuerza (Crash)",
+      "Llamar repetidamente a solicitar permiso en bucle infinito"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 4: Estado Global y Contexto (Lic. Ariel Bulacio) • Ref: Clase_4_Estado_Global_UNP_Reescrita.pdf] El patrón estándar de UX móvil en React Native consiste en envolver el contenedor en `<TouchableWithoutFeedback onPress={Keyboard.dismiss}>` para ocultar el teclado al tocar fuera."
+    a: 0,
+    exp: "Si está denegado, Android/iOS impiden volver a pedirlo por código; el usuario debe ir a Ajustes manualmente."
   },
   {
-    "id": 89,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "En el análisis de requisitos de Kendall & Kendall, ¿por qué es fundamental validar los datos en el cliente móvil antes de enviarlos a la base de datos?",
-    "opts": [
-      "Para proporcionar retroalimentación inmediata al usuario sin consumir ancho de banda de red ni sobrecargar el servidor con peticiones destinadas a fallar.",
-      "Para evitar que el usuario tenga que usar un teclado en el teléfono.",
-      "Para que los datos se guarden sin necesidad de tener una base de datos.",
-      "Porque los servidores no tienen capacidad de validar datos."
+    id: 91,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué componente de Expo renderiza en pantalla lo que el lente físico de la cámara está capturando?",
+    opts: [
+      "<CameraView>",
+      "<LensPreview>",
+      "<NativeCamera>",
+      "<HardwareLens>"
     ],
-    "a": 0,
-    "exp": "[📚 Bibliografía Unidad 2: Análisis y Diseño de Sistemas - Kendall & Kendall, Cap. 13] La validación en el cliente mejora la experiencia de usuario con feedback instantáneo y protege al backend de tráfico innecesario, aunque el servidor siempre debe re-validar por seguridad."
+    a: 0,
+    exp: "CameraView (antes Camera) abre la previsualización del visor del teléfono integrado en tu interfaz React."
   },
   {
-    "id": 90,
-    "unit": "Unidad 2.3: Formularios & Zod",
-    "q": "Según Cuello & Vittone (Capítulo 5), ¿cómo deben presentarse los mensajes de error de validación en un formulario móvil para respetar la accesibilidad?",
-    "opts": [
-      "Ubicados de forma adyacente y visible junto al campo infractor, con texto descriptivo claro y color contrastante (no depender únicamente del color rojo para daltónicos).",
-      "En una ventana emergente que bloquee la pantalla y obligue a reiniciar la app.",
-      "Ocultos en la consola del desarrollador para no molestar al usuario.",
-      "Enviados por mensaje de texto SMS al teléfono del usuario."
+    id: 92,
+    unit: "Clase 7: Hardware",
+    q: "¿Cómo se alterna entre cámara frontal y trasera?",
+    opts: [
+      "Cambiando el prop facing='front' a facing='back'",
+      "Girando físicamente el teléfono 180 grados",
+      "Es imposible en React Native, solo graba cámara trasera",
+      "Solicitando el permiso 'expo-camera-front'"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2 - Clase 6: Formularios Móviles, Teclados y Validación • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf] La accesibilidad móvil exige mensajes de error contextualmente ubicados debajo del campo con iconos y texto explicativo, evitando ambigüedades."
+    a: 0,
+    exp: "El prop `facing` o `type` (en versiones viejas) reconfigura dinámicamente qué lente activa el SO."
   },
   {
-    "id": 91,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "¿Qué son los permisos en tiempo de ejecución (Runtime Permissions) en sistemas operativos móviles modernos (Android 6+ e iOS)?",
-    "opts": [
-      "Permisos sensibles (cámara, ubicación, micrófono) que la aplicación debe solicitar al usuario mediante un diálogo interactivo en el momento exacto en que se van a utilizar.",
-      "Permisos que se compran en la tienda de aplicaciones al descargar la app.",
-      "Permisos que solo se otorgan a los ingenieros de software de Google y Apple.",
-      "Permisos para instalar juegos en la memoria del teléfono."
+    id: 93,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué paso técnico permite guardar una foto tomada con Expo Camera en la Galería del usuario?",
+    opts: [
+      "Instalar expo-media-library, pedir permiso de almacenamiento, y usar MediaLibrary.saveToLibraryAsync()",
+      "Se guarda sola, no hay que programar nada",
+      "Hacer un fetch POST a 'localhost/galeria'",
+      "Tomar captura de pantalla de la app (Screenshot)"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Permisos en Runtime y Confianza de Usuario • Ref: Clase_6 & Dialnet Cap. 4] Los sistemas operativos móviles exigen solicitar permisos sensibles en tiempo de ejecución de manera interactiva para proteger la privacidad del usuario."
+    a: 0,
+    exp: "La memoria del teléfono es otro entorno seguro distinto a la cámara; MediaLibrary maneja el acceso al rollo de fotos."
   },
   {
-    "id": 92,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "Según el estudio de Dialnet sobre usabilidad móvil, ¿cuál es la mejor práctica antes de solicitar un permiso sensible de hardware?",
-    "opts": [
-      "Mostrar previamente una pantalla o mensaje explicativo que aclare el beneficio directo que obtendrá el usuario al conceder el permiso (solicitud contextualizada).",
-      "Solicitar todos los permisos posibles juntos en la pantalla de bienvenida sin dar explicaciones.",
-      "Acceder al sensor en secreto sin pedir permiso.",
-      "Bloquear el teléfono hasta que el usuario acepte todos los términos."
-    ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Permisos en Runtime y Confianza de Usuario • Ref: Clase_6 & Dialnet Cap. 4] La solicitud contextualizada y transparente de permisos incrementa la confianza del usuario y eleva significativamente la tasa de aceptación frente a peticiones abruptas."
-  },
-  {
-    "id": 93,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "¿Qué módulo oficial de Expo se utiliza para capturar fotos, escanear códigos de barras y grabar video mediante la lente del dispositivo?",
-    "opts": [
-      "expo-camera",
-      "expo-image-processor",
-      "react-native-lens-core",
-      "expo-video-scanner-native"
-    ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] `expo-camera` provee el componente nativo `<CameraView>` para previsualización en vivo, captura de fotografías, control de flash y lectura de códigos QR / códigos de barras."
-  },
-  {
-    "id": 94,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "En el módulo `expo-location`, ¿cuál es la diferencia entre solicitar permisos de primer plano (`requestForegroundPermissionsAsync`) y de segundo plano (`requestBackgroundPermissionsAsync`)?",
-    "opts": [
-      "El de primer plano solo permite leer coordenadas GPS mientras la aplicación está abierta en pantalla; el de segundo plano permite rastreo cuando la app está minimizada o con la pantalla apagada.",
-      "El de primer plano es solo para teléfonos Android y el de segundo plano es solo para iPhones.",
-      "El de primer plano es gratuito y el de segundo plano tiene costo por kilómetro.",
-      "No existe diferencia técnica; son llamadas equivalentes."
-    ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] Por estrictas políticas de privacidad y batería, los sistemas móviles aíslan el acceso a geolocalización en segundo plano, exigiendo justificación exhaustiva en las tiendas de apps."
-  },
-  {
-    "id": 95,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "¿Qué librería de Expo permite al usuario seleccionar imágenes o videos existentes almacenados en la galería de su teléfono móvil?",
-    "opts": [
+    id: 94,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué paquete nativo permite abrir el Selector de Fotos (Galería) sin pedir permisos complejos en nuevas versiones?",
+    opts: [
       "expo-image-picker",
-      "expo-photo-disk",
-      "expo-gallery-explorer",
-      "react-native-album-reader"
+      "expo-gallery-viewer",
+      "react-native-photos",
+      "expo-camera-roll"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] `expo-image-picker` y su método `launchImageLibraryAsync()` abren el selector nativo del sistema permitiendo escoger archivos multimedia con opciones de recorte y compresión."
+    a: 0,
+    exp: "ImagePicker lanza el selector del sistema aislado, donde el usuario elige y devuelve solo las rutas (URIs) elegidas."
   },
   {
-    "id": 96,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "Si un usuario deniega permanentemente un permiso sensible marcando \"No volver a preguntar\", ¿qué debe hacer la aplicación móvil para permitirle recuperarlo?",
-    "opts": [
-      "Detectar el estado denegado y ofrecer un botón que invoque `Linking.openSettings()` para abrir la configuración nativa de la app en los Ajustes del sistema operativo.",
-      "Cerrar la aplicación forzosamente con un error de pantalla azul.",
-      "Reintentar la solicitud en un bucle infinito `while(true)` hasta que acepte.",
-      "Reiniciar el teléfono móvil de manera remota."
+    id: 95,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué devuelve el ImagePicker o la toma de foto cuando capturan una imagen?",
+    opts: [
+      "Un objeto con una URI temporal local (ej. file://ruta_interna_del_cache/foto.jpg)",
+      "Un enlace público de Google Drive con la foto",
+      "Una base de datos SQL entera insertada en memoria",
+      "Un string Base64 infinito que se renderiza con <Text>"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] Una vez denegado permanentemente, el sistema operativo no vuelve a mostrar el diálogo nativo. La app debe guiar al usuario educadamente con `Linking.openSettings()` a los Ajustes del teléfono."
+    a: 0,
+    exp: "Las imágenes se guardan temporalmente en el caché de la app, retornando un path local `file://...` para renderizar en <Image>."
   },
   {
-    "id": 97,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "¿Qué módulo de Expo permite leer datos físicos de movimiento y orientación desde el acelerómetro, giroscopio y magnetómetro del teléfono?",
-    "opts": [
-      "expo-sensors",
-      "expo-motion-detector",
-      "react-native-gyro-hardware",
-      "expo-physics-reader"
+    id: 96,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué paquete usarías para obtener las coordenadas de latitud y longitud del smartphone?",
+    opts: [
+      "expo-location",
+      "expo-maps",
+      "expo-gps-tracker",
+      "react-native-satellites"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] `expo-sensors` expone APIs uniformes para suscribirse en tiempo real a los sensores inerciales del dispositivo (Accelerometer, Gyroscope, Barometer, Magnetometer)."
+    a: 0,
+    exp: "expo-location interactúa con la antena GPS y sensores de red pidiendo antes LocationPermission."
   },
   {
-    "id": 98,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "Según Cuello & Vittone (Capítulo 7), ¿qué valor de diseño aporta utilizar respuestas hápticas (`expo-haptics`) en botones o acciones clave de la app?",
-    "opts": [
-      "Provee confirmación física táctil sutil mediante el motor de vibración del teléfono, reforzando la sensación de respuesta y realismo al tocar elementos virtuales.",
-      "Aumenta el volumen del altavoz del teléfono.",
-      "Permite que el celular flote sobre la mesa.",
-      "Elimina los virus informáticos del sistema operativo."
+    id: 97,
+    unit: "Clase 7: Hardware",
+    q: "¿Por qué obtener la ubicación precisa (getCurrentPositionAsync) tarda o falla si estás dentro de un edificio techado?",
+    opts: [
+      "Porque la señal GPS requiere línea de visión directa a los satélites geoestacionarios en el cielo",
+      "Porque el Wi-Fi interfiere negativamente con la batería",
+      "Porque React Native no soporta ubicaciones en interiores",
+      "Porque el código de JavaScript bloquea el procesador de ubicación"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Integración de Hardware Móvil y Háptica • Ref: Cuello & Vittone Cap. 7] El feedback háptico (`Haptics.impactAsync()`, `notificationAsync()`) estimula el sentido del tacto, confirmando al usuario que la acción fue registrada con éxito."
+    a: 0,
+    exp: "Hardware real: las antenas GPS no traspasan techos macizos. Dentro se suele recurrir a triangulación celular/WiFi (menos precisa)."
   },
   {
-    "id": 99,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "¿Por qué para almacenar tokens de autenticación JWT o credenciales sensibles en React Native se debe utilizar `expo-secure-store` en lugar de `AsyncStorage`?",
-    "opts": [
-      "Porque `expo-secure-store` cifra los datos utilizando el enclave seguro del hardware nativo (Keychain en iOS y Android Keystore), mientras que AsyncStorage almacena texto plano sin cifrar.",
-      "Porque AsyncStorage solo permite almacenar hasta 10 letras por archivo.",
-      "Porque `expo-secure-store` guarda los datos en servidores de la NASA.",
-      "Porque AsyncStorage borra los datos cada vez que se reinicia el teléfono."
+    id: 98,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué herramienta permite generar persistencia simple de clave-valor sin armar una base de datos local pesada (como SQLite)?",
+    opts: [
+      "AsyncStorage",
+      "MongoDB",
+      "Firebase",
+      "MySQL Local"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Sensores Nativos, Hardware y Permisos • Ref: Clase_6_Formularios_CRUD_Firebase_UNP.pdf & Hardware] `AsyncStorage` no es seguro para secretos; en dispositivos rooteados o con acceso al filesystem puede ser leído. `expo-secure-store` utiliza las bóvedas de cifrado por hardware del teléfono."
+    a: 0,
+    exp: "AsyncStorage guarda cadenas (strings) en el teléfono, ideal para IDs de sesión, temas oscuros o carritos chicos."
   },
   {
-    "id": 100,
-    "unit": "Unidad 2.4: Hardware & Permisos",
-    "q": "¿Qué módulo se utiliza en Expo para planificar y emitir notificaciones locales programadas en el dispositivo sin depender de un servidor externo?",
-    "opts": [
-      "expo-notifications y su método `scheduleNotificationAsync()`",
-      "expo-alerts-scheduler",
-      "react-native-push-local",
-      "expo-toast-manager"
+    id: 99,
+    unit: "Clase 7: Hardware",
+    q: "¿Se deben guardar contraseñas puras o tokens bancarios de alta sensibilidad en AsyncStorage?",
+    opts: [
+      "NO, porque no va encriptado. Se debe usar un almacenamiento seguro por hardware como expo-secure-store",
+      "Sí, es totalmente irrastreable e indescifrable",
+      "Solo si el teléfono está en modo seguro",
+      "Solo si se declaran en variables con `const` en vez de `let`"
     ],
-    "a": 0,
-    "exp": "[📄 Apunte Cátedra Unidad 2: Integración de Hardware Móvil y Háptica • Ref: Cuello & Vittone Cap. 7] `expo-notifications` administra notificaciones locales programadas por tiempo o intervalos (`scheduleNotificationAsync`), con control de canales en Android y disparadores basados en fechas."
+    a: 0,
+    exp: "SecureStore usa el chip criptográfico (Keychain en iOS / Keystore en Android) para proteger datos críticos."
+  },
+  {
+    id: 100,
+    unit: "Clase 7: Hardware",
+    q: "¿Qué paso debes seguir para compilar el APK o IPA para instalar en los celulares o subir a tiendas luego de probar en Expo Go?",
+    opts: [
+      "Usar Expo Application Services (EAS Build) o exportar en modo local con prebuild",
+      "Nada, la app en Expo Go se publica automáticamente en Google Play sola",
+      "Mandar un email a Apple con tu archivo App.js adjunto",
+      "Tomar una foto del código y enviarla al servidor de Expo"
+    ],
+    a: 0,
+    exp: "EAS Build compila el código nativo remotamente devolviendo el APK/AAB listo para distribución comercial."
   }
 ];

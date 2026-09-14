@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { MobileAccessModal, isMobileUnlocked, lockMobileCourse } from './MobileAccessGate';
-import { UtnAccessModal, isUtnUnlocked, lockUtn } from './UtnAccessGate';
 
 const NavBar = () => {
     const { theme, toggleTheme } = useTheme();
@@ -13,18 +12,12 @@ const NavBar = () => {
     const [openSubmenu, setOpenSubmenu] = useState(null); // 'utn', 'moviles', 'academic'
     const [accessModalOpen, setAccessModalOpen] = useState(false);
     const [isMobileCourseUnlocked, setIsMobileCourseUnlocked] = useState(isMobileUnlocked());
-    const [utnModalOpen, setUtnModalOpen] = useState(false);
-    const [isUtnCourseUnlocked, setIsUtnCourseUnlocked] = useState(isUtnUnlocked());
-    const [openUtnSection, setOpenUtnSection] = useState(null); // Accordion in mobile view
 
     useEffect(() => {
         const updateMobile = () => setIsMobileCourseUnlocked(isMobileUnlocked());
-        const updateUtn = () => setIsUtnCourseUnlocked(isUtnUnlocked());
         window.addEventListener('mobile_course_unlock_changed', updateMobile);
-        window.addEventListener('utn_access_unlock_changed', updateUtn);
         return () => {
             window.removeEventListener('mobile_course_unlock_changed', updateMobile);
-            window.removeEventListener('utn_access_unlock_changed', updateUtn);
         };
     }, []);
 
@@ -114,7 +107,7 @@ const NavBar = () => {
                     Inicio
                 </Link>
 
-                {/* UTN ELECTRÓNICA (PROTEGIDO CON PALABRA CLAVE UTNSANMIGUEL) */}
+                {/* UTN ELECTRÓNICA */}
                 <div className={`dropdown dropdown-mega ${openSubmenu === 'utn' ? 'active' : ''}`}>
                     <div
                         className="dropdown-trigger"
@@ -123,275 +116,201 @@ const NavBar = () => {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '6px',
-                            background: isUtnCourseUnlocked ? 'rgba(0, 242, 255, 0.12)' : 'rgba(239, 68, 68, 0.08)',
-                            color: isUtnCourseUnlocked ? 'var(--primary-color)' : '#ef4444',
-                            border: `1px solid ${isUtnCourseUnlocked ? 'rgba(0, 242, 255, 0.35)' : 'rgba(239, 68, 68, 0.25)'}`,
+                            background: 'rgba(0, 242, 255, 0.05)',
+                            color: 'var(--primary-color)',
+                            border: '1px solid rgba(0, 242, 255, 0.2)',
                             fontWeight: '700'
                         }}
-                        onClick={() => {
-                            if (!isUtnCourseUnlocked) {
-                                setUtnModalOpen(true);
-                            } else {
-                                toggleSubmenu('utn');
-                            }
-                        }}
+                        onClick={() => toggleSubmenu('utn')}
                     >
                         <span>⚡ UTN Electrónica</span>
-                        <span style={{ fontSize: '11px' }}>{isUtnCourseUnlocked ? '🔓' : '🔒'}</span>
                         <span className="arrow">▼</span>
                     </div>
 
-                    {!isUtnCourseUnlocked ? (
-                        <div className="dropdown-menu" style={{ minWidth: '280px', padding: '1.25rem', textAlign: 'center' }}>
-                            <div style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>🔒</div>
-                            <div style={{ fontWeight: 'bold', color: '#fff', fontSize: '1rem', marginBottom: '0.3rem' }}>
-                                UTN Electrónica
-                            </div>
-                            <p style={{ color: '#94a3b8', fontSize: '0.82rem', marginBottom: '1rem', lineHeight: 1.4 }}>
-                                Contenido técnico y de taller protegido por palabra clave institucional.
-                            </p>
-                            <button
-                                onClick={() => {
-                                    closeAll();
-                                    setUtnModalOpen(true);
-                                }}
-                                style={{
-                                    width: '100%',
-                                    padding: '10px 14px',
-                                    borderRadius: '10px',
-                                    background: 'linear-gradient(135deg, #0284c7, #00f2ff)',
-                                    color: '#020617',
-                                    border: 'none',
-                                    fontWeight: '800',
-                                    fontSize: '13px',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '8px',
-                                    boxShadow: '0 4px 15px rgba(0, 242, 255, 0.3)'
-                                }}
-                            >
-                                🔑 Desbloquear Acceso
-                            </button>
+                    <div className="dropdown-menu utn-mega-menu">
+                        {/* Mega-menu Header */}
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '0.6rem 0.75rem',
+                            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                            marginBottom: '0.75rem'
+                        }}>
+                            <span style={{ fontWeight: 800, color: 'var(--primary-color)', fontSize: '1.05rem', letterSpacing: '0.5px' }}>
+                                ⚡ UTN San Miguel · Campus Técnico
+                            </span>
                         </div>
-                    ) : (
-                        <div className="dropdown-menu utn-mega-menu">
-                            {/* Mega-menu Header */}
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                padding: '0.6rem 0.75rem',
-                                borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                                marginBottom: '0.75rem'
-                            }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <span style={{ fontWeight: 800, color: 'var(--primary-color)', fontSize: '0.95rem' }}>
-                                        ⚡ UTN San Miguel · Campus Técnico
-                                    </span>
-                                    <span style={{
-                                        fontSize: '10px',
-                                        background: 'rgba(16, 185, 129, 0.15)',
-                                        color: '#10b981',
-                                        padding: '2px 8px',
-                                        borderRadius: '6px',
-                                        fontWeight: '700'
-                                    }}>
-                                        Desbloqueado ✓
-                                    </span>
-                                </div>
-                                <button
-                                    onClick={() => {
-                                        lockUtn();
-                                        closeAll();
-                                    }}
+
+                        {/* Mega-menu Grid */}
+                        <div className="utn-mega-grid">
+                            {/* COLUMNA 1: Electricidad y Electrónica */}
+                            <div className="utn-mega-col">
+                                <div className="utn-col-title">⚡ Electricidad & Electrónica</div>
+                                
+                                <Link
+                                    to="/electricidad-1ro"
                                     style={{
-                                        background: 'rgba(239, 68, 68, 0.1)',
-                                        color: '#ef4444',
-                                        border: '1px solid rgba(239, 68, 68, 0.25)',
-                                        padding: '4px 10px',
-                                        borderRadius: '6px',
-                                        fontSize: '11px',
-                                        fontWeight: '600',
-                                        cursor: 'pointer'
+                                        ...linkStyle,
+                                        color: '#00f2ff',
+                                        fontWeight: '800',
+                                        background: 'rgba(0, 242, 255, 0.08)',
+                                        border: '1px solid rgba(0, 242, 255, 0.3)',
+                                        borderRadius: '8px',
+                                        marginBottom: '0.5rem'
                                     }}
-                                    title="Bloquear acceso a UTN Electrónica"
+                                    onClick={closeAll}
                                 >
-                                    🔒 Bloquear
-                                </button>
+                                    ⚡ Curso Electricidad 1° (12 Semanas)
+                                </Link>
+
+                                <div className="utn-sub-header">Fundamentos</div>
+                                <Link to="/ley-ohm" style={linkStyle} onClick={closeAll}>Ley de Ohm</Link>
+                                <Link to="/kirchhoff" style={linkStyle} onClick={closeAll}>Leyes de Kirchhoff</Link>
+                                <Link to="/potencia" style={linkStyle} onClick={closeAll}>Potencia Eléctrica</Link>
+                                <Link to="/electricidad-basica" style={linkStyle} onClick={closeAll}>Electricidad Básica</Link>
+                                <Link to="/circuitos-domiciliarios" style={linkStyle} onClick={closeAll}>Instal. Domiciliarias</Link>
+
+                                <div className="utn-sub-header">Electrónica Analógica</div>
+                                <Link to="/simbologia-electronica" style={linkStyle} onClick={closeAll}>Simbología Eléctrica/Electrónica</Link>
+                                <Link to="/codigos-resistencias" style={linkStyle} onClick={closeAll}>Códigos de Resistencias</Link>
+                                <Link to="/resistencias-serie-paralelo" style={linkStyle} onClick={closeAll}>Serie / Paralelo</Link>
+                                <Link to="/teorema-thevenin" style={linkStyle} onClick={closeAll}>T. de Thévenin</Link>
+                                <Link to="/teorema-norton" style={linkStyle} onClick={closeAll}>T. de Norton</Link>
+                                <Link to="/componentes-electronica" style={linkStyle} onClick={closeAll}>Componentes y Lógica</Link>
+
+                                <div className="utn-sub-header">Electrónica Digital</div>
+                                <Link to="/electronica-digital/numeracion" style={linkStyle} onClick={closeAll}>1. Sistemas de Numeración</Link>
+                                <Link to="/electronica-digital/codigos-algebra" style={linkStyle} onClick={closeAll}>2. Códigos y Álgebra Boole</Link>
+                                <Link to="/electronica-digital/compuertas" style={linkStyle} onClick={closeAll}>3. Compuertas Lógicas</Link>
+                                <Link to="/electronica-digital/formas-canonicas" style={linkStyle} onClick={closeAll}>4. Formas Canónicas</Link>
+                                <Link to="/electronica-digital/karnaugh" style={linkStyle} onClick={closeAll}>5. Mapas de Karnaugh</Link>
+                                <Link to="/electronica-digital/bloques-funcionales" style={linkStyle} onClick={closeAll}>6. MUX, DEMUX</Link>
+                                <Link to="/electronica-digital/bloques-aritmeticos" style={linkStyle} onClick={closeAll}>7. Sumadores</Link>
+                                <Link to="/electronica-digital/secuenciales" style={linkStyle} onClick={closeAll}>8. Secuenciales</Link>
+                                <Link to="/electronica-digital/proyecto-integrador" style={linkStyle} onClick={closeAll}>9. Proyecto Integrador</Link>
+
+                                <div className="utn-sub-header">Práctica y Laboratorio</div>
+                                <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
+                                <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
+                                <Link to="/soldadura" style={linkStyle} onClick={closeAll}>🔥 Soldadura y Desoldado</Link>
+                                <Link to="/circuitos-impresos" style={linkStyle} onClick={closeAll}>🔌 PCB</Link>
+                                <Link to="/simulador-circuitos" style={linkStyle} onClick={closeAll}>🧪 Simulador de Circuitos</Link>
+                                <Link to="/energias-renovables" style={linkStyle} onClick={closeAll}>Energías Renovables</Link>
                             </div>
 
-                            {/* Mega-menu Grid */}
-                            <div className="utn-mega-grid">
-                                {/* COLUMNA 1: Electricidad y Electrónica */}
-                                <div className="utn-mega-col">
-                                    <div className="utn-col-title">⚡ Electricidad & Electrónica</div>
-                                    
-                                    <Link
-                                        to="/electricidad-1ro"
-                                        style={{
-                                            ...linkStyle,
-                                            color: '#00f2ff',
-                                            fontWeight: '800',
-                                            background: 'rgba(0, 242, 255, 0.08)',
-                                            border: '1px solid rgba(0, 242, 255, 0.3)',
-                                            borderRadius: '8px',
-                                            marginBottom: '0.5rem'
-                                        }}
-                                        onClick={closeAll}
-                                    >
-                                        ⚡ Curso Electricidad 1° (12 Semanas)
-                                    </Link>
+                            {/* COLUMNA 2: Robótica + Taller */}
+                            <div className="utn-mega-col">
+                                <div className="utn-col-title">🤖 Robótica & Programación</div>
+                                <div className="utn-sub-header">Arduino & C++</div>
+                                <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>
+                                <Link to="/cpp-basico" style={linkStyle} onClick={closeAll}>C/C++ Básico</Link>
+                                <Link to="/pwm" style={linkStyle} onClick={closeAll}>Señales PWM</Link>
+                                <Link to="/sensores" style={linkStyle} onClick={closeAll}>Sensores</Link>
+                                <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Configuración Serial</Link>
 
-                                    <div className="utn-sub-header">Fundamentos</div>
-                                    <Link to="/ley-ohm" style={linkStyle} onClick={closeAll}>Ley de Ohm</Link>
-                                    <Link to="/kirchhoff" style={linkStyle} onClick={closeAll}>Leyes de Kirchhoff</Link>
-                                    <Link to="/potencia" style={linkStyle} onClick={closeAll}>Potencia Eléctrica</Link>
-                                    <Link to="/electricidad-basica" style={linkStyle} onClick={closeAll}>Electricidad Básica</Link>
-                                    <Link to="/circuitos-domiciliarios" style={linkStyle} onClick={closeAll}>Instal. Domiciliarias</Link>
+                                <div className="utn-sub-header">ESP32 & IoT</div>
+                                <Link to="/arduino/esp32-sim" style={linkStyle} onClick={closeAll}>🤖 Simulador ESP32</Link>
+                                <Link to="/arduino/iot-dashboards" style={linkStyle} onClick={closeAll}>📊 Dashboards IoT</Link>
+                                <Link to="/arduino/web-designer" style={linkStyle} onClick={closeAll}>🌐 Web Designer</Link>
 
-                                    <div className="utn-sub-header">Electrónica Analógica</div>
-                                    <Link to="/simbologia-electronica" style={linkStyle} onClick={closeAll}>Simbología Eléctrica/Electrónica</Link>
-                                    <Link to="/codigos-resistencias" style={linkStyle} onClick={closeAll}>Códigos de Resistencias</Link>
-                                    <Link to="/resistencias-serie-paralelo" style={linkStyle} onClick={closeAll}>Serie / Paralelo</Link>
-                                    <Link to="/teorema-thevenin" style={linkStyle} onClick={closeAll}>T. de Thévenin</Link>
-                                    <Link to="/teorema-norton" style={linkStyle} onClick={closeAll}>T. de Norton</Link>
-                                    <Link to="/componentes-electronica" style={linkStyle} onClick={closeAll}>Componentes y Lógica</Link>
+                                <div className="utn-sub-header">Proyectos Prácticos</div>
+                                <Link to="/taller-robotica" style={linkStyle} onClick={closeAll}>Taller de Robótica</Link>
+                                <Link to="/robot-evita-obstaculos" style={linkStyle} onClick={closeAll}>Robot Evasor</Link>
+                                <Link to="/scratch" style={linkStyle} onClick={closeAll}>Programación Scratch 😺</Link>
 
-                                    <div className="utn-sub-header">Electrónica Digital</div>
-                                    <Link to="/electronica-digital/numeracion" style={linkStyle} onClick={closeAll}>1. Sistemas de Numeración</Link>
-                                    <Link to="/electronica-digital/codigos-algebra" style={linkStyle} onClick={closeAll}>2. Códigos y Álgebra Boole</Link>
-                                    <Link to="/electronica-digital/compuertas" style={linkStyle} onClick={closeAll}>3. Compuertas Lógicas</Link>
-                                    <Link to="/electronica-digital/formas-canonicas" style={linkStyle} onClick={closeAll}>4. Formas Canónicas</Link>
-                                    <Link to="/electronica-digital/karnaugh" style={linkStyle} onClick={closeAll}>5. Mapas de Karnaugh</Link>
-                                    <Link to="/electronica-digital/bloques-funcionales" style={linkStyle} onClick={closeAll}>6. MUX, DEMUX</Link>
-                                    <Link to="/electronica-digital/bloques-aritmeticos" style={linkStyle} onClick={closeAll}>7. Sumadores</Link>
-                                    <Link to="/electronica-digital/secuenciales" style={linkStyle} onClick={closeAll}>8. Secuenciales</Link>
-                                    <Link to="/electronica-digital/proyecto-integrador" style={linkStyle} onClick={closeAll}>9. Proyecto Integrador</Link>
+                                <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🛠️ Taller y Mecánica</div>
+                                <div className="utn-sub-header">Metrología</div>
+                                <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre Pie de Rey</Link>
+                                <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
+                                <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro de Carpintero</Link>
 
-                                    <div className="utn-sub-header">Práctica y Laboratorio</div>
-                                    <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
-                                    <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
-                                    <Link to="/soldadura" style={linkStyle} onClick={closeAll}>🔥 Soldadura y Desoldado</Link>
-                                    <Link to="/circuitos-impresos" style={linkStyle} onClick={closeAll}>🔌 PCB</Link>
-                                    <Link to="/simulador-circuitos" style={linkStyle} onClick={closeAll}>🧪 Simulador de Circuitos</Link>
-                                    <Link to="/energias-renovables" style={linkStyle} onClick={closeAll}>Energías Renovables</Link>
-                                </div>
+                                <div className="utn-sub-header">Taller y Oficios</div>
+                                <Link to="/seguridad-epp" style={linkStyle} onClick={closeAll}>Seguridad y EPP</Link>
+                                <Link to="/herramientas-electricidad" style={linkStyle} onClick={closeAll}>Herramientas Electricidad</Link>
+                                <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Herramientas Electrónica</Link>
+                                <Link to="/herramientas-carpinteria" style={linkStyle} onClick={closeAll}>Carpintería</Link>
+                                <Link to="/metal-mecanica" style={linkStyle} onClick={closeAll}>Metal-Mecánica</Link>
 
-                                {/* COLUMNA 2: Robótica + Taller */}
-                                <div className="utn-mega-col">
-                                    <div className="utn-col-title">🤖 Robótica & Programación</div>
-                                    <div className="utn-sub-header">Arduino & C++</div>
-                                    <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>
-                                    <Link to="/cpp-basico" style={linkStyle} onClick={closeAll}>C/C++ Básico</Link>
-                                    <Link to="/pwm" style={linkStyle} onClick={closeAll}>Señales PWM</Link>
-                                    <Link to="/sensores" style={linkStyle} onClick={closeAll}>Sensores</Link>
-                                    <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Configuración Serial</Link>
+                                <div className="utn-sub-header">Proyectos</div>
+                                <Link to="/proyectos-reciclables" style={linkStyle} onClick={closeAll}>Ecobots Reciclables</Link>
+                                <Link to="/proyectos-integradores" style={linkStyle} onClick={closeAll}>Integradores 6° Año</Link>
+                            </div>
 
-                                    <div className="utn-sub-header">ESP32 & IoT</div>
-                                    <Link to="/arduino/esp32-sim" style={linkStyle} onClick={closeAll}>🤖 Simulador ESP32</Link>
-                                    <Link to="/arduino/iot-dashboards" style={linkStyle} onClick={closeAll}>📊 Dashboards IoT</Link>
-                                    <Link to="/arduino/web-designer" style={linkStyle} onClick={closeAll}>🌐 Web Designer</Link>
+                            {/* COLUMNA 3: Diseño, Ciencias e Institución */}
+                            <div className="utn-mega-col">
+                                <div className="utn-col-title">📐 Diseño & Dibujo Técnico</div>
+                                <div className="utn-sub-header">Fundamentos</div>
+                                <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
+                                <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>Proyecciones Ortogonales</Link>
+                                <Link to="/dibujo-tecnico/axonometrica" style={linkStyle} onClick={closeAll}>Axonometrías (ISO)</Link>
+                                <Link to="/dibujo-2do/normalizacion" style={linkStyle} onClick={closeAll}>Normalización Avanzada</Link>
 
-                                    <div className="utn-sub-header">Proyectos Prácticos</div>
-                                    <Link to="/taller-robotica" style={linkStyle} onClick={closeAll}>Taller de Robótica</Link>
-                                    <Link to="/robot-evita-obstaculos" style={linkStyle} onClick={closeAll}>Robot Evasor</Link>
-                                    <Link to="/scratch" style={linkStyle} onClick={closeAll}>Programación Scratch 😺</Link>
+                                <div className="utn-sub-header">Geometría & 3D</div>
+                                <Link to="/dibujo-tecnico/construcciones-geometricas" style={linkStyle} onClick={closeAll}>Construcciones Geom.</Link>
+                                <Link to="/dibujo-2do/poligonos" style={linkStyle} onClick={closeAll}>Polígonos Regulares</Link>
+                                <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>Tangencias</Link>
+                                <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>Transformaciones</Link>
+                                <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>Curvas Cónicas</Link>
+                                <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>Curvas Técnicas</Link>
+                                <Link to="/ar-arquitectura" style={linkStyle} onClick={closeAll}>🧊 Arquitectura 3D</Link>
+                                <a
+                                    href="https://notebooklm.google.com/notebook/8d04d621-ac7b-43b2-8d62-3a0b5f88c961/artifact/1eed6dc1-0b38-4295-8d4d-0b87bead32d9?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_2&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_2_"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={linkStyle}
+                                    onClick={closeAll}
+                                    title="Tutorial NotebookLM"
+                                >
+                                    📘 Tutorial NotebookLM
+                                </a>
 
-                                    <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🛠️ Taller y Mecánica</div>
-                                    <div className="utn-sub-header">Metrología</div>
-                                    <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre Pie de Rey</Link>
-                                    <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
-                                    <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro de Carpintero</Link>
+                                <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🖥️ Ciencias & Computación</div>
+                                <div className="utn-sub-header">Matemática y Física</div>
+                                <Link to="/conversion-unidades" style={linkStyle} onClick={closeAll}>Conversión Unidades</Link>
+                                <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Teorema Pitágoras</Link>
+                                <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
+                                <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática (MRU/MRUV)</Link>
 
-                                    <div className="utn-sub-header">Taller y Oficios</div>
-                                    <Link to="/seguridad-epp" style={linkStyle} onClick={closeAll}>Seguridad y EPP</Link>
-                                    <Link to="/herramientas-electricidad" style={linkStyle} onClick={closeAll}>Herramientas Electricidad</Link>
-                                    <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Herramientas Electrónica</Link>
-                                    <Link to="/herramientas-carpinteria" style={linkStyle} onClick={closeAll}>Carpintería</Link>
-                                    <Link to="/metal-mecanica" style={linkStyle} onClick={closeAll}>Metal-Mecánica</Link>
+                                <div className="utn-sub-header">Informática & Sistemas</div>
+                                <Link to="/generaciones-computadoras" style={linkStyle} onClick={closeAll}>🎮 Generaciones de Computadoras</Link>
+                                <Link to="/arquitectura-von-neumann" style={linkStyle} onClick={closeAll}>⚙️ Arquitectura Von Neumann</Link>
+                                <Link to="/arquitectura-harvard" style={linkStyle} onClick={closeAll}>🔬 Arquitectura Harvard</Link>
+                                <Link to="/cpu-simulator" style={linkStyle} onClick={closeAll}>🧠 La CPU: Motor de Ejecucion</Link>
+                                <Link to="/memoria" style={linkStyle} onClick={closeAll}>💾 Jerarquia de Memoria</Link>
+                                <Link to="/arranque" style={linkStyle} onClick={closeAll}>🔌 Hardware y Boot</Link>
+                                <Link to="/ar-ensamblaje" style={linkStyle} onClick={closeAll}>📷 Ensamblaje PC (RA)</Link>
+                                <Link to="/sociedad-software" style={linkStyle} onClick={closeAll}>🌐 Sociedad y Software</Link>
+                                <Link to="/cultura-digital" style={linkStyle} onClick={closeAll}>📱 Cultura Digital</Link>
+                                <Link to="/representacion-datos" style={linkStyle} onClick={closeAll}>🔢 Representacion de Datos</Link>
+                                <Link to="/logica-digital" style={linkStyle} onClick={closeAll}>🔲 Logica Digital</Link>
+                                <Link to="/sistema-operativo" style={linkStyle} onClick={closeAll}>🖥️ Sistema Operativo</Link>
+                                <Link to="/seguridad-informatica" style={linkStyle} onClick={closeAll}>🔒 Seguridad Informatica</Link>
 
-                                    <div className="utn-sub-header">Proyectos</div>
-                                    <Link to="/proyectos-reciclables" style={linkStyle} onClick={closeAll}>Ecobots Reciclables</Link>
-                                    <Link to="/proyectos-integradores" style={linkStyle} onClick={closeAll}>Integradores 6° Año</Link>
-                                </div>
-
-                                {/* COLUMNA 3: Diseño, Ciencias e Institución */}
-                                <div className="utn-mega-col">
-                                    <div className="utn-col-title">📐 Diseño & Dibujo Técnico</div>
-                                    <div className="utn-sub-header">Fundamentos</div>
-                                    <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
-                                    <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>Proyecciones Ortogonales</Link>
-                                    <Link to="/dibujo-tecnico/axonometrica" style={linkStyle} onClick={closeAll}>Axonometrías (ISO)</Link>
-                                    <Link to="/dibujo-2do/normalizacion" style={linkStyle} onClick={closeAll}>Normalización Avanzada</Link>
-
-                                    <div className="utn-sub-header">Geometría & 3D</div>
-                                    <Link to="/dibujo-tecnico/construcciones-geometricas" style={linkStyle} onClick={closeAll}>Construcciones Geom.</Link>
-                                    <Link to="/dibujo-2do/poligonos" style={linkStyle} onClick={closeAll}>Polígonos Regulares</Link>
-                                    <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>Tangencias</Link>
-                                    <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>Transformaciones</Link>
-                                    <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>Curvas Cónicas</Link>
-                                    <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>Curvas Técnicas</Link>
-                                    <Link to="/ar-arquitectura" style={linkStyle} onClick={closeAll}>🧊 Arquitectura 3D</Link>
-                                    <a
-                                        href="https://notebooklm.google.com/notebook/8d04d621-ac7b-43b2-8d62-3a0b5f88c961/artifact/1eed6dc1-0b38-4295-8d4d-0b87bead32d9?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_2&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_2_"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        style={linkStyle}
-                                        onClick={closeAll}
-                                        title="Tutorial NotebookLM"
-                                    >
-                                        📘 Tutorial NotebookLM
-                                    </a>
-
-                                    <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🖥️ Ciencias & Computación</div>
-                                    <div className="utn-sub-header">Matemática y Física</div>
-                                    <Link to="/conversion-unidades" style={linkStyle} onClick={closeAll}>Conversión Unidades</Link>
-                                    <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Teorema Pitágoras</Link>
-                                    <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
-                                    <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática (MRU/MRUV)</Link>
-
-                                    <div className="utn-sub-header">Informática & Sistemas</div>
-                                    <Link to="/generaciones-computadoras" style={linkStyle} onClick={closeAll}>🎮 Generaciones de Computadoras</Link>
-                                    <Link to="/arquitectura-von-neumann" style={linkStyle} onClick={closeAll}>⚙️ Arquitectura Von Neumann</Link>
-                                    <Link to="/arquitectura-harvard" style={linkStyle} onClick={closeAll}>🔬 Arquitectura Harvard</Link>
-                                    <Link to="/cpu-simulator" style={linkStyle} onClick={closeAll}>🧠 La CPU: Motor de Ejecucion</Link>
-                                    <Link to="/memoria" style={linkStyle} onClick={closeAll}>💾 Jerarquia de Memoria</Link>
-                                    <Link to="/arranque" style={linkStyle} onClick={closeAll}>🔌 Hardware y Boot</Link>
-                                    <Link to="/ar-ensamblaje" style={linkStyle} onClick={closeAll}>📷 Ensamblaje PC (RA)</Link>
-                                    <Link to="/sociedad-software" style={linkStyle} onClick={closeAll}>🌐 Sociedad y Software</Link>
-                                    <Link to="/cultura-digital" style={linkStyle} onClick={closeAll}>📱 Cultura Digital</Link>
-                                    <Link to="/representacion-datos" style={linkStyle} onClick={closeAll}>🔢 Representacion de Datos</Link>
-                                    <Link to="/logica-digital" style={linkStyle} onClick={closeAll}>🔲 Logica Digital</Link>
-                                    <Link to="/sistema-operativo" style={linkStyle} onClick={closeAll}>🖥️ Sistema Operativo</Link>
-                                    <Link to="/seguridad-informatica" style={linkStyle} onClick={closeAll}>🔒 Seguridad Informatica</Link>
-
-                                    <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🏫 Institución</div>
-                                    <a
-                                        href="https://drive.google.com/drive/folders/1B2vp3KrPw-nD7JQKJL1gETrOt_ZWNmqp?usp=sharing"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        style={linkStyle}
-                                        onClick={closeAll}
-                                        title="Carpeta de Google Drive UTN San Miguel"
-                                    >
-                                        📁 Carpeta Drive UTN
-                                    </a>
-                                    <a
-                                        href="https://docs.google.com/spreadsheets/d/1OjScpndyRb-eljHQCWzH7S9P9JgMg8BofPhRYcBXGl4/edit?usp=sharing"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        style={linkStyle}
-                                        onClick={closeAll}
-                                        title="Planilla institucional"
-                                    >
-                                        📊 Planilla institucional Técnica 1
-                                    </a>
-                                </div>
+                                <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🏫 Institución</div>
+                                <a
+                                    href="https://drive.google.com/drive/folders/1B2vp3KrPw-nD7JQKJL1gETrOt_ZWNmqp?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={linkStyle}
+                                    onClick={closeAll}
+                                    title="Carpeta de Google Drive UTN San Miguel"
+                                >
+                                    📁 Carpeta Drive UTN
+                                </a>
+                                <a
+                                    href="https://docs.google.com/spreadsheets/d/1OjScpndyRb-eljHQCWzH7S9P9JgMg8BofPhRYcBXGl4/edit?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={linkStyle}
+                                    onClick={closeAll}
+                                    title="Planilla institucional"
+                                >
+                                    📊 Planilla institucional Técnica 1
+                                </a>
                             </div>
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 {/* 6. APLICACIONES MÓVILES (PROTEGIDO CON PALABRA CLAVE) */}
@@ -796,11 +715,6 @@ const NavBar = () => {
                 onUnlocked={() => setIsMobileCourseUnlocked(true)}
             />
 
-            <UtnAccessModal
-                isOpen={utnModalOpen}
-                onClose={() => setUtnModalOpen(false)}
-                onUnlocked={() => setIsUtnCourseUnlocked(true)}
-            />
         </nav>
     );
 };
