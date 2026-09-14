@@ -884,11 +884,13 @@ const AplicacionesMoviles = ({ defaultTab }) => {
                                                 {c.name}
                                             </h3>
 
-                                            <ul style={{ margin: '0 0 1rem 0', paddingLeft: '1.2rem', color: 'var(--text-dim)', fontSize: '0.85rem', lineHeight: 1.6 }}>
-                                                {c.topics.map((t, idx) => (
-                                                    <li key={idx} style={{ marginBottom: '4px' }}>{t}</li>
-                                                ))}
-                                            </ul>
+                                            {c.topics && c.topics.length > 0 && (
+                                                <ul style={{ margin: '0 0 1rem 0', paddingLeft: '1.2rem', color: 'var(--text-dim)', fontSize: '0.85rem', lineHeight: 1.6 }}>
+                                                    {c.topics.map((t, idx) => (
+                                                        <li key={idx} style={{ marginBottom: '4px' }}>{t}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
 
                                             {/* Materiales y Presentaciones Google Drive */}
                                             {c.materials && c.materials.length > 0 && (
