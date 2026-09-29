@@ -27,36 +27,38 @@ const NavBar = () => {
         alignItems: 'center',
         flexWrap: 'wrap',
         gap: '0.5rem',
-        padding: '0.5rem 1rem',
+        padding: '0 1.25rem',
+        height: '58px',
         background: 'var(--nav-bg)',
-        backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid var(--glass-border)',
+        borderBottom: '1px solid var(--nav-border)',
         position: 'sticky',
         top: 0,
         zIndex: 100,
         transition: 'background-color 0.3s ease',
         maxWidth: '100vw',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        boxShadow: '0 1px 4px rgba(15,23,42,0.06)'
     };
 
     const linkStyle = {
         color: 'var(--text-dim)',
         textDecoration: 'none',
         fontWeight: '500',
-        transition: 'all 0.3s ease',
-        padding: '0.6rem 0.75rem',
-        borderRadius: '8px',
+        fontSize: '0.875rem',
+        transition: 'all 0.2s ease',
+        padding: '0.5rem 0.7rem',
+        borderRadius: '7px',
         display: 'flex',
         alignItems: 'center',
-        minHeight: '44px',
+        minHeight: '36px',
         cursor: 'pointer',
         whiteSpace: 'nowrap'
     };
 
     const activeStyle = {
         color: 'var(--primary-color)',
-        background: 'rgba(0, 242, 255, 0.1)',
-        border: '1px solid rgba(0, 242, 255, 0.2)'
+        background: 'var(--brand-blue-light)',
+        fontWeight: '600'
     };
 
     const toggleSubmenu = (name) => {
@@ -71,13 +73,13 @@ const NavBar = () => {
     return (
         <nav style={navStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <Link to="/" style={{ textDecoration: 'none', color: 'var(--text-main)', fontWeight: 'bold', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }} onClick={closeAll}>
+                <Link to="/" style={{ textDecoration: 'none', color: 'var(--text-main)', fontWeight: '700', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }} onClick={closeAll}>
                     <img
                         src={`${import.meta.env.BASE_URL || '/'}logo_simutec.png`.replace('//', '/')}
                         alt="Logo SimuTec"
-                        style={{ width: '35px', height: '35px', borderRadius: '4px', objectFit: 'contain', background: 'transparent', border: '1px solid var(--primary-color)' }}
+                        style={{ width: '32px', height: '32px', borderRadius: '6px', objectFit: 'contain', background: 'transparent' }}
                     />
-                    <span className="brand-text">simutec.com.ar</span>
+                    <span className="brand-text" style={{ color: 'var(--primary-color)', fontWeight: '800', letterSpacing: '-0.3px' }}>simutec.com.ar</span>
                 </Link>
             </div>
 
@@ -115,10 +117,10 @@ const NavBar = () => {
                             ...linkStyle,
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '6px',
-                            background: 'rgba(0, 242, 255, 0.05)',
+                            gap: '5px',
+                            background: 'var(--brand-blue-light)',
                             color: 'var(--primary-color)',
-                            border: '1px solid rgba(0, 242, 255, 0.2)',
+                            border: '1px solid rgba(26,86,219,0.2)',
                             fontWeight: '700'
                         }}
                         onClick={() => toggleSubmenu('utn')}
@@ -133,11 +135,11 @@ const NavBar = () => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '0.6rem 0.75rem',
-                            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                            padding: '0.5rem 0.75rem',
+                            borderBottom: '1px solid var(--border-color)',
                             marginBottom: '0.75rem'
                         }}>
-                            <span style={{ fontWeight: 800, color: 'var(--primary-color)', fontSize: '1.05rem', letterSpacing: '0.5px' }}>
+                            <span style={{ fontWeight: 800, color: 'var(--primary-color)', fontSize: '1rem', letterSpacing: '0.3px' }}>
                                 ⚡ UTN San Miguel · Campus Técnico
                             </span>
                         </div>
@@ -152,10 +154,10 @@ const NavBar = () => {
                                     to="/electricidad-1ro"
                                     style={{
                                         ...linkStyle,
-                                        color: '#00f2ff',
-                                        fontWeight: '800',
-                                        background: 'rgba(0, 242, 255, 0.08)',
-                                        border: '1px solid rgba(0, 242, 255, 0.3)',
+                                        color: 'var(--primary-color)',
+                                        fontWeight: '700',
+                                        background: 'var(--brand-blue-light)',
+                                        border: '1px solid rgba(26,86,219,0.25)',
                                         borderRadius: '8px',
                                         marginBottom: '0.5rem'
                                     }}
@@ -322,9 +324,9 @@ const NavBar = () => {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '6px',
-                            background: isMobileCourseUnlocked ? 'rgba(2, 132, 199, 0.12)' : 'rgba(239, 68, 68, 0.08)',
-                            color: isMobileCourseUnlocked ? '#0284c7' : '#ef4444',
-                            border: `1px solid ${isMobileCourseUnlocked ? 'rgba(2, 132, 199, 0.3)' : 'rgba(239, 68, 68, 0.25)'}`,
+                            background: isMobileCourseUnlocked ? 'var(--brand-blue-light)' : 'rgba(220,38,38,0.06)',
+                            color: isMobileCourseUnlocked ? 'var(--primary-color)' : '#dc2626',
+                            border: `1px solid ${isMobileCourseUnlocked ? 'rgba(26,86,219,0.2)' : 'rgba(220,38,38,0.2)'}`,
                             fontWeight: '700'
                         }}
                         onClick={() => toggleSubmenu('moviles')}
@@ -334,9 +336,9 @@ const NavBar = () => {
                         <span className="arrow">▼</span>
                     </div>
                     <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: 'bold', color: 'var(--primary-color)', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ padding: '0.5rem 1rem', fontWeight: '700', color: 'var(--primary-color)', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.875rem' }}>
                             <span>React Native & Expo</span>
-                            <span style={{ fontSize: '10px', background: isMobileCourseUnlocked ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)', color: isMobileCourseUnlocked ? '#10b981' : '#ef4444', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
+                            <span style={{ fontSize: '0.7rem', background: isMobileCourseUnlocked ? 'rgba(22,163,74,0.1)' : 'rgba(220,38,38,0.08)', color: isMobileCourseUnlocked ? '#16a34a' : '#dc2626', padding: '2px 8px', borderRadius: '20px', fontWeight: '700' }}>
                                 {isMobileCourseUnlocked ? 'Desbloqueado' : 'Requiere Clave'}
                             </span>
                         </div>
@@ -380,17 +382,17 @@ const NavBar = () => {
                                         width: '100%',
                                         padding: '8px 12px',
                                         borderRadius: '8px',
-                                        background: 'linear-gradient(135deg, #0284c7, #0ea5e9)',
+                                        background: 'var(--primary-color)',
                                         color: '#fff',
                                         border: 'none',
-                                        fontWeight: '800',
-                                        fontSize: '12px',
+                                        fontWeight: '700',
+                                        fontSize: '0.8rem',
                                         cursor: 'pointer',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         gap: '6px',
-                                        boxShadow: '0 4px 12px rgba(2,132,199,0.3)'
+                                        boxShadow: '0 2px 8px rgba(26,86,219,0.25)'
                                     }}
                                 >
                                     🔑 Ingresar Palabra Clave
@@ -407,11 +409,11 @@ const NavBar = () => {
                                         width: '100%',
                                         padding: '6px 10px',
                                         borderRadius: '6px',
-                                        background: 'rgba(239, 68, 68, 0.08)',
-                                        color: '#ef4444',
-                                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                                        background: 'transparent',
+                                        color: 'var(--secondary-color)',
+                                        border: '1px solid rgba(220,38,38,0.25)',
                                         fontWeight: '600',
-                                        fontSize: '11px',
+                                        fontSize: '0.8rem',
                                         cursor: 'pointer'
                                     }}
                                 >
@@ -504,18 +506,22 @@ const NavBar = () => {
 
             <style>{`
                 .theme-toggle-btn {
-                    background: var(--glass-bg);
-                    border: 1px solid var(--glass-border);
-                    borderRadius: 50%;
-                    width: 40px;
-                    height: 40px;
+                    background: var(--card-bg);
+                    border: 1px solid var(--border-color);
+                    border-radius: 7px;
+                    width: 36px;
+                    height: 36px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
-                    font-size: 1.2rem;
-                    transition: all 0.3s ease;
+                    font-size: 1rem;
+                    transition: all 0.2s ease;
                     color: var(--text-main);
+                }
+                .theme-toggle-btn:hover {
+                    border-color: var(--primary-color);
+                    background: var(--brand-blue-light);
                 }
 
                 .hamburger-menu {
@@ -526,20 +532,21 @@ const NavBar = () => {
                     padding: 0.5rem;
                     background: none;
                     border: none;
+                    min-height: unset;
                 }
 
                 .hamburger-menu .bar {
-                    width: 25px;
-                    height: 3px;
+                    width: 22px;
+                    height: 2px;
                     background: var(--text-main);
                     border-radius: 2px;
-                    transition: all 0.3s ease;
+                    transition: all 0.2s ease;
                 }
 
                 .nav-links {
                     display: flex;
                     flex-wrap: wrap;
-                    gap: 0.25rem;
+                    gap: 0.15rem;
                     align-items: center;
                     justify-content: flex-end;
                     flex: 1 1 auto;
@@ -551,24 +558,24 @@ const NavBar = () => {
                 }
 
                 .dropdown-trigger .arrow {
-                    font-size: 0.7rem;
-                    margin-left: 5px;
-                    transition: transform 0.3s ease;
+                    font-size: 0.65rem;
+                    margin-left: 4px;
+                    transition: transform 0.2s ease;
+                    opacity: 0.6;
                 }
 
                 .dropdown-menu {
                     display: none;
                     position: absolute;
-                    top: 100%;
+                    top: calc(100% + 6px);
                     right: 0;
-                    background: var(--nav-bg);
-                    backdrop-filter: blur(15px);
-                    border: 1px solid var(--glass-border);
+                    background: var(--card-bg);
+                    border: 1px solid var(--border-color);
                     border-radius: 12px;
-                    min-width: 200px;
+                    min-width: 210px;
                     max-width: calc(100vw - 2rem);
                     padding: 0.5rem;
-                    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+                    box-shadow: 0 8px 24px rgba(15,23,42,0.10);
                 }
 
                 .dropdown-mega {
@@ -578,12 +585,11 @@ const NavBar = () => {
                 .utn-mega-menu {
                     max-height: 82vh;
                     overflow-y: auto;
-                    background: var(--nav-bg);
-                    backdrop-filter: blur(20px);
-                    border: 1px solid rgba(0, 242, 255, 0.3);
+                    background: var(--card-bg);
+                    border: 1px solid var(--border-color);
                     border-radius: 16px;
                     padding: 1rem;
-                    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 242, 255, 0.15);
+                    box-shadow: 0 12px 40px rgba(15,23,42,0.12);
                 }
 
                 .utn-mega-grid {
@@ -599,24 +605,33 @@ const NavBar = () => {
                 }
 
                 .utn-col-title {
-                    font-size: 0.88rem;
+                    font-size: 0.82rem;
                     font-weight: 800;
                     color: var(--primary-color);
                     padding: 0.4rem 0.6rem;
-                    border-bottom: 1.5px solid rgba(0, 242, 255, 0.3);
-                    margin-bottom: 0.35rem;
-                    letter-spacing: 0.3px;
+                    border-bottom: 2px solid var(--brand-blue-light);
+                    margin-bottom: 0.3rem;
+                    letter-spacing: 0.2px;
+                    text-transform: uppercase;
                 }
 
                 .utn-sub-header {
-                    font-size: 0.74rem;
+                    font-size: 0.7rem;
                     font-weight: 700;
-                    color: var(--text-dim);
+                    color: var(--text-muted);
                     text-transform: uppercase;
                     letter-spacing: 0.5px;
-                    padding: 0.45rem 0.6rem 0.2rem;
-                    margin-top: 0.35rem;
-                    border-left: 2px solid rgba(0, 242, 255, 0.4);
+                    padding: 0.4rem 0.6rem 0.15rem;
+                    margin-top: 0.3rem;
+                    border-left: 2px solid var(--border-color);
+                }
+
+                /* Scrollbar del mega-menu */
+                .utn-mega-menu::-webkit-scrollbar { width: 5px; }
+                .utn-mega-menu::-webkit-scrollbar-track { background: transparent; }
+                .utn-mega-menu::-webkit-scrollbar-thumb {
+                    background: var(--border-color);
+                    border-radius: 3px;
                 }
 
                 @media (min-width: 1100px) {
@@ -638,7 +653,7 @@ const NavBar = () => {
                     }
                     .utn-mega-menu {
                         position: absolute;
-                        top: 100%;
+                        top: calc(100% + 6px);
                         left: 50%;
                         transform: translateX(-40%);
                         width: 960px;
@@ -646,10 +661,8 @@ const NavBar = () => {
                     }
                 }
 
-                /* Tablet / desktop angosto: el menú puede no ser hover-friendly,
-                   confiamos en el click */
                 @media (min-width: 992px) and (max-width: 1099px) {
-                    .nav-links { font-size: 0.92rem; }
+                    .nav-links { font-size: 0.85rem; }
                 }
 
                 @media (max-width: 991px) {
@@ -664,17 +677,18 @@ const NavBar = () => {
                         flex-direction: column;
                         flex-wrap: nowrap;
                         width: 100%;
-                        margin-top: 1rem;
-                        background: var(--nav-bg);
+                        margin-top: 0.5rem;
+                        background: var(--card-bg);
                         border-radius: 12px;
-                        padding: 1rem;
-                        border: 1px solid var(--glass-border);
+                        padding: 0.75rem;
+                        border: 1px solid var(--border-color);
                         position: absolute;
-                        top: 60px;
+                        top: 58px;
                         left: 0;
                         right: 0;
                         max-height: calc(100vh - 80px);
                         overflow-y: auto;
+                        box-shadow: 0 8px 24px rgba(15,23,42,0.10);
                     }
                     .nav-links.open {
                         display: flex;
@@ -684,10 +698,11 @@ const NavBar = () => {
                         display: none;
                         width: 100%;
                         max-width: 100%;
-                        background: rgba(0,0,0,0.1);
+                        background: var(--brand-grey-light);
                         box-shadow: none;
                         border: none;
                         padding-left: 1rem;
+                        border-radius: 8px;
                     }
                     .utn-mega-grid {
                         grid-template-columns: 1fr;
@@ -699,6 +714,8 @@ const NavBar = () => {
                         max-height: none !important;
                         box-shadow: none !important;
                         padding: 0.5rem 0.25rem !important;
+                        border: none !important;
+                        background: var(--brand-grey-light) !important;
                     }
                     .dropdown.active .dropdown-menu {
                         display: block;
