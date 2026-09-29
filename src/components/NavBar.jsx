@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
-import { useAuth } from '../context/AuthContext';
 import { MobileAccessModal, isMobileUnlocked, lockMobileCourse } from './MobileAccessGate';
 
 const NavBar = () => {
     const { theme, toggleTheme } = useTheme();
-    const { user, logout, isAuthenticated } = useAuth();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [openSubmenu, setOpenSubmenu] = useState(null); // 'utn', 'moviles', 'academic'
+    const [openSubmenu, setOpenSubmenu] = useState(null); // 'utn', 'moviles'
     const [accessModalOpen, setAccessModalOpen] = useState(false);
     const [isMobileCourseUnlocked, setIsMobileCourseUnlocked] = useState(isMobileUnlocked());
 
@@ -423,85 +421,6 @@ const NavBar = () => {
                         )}
                     </div>
                 </div>
-
-                {/* Submenu Gestión Académica - Solo si está autenticado */}
-                {isAuthenticated && (
-                    <div className={`dropdown ${openSubmenu === 'academic' ? 'active' : ''}`}>
-                        <div
-                            className="dropdown-trigger"
-                            style={linkStyle}
-                            onClick={() => toggleSubmenu('academic')}
-                        >
-                            Gestión Académica <span className="arrow">▼</span>
-                        </div>
-                        <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '250px' }}>
-                            <Link to="/gestion-academica" style={linkStyle} onClick={closeAll}>Panel Principal</Link>
-
-                            {/* Solo mostrar Gestión Académica si está logueado */}
-                            {['admin', 'director', 'secretario', 'jefe_preceptores'].includes(user?.role) && (
-                                <Link to="/estudiantes" style={linkStyle} onClick={closeAll}>Estudiantes</Link>
-                            )}
-
-                            <Link to="/calificaciones" style={linkStyle} onClick={closeAll}>Calificaciones</Link>
-                            <Link to="/asistencia" style={linkStyle} onClick={closeAll}>Asistencia</Link>
-                            <Link to="/aula-virtual" style={linkStyle} onClick={closeAll}>Aula Virtual</Link>
-                            <Link to="/comunicados" style={linkStyle} onClick={closeAll}>Comunicaciones</Link>
-
-                            {['admin', 'director', 'secretario', 'jefe_preceptores', 'preceptor', 'profesor'].includes(user?.role) && (
-                                <Link to="/libro-temas" style={linkStyle} onClick={closeAll}>Libro de Temas</Link>
-                            )}
-
-                            {['admin', 'director', 'secretario'].includes(user?.role) && (
-                                <>
-                                    <Link to="/asignacion-docente" style={linkStyle} onClick={closeAll}>Asignación Docente</Link>
-                                    <Link to="/oferta-academica" style={linkStyle} onClick={closeAll}>Cursos y Materias (ABM)</Link>
-                                    <Link to="/plan-estudios" style={linkStyle} onClick={closeAll}>Plan de Estudios (Curricula)</Link>
-                                </>
-                            )}
-
-                            {['admin', 'director'].includes(user?.role) && (
-                                <Link to="/usuarios" style={{ ...linkStyle, borderTop: '1px solid rgba(255,255,255,0.1)' }} onClick={closeAll}>Usuarios / Docentes</Link>
-                            )}
-                        </div>
-                    </div>
-                )}
-
-                {/* Login / Logout */}
-                {isAuthenticated ? (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0 1rem' }}>
-                        <Link to="/perfil" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }} onClick={closeAll}>
-                            {user?.foto ? (
-                                <img src={user.foto} alt="Avatar" style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--primary-color)' }} />
-                            ) : (
-                                <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'var(--primary-color)', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-                                    {user?.email?.charAt(0).toUpperCase()}
-                                </div>
-                            )}
-                            <span style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }} className="hidden-mobile">
-                                {user?.email?.split('@')[0]}
-                            </span>
-                        </Link>
-                        <button
-                            onClick={() => {
-                                logout();
-                                closeAll();
-                            }}
-                            className="nav-btn-logout"
-                        >
-                            Salir
-                        </button>
-                    </div>
-                ) : (
-                    <div style={{ padding: '0 1rem' }}>
-                        <Link
-                            to="/login"
-                            className="nav-btn-login"
-                            onClick={closeAll}
-                        >
-                            INGRESAR
-                        </Link>
-                    </div>
-                )}
             </div>
 
             <style>{`
