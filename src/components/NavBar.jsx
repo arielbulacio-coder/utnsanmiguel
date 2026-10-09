@@ -1,658 +1,829 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
 import { MobileAccessModal, isMobileUnlocked, lockMobileCourse } from './MobileAccessGate';
 
-const NavBar = () => {
-    const { theme, toggleTheme } = useTheme();
-    const location = useLocation();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [openSubmenu, setOpenSubmenu] = useState(null); // 'utn', 'moviles'
-    const [accessModalOpen, setAccessModalOpen] = useState(false);
-    const [isMobileCourseUnlocked, setIsMobileCourseUnlocked] = useState(isMobileUnlocked());
+// ============================================
+// NAVIGATION DATA STRUCTURE - Single Source of Truth
+// ============================================
+export const NAVIGATION_STRUCTURE = [
+  {
+    id: 'cursos',
+    label: '📚 Cursos',
+    icon: '📚',
+    type: 'dropdown',
+    subSections: [
+      {
+        type: 'course-highlight',
+        title: 'Cursos Destacados',
+        courses: [
+          {
+            path: '/electricidad-1ro',
+            title: '⚡ Electricidad 1°',
+            description: '12 Semanas - 24 Clases',
+            badges: ['Popular', 'Nuevo']
+          },
+          {
+            path: '/aplicaciones-moviles',
+            title: '📱 React Native',
+            description: 'Desarrollo Móvil',
+            badges: ['Protegido']
+          },
+          {
+            path: '/taller-robotica',
+            title: '🤖 Robótica',
+            description: 'Arduino & ESP32',
+            badges: ['Hands-on']
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'electricidad',
+    label: '⚡ Electricidad',
+    icon: '⚡',
+    type: 'mega-dropdown',
+    columns: 2,
+    subSections: [
+      {
+        type: 'sub-header',
+        title: 'Fundamentos'
+      },
+      { path: '/ley-ohm', title: 'Ley de Ohm' },
+      { path: '/kirchhoff', title: 'Leyes de Kirchhoff' },
+      { path: '/potencia', title: 'Potencia Eléctrica' },
+      { path: '/electricidad-basica', title: 'Electricidad Básica' },
+      { path: '/circuitos-domiciliarios', title: 'Instal. Domiciliarias' },
+      
+      {
+        type: 'sub-header',
+        title: 'Análisis de Circuitos'
+      },
+      { path: '/simbologia-electronica', title: 'Simbología' },
+      { path: '/codigos-resistencias', title: 'Códigos de Resistencias' },
+      { path: '/resistencias-serie-paralelo', title: 'Serie / Paralelo' },
+      { path: '/teorema-thevenin', title: 'Teorema de Thévenin' },
+      { path: '/teorema-norton', title: 'Teorema de Norton' },
+      { path: '/componentes-electronica', title: 'Componentes y Lógica' },
+      
+      {
+        type: 'sub-header',
+        title: 'Electrónica Digital'
+      },
+      { path: '/electronica-digital/numeracion', title: '1. Sistemas de Numeración' },
+      { path: '/electronica-digital/codigos-algebra', title: '2. Códigos y Álgebra Boole' },
+      { path: '/electronica-digital/compuertas', title: '3. Compuertas Lógicas' },
+      { path: '/electronica-digital/formas-canonicas', title: '4. Formas Canónicas' },
+      { path: '/electronica-digital/karnaugh', title: '5. Mapas de Karnaugh' },
+      { path: '/electronica-digital/bloques-funcionales', title: '6. MUX, DEMUX' },
+      { path: '/electronica-digital/bloques-aritmeticos', title: '7. Sumadores' },
+      { path: '/electronica-digital/secuenciales', title: '8. Secuenciales' },
+      { path: '/electronica-digital/proyecto-integrador', title: '9. Proyecto Integrador' }
+    ]
+  },
+  {
+    id: 'robotica',
+    label: '🤖 Robótica',
+    icon: '🤖',
+    type: 'mega-dropdown',
+    columns: 2,
+    subSections: [
+      {
+        type: 'sub-header',
+        title: 'Arduino & C++'
+      },
+      { path: '/arduino-intro', title: 'Introducción' },
+      { path: '/cpp-basico', title: 'C/C++ Básico' },
+      { path: '/pwm', title: 'Señales PWM' },
+      { path: '/sensores', title: 'Sensores' },
+      { path: '/comunicacion-serial', title: 'Configuración Serial' },
+      
+      {
+        type: 'sub-header',
+        title: 'ESP32 & IoT'
+      },
+      { path: '/arduino/esp32-sim', title: '🤖 Simulador ESP32' },
+      { path: '/arduino/iot-dashboards', title: '📊 Dashboards IoT' },
+      { path: '/arduino/web-designer', title: '🌐 Web Designer' },
+      
+      {
+        type: 'sub-header',
+        title: 'Proyectos'
+      },
+      { path: '/taller-robotica', title: 'Taller de Robótica' },
+      { path: '/robot-evita-obstaculos', title: 'Robot Evasor' },
+      { path: '/scratch', title: 'Programación Scratch 😺' }
+    ]
+  },
+  {
+    id: 'taller',
+    label: '🛠️ Taller',
+    icon: '🛠️',
+    type: 'mega-dropdown',
+    columns: 2,
+    subSections: [
+      {
+        type: 'sub-header',
+        title: 'Metrología'
+      },
+      { path: '/calibre', title: 'Calibre Pie de Rey' },
+      { path: '/micrometro', title: 'Micrómetro' },
+      { path: '/metro-carpintero', title: 'Metro de Carpintero' },
+      
+      {
+        type: 'sub-header',
+        title: 'Herramientas'
+      },
+      { path: '/seguridad-epp', title: 'Seguridad y EPP' },
+      { path: '/herramientas-electricidad', title: 'Herramientas Electricidad' },
+      { path: '/herramientas-electronica', title: 'Herramientas Electrónica' },
+      { path: '/herramientas-carpinteria', title: 'Carpintería' },
+      { path: '/metal-mecanica', title: 'Metal-Mecánica' },
+      { path: '/soldadura', title: '🔥 Soldadura y Desoldado' },
+      { path: '/circuitos-impresos', title: '🔌 PCB' },
+      
+      {
+        type: 'sub-header',
+        title: 'Dibujo Técnico'
+      },
+      { path: '/dibujo-tecnico/normas-iram', title: 'Normas IRAM' },
+      { path: '/dibujo-tecnico/proyecciones', title: 'Proyecciones Ortogonales' },
+      { path: '/dibujo-tecnico/axonometrica', title: 'Axonometrías (ISO)' },
+      { path: '/dibujo-2do/normalizacion', title: 'Normalización Avanzada' },
+      { path: '/dibujo-tecnico/construcciones-geometricas', title: 'Construcciones Geom.' },
+      { path: '/dibujo-2do/poligonos', title: 'Polígonos Regulares' },
+      { path: '/dibujo-2do/tangencias', title: 'Tangencias' },
+      { path: '/ar-arquitectura', title: '🧊 Arquitectura 3D' }
+    ]
+  },
+  {
+    id: 'recursos',
+    label: '📖 Recursos',
+    icon: '📖',
+    type: 'dropdown',
+    subSections: [
+      {
+        type: 'sub-header',
+        title: 'Matemática & Física'
+      },
+      { path: '/conversion-unidades', title: 'Conversión Unidades' },
+      { path: '/pitagoras', title: 'Teorema Pitágoras' },
+      { path: '/trigonometria', title: 'Trigonometría' },
+      { path: '/cinematica', title: 'Cinemática (MRU/MRUV)' },
+      { path: '/simulador-circuitos', title: '🧪 Simulador de Circuitos' },
+      { path: '/energias-renovables', title: 'Energías Renovables' },
+      { path: '/osciloscopio', title: 'Osciloscopio' },
+      { path: '/multimetro', title: 'Multímetros' },
+      
+      {
+        type: 'sub-header',
+        title: 'Cultura Digital'
+      },
+      { path: '/generaciones-computadoras', title: '🎮 Generaciones de Computadoras' },
+      { path: '/arquitectura-von-neumann', title: '⚙️ Arquitectura Von Neumann' },
+      { path: '/arquitectura-harvard', title: '🔬 Arquitectura Harvard' },
+      { path: '/cpu-simulator', title: '🧠 La CPU: Motor de Ejecucion' },
+      { path: '/memoria', title: '💾 Jerarquía de Memoria' },
+      { path: '/arranque', title: '🔌 Hardware y Boot' },
+      { path: '/cultura-digital', title: '📱 Cultura Digital' },
+      { path: '/representacion-datos', title: '🔢 Representación de Datos' },
+      { path: '/sistema-operativo', title: '🖥️ Sistema Operativo' },
+      { path: '/seguridad-informatica', title: '🔒 Seguridad Informatica' },
+      
+      {
+        type: 'sub-header',
+        title: 'Institucionales'
+      },
+      { 
+        type: 'external-link',
+        href: 'https://drive.google.com/drive/folders/1B2vp3KrPw-nD7JQKJL1gETrOt_ZWNmqp?usp=sharing',
+        title: '📁 Carpeta Drive UTN'
+      },
+      { 
+        type: 'external-link',
+        href: 'https://docs.google.com/spreadsheets/d/1OjScpndyRb-eljHQCWzH7S9P9JgMg8BofPhRYcBXGl4/edit?usp=sharing',
+        title: '📊 Planilla institucional'
+      },
+      {
+        type: 'external-link',
+        href: 'https://notebooklm.google.com/notebook/8d04d621-ac7b-43b2-8d62-3a0b5f88c961/artifact/1eed6dc1-0b38-4295-8d4d-0b87bead32d9',
+        title: '📘 Tutorial NotebookLM'
+      }
+    ]
+  },
+  {
+    id: 'appmoviles',
+    label: '📱 App Móviles',
+    icon: '📱',
+    type: 'protected-dropdown',
+    protected: true,
+    subSections: [
+      { path: '/aplicaciones-moviles', title: '📘 Programa & Unidades' },
+      { path: '/simulador-react-native', title: '⚛️ Simulador Interactivo' }
+    ]
+  }
+];
 
-    useEffect(() => {
-        const updateMobile = () => setIsMobileCourseUnlocked(isMobileUnlocked());
-        window.addEventListener('mobile_course_unlock_changed', updateMobile);
-        return () => {
-            window.removeEventListener('mobile_course_unlock_changed', updateMobile);
-        };
-    }, []);
+// ============================================
+// STYLES (Inline for portability - can move to CSS file)
+// ============================================
+const getStyles = (theme) => ({
+  nav: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '0.5rem',
+    padding: '0 1.25rem',
+    height: '58px',
+    background: 'var(--nav-bg)',
+    borderBottom: '1px solid var(--nav-border)',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1000,
+    transition: 'background-color 0.3s ease',
+    maxWidth: '100vw',
+    boxSizing: 'border-box',
+    boxShadow: '0 1px 4px rgba(15,23,42,0.06)'
+  },
+  navLink: {
+    color: 'var(--text-dim)',
+    textDecoration: 'none',
+    fontWeight: '500',
+    fontSize: '0.875rem',
+    transition: 'all 0.2s ease',
+    padding: '0.5rem 0.85rem',
+    borderRadius: '7px',
+    display: 'flex',
+    alignItems: 'center',
+    minHeight: '36px',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    background: 'transparent',
+    border: 'none',
+    fontFamily: 'inherit'
+  },
+  navLinkActive: {
+    color: 'var(--primary-color)',
+    background: 'var(--brand-blue-light)',
+    fontWeight: '600'
+  },
+  dropdownTrigger: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '6px',
+    padding: '0.5rem 0.85rem',
+    borderRadius: '7px',
+    cursor: 'pointer',
+    fontWeight: '500',
+    fontSize: '0.875rem',
+    color: 'var(--text-dim)',
+    background: 'transparent',
+    border: 'none',
+    fontFamily: 'inherit',
+    transition: 'all 0.2s ease'
+  },
+  dropdownTriggerActive: {
+    background: 'var(--brand-blue-light)',
+    color: 'var(--primary-color)',
+    fontWeight: '600'
+  },
+  dropdownMenu: {
+    position: 'absolute',
+    top: '100%',
+    left: 0,
+    background: 'var(--card-bg)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '12px',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+    padding: '0.75rem',
+    minWidth: '280px',
+    maxHeight: '70vh',
+    overflowY: 'auto',
+    zIndex: 1001,
+    marginTop: '0.5rem'
+  },
+  megaMenu: {
+    position: 'absolute',
+    top: '100%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    background: 'var(--card-bg)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '12px',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+    padding: '1rem',
+    width: '90vw',
+    maxWidth: '900px',
+    maxHeight: '70vh',
+    overflowY: 'auto',
+    zIndex: 1001,
+    marginTop: '0.5rem'
+  },
+  megaGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '1rem'
+  },
+  megaCol: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.25rem'
+  },
+  colTitle: {
+    fontSize: '0.75rem',
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    color: 'var(--primary-color)',
+    marginBottom: '0.5rem',
+    marginTop: '0.75rem'
+  },
+  subHeader: {
+    fontSize: '0.7rem',
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    color: 'var(--text-dim)',
+    padding: '0.5rem 0 0.25rem',
+    marginTop: '0.5rem'
+  },
+  courseCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '0.75rem',
+    background: 'var(--brand-blue-light)',
+    border: '1px solid rgba(26,86,219,0.2)',
+    borderRadius: '8px',
+    marginBottom: '0.5rem',
+    textDecoration: 'none',
+    transition: 'all 0.2s ease'
+  },
+  courseTitle: {
+    fontSize: '0.875rem',
+    fontWeight: '700',
+    color: 'var(--primary-color)',
+    marginBottom: '0.25rem'
+  },
+  courseDesc: {
+    fontSize: '0.75rem',
+    color: 'var(--text-dim)'
+  },
+  courseBadges: {
+    display: 'flex',
+    gap: '0.25rem',
+    marginTop: '0.5rem',
+    flexWrap: 'wrap'
+  },
+  badge: {
+    fontSize: '0.625rem',
+    padding: '2px 6px',
+    borderRadius: '4px',
+    fontWeight: '600',
+    textTransform: 'uppercase'
+  }
+});
 
-    const navStyle = {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '0.5rem',
-        padding: '0 1.25rem',
-        height: '58px',
-        background: 'var(--nav-bg)',
-        borderBottom: '1px solid var(--nav-border)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        transition: 'background-color 0.3s ease',
-        maxWidth: '100vw',
-        boxSizing: 'border-box',
-        boxShadow: '0 1px 4px rgba(15,23,42,0.06)'
-    };
+// ============================================
+// HELPER COMPONENTS
+// ============================================
+const CourseCard = ({ course, onClick, styles }) => (
+  <a href={course.path} style={styles.courseCard} onClick={onClick}>
+    <span style={styles.courseTitle}>{course.title}</span>
+    <span style={styles.courseDesc}>{course.description}</span>
+    {course.badges && course.badges.length > 0 && (
+      <div style={styles.courseBadges}>
+        {course.badges.map((badge, i) => (
+          <span key={i} style={{
+            ...styles.badge,
+            background: 'var(--primary-color)',
+            color: '#fff'
+          }}>
+            {badge}
+          </span>
+        ))}
+      </div>
+    )}
+  </a>
+);
 
-    const linkStyle = {
-        color: 'var(--text-dim)',
-        textDecoration: 'none',
-        fontWeight: '500',
-        fontSize: '0.875rem',
-        transition: 'all 0.2s ease',
-        padding: '0.5rem 0.7rem',
-        borderRadius: '7px',
-        display: 'flex',
-        alignItems: 'center',
-        minHeight: '36px',
-        cursor: 'pointer',
-        whiteSpace: 'nowrap'
-    };
-
-    const activeStyle = {
-        color: 'var(--primary-color)',
-        background: 'var(--brand-blue-light)',
-        fontWeight: '600'
-    };
-
-    const toggleSubmenu = (name) => {
-        setOpenSubmenu(openSubmenu === name ? null : name);
-    };
-
-    const closeAll = () => {
-        setIsMenuOpen(false);
-        setOpenSubmenu(null);
-    };
-
+const MenuContent = ({ item, onClose, styles, isMobileCourseUnlocked, setAccessModalOpen, setAccessModalOpen: setModal }) => {
+  if (item.type === 'protected-dropdown') {
     return (
-        <nav style={navStyle}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <Link to="/" style={{ textDecoration: 'none', color: 'var(--text-main)', fontWeight: '700', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }} onClick={closeAll}>
-                    <img
-                        src={`${import.meta.env.BASE_URL || '/'}logo_simutec.png`.replace('//', '/')}
-                        alt="Logo SimuTec"
-                        style={{ width: '32px', height: '32px', borderRadius: '6px', objectFit: 'contain', background: 'transparent' }}
-                    />
-                    <span className="brand-text" style={{ color: 'var(--primary-color)', fontWeight: '800', letterSpacing: '-0.3px' }}>simutec.com.ar</span>
-                </Link>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <button
-                    onClick={toggleTheme}
-                    className="theme-toggle-btn"
-                    aria-label="Toggle theme"
-                    title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-                >
-                    {theme === 'dark' ? '☀️' : '🌙'}
-                </button>
-
-                <button
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="hamburger-menu"
-                    aria-label="Toggle menu"
-                >
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                </button>
-            </div>
-
-            <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-                <Link to="/" style={{ ...linkStyle, ...(location.pathname === '/' ? activeStyle : {}) }} onClick={closeAll}>
-                    Inicio
-                </Link>
-
-                {/* UTN ELECTRÓNICA */}
-                <div className={`dropdown dropdown-mega ${openSubmenu === 'utn' ? 'active' : ''}`}>
-                    <div
-                        className="dropdown-trigger"
-                        style={{
-                            ...linkStyle,
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '5px',
-                            background: 'var(--brand-blue-light)',
-                            color: 'var(--primary-color)',
-                            border: '1px solid rgba(26,86,219,0.2)',
-                            fontWeight: '700'
-                        }}
-                        onClick={() => toggleSubmenu('utn')}
-                    >
-                        <span>⚡ UTN Electrónica</span>
-                        <span className="arrow">▼</span>
-                    </div>
-
-                    <div className="dropdown-menu utn-mega-menu">
-                        {/* Mega-menu Header */}
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '0.5rem 0.75rem',
-                            borderBottom: '1px solid var(--border-color)',
-                            marginBottom: '0.75rem'
-                        }}>
-                            <span style={{ fontWeight: 800, color: 'var(--primary-color)', fontSize: '1rem', letterSpacing: '0.3px' }}>
-                                ⚡ UTN San Miguel · Campus Técnico
-                            </span>
-                        </div>
-
-                        {/* Mega-menu Grid */}
-                        <div className="utn-mega-grid">
-                            {/* COLUMNA 1: Electricidad y Electrónica */}
-                            <div className="utn-mega-col">
-                                <div className="utn-col-title">⚡ Electricidad & Electrónica</div>
-                                
-                                <Link
-                                    to="/electricidad-1ro"
-                                    style={{
-                                        ...linkStyle,
-                                        color: 'var(--primary-color)',
-                                        fontWeight: '700',
-                                        background: 'var(--brand-blue-light)',
-                                        border: '1px solid rgba(26,86,219,0.25)',
-                                        borderRadius: '8px',
-                                        marginBottom: '0.5rem'
-                                    }}
-                                    onClick={closeAll}
-                                >
-                                    ⚡ Curso Electricidad 1° (12 Semanas)
-                                </Link>
-
-                                <div className="utn-sub-header">Fundamentos</div>
-                                <Link to="/ley-ohm" style={linkStyle} onClick={closeAll}>Ley de Ohm</Link>
-                                <Link to="/kirchhoff" style={linkStyle} onClick={closeAll}>Leyes de Kirchhoff</Link>
-                                <Link to="/potencia" style={linkStyle} onClick={closeAll}>Potencia Eléctrica</Link>
-                                <Link to="/electricidad-basica" style={linkStyle} onClick={closeAll}>Electricidad Básica</Link>
-                                <Link to="/circuitos-domiciliarios" style={linkStyle} onClick={closeAll}>Instal. Domiciliarias</Link>
-
-                                <div className="utn-sub-header">Electrónica Analógica</div>
-                                <Link to="/simbologia-electronica" style={linkStyle} onClick={closeAll}>Simbología Eléctrica/Electrónica</Link>
-                                <Link to="/codigos-resistencias" style={linkStyle} onClick={closeAll}>Códigos de Resistencias</Link>
-                                <Link to="/resistencias-serie-paralelo" style={linkStyle} onClick={closeAll}>Serie / Paralelo</Link>
-                                <Link to="/teorema-thevenin" style={linkStyle} onClick={closeAll}>T. de Thévenin</Link>
-                                <Link to="/teorema-norton" style={linkStyle} onClick={closeAll}>T. de Norton</Link>
-                                <Link to="/componentes-electronica" style={linkStyle} onClick={closeAll}>Componentes y Lógica</Link>
-
-                                <div className="utn-sub-header">Electrónica Digital</div>
-                                <Link to="/electronica-digital/numeracion" style={linkStyle} onClick={closeAll}>1. Sistemas de Numeración</Link>
-                                <Link to="/electronica-digital/codigos-algebra" style={linkStyle} onClick={closeAll}>2. Códigos y Álgebra Boole</Link>
-                                <Link to="/electronica-digital/compuertas" style={linkStyle} onClick={closeAll}>3. Compuertas Lógicas</Link>
-                                <Link to="/electronica-digital/formas-canonicas" style={linkStyle} onClick={closeAll}>4. Formas Canónicas</Link>
-                                <Link to="/electronica-digital/karnaugh" style={linkStyle} onClick={closeAll}>5. Mapas de Karnaugh</Link>
-                                <Link to="/electronica-digital/bloques-funcionales" style={linkStyle} onClick={closeAll}>6. MUX, DEMUX</Link>
-                                <Link to="/electronica-digital/bloques-aritmeticos" style={linkStyle} onClick={closeAll}>7. Sumadores</Link>
-                                <Link to="/electronica-digital/secuenciales" style={linkStyle} onClick={closeAll}>8. Secuenciales</Link>
-                                <Link to="/electronica-digital/proyecto-integrador" style={linkStyle} onClick={closeAll}>9. Proyecto Integrador</Link>
-
-                                <div className="utn-sub-header">Práctica y Laboratorio</div>
-                                <Link to="/osciloscopio" style={linkStyle} onClick={closeAll}>Osciloscopio</Link>
-                                <Link to="/multimetro" style={linkStyle} onClick={closeAll}>Multímetros</Link>
-                                <Link to="/soldadura" style={linkStyle} onClick={closeAll}>🔥 Soldadura y Desoldado</Link>
-                                <Link to="/circuitos-impresos" style={linkStyle} onClick={closeAll}>🔌 PCB</Link>
-                                <Link to="/simulador-circuitos" style={linkStyle} onClick={closeAll}>🧪 Simulador de Circuitos</Link>
-                                <Link to="/energias-renovables" style={linkStyle} onClick={closeAll}>Energías Renovables</Link>
-                            </div>
-
-                            {/* COLUMNA 2: Robótica + Taller */}
-                            <div className="utn-mega-col">
-                                <div className="utn-col-title">🤖 Robótica & Programación</div>
-                                <div className="utn-sub-header">Arduino & C++</div>
-                                <Link to="/arduino-intro" style={linkStyle} onClick={closeAll}>Introducción</Link>
-                                <Link to="/cpp-basico" style={linkStyle} onClick={closeAll}>C/C++ Básico</Link>
-                                <Link to="/pwm" style={linkStyle} onClick={closeAll}>Señales PWM</Link>
-                                <Link to="/sensores" style={linkStyle} onClick={closeAll}>Sensores</Link>
-                                <Link to="/comunicacion-serial" style={linkStyle} onClick={closeAll}>Configuración Serial</Link>
-
-                                <div className="utn-sub-header">ESP32 & IoT</div>
-                                <Link to="/arduino/esp32-sim" style={linkStyle} onClick={closeAll}>🤖 Simulador ESP32</Link>
-                                <Link to="/arduino/iot-dashboards" style={linkStyle} onClick={closeAll}>📊 Dashboards IoT</Link>
-                                <Link to="/arduino/web-designer" style={linkStyle} onClick={closeAll}>🌐 Web Designer</Link>
-
-                                <div className="utn-sub-header">Proyectos Prácticos</div>
-                                <Link to="/taller-robotica" style={linkStyle} onClick={closeAll}>Taller de Robótica</Link>
-                                <Link to="/robot-evita-obstaculos" style={linkStyle} onClick={closeAll}>Robot Evasor</Link>
-                                <Link to="/scratch" style={linkStyle} onClick={closeAll}>Programación Scratch 😺</Link>
-
-                                <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🛠️ Taller y Mecánica</div>
-                                <div className="utn-sub-header">Metrología</div>
-                                <Link to="/calibre" style={linkStyle} onClick={closeAll}>Calibre Pie de Rey</Link>
-                                <Link to="/micrometro" style={linkStyle} onClick={closeAll}>Micrómetro</Link>
-                                <Link to="/metro-carpintero" style={linkStyle} onClick={closeAll}>Metro de Carpintero</Link>
-
-                                <div className="utn-sub-header">Taller y Oficios</div>
-                                <Link to="/seguridad-epp" style={linkStyle} onClick={closeAll}>Seguridad y EPP</Link>
-                                <Link to="/herramientas-electricidad" style={linkStyle} onClick={closeAll}>Herramientas Electricidad</Link>
-                                <Link to="/herramientas-electronica" style={linkStyle} onClick={closeAll}>Herramientas Electrónica</Link>
-                                <Link to="/herramientas-carpinteria" style={linkStyle} onClick={closeAll}>Carpintería</Link>
-                                <Link to="/metal-mecanica" style={linkStyle} onClick={closeAll}>Metal-Mecánica</Link>
-
-                                <div className="utn-sub-header">Proyectos</div>
-                                <Link to="/proyectos-reciclables" style={linkStyle} onClick={closeAll}>Ecobots Reciclables</Link>
-                                <Link to="/proyectos-integradores" style={linkStyle} onClick={closeAll}>Integradores 6° Año</Link>
-                            </div>
-
-                            {/* COLUMNA 3: Diseño, Ciencias e Institución */}
-                            <div className="utn-mega-col">
-                                <div className="utn-col-title">📐 Diseño & Dibujo Técnico</div>
-                                <div className="utn-sub-header">Fundamentos</div>
-                                <Link to="/dibujo-tecnico/normas-iram" style={linkStyle} onClick={closeAll}>Normas IRAM</Link>
-                                <Link to="/dibujo-tecnico/proyecciones" style={linkStyle} onClick={closeAll}>Proyecciones Ortogonales</Link>
-                                <Link to="/dibujo-tecnico/axonometrica" style={linkStyle} onClick={closeAll}>Axonometrías (ISO)</Link>
-                                <Link to="/dibujo-2do/normalizacion" style={linkStyle} onClick={closeAll}>Normalización Avanzada</Link>
-
-                                <div className="utn-sub-header">Geometría & 3D</div>
-                                <Link to="/dibujo-tecnico/construcciones-geometricas" style={linkStyle} onClick={closeAll}>Construcciones Geom.</Link>
-                                <Link to="/dibujo-2do/poligonos" style={linkStyle} onClick={closeAll}>Polígonos Regulares</Link>
-                                <Link to="/dibujo-2do/tangencias" style={linkStyle} onClick={closeAll}>Tangencias</Link>
-                                <Link to="/dibujo-2do/transformaciones" style={linkStyle} onClick={closeAll}>Transformaciones</Link>
-                                <Link to="/dibujo-2do/curvas-conicas" style={linkStyle} onClick={closeAll}>Curvas Cónicas</Link>
-                                <Link to="/dibujo-2do/curvas-tecnicas" style={linkStyle} onClick={closeAll}>Curvas Técnicas</Link>
-                                <Link to="/ar-arquitectura" style={linkStyle} onClick={closeAll}>🧊 Arquitectura 3D</Link>
-                                <a
-                                    href="https://notebooklm.google.com/notebook/8d04d621-ac7b-43b2-8d62-3a0b5f88c961/artifact/1eed6dc1-0b38-4295-8d4d-0b87bead32d9?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_2&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_2_"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={linkStyle}
-                                    onClick={closeAll}
-                                    title="Tutorial NotebookLM"
-                                >
-                                    📘 Tutorial NotebookLM
-                                </a>
-
-                                <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🖥️ Ciencias & Computación</div>
-                                <div className="utn-sub-header">Matemática y Física</div>
-                                <Link to="/conversion-unidades" style={linkStyle} onClick={closeAll}>Conversión Unidades</Link>
-                                <Link to="/pitagoras" style={linkStyle} onClick={closeAll}>Teorema Pitágoras</Link>
-                                <Link to="/trigonometria" style={linkStyle} onClick={closeAll}>Trigonometría</Link>
-                                <Link to="/cinematica" style={linkStyle} onClick={closeAll}>Cinemática (MRU/MRUV)</Link>
-
-                                <div className="utn-sub-header">Informática & Sistemas</div>
-                                <Link to="/generaciones-computadoras" style={linkStyle} onClick={closeAll}>🎮 Generaciones de Computadoras</Link>
-                                <Link to="/arquitectura-von-neumann" style={linkStyle} onClick={closeAll}>⚙️ Arquitectura Von Neumann</Link>
-                                <Link to="/arquitectura-harvard" style={linkStyle} onClick={closeAll}>🔬 Arquitectura Harvard</Link>
-                                <Link to="/cpu-simulator" style={linkStyle} onClick={closeAll}>🧠 La CPU: Motor de Ejecucion</Link>
-                                <Link to="/memoria" style={linkStyle} onClick={closeAll}>💾 Jerarquia de Memoria</Link>
-                                <Link to="/arranque" style={linkStyle} onClick={closeAll}>🔌 Hardware y Boot</Link>
-                                <Link to="/ar-ensamblaje" style={linkStyle} onClick={closeAll}>📷 Ensamblaje PC (RA)</Link>
-                                <Link to="/sociedad-software" style={linkStyle} onClick={closeAll}>🌐 Sociedad y Software</Link>
-                                <Link to="/cultura-digital" style={linkStyle} onClick={closeAll}>📱 Cultura Digital</Link>
-                                <Link to="/representacion-datos" style={linkStyle} onClick={closeAll}>🔢 Representacion de Datos</Link>
-                                <Link to="/logica-digital" style={linkStyle} onClick={closeAll}>🔲 Logica Digital</Link>
-                                <Link to="/sistema-operativo" style={linkStyle} onClick={closeAll}>🖥️ Sistema Operativo</Link>
-                                <Link to="/seguridad-informatica" style={linkStyle} onClick={closeAll}>🔒 Seguridad Informatica</Link>
-
-                                <div className="utn-col-title" style={{ marginTop: '1.25rem' }}>🏫 Institución</div>
-                                <a
-                                    href="https://drive.google.com/drive/folders/1B2vp3KrPw-nD7JQKJL1gETrOt_ZWNmqp?usp=sharing"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={linkStyle}
-                                    onClick={closeAll}
-                                    title="Carpeta de Google Drive UTN San Miguel"
-                                >
-                                    📁 Carpeta Drive UTN
-                                </a>
-                                <a
-                                    href="https://docs.google.com/spreadsheets/d/1OjScpndyRb-eljHQCWzH7S9P9JgMg8BofPhRYcBXGl4/edit?usp=sharing"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={linkStyle}
-                                    onClick={closeAll}
-                                    title="Planilla institucional"
-                                >
-                                    📊 Planilla institucional Técnica 1
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 6. APLICACIONES MÓVILES (PROTEGIDO CON PALABRA CLAVE) */}
-                <div className={`dropdown ${openSubmenu === 'moviles' ? 'active' : ''}`}>
-                    <div
-                        className="dropdown-trigger"
-                        style={{
-                            ...linkStyle,
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            background: isMobileCourseUnlocked ? 'var(--brand-blue-light)' : 'rgba(220,38,38,0.06)',
-                            color: isMobileCourseUnlocked ? 'var(--primary-color)' : '#dc2626',
-                            border: `1px solid ${isMobileCourseUnlocked ? 'rgba(26,86,219,0.2)' : 'rgba(220,38,38,0.2)'}`,
-                            fontWeight: '700'
-                        }}
-                        onClick={() => toggleSubmenu('moviles')}
-                    >
-                        <span>📱 App Móviles</span>
-                        <span style={{ fontSize: '11px' }}>{isMobileCourseUnlocked ? '🔓' : '🔒'}</span>
-                        <span className="arrow">▼</span>
-                    </div>
-                    <div className="dropdown-menu" style={{ maxHeight: '70vh', overflowY: 'auto', minWidth: '260px' }}>
-                        <div style={{ padding: '0.5rem 1rem', fontWeight: '700', color: 'var(--primary-color)', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.875rem' }}>
-                            <span>React Native & Expo</span>
-                            <span style={{ fontSize: '0.7rem', background: isMobileCourseUnlocked ? 'rgba(22,163,74,0.1)' : 'rgba(220,38,38,0.08)', color: isMobileCourseUnlocked ? '#16a34a' : '#dc2626', padding: '2px 8px', borderRadius: '20px', fontWeight: '700' }}>
-                                {isMobileCourseUnlocked ? 'Desbloqueado' : 'Requiere Clave'}
-                            </span>
-                        </div>
-
-                        <Link
-                            to="/aplicaciones-moviles"
-                            style={linkStyle}
-                            onClick={(e) => {
-                                if (!isMobileCourseUnlocked) {
-                                    e.preventDefault();
-                                    setAccessModalOpen(true);
-                                }
-                                closeAll();
-                            }}
-                        >
-                            📘 Programa & Unidades {isMobileCourseUnlocked ? '✓' : '🔒'}
-                        </Link>
-
-                        <Link
-                            to="/simulador-react-native"
-                            style={linkStyle}
-                            onClick={(e) => {
-                                if (!isMobileCourseUnlocked) {
-                                    e.preventDefault();
-                                    setAccessModalOpen(true);
-                                }
-                                closeAll();
-                            }}
-                        >
-                            ⚛️ Simulador Interactivo {isMobileCourseUnlocked ? '✓' : '🔒'}
-                        </Link>
-
-                        {!isMobileCourseUnlocked ? (
-                            <div style={{ padding: '0.5rem 0.75rem' }}>
-                                <button
-                                    onClick={() => {
-                                        closeAll();
-                                        setAccessModalOpen(true);
-                                    }}
-                                    style={{
-                                        width: '100%',
-                                        padding: '8px 12px',
-                                        borderRadius: '8px',
-                                        background: 'var(--primary-color)',
-                                        color: '#fff',
-                                        border: 'none',
-                                        fontWeight: '700',
-                                        fontSize: '0.8rem',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '6px',
-                                        boxShadow: '0 2px 8px rgba(26,86,219,0.25)'
-                                    }}
-                                >
-                                    🔑 Ingresar Palabra Clave
-                                </button>
-                            </div>
-                        ) : (
-                            <div style={{ padding: '0.4rem 0.75rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                                <button
-                                    onClick={() => {
-                                        lockMobileCourse();
-                                        closeAll();
-                                    }}
-                                    style={{
-                                        width: '100%',
-                                        padding: '6px 10px',
-                                        borderRadius: '6px',
-                                        background: 'transparent',
-                                        color: 'var(--secondary-color)',
-                                        border: '1px solid rgba(220,38,38,0.25)',
-                                        fontWeight: '600',
-                                        fontSize: '0.8rem',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    🔒 Bloquear Acceso
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            <style>{`
-                .theme-toggle-btn {
-                    background: var(--card-bg);
-                    border: 1px solid var(--border-color);
-                    border-radius: 7px;
-                    width: 36px;
-                    height: 36px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    font-size: 1rem;
-                    transition: all 0.2s ease;
-                    color: var(--text-main);
+      <>
+        {item.subSections.map((sub, idx) => (
+          sub.type === 'external-link' ? (
+            <a
+              key={idx}
+              href={sub.href}
+              style={{
+                ...styles.navLink,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+            >
+              {sub.title}
+            </a>
+          ) : (
+            <Link
+              key={idx}
+              to={sub.path}
+              style={{
+                ...styles.navLink,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+              onClick={(e) => {
+                if (!isMobileCourseUnlocked) {
+                  e.preventDefault();
+                  setModal(true);
                 }
-                .theme-toggle-btn:hover {
-                    border-color: var(--primary-color);
-                    background: var(--brand-blue-light);
-                }
-
-                .hamburger-menu {
-                    display: none;
-                    flex-direction: column;
-                    gap: 4px;
-                    cursor: pointer;
-                    padding: 0.5rem;
-                    background: none;
-                    border: none;
-                    min-height: unset;
-                }
-
-                .hamburger-menu .bar {
-                    width: 22px;
-                    height: 2px;
-                    background: var(--text-main);
-                    border-radius: 2px;
-                    transition: all 0.2s ease;
-                }
-
-                .nav-links {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 0.15rem;
-                    align-items: center;
-                    justify-content: flex-end;
-                    flex: 1 1 auto;
-                    min-width: 0;
-                }
-
-                .dropdown {
-                    position: relative;
-                }
-
-                .dropdown-trigger .arrow {
-                    font-size: 0.65rem;
-                    margin-left: 4px;
-                    transition: transform 0.2s ease;
-                    opacity: 0.6;
-                }
-
-                .dropdown-menu {
-                    display: none;
-                    position: absolute;
-                    top: calc(100% + 6px);
-                    right: 0;
-                    background: var(--card-bg);
-                    border: 1px solid var(--border-color);
-                    border-radius: 12px;
-                    min-width: 210px;
-                    max-width: calc(100vw - 2rem);
-                    padding: 0.5rem;
-                    box-shadow: 0 8px 24px rgba(15,23,42,0.10);
-                }
-
-                .dropdown-mega {
-                    position: relative;
-                }
-
-                .utn-mega-menu {
-                    max-height: 82vh;
-                    overflow-y: auto;
-                    background: var(--card-bg);
-                    border: 1px solid var(--border-color);
-                    border-radius: 16px;
-                    padding: 1rem;
-                    box-shadow: 0 12px 40px rgba(15,23,42,0.12);
-                }
-
-                .utn-mega-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 1.25rem;
-                }
-
-                .utn-mega-col {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 2px;
-                }
-
-                .utn-col-title {
-                    font-size: 0.82rem;
-                    font-weight: 800;
-                    color: var(--primary-color);
-                    padding: 0.4rem 0.6rem;
-                    border-bottom: 2px solid var(--brand-blue-light);
-                    margin-bottom: 0.3rem;
-                    letter-spacing: 0.2px;
-                    text-transform: uppercase;
-                }
-
-                .utn-sub-header {
-                    font-size: 0.7rem;
-                    font-weight: 700;
-                    color: var(--text-muted);
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                    padding: 0.4rem 0.6rem 0.15rem;
-                    margin-top: 0.3rem;
-                    border-left: 2px solid var(--border-color);
-                }
-
-                /* Scrollbar del mega-menu */
-                .utn-mega-menu::-webkit-scrollbar { width: 5px; }
-                .utn-mega-menu::-webkit-scrollbar-track { background: transparent; }
-                .utn-mega-menu::-webkit-scrollbar-thumb {
-                    background: var(--border-color);
-                    border-radius: 3px;
-                }
-
-                @media (min-width: 1100px) {
-                    .dropdown-menu { left: 0; right: auto; }
-                }
-
-                @media (min-width: 992px) {
-                    .dropdown:hover .dropdown-menu,
-                    .dropdown.active .dropdown-menu {
-                        display: block;
-                    }
-                    .dropdown:hover .arrow,
-                    .dropdown.active .arrow {
-                        transform: rotate(180deg);
-                    }
-                    .dropdown-mega:hover .utn-mega-menu,
-                    .dropdown-mega.active .utn-mega-menu {
-                        display: block;
-                    }
-                    .utn-mega-menu {
-                        position: absolute;
-                        top: calc(100% + 6px);
-                        left: 50%;
-                        transform: translateX(-40%);
-                        width: 960px;
-                        max-width: 92vw;
-                    }
-                }
-
-                @media (min-width: 992px) and (max-width: 1099px) {
-                    .nav-links { font-size: 0.85rem; }
-                }
-
-                @media (max-width: 991px) {
-                    .brand-text {
-                        display: none;
-                    }
-                    .hamburger-menu {
-                        display: flex;
-                    }
-                    .nav-links {
-                        display: none;
-                        flex-direction: column;
-                        flex-wrap: nowrap;
-                        width: 100%;
-                        margin-top: 0.5rem;
-                        background: var(--card-bg);
-                        border-radius: 12px;
-                        padding: 0.75rem;
-                        border: 1px solid var(--border-color);
-                        position: absolute;
-                        top: 58px;
-                        left: 0;
-                        right: 0;
-                        max-height: calc(100vh - 80px);
-                        overflow-y: auto;
-                        box-shadow: 0 8px 24px rgba(15,23,42,0.10);
-                    }
-                    .nav-links.open {
-                        display: flex;
-                    }
-                    .dropdown-menu {
-                        position: static;
-                        display: none;
-                        width: 100%;
-                        max-width: 100%;
-                        background: var(--brand-grey-light);
-                        box-shadow: none;
-                        border: none;
-                        padding-left: 1rem;
-                        border-radius: 8px;
-                    }
-                    .utn-mega-grid {
-                        grid-template-columns: 1fr;
-                    }
-                    .utn-mega-menu {
-                        width: 100% !important;
-                        transform: none !important;
-                        position: static !important;
-                        max-height: none !important;
-                        box-shadow: none !important;
-                        padding: 0.5rem 0.25rem !important;
-                        border: none !important;
-                        background: var(--brand-grey-light) !important;
-                    }
-                    .dropdown.active .dropdown-menu {
-                        display: block;
-                    }
-                    .dropdown.active .arrow {
-                        transform: rotate(180deg);
-                    }
-                }
-            `}</style>
-
-            <MobileAccessModal
-                isOpen={accessModalOpen}
-                onClose={() => setAccessModalOpen(false)}
-                onUnlocked={() => setIsMobileCourseUnlocked(true)}
-            />
-
-        </nav>
+                onClose();
+              }}
+            >
+              {sub.title} {!isMobileCourseUnlocked && '🔒'}
+            </Link>
+          )
+        ))}
+        {!isMobileCourseUnlocked && (
+          <button
+            onClick={() => {
+              setModal(true);
+              onClose();
+            }}
+            style={{
+              ...styles.navLink,
+              width: '100%',
+              justifyContent: 'center',
+              background: 'var(--primary-color)',
+              color: '#fff',
+              fontWeight: '600',
+              marginTop: '0.5rem'
+            }}
+          >
+            🔑 Ingresar Palabra Clave
+          </button>
+        )}
+      </>
     );
+  }
+
+  return (
+    <>
+      {item.subSections.map((section, idx) => {
+        if (section.type === 'course-highlight') {
+          return (
+            <div key={idx} style={{ marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: '600', color: 'var(--text-dim)', marginBottom: '0.5rem', padding: '0 0.5rem' }}>
+                {section.title}
+              </div>
+              {section.courses.map((course, cIdx) => (
+                <CourseCard 
+                  key={cIdx} 
+                  course={course} 
+                  onClick={onClose} 
+                  styles={styles} 
+                />
+              ))}
+            </div>
+          );
+        }
+        
+        if (section.type === 'sub-header') {
+          return (
+            <div key={idx} style={styles.subHeader}>
+              {section.title}
+            </div>
+          );
+        }
+        
+        if (section.type === 'external-link') {
+          return (
+            <a
+              key={idx}
+              href={section.href}
+              style={{
+                ...styles.navLink,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+            >
+              {section.title}
+            </a>
+          );
+        }
+        
+        return (
+          <Link
+            key={idx}
+            to={section.path}
+            style={{
+              ...styles.navLink,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+            onClick={onClose}
+          >
+            {section.title}
+          </Link>
+        );
+      })}
+    </>
+  );
+};
+
+const DesktopDropdown = ({ item, isOpen, onToggle, onClose, styles, isMobileCourseUnlocked, setAccessModalOpen }) => {
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [onClose]);
+
+  return (
+    <div ref={menuRef} style={{ position: 'relative' }}>
+      <button
+        style={{
+          ...styles.dropdownTrigger,
+          ...(isOpen ? styles.dropdownTriggerActive : {})
+        }}
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        {item.icon} {item.label.replace(/[📚⚡🤖🛠️📖📱]/g, '').trim()}
+        <span style={{ fontSize: '10px', marginLeft: '4px' }}>▼</span>
+      </button>
+      
+      {isOpen && (
+        <div style={item.columns ? styles.megaMenu : styles.dropdownMenu}>
+          <MenuContent 
+            item={item} 
+            onClose={onClose} 
+            styles={styles}
+            isMobileCourseUnlocked={isMobileCourseUnlocked}
+            setAccessModalOpen={setAccessModalOpen}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const MobileExpandedMenu = ({ isOpen, onClose, styles, isMobileCourseUnlocked, setAccessModalOpen }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: '58px',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'var(--card-bg)',
+      zIndex: 999,
+      overflowY: 'auto',
+      padding: '1rem'
+    }} onClick={(e) => e.stopPropagation()}>
+      {NAVIGATION_STRUCTURE.map((item) => (
+        <div key={item.id} style={{ marginBottom: '1rem' }}>
+          <div style={{
+            fontSize: '1rem',
+            fontWeight: '600',
+            color: 'var(--primary-color)',
+            padding: '0.5rem',
+            marginBottom: '0.25rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            {item.icon} {item.label.replace(/[📚⚡🤖🛠️📖📱]/g, '').trim()}
+          </div>
+          <div style={{ paddingLeft: '1rem', borderLeft: '2px solid var(--border-color)' }}>
+            <MenuContent 
+              item={item} 
+              onClose={onClose} 
+              styles={styles}
+              isMobileCourseUnlocked={isMobileCourseUnlocked}
+              setAccessModalOpen={setAccessModalOpen}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ============================================
+// MAIN COMPONENT
+// ============================================
+const NavBar = () => {
+  const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState(null);
+  const [accessModalOpen, setAccessModalOpen] = useState(false);
+  const [isMobileCourseUnlocked, setIsMobileCourseUnlocked] = useState(isMobileUnlocked());
+  const styles = getStyles(theme);
+
+  useEffect(() => {
+    const updateMobile = () => setIsMobileCourseUnlocked(isMobileUnlocked());
+    window.addEventListener('mobile_course_unlock_changed', updateMobile);
+    return () => window.removeEventListener('mobile_course_unlock_changed', updateMobile);
+  }, []);
+
+  const toggleSubmenu = (name) => {
+    setOpenSubmenu(openSubmenu === name ? null : name);
+  };
+
+  const closeAll = () => {
+    setIsMenuOpen(false);
+    setOpenSubmenu(null);
+  };
+
+  const isActive = (path) => location.pathname === path;
+
+  return (
+    <>
+      <nav style={styles.nav}>
+        {/* Logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Link 
+            to="/" 
+            style={{ 
+              textDecoration: 'none', 
+              color: 'var(--text-main)', 
+              fontWeight: '700', 
+              fontSize: '1rem', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px' 
+            }}
+            onClick={closeAll}
+          >
+            <img
+              src={`${import.meta.env.BASE_URL || '/'}logo_simutec.png`.replace('//', '/')}
+              alt="Logo SimuTec"
+              style={{ width: '32px', height: '32px', borderRadius: '6px', objectFit: 'contain', background: 'transparent' }}
+            />
+            <span style={{ color: 'var(--primary-color)', fontWeight: '800', letterSpacing: '-0.3px' }}>
+              simutec.com.ar
+            </span>
+          </Link>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            style={{
+              background: 'var(--card-bg)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '7px',
+              width: '36px',
+              height: '36px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              fontSize: '1rem',
+              color: 'var(--text-main)'
+            }}
+            title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+
+          {/* Hamburger Menu */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '4px',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px',
+              marginLeft: '0.5rem'
+            }}
+            aria-label="Toggle menu"
+          >
+            <div style={{
+              width: '22px',
+              height: '2px',
+              background: 'var(--text-dim)',
+              borderRadius: '2px'
+            }} />
+            <div style={{
+              width: '22px',
+              height: '2px',
+              background: 'var(--text-dim)',
+              borderRadius: '2px'
+            }} />
+            <div style={{
+              width: '22px',
+              height: '2px',
+              background: 'var(--text-dim)',
+              borderRadius: '2px'
+            }} />
+          </button>
+
+          {/* Desktop Menu Items */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.15rem', marginLeft: '1rem' }}>
+            {/* Inicio */}
+            <Link
+              to="/"
+              style={{
+                ...styles.navLink,
+                ...(isActive('/') ? styles.navLinkActive : {})
+              }}
+              onClick={closeAll}
+            >
+              🏠 Inicio
+            </Link>
+
+            {/* Navigation Dropdowns */}
+            {NAVIGATION_STRUCTURE.map((item) => (
+              <DesktopDropdown
+                key={item.id}
+                item={item}
+                isOpen={openSubmenu === item.id}
+                onToggle={() => toggleSubmenu(item.id)}
+                onClose={closeAll}
+                styles={styles}
+                isMobileCourseUnlocked={isMobileCourseUnlocked}
+                setAccessModalOpen={setAccessModalOpen}
+              />
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Expanded Menu */}
+      <MobileExpandedMenu
+        isOpen={isMenuOpen}
+        onClose={closeAll}
+        styles={styles}
+        isMobileCourseUnlocked={isMobileCourseUnlocked}
+        setAccessModalOpen={setAccessModalOpen}
+      />
+
+      {/* Access Modal */}
+      {accessModalOpen && (
+        <MobileAccessModal
+          onClose={() => setAccessModalOpen(false)}
+        />
+      )}
+
+      <style>{`
+        @media (max-width: 992px) {
+          .nav-links {
+            display: none !important;
+          }
+        }
+        @media (min-width: 993px) {
+          button[aria-label="Toggle menu"] {
+            display: none !important;
+          }
+        }
+        
+        /* Smooth transitions */
+        .dropdown-menu,
+        .mega-menu {
+          animation: fadeIn 0.15s ease-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-5px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hover effects */
+        .dropdown-trigger:hover,
+        .nav-link:hover {
+          background: var(--brand-blue-light) !important;
+          color: var(--primary-color) !important;
+        }
+      `}</style>
+    </>
+  );
 };
 
 export default NavBar;
